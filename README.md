@@ -1,2 +1,2 @@
 # yearlyProject
-Wellcome to uor yearly project!
+Wellcome to our yearly project!
