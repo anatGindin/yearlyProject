@@ -1,0 +1,15 @@
+{
+  "@@locale": "en",
+  "appTitle": "Flutter Demo",
+  "@appTitle": {
+    "description": "App title shown in the app bar and for the application title"
+  },
+  "counterText": "You have pushed the button this many times:",
+  "@counterText": {
+    "description": "Label above the counter that explains what the number means"
+  },
+  "incrementTooltip": "Increment",
+  "@incrementTooltip": {
+    "description": "Tooltip for the floating action button that increments the counter"
+  }
+}
