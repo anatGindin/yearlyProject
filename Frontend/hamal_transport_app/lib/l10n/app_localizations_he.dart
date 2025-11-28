@@ -9,7 +9,7 @@ class AppLocalizationsHe extends AppLocalizations {
   AppLocalizationsHe([String locale = 'he']) : super(locale);
 
   @override
-  String get appTitle => 'דמו של Flutter';
+  String get appTitle => 'אפליקציית שינוע';
 
   @override
   String get counterText => 'לחצת על הכפתור מספר פעמים:';

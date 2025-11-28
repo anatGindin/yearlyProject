@@ -1,6 +1,6 @@
 {
   "@@locale": "he",
-  "appTitle": "דמו של Flutter",
+  "appTitle": "אפליקציית שינוע",
   "@appTitle": {
     "description": "כותרת האפליקציה שמופיעה בסרגל העליון"
   },
