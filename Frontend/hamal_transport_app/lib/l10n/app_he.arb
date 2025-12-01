@@ -11,5 +11,93 @@
   "incrementTooltip": "הגדל",
   "@incrementTooltip": {
     "description": "טקסט עזרה עבור כפתור הפעולה שמעלה את המונה"
+  },
+  "openTasks": "משימות פתוחות",
+  "@openTasks": {
+    "description": "כפתור לפתיחת משימות זמינות"
+  },
+  "activeMissions": "משימות פעילות ומתוכננות",
+  "@activeMissions": {
+    "description": "כותרת רשימת המשימות הפעילות"
+  },
+  "availableMissions": "משימות זמינות",
+  "@availableMissions": {
+    "description": "כותרת דף המשימות הזמינות"
+  },
+  "callDesk": "התקשר לדסק המשלוחים",
+  "@callDesk": {
+    "description": "כותרת דיאלוג קריאה לדסק"
+  },
+  "callDeskMessage": "התקשר לדסק המשלוחים במספר +1-800-555-1234",
+  "@callDeskMessage": {
+    "description": "הודעה בדיאלוג קריאה לדסק"
+  },
+  "close": "סגור",
+  "@close": {
+    "description": "כפתור סגירה"
+  },
+  "noMissions": "אין משימות",
+  "@noMissions": {
+    "description": "הודעה כשאין משימות"
+  },
+  "contact": "איש קשר: ",
+  "@contact": {
+    "description": "תווית איש קשר"
+  },
+  "time": "מועד: ",
+  "@time": {
+    "description": "תווית זמן"
+  },
+  "mission": "משימה",
+  "@mission": {
+    "description": "כותרת דף המשימה"
+  },
+  "updateStatus": "עדכן סטטוס",
+  "@updateStatus": {
+    "description": "כפתור עדכון סטטוס"
+  },
+  "navigateWaze": "נווט ב-Waze",
+  "@navigateWaze": {
+    "description": "כפתור ניווט ב-Waze"
+  },
+  "takeMission": "קח משימה",
+  "@takeMission": {
+    "description": "כפתור לקיחת משימה"
+  },
+  "selectStatus": "בחר סטטוס",
+  "@selectStatus": {
+    "description": "כותרת תפריט בחירת סטטוס"
+  },
+  "chosen": "נבחר",
+  "@chosen": {
+    "description": "סטטוס משימה - נבחר"
+  },
+  "pickedUp": "נאסף",
+  "@pickedUp": {
+    "description": "סטטוס משימה - נאסף"
+  },
+  "delivered": "נמסר",
+  "@delivered": {
+    "description": "סטטוס משימה - נמסר"
+  },
+  "cancelled": "בוטל",
+  "@cancelled": {
+    "description": "סטטוס משימה - בוטל"
+  },
+  "available": "זמין",
+  "@available": {
+    "description": "סטטוס משימה - זמין"
+  },
+  "statusUpdated": "סטטוס עודכן ל: ",
+  "@statusUpdated": {
+    "description": "הודעת עדכון סטטוס"
+  },
+  "missionTaken": "המשימה נבחרה",
+  "@missionTaken": {
+    "description": "הודעה כשמשימה נבחרה"
+  },
+  "cannotLaunchNavigation": "לא ניתן לפתוח אפליקציית הניווט",
+  "@cannotLaunchNavigation": {
+    "description": "הודעת שגיאה כשלא ניתן לפתוח אפליקציה"
   }
 }

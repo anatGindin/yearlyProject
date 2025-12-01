@@ -101,7 +101,7 @@ abstract class AppLocalizations {
   /// App title shown in the app bar and for the application title
   ///
   /// In en, this message translates to:
-  /// **'Flutter Demo'**
+  /// **'Hamal Transport'**
   String get appTitle;
 
   /// Label above the counter that explains what the number means
@@ -115,6 +115,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Increment'**
   String get incrementTooltip;
+
+  /// Button to open available tasks
+  ///
+  /// In en, this message translates to:
+  /// **'Open Tasks'**
+  String get openTasks;
+
+  /// Title of active missions list
+  ///
+  /// In en, this message translates to:
+  /// **'Active and Upcoming Missions'**
+  String get activeMissions;
+
+  /// Title of available missions page
+  ///
+  /// In en, this message translates to:
+  /// **'Available Missions'**
+  String get availableMissions;
+
+  /// Title of call desk dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Call Hamal Desk'**
+  String get callDesk;
+
+  /// Message in call desk dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Call Hamal desk at +1-800-555-1234'**
+  String get callDeskMessage;
+
+  /// Close button
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// Message when there are no missions
+  ///
+  /// In en, this message translates to:
+  /// **'No missions'**
+  String get noMissions;
+
+  /// Contact label
+  ///
+  /// In en, this message translates to:
+  /// **'Contact: '**
+  String get contact;
+
+  /// Time label
+  ///
+  /// In en, this message translates to:
+  /// **'Time: '**
+  String get time;
+
+  /// Mission page title
+  ///
+  /// In en, this message translates to:
+  /// **'Mission'**
+  String get mission;
+
+  /// Update status button
+  ///
+  /// In en, this message translates to:
+  /// **'Update Status'**
+  String get updateStatus;
+
+  /// Navigate in Waze button
+  ///
+  /// In en, this message translates to:
+  /// **'Navigate in Waze'**
+  String get navigateWaze;
+
+  /// Take mission button
+  ///
+  /// In en, this message translates to:
+  /// **'Take Mission'**
+  String get takeMission;
+
+  /// Select status menu title
+  ///
+  /// In en, this message translates to:
+  /// **'Select Status'**
+  String get selectStatus;
+
+  /// Mission status - chosen
+  ///
+  /// In en, this message translates to:
+  /// **'Chosen'**
+  String get chosen;
+
+  /// Mission status - picked up
+  ///
+  /// In en, this message translates to:
+  /// **'Picked up'**
+  String get pickedUp;
+
+  /// Mission status - delivered
+  ///
+  /// In en, this message translates to:
+  /// **'Delivered'**
+  String get delivered;
+
+  /// Mission status - cancelled
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get cancelled;
+
+  /// Mission status - available
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get available;
+
+  /// Status update message
+  ///
+  /// In en, this message translates to:
+  /// **'Status updated to: '**
+  String get statusUpdated;
+
+  /// Message when mission is taken
+  ///
+  /// In en, this message translates to:
+  /// **'Mission taken'**
+  String get missionTaken;
+
+  /// Error message when navigation app cannot be launched
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot launch navigation app'**
+  String get cannotLaunchNavigation;
 }
 
 class _AppLocalizationsDelegate

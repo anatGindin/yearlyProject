@@ -16,7 +16,7 @@ class MainPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.list),
-            tooltip: 'משימות פתוחות',
+            tooltip: AppLocalizations.of(context)!.openTasks,
             onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const OpenTasksPage())),
           ),
         ],
@@ -32,7 +32,7 @@ class MainPage extends StatelessWidget {
                 children: [
                   const SizedBox(height: 4),
                   Text(
-                    'משימות פעילות ומתוכננות',
+                    AppLocalizations.of(context)!.activeMissions,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 26, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.right,
                   ),
@@ -66,7 +66,7 @@ class MainPage extends StatelessWidget {
                   heroTag: 'new_mission',
                   onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const NewMissionPage())),
                   icon: const Icon(Icons.add_box),
-                  label: const Text('משימות זמינות', style: TextStyle(fontSize: 16)),
+                  label: Text(AppLocalizations.of(context)!.availableMissions, style: const TextStyle(fontSize: 16)),
                 ),
               ),
             ],
@@ -79,11 +79,11 @@ class MainPage extends StatelessWidget {
   void _callHamalDesk(BuildContext context) {
     showDialog<void>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('התקשר לדסק המשלוחים'),
-        content: const Text('התקשר לדסק המשלוחים במספר +1-800-555-1234'),
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(AppLocalizations.of(context)!.callDesk),
+        content: Text(AppLocalizations.of(context)!.callDeskMessage),
         actions: [
-          TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('סגור')),
+          TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(AppLocalizations.of(context)!.close)),
         ],
       ),
     );
@@ -97,7 +97,7 @@ class _MissionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (missions.isEmpty) {
-      return const Center(child: Text('אין משימות'));
+      return Center(child: Text(AppLocalizations.of(context)!.noMissions));
     }
     return ListView.separated(
       itemCount: missions.length,
@@ -117,9 +117,9 @@ class _MissionList extends StatelessWidget {
               children: [
                 Text(m.description, style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 18), textAlign: TextAlign.right),
                 const SizedBox(height: 8),
-                Text('איש קשר: ${m.contact}', style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 18), textAlign: TextAlign.right),
+                Text('${AppLocalizations.of(context)!.contact}${m.contact}', style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 18), textAlign: TextAlign.right),
                 const SizedBox(height: 8),
-                Text('מועד: ${_formatDateTime(m.time)}', style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16), textAlign: TextAlign.right),
+                Text('${AppLocalizations.of(context)!.time}${_formatDateTime(m.time)}', style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16), textAlign: TextAlign.right),
               ],
             ),
             isThreeLine: true,

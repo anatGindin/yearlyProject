@@ -22,8 +22,6 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      // Set Hebrew as the app locale so widgets use RTL layout by default
-      locale: const Locale('he'),
       theme: ThemeData.from(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
@@ -32,7 +30,7 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context, Widget? child) {
         final mq = MediaQuery.of(context);
         return MediaQuery(
-          data: mq.copyWith(textScaleFactor: 1.4),
+          data: mq.copyWith(textScaler: TextScaler.linear(1.4)),
           child: child ?? const SizedBox.shrink(),
         );
       },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/mission.dart';
+import '../l10n/app_localizations.dart';
 import 'mission_screen.dart';
 
 /// Open Tasks page showing available missions to pick
@@ -9,7 +10,7 @@ class OpenTasksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('משימות פתוחות')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.openTasks)),
       body: ListView.separated(
         padding: const EdgeInsets.all(12),
         itemCount: availableMissions.length,

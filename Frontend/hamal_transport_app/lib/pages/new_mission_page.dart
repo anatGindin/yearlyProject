@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/mission.dart';
+import '../l10n/app_localizations.dart';
 import 'mission_screen.dart';
 
 /// New Mission page now shows the list of available missions (Open Tasks)
@@ -9,7 +10,7 @@ class NewMissionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('משימות זמינות')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.availableMissions)),
       body: ListView.separated(
         padding: const EdgeInsets.all(12),
         itemCount: availableMissions.length,

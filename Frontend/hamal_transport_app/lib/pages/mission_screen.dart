@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/mission.dart';
+import '../l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MissionScreen extends StatefulWidget {
@@ -30,7 +31,8 @@ class _MissionScreenState extends State<MissionScreen> {
       await launchUrl(googleUri);
       return;
     }
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('לא ניתן לפתוח אפליקציית הניווט')));
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.cannotLaunchNavigation)));
   }
 
   void _updateStatus(String newStatus) {
@@ -39,7 +41,7 @@ class _MissionScreenState extends State<MissionScreen> {
       widget.mission.status = newStatus;
     });
     final label = _statusLabel(newStatus);
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('סטטוס עודכן ל: $label')));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${AppLocalizations.of(context)!.statusUpdated}$label')));
   }
 
   void _takeMission() {
@@ -51,7 +53,7 @@ class _MissionScreenState extends State<MissionScreen> {
         sampleMissions.insert(0, mission);
         _status = mission.status;
       });
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('המשימה נבחרה')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.missionTaken)));
     }
   }
 
@@ -59,7 +61,7 @@ class _MissionScreenState extends State<MissionScreen> {
   Widget build(BuildContext context) {
     final mission = widget.mission;
     return Scaffold(
-      appBar: AppBar(title: const Text('משימה')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.mission)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
@@ -67,11 +69,11 @@ class _MissionScreenState extends State<MissionScreen> {
           const SizedBox(height: 12),
           Text(mission.description, style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 18), textAlign: TextAlign.right),
           const SizedBox(height: 16),
-          Text('איש קשר: ${mission.contact}', style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 18), textAlign: TextAlign.right),
+          Text('${AppLocalizations.of(context)!.contact}${mission.contact}', style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 18), textAlign: TextAlign.right),
           const SizedBox(height: 16),
-          Text('תזמון: ${mission.time}', style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16), textAlign: TextAlign.right),
+          Text('${AppLocalizations.of(context)!.time}${mission.time}', style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16), textAlign: TextAlign.right),
           const SizedBox(height: 12),
-          Text('סטטוס: ${_statusLabel(_status)}', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 18), textAlign: TextAlign.right),
+          Text('${AppLocalizations.of(context)!.mission}: ${_statusLabel(_status)}', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 18), textAlign: TextAlign.right),
           const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -79,12 +81,12 @@ class _MissionScreenState extends State<MissionScreen> {
               ElevatedButton.icon(
                 onPressed: () => _showStatusOptions(),
                 icon: const Icon(Icons.update),
-                label: const Text('עדכן סטטוס', style: TextStyle(fontSize: 16)),
+                label: Text(AppLocalizations.of(context)!.updateStatus, style: const TextStyle(fontSize: 16)),
               ),
               ElevatedButton.icon(
                 onPressed: () => _launchWaze(mission.location),
                 icon: const Icon(Icons.navigation),
-                label: const Text('נווט ב-Waze', style: TextStyle(fontSize: 16)),
+                label: Text(AppLocalizations.of(context)!.navigateWaze, style: const TextStyle(fontSize: 16)),
               ),
             ],
           ),
@@ -96,7 +98,7 @@ class _MissionScreenState extends State<MissionScreen> {
               child: ElevatedButton.icon(
                 onPressed: _takeMission,
                 icon: const Icon(Icons.check),
-                label: const Text('קח משימה', style: TextStyle(fontSize: 18)),
+                label: Text(AppLocalizations.of(context)!.takeMission, style: const TextStyle(fontSize: 18)),
                 style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 14)),
               ),
             ),
@@ -106,13 +108,13 @@ class _MissionScreenState extends State<MissionScreen> {
   }
 
   void _showStatusOptions() {
-    showModalBottomSheet<void>(context: context, builder: (context) {
-      return Column(mainAxisSize: MainAxisSize.min, children: [
-        const ListTile(title: Text('בחר סטטוס')),
-        ListTile(title: const Text('נבחר'), onTap: () { Navigator.of(context).pop(); _updateStatus('chosen'); }),
-        ListTile(title: const Text('נאסף'), onTap: () { Navigator.of(context).pop(); _updateStatus('picked_up'); }),
-        ListTile(title: const Text('נמסר'), onTap: () { Navigator.of(context).pop(); _updateStatus('delivered'); }),
-        ListTile(title: const Text('בוטל'), onTap: () { Navigator.of(context).pop(); _updateStatus('cancelled'); }),
+    showModalBottomSheet<void>(context: context, builder: (BuildContext context) {
+      return Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+        ListTile(title: Text(AppLocalizations.of(context)!.selectStatus)),
+        ListTile(title: Text(AppLocalizations.of(context)!.chosen), onTap: () { Navigator.of(context).pop(); _updateStatus('chosen'); }),
+        ListTile(title: Text(AppLocalizations.of(context)!.pickedUp), onTap: () { Navigator.of(context).pop(); _updateStatus('picked_up'); }),
+        ListTile(title: Text(AppLocalizations.of(context)!.delivered), onTap: () { Navigator.of(context).pop(); _updateStatus('delivered'); }),
+        ListTile(title: Text(AppLocalizations.of(context)!.cancelled), onTap: () { Navigator.of(context).pop(); _updateStatus('cancelled'); }),
       ]);
     });
   }
@@ -121,15 +123,15 @@ class _MissionScreenState extends State<MissionScreen> {
   String _statusLabel(String code) {
     switch (code) {
       case 'chosen':
-        return 'נבחר';
+        return AppLocalizations.of(context)!.chosen;
       case 'picked_up':
-        return 'נאסף';
+        return AppLocalizations.of(context)!.pickedUp;
       case 'delivered':
-        return 'נמסר';
+        return AppLocalizations.of(context)!.delivered;
       case 'cancelled':
-        return 'בוטל';
+        return AppLocalizations.of(context)!.cancelled;
       case 'available':
-        return 'זמין';
+        return AppLocalizations.of(context)!.available;
       default:
         return code;
     }
