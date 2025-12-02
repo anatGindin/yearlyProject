@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "appTitle": "Flutter Demo",
+  "appTitle": "Hamal Transport",
   "@appTitle": {
     "description": "App title shown in the app bar and for the application title"
   },
@@ -11,5 +11,93 @@
   "incrementTooltip": "Increment",
   "@incrementTooltip": {
     "description": "Tooltip for the floating action button that increments the counter"
+  },
+  "openTasks": "Open Tasks",
+  "@openTasks": {
+    "description": "Button to open available tasks"
+  },
+  "activeMissions": "Active and Upcoming Missions",
+  "@activeMissions": {
+    "description": "Title of active missions list"
+  },
+  "availableMissions": "Available Missions",
+  "@availableMissions": {
+    "description": "Title of available missions page"
+  },
+  "callDesk": "Call Hamal Desk",
+  "@callDesk": {
+    "description": "Title of call desk dialog"
+  },
+  "callDeskMessage": "Call Hamal desk at +1-800-555-1234",
+  "@callDeskMessage": {
+    "description": "Message in call desk dialog"
+  },
+  "close": "Close",
+  "@close": {
+    "description": "Close button"
+  },
+  "noMissions": "No missions",
+  "@noMissions": {
+    "description": "Message when there are no missions"
+  },
+  "contact": "Contact: ",
+  "@contact": {
+    "description": "Contact label"
+  },
+  "time": "Time: ",
+  "@time": {
+    "description": "Time label"
+  },
+  "mission": "Mission",
+  "@mission": {
+    "description": "Mission page title"
+  },
+  "updateStatus": "Update Status",
+  "@updateStatus": {
+    "description": "Update status button"
+  },
+  "navigateWaze": "Navigate in Waze",
+  "@navigateWaze": {
+    "description": "Navigate in Waze button"
+  },
+  "takeMission": "Take Mission",
+  "@takeMission": {
+    "description": "Take mission button"
+  },
+  "selectStatus": "Select Status",
+  "@selectStatus": {
+    "description": "Select status menu title"
+  },
+  "chosen": "Chosen",
+  "@chosen": {
+    "description": "Mission status - chosen"
+  },
+  "pickedUp": "Picked up",
+  "@pickedUp": {
+    "description": "Mission status - picked up"
+  },
+  "delivered": "Delivered",
+  "@delivered": {
+    "description": "Mission status - delivered"
+  },
+  "cancelled": "Cancelled",
+  "@cancelled": {
+    "description": "Mission status - cancelled"
+  },
+  "available": "Available",
+  "@available": {
+    "description": "Mission status - available"
+  },
+  "statusUpdated": "Status updated to: ",
+  "@statusUpdated": {
+    "description": "Status update message"
+  },
+  "missionTaken": "Mission taken",
+  "@missionTaken": {
+    "description": "Message when mission is taken"
+  },
+  "cannotLaunchNavigation": "Cannot launch navigation app",
+  "@cannotLaunchNavigation": {
+    "description": "Error message when navigation app cannot be launched"
   }
 }
