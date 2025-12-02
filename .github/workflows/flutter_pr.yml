@@ -1,0 +1,23 @@
+name: Flutter PR Check
+
+on:
+  pull_request:
+    paths:
+      - 'Frontend/hamal_transport_app/**'
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.38.2'
+          channel: 'stable'
+      - working-directory: ./Frontend/hamal_transport_app
+        run: flutter pub get
+      - working-directory: ./Frontend/hamal_transport_app
+        run: flutter test
+      - working-directory: ./Frontend/hamal_transport_app
+        run: flutter analyze
