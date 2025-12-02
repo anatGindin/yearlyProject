@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'Frontend/hamal_transport_app/**'
-      - '.github/workflows/flutter-ci.yml'
+      - '.github/workflows/flutter_ci.yml'
 
 jobs:
   test:
