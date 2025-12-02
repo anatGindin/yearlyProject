@@ -18,6 +18,6 @@ jobs:
       - working-directory: ./Frontend/hamal_transport_app
         run: flutter pub get
       - working-directory: ./Frontend/hamal_transport_app
-        run: flutter test
+        run: flutter test lib/Tests
       - working-directory: ./Frontend/hamal_transport_app
         run: flutter analyze
