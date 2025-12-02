@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
-import '../constants/mock_data.dart';
-import 'widgets/mission_app_bar.dart';
-import 'widgets/mission_list_view.dart';
-import 'widgets/mission_fabs.dart';
+import '../Constants/mock_data.dart';
+import 'Widgets/mission_app_bar.dart';
+import 'Widgets/mission_list_view.dart';
+import 'Widgets/mission_fabs.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});

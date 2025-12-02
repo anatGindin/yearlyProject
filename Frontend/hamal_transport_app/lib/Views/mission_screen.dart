@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/mission.dart';
 import '../l10n/app_localizations.dart';
-import '../constants/mock_data.dart';
+import '../Constants/mock_data.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MissionScreen extends StatefulWidget {

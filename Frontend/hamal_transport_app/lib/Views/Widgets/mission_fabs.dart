@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../l10n/app_localizations.dart';
 import '../new_mission_page.dart';
-import '../open_tasks_page.dart';
 
 /// Reusable FABs widget for phone call and new mission actions
 class MissionFABs extends StatelessWidget {
