@@ -1,4 +1,4 @@
-import '../models/mission.dart';
+import '../Models/mission.dart';
 
 /// Mock data for active/upcoming missions
 final List<Mission> sampleMissions = [

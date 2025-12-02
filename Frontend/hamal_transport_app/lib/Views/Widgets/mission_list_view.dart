@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../l10n/app_localizations.dart';
-import '../../models/mission.dart';
+import '../../Models/mission.dart';
 import 'mission_card.dart';
 
 /// Reusable mission list widget that displays a list of missions

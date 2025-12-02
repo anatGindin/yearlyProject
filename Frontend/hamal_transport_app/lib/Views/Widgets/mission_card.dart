@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../l10n/app_localizations.dart';
-import '../../models/mission.dart';
+import '../../Models/mission.dart';
 import '../mission_screen.dart';
 
 /// Reusable mission card widget displaying mission information
