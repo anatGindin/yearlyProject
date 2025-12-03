@@ -14,7 +14,7 @@ class OpenTasksPage extends StatelessWidget {
       body: ListView.separated(
         padding: const EdgeInsets.all(12),
         itemCount: availableMissions.length,
-        separatorBuilder: (_,__) => const SizedBox(height: 8),
+        separatorBuilder: (_, __) => const SizedBox(height: 8),
         itemBuilder: (context, index) {
           final m = availableMissions[index];
           return Card(
@@ -26,7 +26,9 @@ class OpenTasksPage extends StatelessWidget {
                 // when driver chooses a task, move it to active missions and open it
                 availableMissions.removeAt(index);
                 sampleMissions.insert(0, m..status = 'chosen');
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) => MissionScreen(mission: m)));
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => MissionScreen(mission: m)),
+                );
               },
             ),
           );

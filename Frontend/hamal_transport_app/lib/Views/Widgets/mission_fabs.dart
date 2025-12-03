@@ -29,9 +29,9 @@ class MissionFABs extends StatelessWidget {
           bottom: 12,
           child: FloatingActionButton.extended(
             heroTag: 'new_mission',
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => const NewMissionPage()),
-            ),
+            onPressed: () => Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (_) => const NewMissionPage())),
             icon: const Icon(Icons.add_box),
             label: Text(
               AppLocalizations.of(context)!.availableMissions,
