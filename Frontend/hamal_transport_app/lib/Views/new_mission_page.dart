@@ -16,7 +16,7 @@ class NewMissionPage extends StatelessWidget {
       body: ListView.separated(
         padding: const EdgeInsets.all(12),
         itemCount: availableMissions.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 8),
+        separatorBuilder: (_, _) => const SizedBox(height: 8),
         itemBuilder: (context, index) {
           final m = availableMissions[index];
           return Card(
