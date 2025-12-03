@@ -6,5 +6,12 @@ class Mission {
   final DateTime time;
   String status; // mutable so UI can update delivery status
 
-  Mission({required this.id, required this.location, required this.description, required this.contact, required this.time, this.status = 'available'});
+  Mission({
+    required this.id,
+    required this.location,
+    required this.description,
+    required this.contact,
+    required this.time,
+    this.status = 'available',
+  });
 }

@@ -24,17 +24,17 @@ class MainPage extends StatelessWidget {
                   Text(
                     AppLocalizations.of(context)!.activeMissions,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                    ),
                     textAlign: TextAlign.right,
                   ),
                   const SizedBox(height: 12),
                   // Expanded mission list
-                  Expanded(
-                    child: MissionListView(missions: sampleMissions),
-                  ),
-                  const SizedBox(height: 72), // spacing to keep list above buttons
+                  Expanded(child: MissionListView(missions: sampleMissions)),
+                  const SizedBox(
+                    height: 72,
+                  ), // spacing to keep list above buttons
                 ],
               ),
               MissionFABs(onCallDesk: () => _callHamalDesk(context)),

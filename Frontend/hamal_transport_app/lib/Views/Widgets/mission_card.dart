@@ -24,19 +24,25 @@ class MissionCard extends StatelessWidget {
           children: [
             Text(
               mission.description,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 18),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyLarge?.copyWith(fontSize: 18),
               textAlign: TextAlign.right,
             ),
             const SizedBox(height: 8),
             Text(
               '${AppLocalizations.of(context)!.contact}${mission.contact}',
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 18),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyLarge?.copyWith(fontSize: 18),
               textAlign: TextAlign.right,
             ),
             const SizedBox(height: 8),
             Text(
               '${AppLocalizations.of(context)!.time}${_formatDateTime(mission.time)}',
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyLarge?.copyWith(fontSize: 16),
               textAlign: TextAlign.right,
             ),
           ],

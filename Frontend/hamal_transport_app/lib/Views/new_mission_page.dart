@@ -10,11 +10,13 @@ class NewMissionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.availableMissions)),
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.availableMissions),
+      ),
       body: ListView.separated(
         padding: const EdgeInsets.all(12),
         itemCount: availableMissions.length,
-        separatorBuilder: (_,__) => const SizedBox(height: 8),
+        separatorBuilder: (_, __) => const SizedBox(height: 8),
         itemBuilder: (context, index) {
           final m = availableMissions[index];
           return Card(
@@ -23,7 +25,9 @@ class NewMissionPage extends StatelessWidget {
               subtitle: Text(m.description, textAlign: TextAlign.right),
               trailing: const Icon(Icons.chevron_right),
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) => MissionScreen(mission: m)));
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => MissionScreen(mission: m)),
+                );
               },
             ),
           );

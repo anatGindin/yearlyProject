@@ -14,9 +14,9 @@ class MissionAppBar extends StatelessWidget implements PreferredSizeWidget {
         IconButton(
           icon: const Icon(Icons.list),
           tooltip: AppLocalizations.of(context)!.openTasks,
-          onPressed: () => Navigator.of(context).push(
-            MaterialPageRoute(builder: (_) => const OpenTasksPage()),
-          ),
+          onPressed: () => Navigator.of(
+            context,
+          ).push(MaterialPageRoute(builder: (_) => const OpenTasksPage())),
         ),
       ],
       backgroundColor: Theme.of(context).colorScheme.primary,
