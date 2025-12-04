@@ -1,4 +1,6 @@
 import '../Models/mission.dart';
+import '../features/Contact_card/model/Contact.dart';
+// mock data for contacts
 
 /// Mock data for active/upcoming missions
 final List<Mission> sampleMissions = [
@@ -6,21 +8,21 @@ final List<Mission> sampleMissions = [
     id: 'm1',
     location: 'בסיס חיל הים',
     description: 'חבילה שבירה',
-    contact: '+972-50-1234567',
+    contact: Contact(fullName: 'שימחה ריף', phoneNumber: '+972-50-333-4444'),
     time: DateTime.now().add(const Duration(hours: 1)),
   ),
   Mission(
     id: 'm2',
     location: 'ירושלים - בן יהודה 12',
     description: 'מעטפה דחופה',
-    contact: '+972-52-9876543',
+    contact: Contact(fullName: 'אבי רון', phoneNumber: '+972-52-9876543'),
     time: DateTime.now().add(const Duration(days: 1)),
   ),
   Mission(
     id: 'm3',
     location: 'חיפה - הנשיא 3',
     description: 'ארגז גדול, דורש עגלה',
-    contact: '+972-54-5555555',
+    contact: Contact(fullName: 'גרי המבורגרי', phoneNumber: '+972-54-5555555'),
     time: DateTime.now().add(const Duration(hours: 6)),
   ),
 ];
@@ -31,14 +33,17 @@ final List<Mission> availableMissions = [
     id: 'a1',
     location: 'רמת גן - ביאליק 5',
     description: 'חבילה קטנה',
-    contact: '+972-50-1111111',
+    contact: Contact(fullName: 'יהודה המכבי', phoneNumber: '+972-50-1111111'),
     time: DateTime.now().add(const Duration(hours: 3)),
   ),
   Mission(
     id: 'a2',
     location: 'ראשון לציון - העצמאות 21',
     description: 'מסמכים',
-    contact: '+972-50-2222222',
+    contact: Contact(
+      fullName: 'בובספוג מכנסמרובע',
+      phoneNumber: '+972-50-2222222',
+    ),
     time: DateTime.now().add(const Duration(hours: 5)),
   ),
 ];
