@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hamal_transport_app/ViewModels/mission_view_model.dart';
+import 'package:hamal_transport_app/ViewModels/missions_coordinator_view_model.dart';
+import 'package:provider/provider.dart';
 import '../Models/mission.dart';
 import '../l10n/app_localizations.dart';
-import '../Constants/mock_data.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MissionScreen extends StatefulWidget {
@@ -13,12 +15,9 @@ class MissionScreen extends StatefulWidget {
 }
 
 class _MissionScreenState extends State<MissionScreen> {
-  late String _status;
-
   @override
   void initState() {
     super.initState();
-    _status = widget.mission.status;
   }
 
   Future<void> _launchWaze(String address) async {
@@ -43,123 +42,106 @@ class _MissionScreenState extends State<MissionScreen> {
   }
 
   void _updateStatus(String newStatus) {
-    setState(() {
-      _status = newStatus;
-      widget.mission.status = newStatus;
-    });
-    final label = _statusLabel(newStatus);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('${AppLocalizations.of(context)!.statusUpdated}$label'),
-      ),
-    );
-  }
-
-  void _takeMission() {
     final mission = widget.mission;
-    if (availableMissions.contains(mission)) {
-      setState(() {
-        availableMissions.remove(mission);
-        mission.status = 'chosen';
-        sampleMissions.insert(0, mission);
-        _status = mission.status;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)!.missionTaken)),
-      );
-    }
+    final missionsCoordinator = context.read<MissionsCoordinatorViewModel>();
+    missionsCoordinator.updateStatus(mission, newStatus);
   }
 
   @override
   Widget build(BuildContext context) {
     final mission = widget.mission;
+    final missionsCoordinator = context.read<MissionsCoordinatorViewModel>();
     return Scaffold(
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.mission)),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(
-              mission.location,
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge?.copyWith(fontSize: 24),
-              textAlign: TextAlign.right,
-            ),
-            const SizedBox(height: 12),
-            Text(
-              mission.description,
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(fontSize: 18),
-              textAlign: TextAlign.right,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              '${AppLocalizations.of(context)!.contact}${mission.contact}',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(fontSize: 18),
-              textAlign: TextAlign.right,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              '${AppLocalizations.of(context)!.time}${mission.time}',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(fontSize: 16),
-              textAlign: TextAlign.right,
-            ),
-            const SizedBox(height: 12),
-            Text(
-              '${AppLocalizations.of(context)!.mission}: ${_statusLabel(_status)}',
-              style: Theme.of(
-                context,
-              ).textTheme.titleMedium?.copyWith(fontSize: 18),
-              textAlign: TextAlign.right,
-            ),
-            const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: Consumer<MissionViewModel>(
+        builder: (context, missionVM, _) {
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                ElevatedButton.icon(
-                  onPressed: () => _showStatusOptions(),
-                  icon: const Icon(Icons.update),
-                  label: Text(
-                    AppLocalizations.of(context)!.updateStatus,
-                    style: const TextStyle(fontSize: 16),
-                  ),
+                Text(
+                  missionVM.location(mission),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(fontSize: 24),
+                  textAlign: TextAlign.right,
                 ),
-                ElevatedButton.icon(
-                  onPressed: () => _launchWaze(mission.location),
-                  icon: const Icon(Icons.navigation),
-                  label: Text(
-                    AppLocalizations.of(context)!.navigateWaze,
-                    style: const TextStyle(fontSize: 16),
-                  ),
+                const SizedBox(height: 12),
+                Text(
+                  missionVM.description(mission),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge?.copyWith(fontSize: 18),
+                  textAlign: TextAlign.right,
                 ),
+                const SizedBox(height: 16),
+                Text(
+                  '${AppLocalizations.of(context)!.contact}${missionVM.contact(mission)}',
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge?.copyWith(fontSize: 18),
+                  textAlign: TextAlign.right,
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  '${AppLocalizations.of(context)!.time}${missionVM.time(mission)}',
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge?.copyWith(fontSize: 16),
+                  textAlign: TextAlign.right,
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  '${AppLocalizations.of(context)!.mission}: ${_statusLabel(missionVM.status(mission))}',
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleMedium?.copyWith(fontSize: 18),
+                  textAlign: TextAlign.right,
+                ),
+                const Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton.icon(
+                      onPressed: () => _showStatusOptions(),
+                      icon: const Icon(Icons.update),
+                      label: Text(
+                        AppLocalizations.of(context)!.updateStatus,
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ),
+                    ElevatedButton.icon(
+                      onPressed: () => _launchWaze(mission.location),
+                      icon: const Icon(Icons.navigation),
+                      label: Text(
+                        AppLocalizations.of(context)!.navigateWaze,
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                // Show Take button when this mission is available
+                if (missionVM.isAvailable(mission))
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: () => missionsCoordinator.takeMission(mission),
+                      icon: const Icon(Icons.check),
+                      label: Text(
+                        AppLocalizations.of(context)!.takeMission,
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                      ),
+                    ),
+                  ),
               ],
             ),
-            const SizedBox(height: 12),
-            // Show Take button when this mission is from the available tasks list
-            if (availableMissions.contains(mission) && _status == 'available')
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                  onPressed: _takeMission,
-                  icon: const Icon(Icons.check),
-                  label: Text(
-                    AppLocalizations.of(context)!.takeMission,
-                    style: const TextStyle(fontSize: 18),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                  ),
-                ),
-              ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
