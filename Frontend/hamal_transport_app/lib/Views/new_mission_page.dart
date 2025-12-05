@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/ViewModels/available_missions_view_model.dart';
 import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
-import '../Constants/mock_data.dart';
 import 'mission_screen.dart';
 
 /// New Mission page now shows the list of available missions (Open Tasks)
