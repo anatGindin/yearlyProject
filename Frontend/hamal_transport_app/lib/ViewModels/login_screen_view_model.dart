@@ -15,6 +15,16 @@ class LoginScreenViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool _rememberMe = false;
+  bool get rememberMe => _rememberMe;
+
+  void toggleRememberMe(bool? value) {
+    if (value != null) {
+      _rememberMe = value;
+      notifyListeners();
+    }
+  }
+
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
@@ -30,7 +40,11 @@ class LoginScreenViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      await _authService.signIn(email: email, password: password);
+      await _authService.signIn(
+        email: email,
+        password: password,
+        rememberMe: _rememberMe,
+      );
       _isLoading = false;
       notifyListeners();
       return true;

@@ -18,6 +18,7 @@ class MockAuthenticationService implements AuthenticationService {
   Future<UserCredential> signIn({
     required String email,
     required String password,
+    bool rememberMe = false,
   }) async {
     if (shouldThrow) {
       if (errorToThrow != null) {

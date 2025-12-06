@@ -379,6 +379,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This email is already in use.'**
   String get emailAlreadyInUse;
+
+  /// Label for remember me checkbox
+  ///
+  /// In en, this message translates to:
+  /// **'Remember me'**
+  String get rememberMe;
 }
 
 class _AppLocalizationsDelegate

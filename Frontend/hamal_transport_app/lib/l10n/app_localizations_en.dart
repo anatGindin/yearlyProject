@@ -149,4 +149,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get emailAlreadyInUse => 'This email is already in use.';
+
+  @override
+  String get rememberMe => 'Remember me';
 }

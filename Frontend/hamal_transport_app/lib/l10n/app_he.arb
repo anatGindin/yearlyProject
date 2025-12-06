@@ -187,5 +187,9 @@
   "emailAlreadyInUse": "כתובת האימייל הזו כבר בשימוש.",
   "@emailAlreadyInUse": {
     "description": "שגיאה כשכתובת אימייל כבר בשימוש"
+  },
+  "rememberMe": "זכור אותי",
+  "@rememberMe": {
+    "description": "תווית לתיבת סימון זכור אותי"
   }
 }

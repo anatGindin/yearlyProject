@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hamal_transport_app/Views/main_page.dart';
 import 'package:provider/provider.dart';
 import '../../l10n/app_localizations.dart';
 import '../../ViewModels/login_screen_view_model.dart';
@@ -127,8 +128,21 @@ class _LoginContentState extends State<_LoginContent> {
                           return null;
                         },
                       ),
-                      const SizedBox(height: 40),
 
+                      const SizedBox(height: 16),
+                      // Remember Me
+                      Row(
+                        children: [
+                          Checkbox(
+                            value: viewModel.rememberMe,
+                            activeColor: const Color(0xFF364678),
+                            onChanged: viewModel.toggleRememberMe,
+                          ),
+                          Text(l10n.rememberMe),
+                        ],
+                      ),
+
+                      // const SizedBox(height: 24), // Replaced 40 with 24 + checkbox height balance
                       if (viewModel.isLoading)
                         const CircularProgressIndicator()
                       else ...[
@@ -139,6 +153,20 @@ class _LoginContentState extends State<_LoginContent> {
                                 _emailController.text,
                                 _passwordController.text,
                               );
+                              if (success) {
+                                Navigator.pushReplacement(
+                                  context,
+                                  PageRouteBuilder(
+                                    pageBuilder:
+                                        (
+                                          context,
+                                          animation,
+                                          secondaryAnimation,
+                                        ) => const MainPage(),
+                                    transitionDuration: Duration.zero,
+                                  ),
+                                );
+                              }
                             }
                           },
                           style: FilledButton.styleFrom(

@@ -187,5 +187,9 @@
   "emailAlreadyInUse": "This email is already in use.",
   "@emailAlreadyInUse": {
     "description": "Error message when email is already registered"
+  },
+  "rememberMe": "Remember me",
+  "@rememberMe": {
+    "description": "Label for remember me checkbox"
   }
 }

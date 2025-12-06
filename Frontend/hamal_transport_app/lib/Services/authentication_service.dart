@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../firebase_options.dart';
+
+const String _kRememberMeKey = 'remember_me';
 
 class AuthenticationService {
   // Singelton setup
@@ -23,6 +26,34 @@ class AuthenticationService {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+  }
+
+  // Persistance
+  Future<void> setRememberMe(bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_kRememberMeKey, value);
+  }
+
+  Future<bool> getRememberMe() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_kRememberMeKey) ?? false; // Default to false
+  }
+
+  /// Checks if the user should be automatically logged in.
+  /// Returns true if valid session exists AND remember me is enabled.
+  Future<bool> shouldAutoLogin() async {
+    final user = currentUser;
+    if (user == null) {
+      return false;
+    }
+    final rememberMe = await getRememberMe();
+    if (!rememberMe) {
+      // If remember me is false, we shouldn't auto login, so we sign out just in case
+      // (Though usually we rely on just routing to login screen)
+      await signOut();
+      return false;
+    }
+    return true;
   }
 
   // Intentions
@@ -58,12 +89,15 @@ class AuthenticationService {
   Future<UserCredential> signIn({
     required String email,
     required String password,
+    bool rememberMe = false,
   }) async {
     try {
-      return await _authProvider.signInWithEmailAndPassword(
+      final credential = await _authProvider.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+      await setRememberMe(rememberMe);
+      return credential;
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'invalid-email':
@@ -81,6 +115,7 @@ class AuthenticationService {
   }
 
   Future<void> signOut() async {
+    await setRememberMe(false); // Clear remember me on explicit sign out
     await _authProvider.signOut();
   }
 

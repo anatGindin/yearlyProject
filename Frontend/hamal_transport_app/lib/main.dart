@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'l10n/app_localizations.dart';
-import 'Views/main_page.dart';
-import 'Views/Authentication/login_screen_view.dart';
+import 'Views/Authentication/auth_gate.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hamal_transport_app/firebase_options.dart';
 
@@ -40,7 +39,7 @@ class MyApp extends StatelessWidget {
           child: child ?? const SizedBox.shrink(),
         );
       },
-      home: const LoginScreenView(),
+      home: const AuthGate(),
     );
   }
 }
