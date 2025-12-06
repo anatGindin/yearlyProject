@@ -2,28 +2,31 @@ import 'package:flutter/material.dart';
 import '../Models/mission.dart';
 
 class MissionViewModel extends ChangeNotifier {
-  String status(Mission mission) {
+  Mission mission;
+  MissionViewModel(this.mission);
+
+  String status() {
     return mission.status;
   }
 
-  String location(Mission mission) {
+  String location() {
     return mission.location;
   }
 
-  String description(Mission mission) {
+  String description() {
     return mission.description;
   }
 
-  String contact(Mission mission) {
+  String contact() {
     return mission.contact;
   }
 
-  DateTime time(Mission mission) {
+  DateTime time() {
     return mission.time;
   }
 
   /// Update the status of the mission
-  void updateStatus(Mission mission, String newStatus) {
+  void updateStatus(String newStatus) {
     // mission is passed by reference so it is updeted in the list
     mission.status = newStatus;
     notifyListeners();

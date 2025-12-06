@@ -3,7 +3,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hamal_transport_app/Constants/mock_data.dart';
 import 'package:hamal_transport_app/Models/missions_model.dart';
 import 'package:hamal_transport_app/ViewModels/available_missions_view_model.dart';
-import 'package:hamal_transport_app/ViewModels/mission_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/missions_coordinator_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/my_missions_view_model.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +27,6 @@ class MyApp extends StatelessWidget {
             availableMissionsList: availableMissions,
           ),
         ),
-        ChangeNotifierProvider(create: (context) => MissionViewModel()),
         ChangeNotifierProvider(
           create: (context) =>
               MyMissionsViewModel(context.read<MissionsListsModel>()),
@@ -41,7 +39,6 @@ class MyApp extends StatelessWidget {
           create: (context) => MissionsCoordinatorViewModel(
             myMissionsVM: context.read<MyMissionsViewModel>(),
             availableMissionsVM: context.read<AvailableMissionsViewModel>(),
-            missionVM: context.read<MissionViewModel>(),
           ),
         ),
       ],

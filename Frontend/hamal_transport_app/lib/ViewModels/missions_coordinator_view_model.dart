@@ -6,17 +6,20 @@ import 'package:hamal_transport_app/ViewModels/my_missions_view_model.dart';
 class MissionsCoordinatorViewModel {
   final MyMissionsViewModel myMissionsVM;
   final AvailableMissionsViewModel availableMissionsVM;
-  final MissionViewModel missionVM;
+  late MissionViewModel missionVM;
 
   MissionsCoordinatorViewModel({
     required this.myMissionsVM,
     required this.availableMissionsVM,
-    required this.missionVM,
   });
+
+  void setMissionVM(MissionViewModel missionVM) {
+    this.missionVM = missionVM;
+  }
 
   /// Move mission from Available → My Missions
   void takeMission(Mission mission) {
-    missionVM.updateStatus(mission, 'chosen');
+    missionVM.updateStatus('chosen');
     availableMissionsVM.remove(mission);
     myMissionsVM.add(mission);
   }
@@ -32,7 +35,7 @@ class MissionsCoordinatorViewModel {
       abandonMission(mission);
       newStatus = 'available';
     }
-    missionVM.updateStatus(mission, newStatus);
+    missionVM.updateStatus(newStatus);
   }
 
   bool isAvailable(Mission mission) {

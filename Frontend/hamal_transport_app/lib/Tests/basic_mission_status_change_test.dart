@@ -27,17 +27,17 @@ void main() {
       // Create ViewModels with initial state
       availableVM = AvailableMissionsViewModel(missionsLists);
       myVM = MyMissionsViewModel(missionsLists);
-      missionVM = MissionViewModel();
+      missionVM = MissionViewModel(availableMissions[0]);
 
       // Coordinator under test
       coordinator = MissionsCoordinatorViewModel(
         myMissionsVM: myVM,
         availableMissionsVM: availableVM,
-        missionVM: missionVM,
       );
     });
 
     test('takeMission moves mission from available → my missions', () {
+      coordinator.setMissionVM(missionVM);
       testMission = availableMissions[0];
       int initialAvailableLength = availableMissions.length;
       int initialMyLength = sampleMissions.length;
@@ -79,17 +79,17 @@ void main() {
       // Create ViewModels with initial state
       availableVM = AvailableMissionsViewModel(missionsLists);
       myVM = MyMissionsViewModel(missionsLists);
-      missionVM = MissionViewModel();
+      missionVM = MissionViewModel(sampleMissions[0]);
 
       // Coordinator under test
       coordinator = MissionsCoordinatorViewModel(
         myMissionsVM: myVM,
         availableMissionsVM: availableVM,
-        missionVM: missionVM,
       );
     });
 
     test('abandonMission moves mission from my missions → available', () {
+      coordinator.setMissionVM(missionVM);
       testMission = sampleMissions[0];
       int initialAvailableLength = availableMissions.length;
       int initialMyLength = sampleMissions.length;
