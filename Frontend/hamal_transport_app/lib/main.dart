@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'l10n/app_localizations.dart';
 import 'Views/main_page.dart';
+import 'Views/login_screen_view.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:hamal_transport_app/firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -35,7 +40,7 @@ class MyApp extends StatelessWidget {
           child: child ?? const SizedBox.shrink(),
         );
       },
-      home: const MainPage(),
+      home: const LoginScreenView(),
     );
   }
 }

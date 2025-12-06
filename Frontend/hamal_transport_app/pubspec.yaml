@@ -1,7 +1,7 @@
 name: hamal_transport_app
 description: "Making the life of Hamal's drivers easier with technology."
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0
 
@@ -19,10 +19,15 @@ dependencies:
   url_launcher: ^6.1.10
   flutter_test:
     sdk: flutter
+  firebase_core: ^4.2.1
+  firebase_auth: ^6.1.2
 
 dev_dependencies:
   flutter_lints: ^6.0.0
+  mockito: ^5.6.1
 
 flutter:
   uses-material-design: true
   generate: true
+  assets:
+    - Resources/Images/

@@ -99,5 +99,93 @@
   "cannotLaunchNavigation": "Cannot launch navigation app",
   "@cannotLaunchNavigation": {
     "description": "Error message when navigation app cannot be launched"
+  },
+  "login": "Login",
+  "@login": {
+    "description": "Login button text"
+  },
+  "signup": "Sign Up",
+  "@signup": {
+    "description": "Sign Up button text"
+  },
+  "email": "Email",
+  "@email": {
+    "description": "Email input label"
+  },
+  "password": "Password",
+  "@password": {
+    "description": "Password input label"
+  },
+  "forgotPassword": "Forgot Password",
+  "@forgotPassword": {
+    "description": "Forgot password button text"
+  },
+  "resetPassword": "Reset Password",
+  "@resetPassword": {
+    "description": "Reset password dialog title"
+  },
+  "loginError": "Login failed",
+  "@loginError": {
+    "description": "Generic login error message"
+  },
+  "signupError": "Sign up failed",
+  "@signupError": {
+    "description": "Generic sign up error message"
+  },
+  "dontHaveAccount": "Don't have an account?",
+  "@dontHaveAccount": {
+    "description": "Text prompting user to sign up"
+  },
+  "alreadyHaveAccount": "Already have an account?",
+  "@alreadyHaveAccount": {
+    "description": "Text prompting user to login"
+  },
+  "name": "Full Name",
+  "@name": {
+    "description": "Full Name input label"
+  },
+  "phone": "Phone Number",
+  "@phone": {
+    "description": "Phone Number input label"
+  },
+  "confirmPassword": "Confirm Password",
+  "@confirmPassword": {
+    "description": "Confirm Password input label"
+  },
+  "passwordMismatch": "Passwords do not match",
+  "@passwordMismatch": {
+    "description": "Error when passwords don't match"
+  },
+  "passwordRules": "Password must contain at least 6 characters, one uppercase, one lowercase, and one number.",
+  "@passwordRules": {
+    "description": "Helper text for password rules"
+  },
+  "signupSuccess": "Signup Successful! Please Login.",
+  "@signupSuccess": {
+    "description": "Message shown when signup is successful"
+  },
+  "requiredField": "This field is required",
+  "@requiredField": {
+    "description": "Error message for empty required fields"
+  },
+  "invalidEmail": "The email address is not valid.",
+  "@invalidEmail": {
+    "description": "Error message for invalid email format"
+  },
+  "userNotFound": "No user found for that email.",
+  "@userNotFound": {
+    "description": "Error message when user does not exist"
+  },
+  "wrongPassword": "Wrong password provided for that user.",
+  "@wrongPassword": {
+    "description": "Error message for incorrect password"
+  },
+  "genericError": "Something went wrong.",
+  "@genericError": {
+    "description": "Fallback error message"
+  },
+  "emailAlreadyInUse": "This email is already in use.",
+  "@emailAlreadyInUse": {
+    "description": "Error message when email is already registered"
   }
 }

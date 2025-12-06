@@ -82,4 +82,71 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cannotLaunchNavigation => 'Cannot launch navigation app';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get signup => 'Sign Up';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get forgotPassword => 'Forgot Password';
+
+  @override
+  String get resetPassword => 'Reset Password';
+
+  @override
+  String get loginError => 'Login failed';
+
+  @override
+  String get signupError => 'Sign up failed';
+
+  @override
+  String get dontHaveAccount => 'Don\'t have an account?';
+
+  @override
+  String get alreadyHaveAccount => 'Already have an account?';
+
+  @override
+  String get name => 'Full Name';
+
+  @override
+  String get phone => 'Phone Number';
+
+  @override
+  String get confirmPassword => 'Confirm Password';
+
+  @override
+  String get passwordMismatch => 'Passwords do not match';
+
+  @override
+  String get passwordRules =>
+      'Password must contain at least 6 characters, one uppercase, one lowercase, and one number.';
+
+  @override
+  String get signupSuccess => 'Signup Successful! Please Login.';
+
+  @override
+  String get requiredField => 'This field is required';
+
+  @override
+  String get invalidEmail => 'The email address is not valid.';
+
+  @override
+  String get userNotFound => 'No user found for that email.';
+
+  @override
+  String get wrongPassword => 'Wrong password provided for that user.';
+
+  @override
+  String get genericError => 'Something went wrong.';
+
+  @override
+  String get emailAlreadyInUse => 'This email is already in use.';
 }
