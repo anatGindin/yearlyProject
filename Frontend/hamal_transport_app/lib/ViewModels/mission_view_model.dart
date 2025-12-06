@@ -3,9 +3,9 @@ import 'package:hamal_transport_app/Models/missions_model.dart';
 import '../Models/mission.dart';
 
 class MissionViewModel extends ChangeNotifier {
-  final MissionsListsModel model;
+  final MissionsListsModel _model;
 
-  MissionViewModel(this.model);
+  MissionViewModel(this._model);
 
   String status(Mission mission) {
     return mission.status;
@@ -36,7 +36,7 @@ class MissionViewModel extends ChangeNotifier {
 
   // Check if mission is available
   bool isAvailable(Mission mission) {
-    return model.availableMissionsList.contains(mission) &&
+    return _model.availableMissionsList.contains(mission) &&
         mission.status == 'available';
   }
 }
