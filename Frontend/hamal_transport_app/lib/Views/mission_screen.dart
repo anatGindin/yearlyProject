@@ -14,11 +14,18 @@ class MissionScreen extends StatefulWidget {
 
 class _MissionScreenState extends State<MissionScreen> {
   late String _status;
+  late AppLocalizations l10n;
 
   @override
   void initState() {
     super.initState();
     _status = widget.mission.status;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    l10n = AppLocalizations.of(context)!;
   }
 
   Future<void> _launchWaze(String address) async {
@@ -35,11 +42,9 @@ class _MissionScreenState extends State<MissionScreen> {
       return;
     }
     if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(AppLocalizations.of(context)!.cannotLaunchNavigation),
-      ),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(l10n.cannotLaunchNavigation)));
   }
 
   void _updateStatus(String newStatus) {
@@ -48,11 +53,9 @@ class _MissionScreenState extends State<MissionScreen> {
       widget.mission.status = newStatus;
     });
     final label = _statusLabel(newStatus);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('${AppLocalizations.of(context)!.statusUpdated}$label'),
-      ),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text('${l10n.statusUpdated}$label')));
   }
 
   void _takeMission() {
@@ -64,9 +67,9 @@ class _MissionScreenState extends State<MissionScreen> {
         sampleMissions.insert(0, mission);
         _status = mission.status;
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)!.missionTaken)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.missionTaken)));
     }
   }
 
@@ -74,7 +77,7 @@ class _MissionScreenState extends State<MissionScreen> {
   Widget build(BuildContext context) {
     final mission = widget.mission;
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.mission)),
+      appBar: AppBar(title: Text(l10n.mission)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -97,7 +100,7 @@ class _MissionScreenState extends State<MissionScreen> {
             ),
             const SizedBox(height: 16),
             Text(
-              '${AppLocalizations.of(context)!.contact}${mission.contact}',
+              '${l10n.contact}${mission.contact}',
               style: Theme.of(
                 context,
               ).textTheme.bodyLarge?.copyWith(fontSize: 18),
@@ -105,7 +108,7 @@ class _MissionScreenState extends State<MissionScreen> {
             ),
             const SizedBox(height: 16),
             Text(
-              '${AppLocalizations.of(context)!.time}${mission.time}',
+              '${l10n.time}${mission.time}',
               style: Theme.of(
                 context,
               ).textTheme.bodyLarge?.copyWith(fontSize: 16),
@@ -113,7 +116,7 @@ class _MissionScreenState extends State<MissionScreen> {
             ),
             const SizedBox(height: 12),
             Text(
-              '${AppLocalizations.of(context)!.mission}: ${_statusLabel(_status)}',
+              '${l10n.mission}: ${_statusLabel(_status)}',
               style: Theme.of(
                 context,
               ).textTheme.titleMedium?.copyWith(fontSize: 18),
@@ -127,7 +130,7 @@ class _MissionScreenState extends State<MissionScreen> {
                   onPressed: () => _showStatusOptions(),
                   icon: const Icon(Icons.update),
                   label: Text(
-                    AppLocalizations.of(context)!.updateStatus,
+                    l10n.updateStatus,
                     style: const TextStyle(fontSize: 16),
                   ),
                 ),
@@ -135,7 +138,7 @@ class _MissionScreenState extends State<MissionScreen> {
                   onPressed: () => _launchWaze(mission.location),
                   icon: const Icon(Icons.navigation),
                   label: Text(
-                    AppLocalizations.of(context)!.navigateWaze,
+                    l10n.navigateWaze,
                     style: const TextStyle(fontSize: 16),
                   ),
                 ),
@@ -150,7 +153,7 @@ class _MissionScreenState extends State<MissionScreen> {
                   onPressed: _takeMission,
                   icon: const Icon(Icons.check),
                   label: Text(
-                    AppLocalizations.of(context)!.takeMission,
+                    l10n.takeMission,
                     style: const TextStyle(fontSize: 18),
                   ),
                   style: ElevatedButton.styleFrom(
@@ -171,30 +174,30 @@ class _MissionScreenState extends State<MissionScreen> {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            ListTile(title: Text(AppLocalizations.of(context)!.selectStatus)),
+            ListTile(title: Text(l10n.selectStatus)),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.chosen),
+              title: Text(l10n.chosen),
               onTap: () {
                 Navigator.of(context).pop();
                 _updateStatus('chosen');
               },
             ),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.pickedUp),
+              title: Text(l10n.pickedUp),
               onTap: () {
                 Navigator.of(context).pop();
                 _updateStatus('picked_up');
               },
             ),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.delivered),
+              title: Text(l10n.delivered),
               onTap: () {
                 Navigator.of(context).pop();
                 _updateStatus('delivered');
               },
             ),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.cancelled),
+              title: Text(l10n.cancelled),
               onTap: () {
                 Navigator.of(context).pop();
                 _updateStatus('cancelled');
@@ -206,19 +209,19 @@ class _MissionScreenState extends State<MissionScreen> {
     );
   }
 
-  // Map internal status codes to Hebrew labels for display
+  // Map internal status codes to localized labels for display
   String _statusLabel(String code) {
     switch (code) {
       case 'chosen':
-        return AppLocalizations.of(context)!.chosen;
+        return l10n.chosen;
       case 'picked_up':
-        return AppLocalizations.of(context)!.pickedUp;
+        return l10n.pickedUp;
       case 'delivered':
-        return AppLocalizations.of(context)!.delivered;
+        return l10n.delivered;
       case 'cancelled':
-        return AppLocalizations.of(context)!.cancelled;
+        return l10n.cancelled;
       case 'available':
-        return AppLocalizations.of(context)!.available;
+        return l10n.available;
       default:
         return code;
     }

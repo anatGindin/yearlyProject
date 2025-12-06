@@ -9,10 +9,9 @@ class NewMissionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.availableMissions),
-      ),
+      appBar: AppBar(title: Text(l10n.availableMissions)),
       body: ListView.separated(
         padding: const EdgeInsets.all(12),
         itemCount: availableMissions.length,

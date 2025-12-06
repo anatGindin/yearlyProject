@@ -11,6 +11,7 @@ class MissionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Card(
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -31,7 +32,7 @@ class MissionCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              '${AppLocalizations.of(context)!.contact}${mission.contact}',
+              '${l10n.contact}${mission.contact}',
               style: Theme.of(
                 context,
               ).textTheme.bodyLarge?.copyWith(fontSize: 18),
@@ -39,7 +40,7 @@ class MissionCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              '${AppLocalizations.of(context)!.time}${_formatDateTime(mission.time)}',
+              '${l10n.time}${_formatDateTime(mission.time)}',
               style: Theme.of(
                 context,
               ).textTheme.bodyLarge?.copyWith(fontSize: 16),
