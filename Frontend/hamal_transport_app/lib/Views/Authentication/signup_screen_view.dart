@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hamal_transport_app/Views/Widgets/wave_background.dart';
-import '../ViewModels/signup_screen_view_model.dart';
-import '../l10n/app_localizations.dart';
-import '../Services/authentication_service.dart';
+import '../../ViewModels/signup_screen_view_model.dart';
+import '../../l10n/app_localizations.dart';
+import '../../Services/authentication_service.dart';
 
 class SignupScreenView extends StatelessWidget {
   const SignupScreenView({super.key});

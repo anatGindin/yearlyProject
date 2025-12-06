@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../l10n/app_localizations.dart';
-import '../ViewModels/login_screen_view_model.dart';
-import '../Services/authentication_service.dart';
+import '../../l10n/app_localizations.dart';
+import '../../ViewModels/login_screen_view_model.dart';
+import '../../Services/authentication_service.dart';
 import 'signup_screen_view.dart';
-import 'Widgets/wave_background.dart';
+import '../Widgets/wave_background.dart';
 
 class LoginScreenView extends StatelessWidget {
   const LoginScreenView({super.key});
