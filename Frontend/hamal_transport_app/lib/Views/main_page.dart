@@ -10,6 +10,7 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: const MissionAppBar(),
       body: SafeArea(
@@ -22,7 +23,7 @@ class MainPage extends StatelessWidget {
                 children: [
                   const SizedBox(height: 4),
                   Text(
-                    AppLocalizations.of(context)!.activeMissions,
+                    l10n.activeMissions,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,
@@ -37,7 +38,7 @@ class MainPage extends StatelessWidget {
                   ), // spacing to keep list above buttons
                 ],
               ),
-              MissionFABs(onCallDesk: () => _callHamalDesk(context)),
+              MissionFABs(onCallDesk: () => _callHamalDesk(context, l10n)),
             ],
           ),
         ),
@@ -45,16 +46,16 @@ class MainPage extends StatelessWidget {
     );
   }
 
-  void _callHamalDesk(BuildContext context) {
+  void _callHamalDesk(BuildContext context, AppLocalizations l10n) {
     showDialog<void>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.callDesk),
-        content: Text(AppLocalizations.of(context)!.callDeskMessage),
+        title: Text(l10n.callDesk),
+        content: Text(l10n.callDeskMessage),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.close),
+            child: Text(l10n.close),
           ),
         ],
       ),

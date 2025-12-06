@@ -10,6 +10,7 @@ class MissionFABs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Stack(
       children: [
         // Bottom-left phone button
@@ -34,7 +35,7 @@ class MissionFABs extends StatelessWidget {
             ).push(MaterialPageRoute(builder: (_) => const NewMissionPage())),
             icon: const Icon(Icons.add_box),
             label: Text(
-              AppLocalizations.of(context)!.availableMissions,
+              l10n.availableMissions,
               style: const TextStyle(fontSize: 16),
             ),
           ),
