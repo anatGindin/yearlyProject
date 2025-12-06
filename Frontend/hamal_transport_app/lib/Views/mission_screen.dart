@@ -4,7 +4,6 @@ import 'package:hamal_transport_app/ViewModels/missions_coordinator_view_model.d
 import 'package:provider/provider.dart';
 import '../Models/mission.dart';
 import '../l10n/app_localizations.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class MissionScreen extends StatefulWidget {
   final Mission mission;
@@ -18,27 +17,6 @@ class _MissionScreenState extends State<MissionScreen> {
   @override
   void initState() {
     super.initState();
-  }
-
-  Future<void> _launchWaze(String address) async {
-    final wazeUri = Uri.parse('waze://?q=${Uri.encodeComponent(address)}');
-    if (await canLaunchUrl(wazeUri)) {
-      await launchUrl(wazeUri);
-      return;
-    }
-    final googleUri = Uri.parse(
-      'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(address)}',
-    );
-    if (await canLaunchUrl(googleUri)) {
-      await launchUrl(googleUri);
-      return;
-    }
-    if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(AppLocalizations.of(context)!.cannotLaunchNavigation),
-      ),
-    );
   }
 
   void _updateStatus(String newStatus) {
@@ -115,7 +93,22 @@ class _MissionScreenState extends State<MissionScreen> {
                         ),
                       ),
                       ElevatedButton.icon(
-                        onPressed: () => _launchWaze(mission.location),
+                        onPressed: () async {
+                          final success = await missionVM.launchNavigation();
+                          // Guard the context we are about to use
+                          if (!context.mounted) return;
+                          if (!success) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.cannotLaunchNavigation,
+                                ),
+                              ),
+                            );
+                          }
+                        },
                         icon: const Icon(Icons.navigation),
                         label: Text(
                           AppLocalizations.of(context)!.navigateWaze,
