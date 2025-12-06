@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'l10n/app_localizations.dart';
 import 'Views/main_page.dart';
+import 'theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,10 +24,8 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      theme: ThemeData.from(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
       // Use MediaQuery builder to scale all text globally (avoids TextStyle.apply assertion)
       builder: (BuildContext context, Widget? child) {
         final mq = MediaQuery.of(context);
