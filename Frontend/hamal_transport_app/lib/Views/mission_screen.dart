@@ -127,7 +127,16 @@ class _MissionScreenState extends State<MissionScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton.icon(
-                      onPressed: () => missionsCoordinator.takeMission(mission),
+                      onPressed: () {
+                        missionsCoordinator.takeMission(mission);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              AppLocalizations.of(context)!.missionTaken,
+                            ),
+                          ),
+                        );
+                      },
                       icon: const Icon(Icons.check),
                       label: Text(
                         AppLocalizations.of(context)!.takeMission,
