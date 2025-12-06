@@ -13,7 +13,7 @@ class MissionScreen extends StatefulWidget {
 }
 
 class _MissionScreenState extends State<MissionScreen> {
-  late String _status;
+  late MissionStatus _status;
 
   @override
   void initState() {
@@ -42,7 +42,7 @@ class _MissionScreenState extends State<MissionScreen> {
     );
   }
 
-  void _updateStatus(String newStatus) {
+  void _updateStatus(MissionStatus newStatus) {
     setState(() {
       _status = newStatus;
       widget.mission.status = newStatus;
@@ -60,7 +60,7 @@ class _MissionScreenState extends State<MissionScreen> {
     if (availableMissions.contains(mission)) {
       setState(() {
         availableMissions.remove(mission);
-        mission.status = 'chosen';
+        mission.status = MissionStatus.chosen;
         sampleMissions.insert(0, mission);
         _status = mission.status;
       });
@@ -143,7 +143,8 @@ class _MissionScreenState extends State<MissionScreen> {
             ),
             const SizedBox(height: 12),
             // Show Take button when this mission is from the available tasks list
-            if (availableMissions.contains(mission) && _status == 'available')
+            if (availableMissions.contains(mission) &&
+                _status == MissionStatus.available)
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
@@ -176,28 +177,28 @@ class _MissionScreenState extends State<MissionScreen> {
               title: Text(AppLocalizations.of(context)!.chosen),
               onTap: () {
                 Navigator.of(context).pop();
-                _updateStatus('chosen');
+                _updateStatus(MissionStatus.chosen);
               },
             ),
             ListTile(
               title: Text(AppLocalizations.of(context)!.pickedUp),
               onTap: () {
                 Navigator.of(context).pop();
-                _updateStatus('picked_up');
+                _updateStatus(MissionStatus.pickedUp);
               },
             ),
             ListTile(
               title: Text(AppLocalizations.of(context)!.delivered),
               onTap: () {
                 Navigator.of(context).pop();
-                _updateStatus('delivered');
+                _updateStatus(MissionStatus.delivered);
               },
             ),
             ListTile(
               title: Text(AppLocalizations.of(context)!.cancelled),
               onTap: () {
                 Navigator.of(context).pop();
-                _updateStatus('cancelled');
+                _updateStatus(MissionStatus.cancelled);
               },
             ),
           ],
@@ -206,21 +207,19 @@ class _MissionScreenState extends State<MissionScreen> {
     );
   }
 
-  // Map internal status codes to Hebrew labels for display
-  String _statusLabel(String code) {
-    switch (code) {
-      case 'chosen':
+  // Map MissionStatus enum to localized labels for display
+  String _statusLabel(MissionStatus status) {
+    switch (status) {
+      case MissionStatus.chosen:
         return AppLocalizations.of(context)!.chosen;
-      case 'picked_up':
+      case MissionStatus.pickedUp:
         return AppLocalizations.of(context)!.pickedUp;
-      case 'delivered':
+      case MissionStatus.delivered:
         return AppLocalizations.of(context)!.delivered;
-      case 'cancelled':
+      case MissionStatus.cancelled:
         return AppLocalizations.of(context)!.cancelled;
-      case 'available':
+      case MissionStatus.available:
         return AppLocalizations.of(context)!.available;
-      default:
-        return code;
     }
   }
 }

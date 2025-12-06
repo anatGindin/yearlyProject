@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
 import '../Constants/mock_data.dart';
+import '../Models/mission.dart';
 import 'mission_screen.dart';
 
 /// Open Tasks page showing available missions to pick
@@ -25,7 +26,7 @@ class OpenTasksPage extends StatelessWidget {
               onTap: () {
                 // when driver chooses a task, move it to active missions and open it
                 availableMissions.removeAt(index);
-                sampleMissions.insert(0, m..status = 'chosen');
+                sampleMissions.insert(0, m..status = MissionStatus.chosen);
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (_) => MissionScreen(mission: m)),
                 );
