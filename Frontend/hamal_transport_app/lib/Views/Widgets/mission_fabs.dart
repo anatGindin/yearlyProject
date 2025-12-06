@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../l10n/app_localizations.dart';
-import '../new_mission_page.dart';
+import '../available_missions_page.dart';
 
 /// Reusable FABs widget for phone call and new mission actions
 class MissionFABs extends StatelessWidget {
@@ -29,9 +29,9 @@ class MissionFABs extends StatelessWidget {
           bottom: 12,
           child: FloatingActionButton.extended(
             heroTag: 'new_mission',
-            onPressed: () => Navigator.of(
-              context,
-            ).push(MaterialPageRoute(builder: (_) => const NewMissionPage())),
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const AvailableMissionsPage()),
+            ),
             icon: const Icon(Icons.add_box),
             label: Text(
               AppLocalizations.of(context)!.availableMissions,

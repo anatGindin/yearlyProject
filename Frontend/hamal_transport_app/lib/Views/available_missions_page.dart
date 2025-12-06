@@ -5,8 +5,8 @@ import '../l10n/app_localizations.dart';
 import 'mission_screen.dart';
 
 /// New Mission page now shows the list of available missions (Open Tasks)
-class NewMissionPage extends StatelessWidget {
-  const NewMissionPage({super.key});
+class AvailableMissionsPage extends StatelessWidget {
+  const AvailableMissionsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

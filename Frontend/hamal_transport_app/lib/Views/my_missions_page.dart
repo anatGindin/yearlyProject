@@ -6,8 +6,8 @@ import 'Widgets/mission_app_bar.dart';
 import 'Widgets/mission_list_view.dart';
 import 'Widgets/mission_fabs.dart';
 
-class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+class MyMissionsPage extends StatelessWidget {
+  const MyMissionsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
