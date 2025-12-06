@@ -123,7 +123,7 @@ class _MissionScreenState extends State<MissionScreen> {
                 ),
                 const SizedBox(height: 12),
                 // Show Take button when this mission is available
-                if (missionVM.isAvailable(mission))
+                if (missionsCoordinator.isAvailable(mission))
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton.icon(

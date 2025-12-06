@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hamal_transport_app/Models/missions_model.dart';
 import '../Models/mission.dart';
 
 class MissionViewModel extends ChangeNotifier {
-  final MissionsListsModel _model;
-
-  MissionViewModel(this._model);
-
   String status(Mission mission) {
     return mission.status;
   }
@@ -32,11 +27,5 @@ class MissionViewModel extends ChangeNotifier {
     // mission is passed by reference so it is updeted in the list
     mission.status = newStatus;
     notifyListeners();
-  }
-
-  // Check if mission is available
-  bool isAvailable(Mission mission) {
-    return _model.availableMissionsList.contains(mission) &&
-        mission.status == 'available';
   }
 }

@@ -27,7 +27,7 @@ void main() {
       // Create ViewModels with initial state
       availableVM = AvailableMissionsViewModel(missionsLists);
       myVM = MyMissionsViewModel(missionsLists);
-      missionVM = MissionViewModel(missionsLists);
+      missionVM = MissionViewModel();
 
       // Coordinator under test
       coordinator = MissionsCoordinatorViewModel(
@@ -79,7 +79,7 @@ void main() {
       // Create ViewModels with initial state
       availableVM = AvailableMissionsViewModel(missionsLists);
       myVM = MyMissionsViewModel(missionsLists);
-      missionVM = MissionViewModel(missionsLists);
+      missionVM = MissionViewModel();
 
       // Coordinator under test
       coordinator = MissionsCoordinatorViewModel(

@@ -34,4 +34,9 @@ class MissionsCoordinatorViewModel {
     }
     missionVM.updateStatus(mission, newStatus);
   }
+
+  bool isAvailable(Mission mission) {
+    return availableMissionsVM.availableMissions.contains(mission) &&
+        mission.status == 'available';
+  }
 }

@@ -28,10 +28,7 @@ class MyApp extends StatelessWidget {
             availableMissionsList: availableMissions,
           ),
         ),
-        ChangeNotifierProvider(
-          create: (context) =>
-              MissionViewModel(context.read<MissionsListsModel>()),
-        ),
+        ChangeNotifierProvider(create: (context) => MissionViewModel()),
         ChangeNotifierProvider(
           create: (context) =>
               MyMissionsViewModel(context.read<MissionsListsModel>()),
