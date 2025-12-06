@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hamal_transport_app/Constants/mock_data.dart';
 import 'package:hamal_transport_app/Models/missions_model.dart';
 import 'package:hamal_transport_app/ViewModels/available_missions_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/mission_view_model.dart';
@@ -21,7 +22,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider(create: (_) => MissionsListsModel()),
+        Provider(
+          create: (_) => MissionsListsModel(
+            myMissionsList: sampleMissions,
+            availableMissionsList: availableMissions,
+          ),
+        ),
         ChangeNotifierProvider(
           create: (context) =>
               MissionViewModel(context.read<MissionsListsModel>()),

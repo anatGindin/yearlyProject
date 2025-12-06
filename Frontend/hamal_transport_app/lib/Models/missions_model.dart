@@ -1,4 +1,3 @@
-import 'package:hamal_transport_app/Constants/mock_data.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
 
 class MissionsListsModel {
@@ -7,8 +6,7 @@ class MissionsListsModel {
 
   // for now we use the mock data
   MissionsListsModel({
-    List<Mission>? myMissionsList,
-    List<Mission>? availableMissionsList,
-  }) : myMissionsList = myMissionsList ?? sampleMissions,
-       availableMissionsList = availableMissionsList ?? availableMissions;
+    required this.myMissionsList,
+    required this.availableMissionsList,
+  });
 }
