@@ -59,10 +59,24 @@ class _SignupContentState extends State<_SignupContent> {
         phone: _phoneController.text,
       );
       if (success && mounted) {
-        Navigator.pop(context);
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(l10n.signupSuccess)));
+        await showDialog<void>(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(l10n.signup),
+              content: Text(l10n.signupSuccess),
+              actions: <Widget>[
+                TextButton(
+                  child: Text(l10n.close),
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close dialog
+                    Navigator.of(context).pop(); // Close signup screen
+                  },
+                ),
+              ],
+            );
+          },
+        );
       }
     } else {
       setState(() {

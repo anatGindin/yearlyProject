@@ -1,7 +1,5 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../firebase_options.dart';
 
 const String _kRememberMeKey = 'remember_me';
 
@@ -20,13 +18,6 @@ class AuthenticationService {
   final _authProvider = FirebaseAuth.instance;
   User? get currentUser => _authProvider.currentUser;
   Stream<User?> get authStateChanges => _authProvider.authStateChanges();
-
-  // Initialize Firebase
-  Future<void> initialize() async {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  }
 
   // Persistance
   Future<void> setRememberMe(bool value) async {
