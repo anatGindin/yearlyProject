@@ -101,7 +101,7 @@ class _MissionScreenState extends State<MissionScreen> {
               textAlign: TextAlign.right,
             ),
             const SizedBox(height: 16),
-            ContactCard(vm: ContactViewModel(mission.contact)),
+            ContactCardActionable(vm: ContactViewModel(mission.contact)),
             Text(
               '${AppLocalizations.of(context)!.time}${mission.time}',
               style: Theme.of(
