@@ -1,41 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hamal_transport_app/ViewModels/login_screen_view_model.dart';
-import 'package:hamal_transport_app/Services/authentication_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mockito/mockito.dart';
-
-// Mocks
-class MockUserCredential extends Mock implements UserCredential {}
-
-class MockAuthenticationService implements AuthenticationService {
-  bool shouldThrow = false;
-  AuthenticationError? errorToThrow;
-
-  @override
-  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
-
-  @override
-  Future<UserCredential> signIn({
-    required String email,
-    required String password,
-    bool rememberMe = false,
-  }) async {
-    if (shouldThrow) {
-      if (errorToThrow != null) {
-        throw errorToThrow!;
-      }
-      throw AuthenticationError.unknown;
-    }
-    return MockUserCredential();
-  }
-}
+import 'package:hamal_transport_app/Services/Fake/fake_authentication_service.dart';
 
 void main() {
   late LoginScreenViewModel viewModel;
-  late MockAuthenticationService mockAuthService;
+  late FakeAuthenticationService mockAuthService;
 
   setUp(() {
-    mockAuthService = MockAuthenticationService();
+    mockAuthService = FakeAuthenticationService();
     viewModel = LoginScreenViewModel(authService: mockAuthService);
   });
 
@@ -62,23 +34,23 @@ void main() {
 
   test('login failure with specific error', () async {
     mockAuthService.shouldThrow = true;
-    mockAuthService.errorToThrow = AuthenticationError.wrongPassword;
+    mockAuthService.errorToThrow = FakeAuthenticationError.wrongPassword;
 
     final success = await viewModel.login('test@test.com', 'password');
 
     expect(success, false);
-    expect(viewModel.error, AuthenticationError.wrongPassword);
+    expect(viewModel.error, FakeAuthenticationError.wrongPassword);
     expect(viewModel.isLoading, false);
   });
 
   test('login failure with known error', () async {
     mockAuthService.shouldThrow = true;
-    mockAuthService.errorToThrow = AuthenticationError.emailInvalid;
+    mockAuthService.errorToThrow = FakeAuthenticationError.emailInvalid;
 
     final success = await viewModel.login('test@test.com', 'password');
 
     expect(success, false);
-    expect(viewModel.error, AuthenticationError.emailInvalid);
+    expect(viewModel.error, FakeAuthenticationError.emailInvalid);
     expect(viewModel.isLoading, false);
   });
 }

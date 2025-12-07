@@ -1,37 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:hamal_transport_app/ViewModels/signup_screen_view_model.dart';
-import 'package:hamal_transport_app/Services/authentication_service.dart';
-import 'package:firebase_auth/firebase_auth.dart' as auth;
-
-class FakeAuthenticationService extends Fake implements AuthenticationService {
-  bool signUpCalled = false;
-  String? lastEmail;
-  String? lastPassword;
-
-  bool shouldThrow = false;
-  AuthenticationError? errorToThrow;
-
-  @override
-  Future<auth.UserCredential> signUp({
-    required String email,
-    required String password,
-  }) async {
-    if (shouldThrow) {
-      if (errorToThrow != null) {
-        throw errorToThrow!;
-      }
-      throw AuthenticationError.unknown;
-    }
-
-    signUpCalled = true;
-    lastEmail = email;
-    lastPassword = password;
-    return MockUserCredential();
-  }
-}
-
-class MockUserCredential extends Mock implements auth.UserCredential {}
+import 'package:hamal_transport_app/Services/Fake/fake_authentication_service.dart';
 
 void main() {
   late SignupScreenViewModel viewModel;
@@ -77,7 +46,7 @@ void main() {
 
     test('Signup Failure sets error', () async {
       fakeAuthService.shouldThrow = true;
-      fakeAuthService.errorToThrow = AuthenticationError.emailAlreadyInUse;
+      fakeAuthService.errorToThrow = FakeAuthenticationError.emailAlreadyInUse;
 
       final success = await viewModel.signup(
         email: 'test@test.com',
@@ -87,7 +56,7 @@ void main() {
       );
 
       expect(success, false);
-      expect(viewModel.error, AuthenticationError.emailAlreadyInUse);
+      expect(viewModel.error, FakeAuthenticationError.emailAlreadyInUse);
       expect(fakeAuthService.signUpCalled, false);
     });
   });
