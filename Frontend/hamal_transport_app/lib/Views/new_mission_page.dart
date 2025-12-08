@@ -5,15 +5,14 @@ import '../l10n/app_localizations.dart';
 import 'mission_screen.dart';
 
 /// New Mission page now shows the list of available missions (Open Tasks)
-class AvailableMissionsPage extends StatelessWidget {
-  const AvailableMissionsPage({super.key});
+class NewMissionPage extends StatelessWidget {
+  const NewMissionPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.availableMissions),
-      ),
+      appBar: AppBar(title: Text(l10n.availableMissions)),
       body: Consumer<AvailableMissionsViewModel>(
         builder: (context, availableMissionsVM, _) {
           return ListView.separated(

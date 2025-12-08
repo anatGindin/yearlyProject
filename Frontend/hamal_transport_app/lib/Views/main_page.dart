@@ -6,11 +6,12 @@ import 'Widgets/mission_app_bar.dart';
 import 'Widgets/mission_list_view.dart';
 import 'Widgets/mission_fabs.dart';
 
-class MyMissionsPage extends StatelessWidget {
-  const MyMissionsPage({super.key});
+class MainPage extends StatelessWidget {
+  const MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: const MissionAppBar(),
       body: SafeArea(
@@ -23,7 +24,7 @@ class MyMissionsPage extends StatelessWidget {
                 children: [
                   const SizedBox(height: 4),
                   Text(
-                    AppLocalizations.of(context)!.activeMissions,
+                    l10n.activeMissions,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,
@@ -55,15 +56,16 @@ class MyMissionsPage extends StatelessWidget {
   }
 
   void _callHamalDesk(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog<void>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.callDesk),
-        content: Text(AppLocalizations.of(context)!.callDeskMessage),
+        title: Text(l10n.callDesk),
+        content: Text(l10n.callDeskMessage),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.close),
+            child: Text(l10n.close),
           ),
         ],
       ),

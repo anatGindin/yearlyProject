@@ -14,6 +14,8 @@ class MissionScreen extends StatefulWidget {
 }
 
 class _MissionScreenState extends State<MissionScreen> {
+  late AppLocalizations l10n;
+
   @override
   void initState() {
     super.initState();
@@ -21,18 +23,19 @@ class _MissionScreenState extends State<MissionScreen> {
 
   void _updateStatus(String newStatus) {
     final mission = widget.mission;
-    final missionsCoordinator = context.read<MissionsCoordinatorViewModel>();
-    missionsCoordinator.updateStatus(mission, newStatus);
+    final missionCoordinator = context.read<MissionsCoordinatorViewModel>();
+    missionCoordinator.updateStatus(mission, newStatus);
   }
 
   @override
   Widget build(BuildContext context) {
+    l10n = AppLocalizations.of(context)!;
     final mission = widget.mission;
     final missionsCoordinator = context.read<MissionsCoordinatorViewModel>();
     return ChangeNotifierProvider(
       create: (context) => MissionViewModel(mission),
       child: Scaffold(
-        appBar: AppBar(title: Text(AppLocalizations.of(context)!.mission)),
+        appBar: AppBar(title: Text(l10n.mission)),
         body: Consumer<MissionViewModel>(
           builder: (context, missionVM, _) {
             missionsCoordinator.setMissionVM(missionVM);
@@ -58,7 +61,7 @@ class _MissionScreenState extends State<MissionScreen> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    '${AppLocalizations.of(context)!.contact}${missionVM.contact()}',
+                    '${l10n.contact}${missionVM.contact()}',
                     style: Theme.of(
                       context,
                     ).textTheme.bodyLarge?.copyWith(fontSize: 18),
@@ -66,7 +69,7 @@ class _MissionScreenState extends State<MissionScreen> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    '${AppLocalizations.of(context)!.time}${missionVM.time()}',
+                    '${l10n.time}${missionVM.time()}',
                     style: Theme.of(
                       context,
                     ).textTheme.bodyLarge?.copyWith(fontSize: 16),
@@ -74,7 +77,7 @@ class _MissionScreenState extends State<MissionScreen> {
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    '${AppLocalizations.of(context)!.mission}: ${_statusLabel(missionVM.status())}',
+                    '${l10n.mission}: ${_statusLabel(missionVM.status())}',
                     style: Theme.of(
                       context,
                     ).textTheme.titleMedium?.copyWith(fontSize: 18),
@@ -88,7 +91,7 @@ class _MissionScreenState extends State<MissionScreen> {
                         onPressed: () => _showStatusOptions(),
                         icon: const Icon(Icons.update),
                         label: Text(
-                          AppLocalizations.of(context)!.updateStatus,
+                          l10n.updateStatus,
                           style: const TextStyle(fontSize: 16),
                         ),
                       ),
@@ -100,18 +103,14 @@ class _MissionScreenState extends State<MissionScreen> {
                           if (!success) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(
-                                  AppLocalizations.of(
-                                    context,
-                                  )!.cannotLaunchNavigation,
-                                ),
+                                content: Text(l10n.cannotLaunchNavigation),
                               ),
                             );
                           }
                         },
                         icon: const Icon(Icons.navigation),
                         label: Text(
-                          AppLocalizations.of(context)!.navigateWaze,
+                          l10n.navigateWaze,
                           style: const TextStyle(fontSize: 16),
                         ),
                       ),
@@ -126,16 +125,12 @@ class _MissionScreenState extends State<MissionScreen> {
                         onPressed: () {
                           missionsCoordinator.takeMission(mission);
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                AppLocalizations.of(context)!.missionTaken,
-                              ),
-                            ),
+                            SnackBar(content: Text(l10n.missionTaken)),
                           );
                         },
                         icon: const Icon(Icons.check),
                         label: Text(
-                          AppLocalizations.of(context)!.takeMission,
+                          l10n.takeMission,
                           style: const TextStyle(fontSize: 18),
                         ),
                         style: ElevatedButton.styleFrom(
@@ -159,30 +154,30 @@ class _MissionScreenState extends State<MissionScreen> {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            ListTile(title: Text(AppLocalizations.of(context)!.selectStatus)),
+            ListTile(title: Text(l10n.selectStatus)),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.chosen),
+              title: Text(l10n.chosen),
               onTap: () {
                 Navigator.of(context).pop();
                 _updateStatus('chosen');
               },
             ),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.pickedUp),
+              title: Text(l10n.pickedUp),
               onTap: () {
                 Navigator.of(context).pop();
                 _updateStatus('picked_up');
               },
             ),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.delivered),
+              title: Text(l10n.delivered),
               onTap: () {
                 Navigator.of(context).pop();
                 _updateStatus('delivered');
               },
             ),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.cancelled),
+              title: Text(l10n.cancelled),
               onTap: () {
                 Navigator.of(context).pop();
                 _updateStatus('cancelled');
@@ -194,19 +189,19 @@ class _MissionScreenState extends State<MissionScreen> {
     );
   }
 
-  // Map internal status codes to Hebrew labels for display
+  // Map internal status codes to localized labels for display
   String _statusLabel(String code) {
     switch (code) {
       case 'chosen':
-        return AppLocalizations.of(context)!.chosen;
+        return l10n.chosen;
       case 'picked_up':
-        return AppLocalizations.of(context)!.pickedUp;
+        return l10n.pickedUp;
       case 'delivered':
-        return AppLocalizations.of(context)!.delivered;
+        return l10n.delivered;
       case 'cancelled':
-        return AppLocalizations.of(context)!.cancelled;
+        return l10n.cancelled;
       case 'available':
-        return AppLocalizations.of(context)!.available;
+        return l10n.available;
       default:
         return code;
     }
