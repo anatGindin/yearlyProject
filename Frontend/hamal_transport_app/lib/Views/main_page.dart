@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hamal_transport_app/ViewModels/my_missions_view_model.dart';
+import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
-import '../Constants/mock_data.dart';
 import 'Widgets/mission_app_bar.dart';
 import 'Widgets/mission_list_view.dart';
 import 'Widgets/mission_fabs.dart';
@@ -32,7 +33,15 @@ class MainPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   // Expanded mission list
-                  Expanded(child: MissionListView(missions: sampleMissions)),
+                  Expanded(
+                    child: Consumer<MyMissionsViewModel>(
+                      builder: (context, myMissionsVM, _) {
+                        return MissionListView(
+                          missions: myMissionsVM.myMissions,
+                        );
+                      },
+                    ),
+                  ),
                   const SizedBox(
                     height: 72,
                   ), // spacing to keep list above buttons

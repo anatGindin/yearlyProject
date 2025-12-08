@@ -14,4 +14,14 @@ class Mission {
     required this.time,
     this.status = 'available',
   });
+
+  /// compare Mission.id
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is Mission && other.id == id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }
