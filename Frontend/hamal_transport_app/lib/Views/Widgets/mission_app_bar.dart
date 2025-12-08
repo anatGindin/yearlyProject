@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hamal_transport_app/Views/new_mission_page.dart';
 import '../../l10n/app_localizations.dart';
 import '../new_mission_page.dart';
 
