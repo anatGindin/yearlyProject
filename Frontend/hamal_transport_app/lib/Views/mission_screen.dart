@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hamal_transport_app/ViewModels/mission_view_model.dart';
+import 'package:hamal_transport_app/ViewModels/missions_coordinator_view_model.dart';
+import 'package:provider/provider.dart';
 import '../Models/mission.dart';
 import '../l10n/app_localizations.dart';
 import '../Constants/mock_data.dart';
@@ -16,147 +19,129 @@ class MissionScreen extends StatefulWidget {
 }
 
 class _MissionScreenState extends State<MissionScreen> {
-  late String _status;
+  late AppLocalizations l10n;
 
   @override
   void initState() {
     super.initState();
-    _status = widget.mission.status;
-  }
-
-  Future<void> _launchWaze(String address) async {
-    final wazeUri = Uri.parse('waze://?q=${Uri.encodeComponent(address)}');
-    if (await canLaunchUrl(wazeUri)) {
-      await launchUrl(wazeUri);
-      return;
-    }
-    final googleUri = Uri.parse(
-      'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(address)}',
-    );
-    if (await canLaunchUrl(googleUri)) {
-      await launchUrl(googleUri);
-      return;
-    }
-    if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(AppLocalizations.of(context)!.cannotLaunchNavigation),
-      ),
-    );
   }
 
   void _updateStatus(String newStatus) {
-    setState(() {
-      _status = newStatus;
-      widget.mission.status = newStatus;
-    });
-    final label = _statusLabel(newStatus);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('${AppLocalizations.of(context)!.statusUpdated}$label'),
-      ),
-    );
-  }
-
-  void _takeMission() {
     final mission = widget.mission;
-    if (availableMissions.contains(mission)) {
-      setState(() {
-        availableMissions.remove(mission);
-        mission.status = 'chosen';
-        sampleMissions.insert(0, mission);
-        _status = mission.status;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)!.missionTaken)),
-      );
-    }
+    final missionCoordinator = context.read<MissionsCoordinatorViewModel>();
+    missionCoordinator.updateStatus(mission, newStatus);
   }
 
   @override
   Widget build(BuildContext context) {
+    l10n = AppLocalizations.of(context)!;
     final mission = widget.mission;
+    final missionsCoordinator = context.read<MissionsCoordinatorViewModel>();
     final contactVM = ContactViewModel(mission.contact);
-
-    return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.mission)),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(
-              mission.location,
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge?.copyWith(fontSize: 24),
-              textAlign: TextAlign.right,
-            ),
-            const SizedBox(height: 12),
-            Text(
-              mission.description,
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(fontSize: 18),
-              textAlign: TextAlign.right,
-            ),
-            const SizedBox(height: 16),
-            ContactCardActionable(vm: ContactViewModel(mission.contact)),
-            Text(
-              '${AppLocalizations.of(context)!.time}${mission.time}',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(fontSize: 16),
-              textAlign: TextAlign.right,
-            ),
-            const SizedBox(height: 12),
-            Text(
-              '${AppLocalizations.of(context)!.mission}: ${_statusLabel(_status)}',
-              style: Theme.of(
-                context,
-              ).textTheme.titleMedium?.copyWith(fontSize: 18),
-              textAlign: TextAlign.right,
-            ),
-            const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton.icon(
-                  onPressed: () => _showStatusOptions(),
-                  icon: const Icon(Icons.update),
-                  label: Text(
-                    AppLocalizations.of(context)!.updateStatus,
-                    style: const TextStyle(fontSize: 16),
+    return ChangeNotifierProvider(
+      create: (context) => MissionViewModel(mission),
+      child: Scaffold(
+        appBar: AppBar(title: Text(l10n.mission)),
+        body: Consumer<MissionViewModel>(
+          builder: (context, missionVM, _) {
+            missionsCoordinator.setMissionVM(missionVM);
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    missionVM.location(),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.titleLarge?.copyWith(fontSize: 24),
+                    textAlign: TextAlign.right,
                   ),
-                ),
-                ElevatedButton.icon(
-                  onPressed: () => _launchWaze(mission.location),
-                  icon: const Icon(Icons.navigation),
-                  label: Text(
-                    AppLocalizations.of(context)!.navigateWaze,
-                    style: const TextStyle(fontSize: 16),
+                  const SizedBox(height: 12),
+                  Text(
+                    missionVM.description(),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyLarge?.copyWith(fontSize: 18),
+                    textAlign: TextAlign.right,
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            // Show Take button when this mission is from the available tasks list
-            if (availableMissions.contains(mission) && _status == 'available')
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                  onPressed: _takeMission,
-                  icon: const Icon(Icons.check),
-                  label: Text(
-                    AppLocalizations.of(context)!.takeMission,
-                    style: const TextStyle(fontSize: 18),
+                  const SizedBox(height: 16),
+                  ContactCardActionable(vm: ContactViewModel(mission.contact)),
+                  const SizedBox(height: 16),
+                  Text(
+                    '${l10n.time}${missionVM.time()}',
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyLarge?.copyWith(fontSize: 16),
+                    textAlign: TextAlign.right,
                   ),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 14),
+                  const SizedBox(height: 12),
+                  Text(
+                    '${l10n.mission}: ${_statusLabel(missionVM.status())}',
+                    style: Theme.of(
+                      context,
+                    ).textTheme.titleMedium?.copyWith(fontSize: 18),
+                    textAlign: TextAlign.right,
                   ),
-                ),
+                  const Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: () => _showStatusOptions(),
+                        icon: const Icon(Icons.update),
+                        label: Text(
+                          l10n.updateStatus,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ),
+                      ElevatedButton.icon(
+                        onPressed: () async {
+                          final success = await missionVM.launchNavigation();
+                          // Guard the context we are about to use
+                          if (!context.mounted) return;
+                          if (!success) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(l10n.cannotLaunchNavigation),
+                              ),
+                            );
+                          }
+                        },
+                        icon: const Icon(Icons.navigation),
+                        label: Text(
+                          l10n.navigateWaze,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  // Show Take button when this mission is available
+                  if (missionsCoordinator.isAvailable(mission))
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          missionsCoordinator.takeMission(mission);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(l10n.missionTaken)),
+                          );
+                        },
+                        icon: const Icon(Icons.check),
+                        label: Text(
+                          l10n.takeMission,
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                        ),
+                      ),
+                    ),
+                ],
               ),
-          ],
+            );
+          },
         ),
       ),
     );
@@ -169,30 +154,30 @@ class _MissionScreenState extends State<MissionScreen> {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            ListTile(title: Text(AppLocalizations.of(context)!.selectStatus)),
+            ListTile(title: Text(l10n.selectStatus)),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.chosen),
+              title: Text(l10n.chosen),
               onTap: () {
                 Navigator.of(context).pop();
                 _updateStatus('chosen');
               },
             ),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.pickedUp),
+              title: Text(l10n.pickedUp),
               onTap: () {
                 Navigator.of(context).pop();
                 _updateStatus('picked_up');
               },
             ),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.delivered),
+              title: Text(l10n.delivered),
               onTap: () {
                 Navigator.of(context).pop();
                 _updateStatus('delivered');
               },
             ),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.cancelled),
+              title: Text(l10n.cancelled),
               onTap: () {
                 Navigator.of(context).pop();
                 _updateStatus('cancelled');
@@ -204,19 +189,19 @@ class _MissionScreenState extends State<MissionScreen> {
     );
   }
 
-  // Map internal status codes to Hebrew labels for display
+  // Map internal status codes to localized labels for display
   String _statusLabel(String code) {
     switch (code) {
       case 'chosen':
-        return AppLocalizations.of(context)!.chosen;
+        return l10n.chosen;
       case 'picked_up':
-        return AppLocalizations.of(context)!.pickedUp;
+        return l10n.pickedUp;
       case 'delivered':
-        return AppLocalizations.of(context)!.delivered;
+        return l10n.delivered;
       case 'cancelled':
-        return AppLocalizations.of(context)!.cancelled;
+        return l10n.cancelled;
       case 'available':
-        return AppLocalizations.of(context)!.available;
+        return l10n.available;
       default:
         return code;
     }
