@@ -38,7 +38,7 @@ class MainPage extends StatelessWidget {
                   ), // spacing to keep list above buttons
                 ],
               ),
-              MissionFABs(onCallDesk: () => _callHamalDesk(context, l10n)),
+              MissionFABs(onCallDesk: () => _callHamalDesk(context)),
             ],
           ),
         ),
@@ -46,7 +46,8 @@ class MainPage extends StatelessWidget {
     );
   }
 
-  void _callHamalDesk(BuildContext context, AppLocalizations l10n) {
+  void _callHamalDesk(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog<void>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
