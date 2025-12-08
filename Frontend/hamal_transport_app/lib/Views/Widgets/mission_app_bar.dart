@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../l10n/app_localizations.dart';
-import '../open_tasks_page.dart';
+import '../new_mission_page.dart';
 
 /// Reusable AppBar widget for mission screens
 class MissionAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -17,7 +17,7 @@ class MissionAppBar extends StatelessWidget implements PreferredSizeWidget {
           tooltip: l10n.openTasks,
           onPressed: () => Navigator.of(
             context,
-          ).push(MaterialPageRoute(builder: (_) => const OpenTasksPage())),
+          ).push(MaterialPageRoute(builder: (_) => const NewMissionPage())),
         ),
       ],
       backgroundColor: Theme.of(context).colorScheme.primary,
