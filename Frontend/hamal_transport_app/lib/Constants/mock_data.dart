@@ -1,5 +1,5 @@
 import '../Models/mission.dart';
-import '../features/Contact_card/model/Contact.dart';
+import '../features/Contact_card/model/contact.dart';
 // mock data for contacts
 
 /// Individual mock missions for reuse
@@ -40,9 +40,9 @@ final Mission mockMissionA2 = Mission(
   location: 'ראשון לציון - העצמאות 21',
   description: 'מסמכים',
   contact: Contact(
-      fullName: 'בובספוג מכנסמרובע',
-      phoneNumber: '+972-50-2222222',
-    ),
+    fullName: 'בובספוג מכנסמרובע',
+    phoneNumber: '+972-50-2222222',
+  ),
   time: DateTime.now().add(const Duration(hours: 5)),
 );
 

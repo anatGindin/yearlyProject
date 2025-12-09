@@ -6,9 +6,9 @@ import '../Models/mission.dart';
 import '../l10n/app_localizations.dart';
 import '../Constants/mock_data.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../features/Contact_card/view/ContactView.dart';
-import '../features/Contact_card/view_model/ContactViewModel.dart';
-import '../features/Contact_card/model/Contact.dart';
+import '../features/Contact_card/view/contact_view.dart';
+import '../features/Contact_card/view_model/contact_vm.dart';
+import '../features/Contact_card/model/contact.dart';
 
 class MissionScreen extends StatefulWidget {
   final Mission mission;

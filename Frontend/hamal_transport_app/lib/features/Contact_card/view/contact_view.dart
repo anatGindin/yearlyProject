@@ -1,4 +1,4 @@
-import '../view_model/ContactViewModel.dart';
+import '../view_model/contact_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -6,16 +6,19 @@ class ContactCard extends StatelessWidget {
   final ContactViewModel vm;
 
   const ContactCard({super.key, required this.vm});
-  
-    @override
-  Widget build(BuildContext context) {
 
+  @override
+  Widget build(BuildContext context) {
     return Card(
-        child: ListTile(
-          title: Text(vm.name, textAlign: TextAlign.center),
-          subtitle: Text(vm.phone, textAlign: TextAlign.center, textDirection: TextDirection.ltr,),
+      child: ListTile(
+        title: Text(vm.name, textAlign: TextAlign.center),
+        subtitle: Text(
+          vm.phone,
+          textAlign: TextAlign.center,
+          textDirection: TextDirection.ltr,
         ),
-      );
+      ),
+    );
   }
 }
 

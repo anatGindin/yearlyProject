@@ -1,4 +1,4 @@
-import '../features/Contact_card/model/Contact.dart';
+import '../features/Contact_card/model/contact.dart';
 
 class Mission {
   final String id;

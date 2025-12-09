@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../Models/mission.dart';
-import '../features/Contact_card/model/Contact.dart';
+import '../features/Contact_card/model/contact.dart';
 
 class MissionViewModel extends ChangeNotifier {
   Mission mission;
