@@ -15,11 +15,12 @@ import 'package:flutter/material.dart';
 /// MaterialApp(
 ///   theme: AppTheme.light,
 ///   darkTheme: AppTheme.dark,
+///   themeMode: ThemeMode.system,
 /// );
 abstract final class AppTheme {
   // The FlexColorScheme defined light mode ThemeData.
   static ThemeData light = FlexThemeData.light(
-    // Using FlexColorScheme built-in FlexScheme enum based colors
+    // Using FlexColorScheme built-in FlexScheme enum based colors.
     scheme: FlexScheme.blue,
     // Input color modifiers.
     swapLegacyOnMaterial3: true,
@@ -28,6 +29,7 @@ abstract final class AppTheme {
     subThemesData: const FlexSubThemesData(
       interactionEffects: true,
       tintedDisabledControls: true,
+      blendOnColors: true,
       useM2StyleDividerInM3: true,
       inputDecoratorIsFilled: true,
       inputDecoratorBorderType: FlexInputBorderType.outline,
@@ -45,6 +47,7 @@ abstract final class AppTheme {
     scheme: FlexScheme.blue,
     // Input color modifiers.
     swapLegacyOnMaterial3: true,
+    swapColors: true,
     // Component theme configurations for dark mode.
     subThemesData: const FlexSubThemesData(
       interactionEffects: true,
