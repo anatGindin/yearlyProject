@@ -4,11 +4,8 @@ import 'package:hamal_transport_app/ViewModels/missions_coordinator_view_model.d
 import 'package:provider/provider.dart';
 import '../Models/mission.dart';
 import '../l10n/app_localizations.dart';
-import '../Constants/mock_data.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../features/Contact_card/view/contact_view.dart';
 import '../features/Contact_card/view_model/contact_vm.dart';
-import '../features/Contact_card/model/contact.dart';
 
 class MissionScreen extends StatefulWidget {
   final Mission mission;
@@ -66,7 +63,7 @@ class _MissionScreenState extends State<MissionScreen> {
                     textAlign: TextAlign.right,
                   ),
                   const SizedBox(height: 16),
-                  ContactCardActionable(vm: ContactViewModel(mission.contact)),
+                  ContactCardActionable(vm: contactVM),
                   const SizedBox(height: 16),
                   Text(
                     '${l10n.time}${missionVM.time()}',
