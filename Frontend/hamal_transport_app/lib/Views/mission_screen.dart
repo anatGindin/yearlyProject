@@ -209,6 +209,7 @@ class _MissionScreenState extends State<MissionScreen> {
               onPressed: () {
                 Navigator.of(dialogContext).pop();
                 // TODO: Save cancellation reason (cancellationReason)
+                cancellationReason;
                 _updateStatus('cancelled');
                 // Navigate back to main page after cancellation
                 Navigator.of(context).pop();

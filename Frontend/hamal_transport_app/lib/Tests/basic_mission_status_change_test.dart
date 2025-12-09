@@ -97,7 +97,7 @@ void main() {
       // Verify initial state
       expect(availableVM.availableMissions.length, initialAvailableLength);
       expect(myVM.myMissions.length, initialMyLength);
-      expect(testMission.status, 'available');
+      expect(testMission.status, 'chosen');
 
       // Perform action
       coordinator.abandonMission(testMission);
@@ -107,7 +107,83 @@ void main() {
       expect(myVM.myMissions.length, initialMyLength - 1);
       expect(availableVM.availableMissions.last, testMission);
 
+      // Note: abandonMission doesn't update status, only moves between lists
+      // Status remains 'chosen' - use updateStatus('cancelled') to also change status
+      expect(testMission.status, 'chosen');
+    });
+  });
+
+  group('MissionsCoordinatorViewModel - updateStatus', () {
+    late MissionsListsModel missionsLists;
+    late AvailableMissionsViewModel availableVM;
+    late MyMissionsViewModel myVM;
+    late MissionViewModel missionVM;
+    late MissionsCoordinatorViewModel coordinator;
+
+    late Mission testMission;
+
+    setUp(() {
+      // create data model
+      missionsLists = MissionsListsModel(
+        myMissionsList: sampleMissions,
+        availableMissionsList: availableMissions,
+      );
+
+      // Create ViewModels with initial state
+      availableVM = AvailableMissionsViewModel(missionsLists);
+      myVM = MyMissionsViewModel(missionsLists);
+      missionVM = MissionViewModel(sampleMissions[0]);
+
+      // Coordinator under test
+      coordinator = MissionsCoordinatorViewModel(
+        myMissionsVM: myVM,
+        availableMissionsVM: availableVM,
+      );
+    });
+
+    test('updateStatus to delivered removes mission from my missions', () {
+      coordinator.setMissionVM(missionVM);
+      testMission = sampleMissions[0];
+      int initialMyLength = sampleMissions.length;
+
+      // Verify initial state
+      expect(myVM.myMissions.length, initialMyLength);
+      expect(testMission.status, 'chosen');
+      expect(myVM.myMissions.contains(testMission), true);
+
+      // Perform action
+      coordinator.updateStatus(testMission, 'delivered');
+
+      // Verify mission removed from my missions
+      expect(myVM.myMissions.length, initialMyLength - 1);
+      expect(myVM.myMissions.contains(testMission), false);
+
       // Verify status updated
+      expect(testMission.status, 'delivered');
+    });
+
+    test('updateStatus to cancelled returns mission to available', () {
+      coordinator.setMissionVM(missionVM);
+      testMission = sampleMissions[0];
+      int initialAvailableLength = availableMissions.length;
+      int initialMyLength = sampleMissions.length;
+
+      // Verify initial state
+      expect(availableVM.availableMissions.length, initialAvailableLength);
+      expect(myVM.myMissions.length, initialMyLength);
+      expect(testMission.status, 'chosen');
+      expect(myVM.myMissions.contains(testMission), true);
+
+      // Perform action
+      coordinator.updateStatus(testMission, 'cancelled');
+
+      // Verify mission moved back to available
+      expect(availableVM.availableMissions.length, initialAvailableLength + 1);
+      expect(myVM.myMissions.length, initialMyLength - 1);
+      expect(availableVM.availableMissions.contains(testMission), true);
+      expect(myVM.myMissions.contains(testMission), false);
+
+      // Verify status updated to available (not cancelled)
       expect(testMission.status, 'available');
     });
   });
