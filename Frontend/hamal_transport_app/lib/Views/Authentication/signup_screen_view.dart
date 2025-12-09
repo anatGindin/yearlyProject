@@ -135,7 +135,7 @@ class _SignupContentState extends State<_SignupContent> {
           padding: const EdgeInsets.only(
             left: 24,
             right: 24,
-            bottom: 16,
+            bottom: 20,
             top: 180,
           ),
           child: Form(

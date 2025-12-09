@@ -151,13 +151,13 @@ class _LoginContentState extends State<_LoginContent> {
                         FilledButton(
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
+                              final navigator = Navigator.of(context);
                               final userProfile = await viewModel.login(
                                 _emailController.text,
                                 _passwordController.text,
                               );
                               if (userProfile != null && mounted) {
-                                Navigator.pushReplacement(
-                                  context,
+                                navigator.pushReplacement(
                                   PageRouteBuilder(
                                     pageBuilder:
                                         (

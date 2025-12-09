@@ -2,7 +2,7 @@ import 'package:hamal_transport_app/Services/authentication_service.dart';
 import 'package:hamal_transport_app/Models/user_profile.dart';
 import 'package:mockito/mockito.dart';
 
-class FakeAuthenticationService extends Fake implements AuthenticationService {
+class FakeAuthenticationService extends Mock implements AuthenticationService {
   bool signUpCalled = false;
   bool signInCalled = false;
   String? lastEmail;
