@@ -136,7 +136,7 @@ class _SignupContentState extends State<_SignupContent> {
             left: 24,
             right: 24,
             bottom: 16,
-            top: 180, // Push content below the wave height (250 - safety)
+            top: 180,
           ),
           child: Form(
             key: _formKey,
@@ -144,8 +144,6 @@ class _SignupContentState extends State<_SignupContent> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // No header here, it's in the wave
-
                 // Name Field
                 _CustomTextField(
                   controller: _nameController,
