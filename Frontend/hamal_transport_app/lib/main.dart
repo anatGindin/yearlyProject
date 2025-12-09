@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'l10n/app_localizations.dart';
 import 'Views/main_page.dart';
-import 'theme/app_theme.dart';
+import 'Theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.system,
       // Use MediaQuery builder to scale all text globally (avoids TextStyle.apply assertion)
       builder: (BuildContext context, Widget? child) {
         final mq = MediaQuery.of(context);
