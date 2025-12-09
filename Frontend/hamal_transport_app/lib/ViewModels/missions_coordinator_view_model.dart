@@ -34,6 +34,8 @@ class MissionsCoordinatorViewModel {
     if (newStatus == 'cancelled') {
       abandonMission(mission);
       newStatus = 'available';
+    } else if (newStatus == 'delivered') {
+      myMissionsVM.remove(mission);
     }
     missionVM.updateStatus(newStatus);
   }

@@ -17,6 +17,19 @@ class Mission {
     this.status = 'available',
   });
 
+  // Named constructor example
+  Mission.chosen({
+    required this.id,
+    required this.location,
+    required this.description,
+    required this.contact,
+    required this.time,
+  }) : status = 'chosen';
+
+  void updateStatus(String newStatus) {
+    status = newStatus;
+  }
+
   /// compare Mission.id
   @override
   bool operator ==(Object other) {
