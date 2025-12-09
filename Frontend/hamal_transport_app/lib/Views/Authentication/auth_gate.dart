@@ -27,11 +27,9 @@ class _AuthGateState extends State<AuthGate> {
     }
 
     // User is logged in, fetch their profile and route based on role
-    final userProfile = _authService.currentUserProfile;
-    if (userProfile == null) {
-      return const LoginScreenView();
-    }
-
+    final userProfile = await _authService.getUserProfile(
+      _authService.currentUser!,
+    );
     return getDestinationForRole(userProfile.role);
   }
 

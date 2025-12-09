@@ -18,9 +18,6 @@ class FakeAuthenticationService extends Mock implements AuthenticationService {
   UserProfile? mockUserProfile;
 
   @override
-  UserProfile? currentUserProfile;
-
-  @override
   Future<UserProfile> signIn({
     required String email,
     required String password,
@@ -46,7 +43,6 @@ class FakeAuthenticationService extends Mock implements AuthenticationService {
           phone: '1234567890',
           role: UserRole.driver,
         );
-    currentUserProfile = profile;
     return profile;
   }
 
@@ -79,17 +75,16 @@ class FakeAuthenticationService extends Mock implements AuthenticationService {
       phone: phone,
       role: role,
     );
-    currentUserProfile = profile;
     return profile;
   }
 
   @override
   Future<bool> shouldAutoLogin() async {
-    return currentUserProfile != null;
+    return mockUserProfile != null;
   }
 
   @override
   Future<void> signOut() async {
-    currentUserProfile = null;
+    mockUserProfile = null;
   }
 }
