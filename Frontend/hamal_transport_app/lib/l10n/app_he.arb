@@ -191,5 +191,33 @@
   "rememberMe": "זכור אותי",
   "@rememberMe": {
     "description": "תווית לתיבת סימון זכור אותי"
+  },
+  "selectRole": "בחר תפקיד",
+  "@selectRole": {
+    "description": "תווית לבחירת תפקיד"
+  },
+  "driver": "נהג",
+  "@driver": {
+    "description": "אפשרות תפקיד נהג"
+  },
+  "logistics": "צוות לוגיסטיקה",
+  "@logistics": {
+    "description": "אפשרות תפקיד צוות לוגיסטיקה"
+  },
+  "roleRequired": "יש לבחור תפקיד",
+  "@roleRequired": {
+    "description": "שגיאת אימות כשלא נבחר תפקיד"
+  },
+  "underConstruction": "בבנייה",
+  "@underConstruction": {
+    "description": "כותרת לדף בבנייה"
+  },
+  "underConstructionMessage": "עמוד זה נמצא בפיתוח!",
+  "@underConstructionMessage": {
+    "description": "הודעה בדף בבנייה"
+  },
+  "logout": "התנתק",
+  "@logout": {
+    "description": "כפתור התנתקות"
   }
 }

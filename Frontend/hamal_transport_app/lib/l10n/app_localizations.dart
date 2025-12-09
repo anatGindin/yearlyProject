@@ -385,6 +385,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Remember me'**
   String get rememberMe;
+
+  /// Label for role selection dropdown
+  ///
+  /// In en, this message translates to:
+  /// **'Select your role'**
+  String get selectRole;
+
+  /// Driver role option
+  ///
+  /// In en, this message translates to:
+  /// **'Driver'**
+  String get driver;
+
+  /// Logistics team role option
+  ///
+  /// In en, this message translates to:
+  /// **'Logistics Team'**
+  String get logistics;
+
+  /// Validation error when role is not selected
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a role'**
+  String get roleRequired;
+
+  /// Title for under construction page
+  ///
+  /// In en, this message translates to:
+  /// **'Under Construction'**
+  String get underConstruction;
+
+  /// Message on under construction page
+  ///
+  /// In en, this message translates to:
+  /// **'This feature is coming soon!'**
+  String get underConstructionMessage;
+
+  /// Logout button text
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
 }
 
 class _AppLocalizationsDelegate

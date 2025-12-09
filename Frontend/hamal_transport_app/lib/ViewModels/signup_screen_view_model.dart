@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import '../Services/authentication_service.dart';
+import '../Models/user_profile.dart';
 
 class SignupScreenViewModel extends ChangeNotifier {
   final AuthenticationService _authService;
@@ -41,14 +42,20 @@ class SignupScreenViewModel extends ChangeNotifier {
     required String password,
     required String name,
     required String phone,
+    required UserRole role,
   }) async {
     _isLoading = true;
     _error = null;
     notifyListeners();
 
     try {
-      await _authService.signUp(email: email, password: password);
-      // NOTE: In a real app we would update the user profile with name/phone here
+      await _authService.signUp(
+        email: email,
+        password: password,
+        name: name,
+        phone: phone,
+        role: role,
+      );
 
       _isLoading = false;
       notifyListeners();

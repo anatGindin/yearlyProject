@@ -152,4 +152,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rememberMe => 'Remember me';
+
+  @override
+  String get selectRole => 'Select your role';
+
+  @override
+  String get driver => 'Driver';
+
+  @override
+  String get logistics => 'Logistics Team';
+
+  @override
+  String get roleRequired => 'Please select a role';
+
+  @override
+  String get underConstruction => 'Under Construction';
+
+  @override
+  String get underConstructionMessage => 'This feature is coming soon!';
+
+  @override
+  String get logout => 'Logout';
 }

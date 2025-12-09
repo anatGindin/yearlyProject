@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import '../Services/authentication_service.dart';
+import '../Models/user_profile.dart';
 
 class LoginScreenViewModel extends ChangeNotifier {
   final AuthenticationService _authService;
@@ -34,25 +35,25 @@ class LoginScreenViewModel extends ChangeNotifier {
   String? get errorMessage =>
       null; // Deprecated, kept for safety if needed, or remove? I will remove it to force View update.
 
-  Future<bool> login(String email, String password) async {
+  Future<UserProfile?> login(String email, String password) async {
     _isLoading = true;
     _error = null;
     notifyListeners();
 
     try {
-      await _authService.signIn(
+      final userProfile = await _authService.signIn(
         email: email,
         password: password,
         rememberMe: _rememberMe,
       );
       _isLoading = false;
       notifyListeners();
-      return true;
+      return userProfile;
     } on AuthenticationError catch (e) {
       _error = e;
       _isLoading = false;
       notifyListeners();
-      return false;
+      return null;
     }
   }
 }

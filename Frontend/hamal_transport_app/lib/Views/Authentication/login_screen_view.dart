@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hamal_transport_app/Views/main_page.dart';
 import 'package:provider/provider.dart';
 import '../../l10n/app_localizations.dart';
 import '../../ViewModels/login_screen_view_model.dart';
 import '../../Services/authentication_service.dart';
+import '../role_based_routing.dart';
 import 'signup_screen_view.dart';
-import '../Widgets/wave_background.dart';
+import '../Widgets/stage_header_background.dart';
 
 class LoginScreenView extends StatelessWidget {
   const LoginScreenView({super.key});
@@ -62,6 +62,8 @@ class _LoginContentState extends State<_LoginContent> {
             message = l10n.signupError;
           case AuthenticationError.unknown:
             message = l10n.genericError;
+          default:
+            message = l10n.genericError;
         }
 
         ScaffoldMessenger.of(context).showSnackBar(
@@ -70,7 +72,7 @@ class _LoginContentState extends State<_LoginContent> {
       }
     });
 
-    return WaveBackground(
+    return StageHeaderBackground(
       height: 320,
       title: Image.asset('Resources/Images/logo2.png', height: 180),
       child: SafeArea(
@@ -149,11 +151,11 @@ class _LoginContentState extends State<_LoginContent> {
                         FilledButton(
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              final success = await viewModel.login(
+                              final userProfile = await viewModel.login(
                                 _emailController.text,
                                 _passwordController.text,
                               );
-                              if (success) {
+                              if (userProfile != null && mounted) {
                                 Navigator.pushReplacement(
                                   context,
                                   PageRouteBuilder(
@@ -162,7 +164,9 @@ class _LoginContentState extends State<_LoginContent> {
                                           context,
                                           animation,
                                           secondaryAnimation,
-                                        ) => const MainPage(),
+                                        ) => getDestinationForRole(
+                                          userProfile.role,
+                                        ),
                                     transitionDuration: Duration.zero,
                                   ),
                                 );

@@ -152,4 +152,25 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get rememberMe => 'זכור אותי';
+
+  @override
+  String get selectRole => 'בחר תפקיד';
+
+  @override
+  String get driver => 'נהג';
+
+  @override
+  String get logistics => 'צוות לוגיסטיקה';
+
+  @override
+  String get roleRequired => 'יש לבחור תפקיד';
+
+  @override
+  String get underConstruction => 'בבנייה';
+
+  @override
+  String get underConstructionMessage => 'עמוד זה נמצא בפיתוח!';
+
+  @override
+  String get logout => 'התנתק';
 }

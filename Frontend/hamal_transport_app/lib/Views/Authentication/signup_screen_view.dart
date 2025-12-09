@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:hamal_transport_app/Views/Widgets/wave_background.dart';
+import 'package:hamal_transport_app/Views/Widgets/stage_header_background.dart';
 import '../../ViewModels/signup_screen_view_model.dart';
 import '../../l10n/app_localizations.dart';
 import '../../Services/authentication_service.dart';
+import '../../Models/user_profile.dart';
 
 class SignupScreenView extends StatelessWidget {
   const SignupScreenView({super.key});
@@ -37,6 +38,8 @@ class _SignupContentState extends State<_SignupContent> {
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
 
+  UserRole? _selectedRole = UserRole.driver;
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -57,6 +60,7 @@ class _SignupContentState extends State<_SignupContent> {
         password: _passwordController.text,
         name: _nameController.text,
         phone: _phoneController.text,
+        role: _selectedRole!,
       );
       if (success && mounted) {
         await showDialog<void>(
@@ -114,8 +118,8 @@ class _SignupContentState extends State<_SignupContent> {
       }
     });
 
-    return WaveBackground(
-      height: 200,
+    return StageHeaderBackground(
+      height: 160,
       title: Text(
         l10n.signup,
         style: const TextStyle(
@@ -128,7 +132,6 @@ class _SignupContentState extends State<_SignupContent> {
       child: Align(
         alignment: Alignment.topCenter,
         child: SingleChildScrollView(
-          physics: const NeverScrollableScrollPhysics(),
           padding: const EdgeInsets.only(
             left: 24,
             right: 24,
@@ -161,6 +164,33 @@ class _SignupContentState extends State<_SignupContent> {
                   validator: (value) => (value == null || value.isEmpty)
                       ? l10n.requiredField
                       : null,
+                ),
+                const SizedBox(height: 16),
+
+                // Role Dropdown
+                DropdownButtonFormField<UserRole>(
+                  initialValue: _selectedRole,
+                  decoration: InputDecoration(
+                    labelText: l10n.selectRole,
+                    border: const UnderlineInputBorder(),
+                  ),
+                  items: [
+                    DropdownMenuItem(
+                      value: UserRole.driver,
+                      child: Text(l10n.driver),
+                    ),
+                    DropdownMenuItem(
+                      value: UserRole.logistics,
+                      child: Text(l10n.logistics),
+                    ),
+                  ],
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedRole = value;
+                    });
+                  },
+                  validator: (value) =>
+                      value == null ? l10n.roleRequired : null,
                 ),
                 const SizedBox(height: 16),
 

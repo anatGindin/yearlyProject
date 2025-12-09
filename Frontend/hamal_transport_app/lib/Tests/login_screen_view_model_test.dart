@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hamal_transport_app/ViewModels/login_screen_view_model.dart';
 import 'package:hamal_transport_app/Services/Fake/fake_authentication_service.dart';
+import 'package:hamal_transport_app/Services/authentication_service.dart';
 
 void main() {
   late LoginScreenViewModel viewModel;
@@ -26,31 +27,31 @@ void main() {
   });
 
   test('login success', () async {
-    final success = await viewModel.login('test@test.com', 'password');
-    expect(success, true);
+    final userProfile = await viewModel.login('test@test.com', 'password');
+    expect(userProfile, isNotNull);
     expect(viewModel.error, null);
     expect(viewModel.isLoading, false);
   });
 
   test('login failure with specific error', () async {
     mockAuthService.shouldThrow = true;
-    mockAuthService.errorToThrow = FakeAuthenticationError.wrongPassword;
+    mockAuthService.errorToThrow = AuthenticationError.wrongPassword;
 
-    final success = await viewModel.login('test@test.com', 'password');
+    final userProfile = await viewModel.login('test@test.com', 'password');
 
-    expect(success, false);
-    expect(viewModel.error, FakeAuthenticationError.wrongPassword);
+    expect(userProfile, isNull);
+    expect(viewModel.error, AuthenticationError.wrongPassword);
     expect(viewModel.isLoading, false);
   });
 
   test('login failure with known error', () async {
     mockAuthService.shouldThrow = true;
-    mockAuthService.errorToThrow = FakeAuthenticationError.emailInvalid;
+    mockAuthService.errorToThrow = AuthenticationError.emailInvalid;
 
-    final success = await viewModel.login('test@test.com', 'password');
+    final userProfile = await viewModel.login('test@test.com', 'password');
 
-    expect(success, false);
-    expect(viewModel.error, FakeAuthenticationError.emailInvalid);
+    expect(userProfile, isNull);
+    expect(viewModel.error, AuthenticationError.emailInvalid);
     expect(viewModel.isLoading, false);
   });
 }

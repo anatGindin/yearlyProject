@@ -1,6 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hamal_transport_app/ViewModels/signup_screen_view_model.dart';
 import 'package:hamal_transport_app/Services/Fake/fake_authentication_service.dart';
+import 'package:hamal_transport_app/Services/authentication_service.dart';
+import 'package:hamal_transport_app/Models/user_profile.dart';
 
 void main() {
   late SignupScreenViewModel viewModel;
@@ -35,6 +37,7 @@ void main() {
         password: 'Pass123',
         name: 'Test User',
         phone: '1234567890',
+        role: UserRole.driver,
       );
 
       expect(success, true);
@@ -42,21 +45,25 @@ void main() {
       expect(fakeAuthService.signUpCalled, true);
       expect(fakeAuthService.lastEmail, 'test@test.com');
       expect(fakeAuthService.lastPassword, 'Pass123');
+      expect(fakeAuthService.lastName, 'Test User');
+      expect(fakeAuthService.lastPhone, '1234567890');
+      expect(fakeAuthService.lastRole, UserRole.driver);
     });
 
     test('Signup Failure sets error', () async {
       fakeAuthService.shouldThrow = true;
-      fakeAuthService.errorToThrow = FakeAuthenticationError.emailAlreadyInUse;
+      fakeAuthService.errorToThrow = AuthenticationError.emailAlreadyInUse;
 
       final success = await viewModel.signup(
         email: 'test@test.com',
         password: 'Pass123',
         name: 'Test User',
         phone: '1234567890',
+        role: UserRole.logistics,
       );
 
       expect(success, false);
-      expect(viewModel.error, FakeAuthenticationError.emailAlreadyInUse);
+      expect(viewModel.error, AuthenticationError.emailAlreadyInUse);
       expect(fakeAuthService.signUpCalled, false);
     });
   });

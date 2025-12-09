@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:hamal_transport_app/Models/user_profile.dart';
 
 const String _kRememberMeKey = 'remember_me';
 
@@ -17,7 +19,11 @@ class AuthenticationService {
   // Current session information
   final _authProvider = FirebaseAuth.instance;
   User? get currentUser => _authProvider.currentUser;
+  UserProfile? currentUserProfile;
   Stream<User?> get authStateChanges => _authProvider.authStateChanges();
+
+  // Database
+  final DatabaseReference usersRef = FirebaseDatabase.instance.ref('users');
 
   // Persistance
   Future<void> setRememberMe(bool value) async {
@@ -48,9 +54,12 @@ class AuthenticationService {
   }
 
   // Intentions
-  Future<UserCredential> signUp({
+  Future<UserProfile> signUp({
     required String email,
     required String password,
+    required String name,
+    required String phone,
+    required UserRole role,
   }) async {
     if (!AuthenticationService.validatePassword(password)) {
       throw AuthenticationError.passwordInvalid;
@@ -59,10 +68,11 @@ class AuthenticationService {
       throw AuthenticationError.emailInvalid;
     }
     try {
-      return await _authProvider.createUserWithEmailAndPassword(
+      await _authProvider.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      return _postUserProfile(_authProvider.currentUser!, name, phone, role);
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'invalid-email':
@@ -74,21 +84,23 @@ class AuthenticationService {
         default:
           throw AuthenticationError.unknown;
       }
+    } on Exception catch (_) {
+      throw AuthenticationError.unknown;
     }
   }
 
-  Future<UserCredential> signIn({
+  Future<UserProfile> signIn({
     required String email,
     required String password,
     bool rememberMe = false,
   }) async {
     try {
-      final credential = await _authProvider.signInWithEmailAndPassword(
+      await _authProvider.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
       await setRememberMe(rememberMe);
-      return credential;
+      return _getUserProfile(_authProvider.currentUser!);
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'invalid-email':
@@ -108,6 +120,42 @@ class AuthenticationService {
   Future<void> signOut() async {
     await setRememberMe(false); // Clear remember me on explicit sign out
     await _authProvider.signOut();
+  }
+
+  Future<UserProfile> _postUserProfile(
+    User user,
+    String name,
+    String phone,
+    UserRole role,
+  ) async {
+    try {
+      final userProfile = UserProfile(
+        uid: user.uid,
+        email: user.email!,
+        name: name,
+        phone: phone,
+        role: role,
+      );
+      await usersRef.child(user.uid).set(userProfile.userProfileToDictionary());
+      currentUserProfile = userProfile;
+      return userProfile;
+    } catch (e) {
+      throw AuthenticationError.databaseError;
+    }
+  }
+
+  Future<UserProfile> _getUserProfile(User user) async {
+    try {
+      final snapshot = await usersRef.child(user.uid).get();
+      if (snapshot.value != null) {
+        final data = Map<String, dynamic>.from(snapshot.value as Map);
+        currentUserProfile = UserProfile.fromDictionary(data);
+        return currentUserProfile!;
+      }
+      throw AuthenticationError.databaseError;
+    } catch (e) {
+      throw AuthenticationError.databaseError;
+    }
   }
 
   // Static util methods for UI validation
@@ -142,4 +190,5 @@ enum AuthenticationError {
   networkRequestFailed,
   wrongPassword,
   unknown,
+  databaseError,
 }

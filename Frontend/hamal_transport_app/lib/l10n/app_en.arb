@@ -191,5 +191,33 @@
   "rememberMe": "Remember me",
   "@rememberMe": {
     "description": "Label for remember me checkbox"
+  },
+  "selectRole": "Select your role",
+  "@selectRole": {
+    "description": "Label for role selection dropdown"
+  },
+  "driver": "Driver",
+  "@driver": {
+    "description": "Driver role option"
+  },
+  "logistics": "Logistics Team",
+  "@logistics": {
+    "description": "Logistics team role option"
+  },
+  "roleRequired": "Please select a role",
+  "@roleRequired": {
+    "description": "Validation error when role is not selected"
+  },
+  "underConstruction": "Under Construction",
+  "@underConstruction": {
+    "description": "Title for under construction page"
+  },
+  "underConstructionMessage": "This feature is coming soon!",
+  "@underConstructionMessage": {
+    "description": "Message on under construction page"
+  },
+  "logout": "Logout",
+  "@logout": {
+    "description": "Logout button text"
   }
 }

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "646186446544",
+    "firebase_url": "https://hamal-transportation-app-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "hamal-transportation-app",
     "storage_bucket": "hamal-transportation-app.firebasestorage.app"
   },
