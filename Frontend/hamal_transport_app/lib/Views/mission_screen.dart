@@ -4,6 +4,8 @@ import 'package:hamal_transport_app/ViewModels/missions_coordinator_view_model.d
 import 'package:provider/provider.dart';
 import '../Models/mission.dart';
 import '../l10n/app_localizations.dart';
+import '../features/Contact_card/view/contact_view.dart';
+import '../features/Contact_card/view_model/contact_vm.dart';
 
 class MissionScreen extends StatefulWidget {
   final Mission mission;
@@ -32,6 +34,7 @@ class _MissionScreenState extends State<MissionScreen> {
     l10n = AppLocalizations.of(context)!;
     final mission = widget.mission;
     final missionsCoordinator = context.read<MissionsCoordinatorViewModel>();
+    final contactVM = ContactViewModel(mission.contact);
     return ChangeNotifierProvider(
       create: (context) => MissionViewModel(mission),
       child: Scaffold(
@@ -60,13 +63,7 @@ class _MissionScreenState extends State<MissionScreen> {
                     textAlign: TextAlign.right,
                   ),
                   const SizedBox(height: 16),
-                  Text(
-                    '${l10n.contact}${missionVM.contact()}',
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyLarge?.copyWith(fontSize: 18),
-                    textAlign: TextAlign.right,
-                  ),
+                  ContactCardActionable(vm: contactVM),
                   const SizedBox(height: 16),
                   Text(
                     '${l10n.time}${missionVM.time()}',
