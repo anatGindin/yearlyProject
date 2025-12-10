@@ -7,9 +7,13 @@ import 'package:hamal_transport_app/ViewModels/missions_coordinator_view_model.d
 import 'package:hamal_transport_app/ViewModels/my_missions_view_model.dart';
 import 'package:provider/provider.dart';
 import 'l10n/app_localizations.dart';
-import 'Views/main_page.dart';
+import 'Views/Authentication/auth_gate.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:hamal_transport_app/firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -64,7 +68,7 @@ class MyApp extends StatelessWidget {
             child: child ?? const SizedBox.shrink(),
           );
         },
-        home: const MainPage(),
+        home: const AuthGate(),
       ),
     );
   }
