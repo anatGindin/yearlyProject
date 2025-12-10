@@ -1,8 +1,10 @@
+import '../features/Contact_card/model/contact.dart';
+
 class Mission {
   final String id;
   final String location;
   final String description;
-  final String contact;
+  final Contact contact;
   final DateTime time;
   String status; // mutable so UI can update delivery status
 

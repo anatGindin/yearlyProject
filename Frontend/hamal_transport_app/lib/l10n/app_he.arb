@@ -99,5 +99,125 @@
   "cannotLaunchNavigation": "לא ניתן לפתוח אפליקציית הניווט",
   "@cannotLaunchNavigation": {
     "description": "הודעת שגיאה כשלא ניתן לפתוח אפליקציה"
+  },
+  "login": "התחברות",
+  "@login": {
+    "description": "כפתור התחברות"
+  },
+  "signup": "הרשמה",
+  "@signup": {
+    "description": "כפתור הרשמה"
+  },
+  "email": "אימייל",
+  "@email": {
+    "description": "תווית שדה אימייל"
+  },
+  "password": "סיסמה",
+  "@password": {
+    "description": "תווית שדה סיסמה"
+  },
+  "forgotPassword": "שכחתי סיסמה",
+  "@forgotPassword": {
+    "description": "כפתור שכחתי סיסמה"
+  },
+  "resetPassword": "אפס סיסמה",
+  "@resetPassword": {
+    "description": "כותרת דיאלוג איפוס סיסמה"
+  },
+  "loginError": "התחברות נכשלה",
+  "@loginError": {
+    "description": "שגיאת התחברות כללית"
+  },
+  "signupError": "הרשמה נכשלה",
+  "@signupError": {
+    "description": "שגיאת הרשמה כללית"
+  },
+  "dontHaveAccount": "אין לך חשבון?",
+  "@dontHaveAccount": {
+    "description": "טקסט המציע למשתמש להירשם"
+  },
+  "alreadyHaveAccount": "יש לך כבר חשבון?",
+  "@alreadyHaveAccount": {
+    "description": "טקסט המציע למשתמש להתחבר"
+  },
+  "name": "שם מלא",
+  "@name": {
+    "description": "תווית שדה שם מלא"
+  },
+  "phone": "מספר טלפון",
+  "@phone": {
+    "description": "תווית שדה טלפון"
+  },
+  "confirmPassword": "אימות סיסמה",
+  "@confirmPassword": {
+    "description": "תווית שדה אימות סיסמה"
+  },
+  "passwordMismatch": "הסיסמאות אינן תואמות",
+  "@passwordMismatch": {
+    "description": "שגיאה כשהסיסמאות לא תואמות"
+  },
+  "passwordRules": "הסיסמה חייבת להכיל לפחות 6 תווים, אות גדולה, אות קטנה ומספר.",
+  "@passwordRules": {
+    "description": "טקסט עזרה לחוקי הסיסמה"
+  },
+  "signupSuccess": "ההרשמה הצליחה! אנא התחבר.",
+  "@signupSuccess": {
+    "description": "הודעה המוצגת כאשר ההרשמה הצליחה"
+  },
+  "requiredField": "שדה זה חובה",
+  "@requiredField": {
+    "description": "הודעה שגיאה לשדות חובה ריקים"
+  },
+  "invalidEmail": "כתובת האימייל אינה תקינה.",
+  "@invalidEmail": {
+    "description": "שגיאה על פורמט אימייל שגוי"
+  },
+  "userNotFound": "לא נמצא משתמש עם האימייל הזה.",
+  "@userNotFound": {
+    "description": "שגיאה כשלא קיים משתמש"
+  },
+  "wrongPassword": "הסיסמה שגויה.",
+  "@wrongPassword": {
+    "description": "שגיאה על סיסמה לא נכונה"
+  },
+  "genericError": "משהו השתבש.",
+  "@genericError": {
+    "description": "שגיאה כללית"
+  },
+  "emailAlreadyInUse": "כתובת האימייל הזו כבר בשימוש.",
+  "@emailAlreadyInUse": {
+    "description": "שגיאה כשכתובת אימייל כבר בשימוש"
+  },
+  "rememberMe": "זכור אותי",
+  "@rememberMe": {
+    "description": "תווית לתיבת סימון זכור אותי"
+  },
+  "selectRole": "בחר תפקיד",
+  "@selectRole": {
+    "description": "תווית לבחירת תפקיד"
+  },
+  "driver": "נהג",
+  "@driver": {
+    "description": "אפשרות תפקיד נהג"
+  },
+  "logistics": "צוות לוגיסטיקה",
+  "@logistics": {
+    "description": "אפשרות תפקיד צוות לוגיסטיקה"
+  },
+  "roleRequired": "יש לבחור תפקיד",
+  "@roleRequired": {
+    "description": "שגיאת אימות כשלא נבחר תפקיד"
+  },
+  "underConstruction": "בבנייה",
+  "@underConstruction": {
+    "description": "כותרת לדף בבנייה"
+  },
+  "underConstructionMessage": "עמוד זה נמצא בפיתוח!",
+  "@underConstructionMessage": {
+    "description": "הודעה בדף בבנייה"
+  },
+  "logout": "התנתק",
+  "@logout": {
+    "description": "כפתור התנתקות"
   }
 }

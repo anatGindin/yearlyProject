@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../../l10n/app_localizations.dart';
 import '../../Models/mission.dart';
 import '../mission_screen.dart';
+import '../../features/Contact_card/view_model/contact_vm.dart';
+import '../../features/Contact_card/view/contact_view.dart';
 
 /// Reusable mission card widget displaying mission information
 class MissionCard extends StatelessWidget {
@@ -31,13 +33,7 @@ class MissionCard extends StatelessWidget {
               textAlign: TextAlign.right,
             ),
             const SizedBox(height: 8),
-            Text(
-              '${l10n.contact}${mission.contact}',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(fontSize: 18),
-              textAlign: TextAlign.right,
-            ),
+            ContactCard(vm: ContactViewModel(mission.contact)),
             const SizedBox(height: 8),
             Text(
               '${l10n.time}${_formatDateTime(mission.time)}',
