@@ -10,7 +10,6 @@ import 'l10n/app_localizations.dart';
 import 'Views/Authentication/auth_gate.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hamal_transport_app/firebase_options.dart';
-import 'Views/main_page.dart';
 import 'Theme/app_theme.dart';
 
 void main() async {
