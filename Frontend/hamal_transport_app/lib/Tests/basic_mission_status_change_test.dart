@@ -45,7 +45,7 @@ void main() {
       // Verify initial state
       expect(availableVM.availableMissions.length, initialAvailableLength);
       expect(myVM.myMissions.length, initialMyLength);
-      expect(testMission.status, MissionStatus.chosen);
+      expect(testMission.status, MissionStatus.available);
 
       // Perform action
       coordinator.takeMission(testMission);
@@ -56,7 +56,7 @@ void main() {
       expect(myVM.myMissions.last, testMission);
 
       // Verify status updated
-      expect(testMission.status, 'chosen');
+      expect(testMission.status, MissionStatus.chosen);
     });
   });
 
@@ -172,7 +172,7 @@ void main() {
       // Verify initial state
       expect(availableVM.availableMissions.length, initialAvailableLength);
       expect(myVM.myMissions.length, initialMyLength);
-      expect(testMission.status, MissionStatus.available);
+      expect(testMission.status, MissionStatus.chosen);
 
       // Perform action
       coordinator.abandonMission(testMission);
@@ -182,7 +182,8 @@ void main() {
       expect(myVM.myMissions.length, initialMyLength - 1);
       expect(availableVM.availableMissions.last, testMission);
 
-      // Verify status updated
+      // Note: abandonMission doesn't update status, only moves between lists
+      // Status remains 'chosen' - use updateStatus('cancelled') to also change status
       expect(testMission.status, MissionStatus.available);
     });
   });
