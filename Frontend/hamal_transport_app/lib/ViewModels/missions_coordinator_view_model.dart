@@ -19,7 +19,7 @@ class MissionsCoordinatorViewModel {
 
   /// Move mission from Available → My Missions
   void takeMission(Mission mission) {
-    missionVM.updateStatus('chosen');
+    missionVM.updateStatus(MissionStatus.chosen);
     availableMissionsVM.remove(mission);
     myMissionsVM.add(mission);
   }
@@ -30,16 +30,19 @@ class MissionsCoordinatorViewModel {
     availableMissionsVM.add(mission);
   }
 
-  void updateStatus(Mission mission, String newStatus) {
-    if (newStatus == 'cancelled') {
+  void updateStatus(Mission mission, MissionStatus newStatus) {
+    if (newStatus == MissionStatus.cancelled) {
       abandonMission(mission);
-      newStatus = 'available';
+      newStatus = MissionStatus.available;
+    } else if (newStatus == MissionStatus.delivered) {
+      myMissionsVM.remove(mission);
     }
+
     missionVM.updateStatus(newStatus);
   }
 
   bool isAvailable(Mission mission) {
     return availableMissionsVM.availableMissions.contains(mission) &&
-        mission.status == 'available';
+        mission.status == MissionStatus.available;
   }
 }

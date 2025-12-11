@@ -173,4 +173,16 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get logout => 'התנתק';
+
+  @override
+  String get cancellationReason => 'סיבת ביטול';
+
+  @override
+  String get enterCancellationReason => 'אנא הזן את סיבת הביטול';
+
+  @override
+  String get cancel => 'ביטול';
+
+  @override
+  String get confirm => 'אישור';
 }

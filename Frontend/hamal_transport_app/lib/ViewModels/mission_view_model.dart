@@ -7,7 +7,7 @@ class MissionViewModel extends ChangeNotifier {
   Mission mission;
   MissionViewModel(this.mission);
 
-  String status() {
+  MissionStatus status() {
     return mission.status;
   }
 
@@ -28,7 +28,7 @@ class MissionViewModel extends ChangeNotifier {
   }
 
   /// Update the status of the mission
-  void updateStatus(String newStatus) {
+  void updateStatus(MissionStatus newStatus) {
     // mission is passed by reference so it is updeted in the list
     mission.status = newStatus;
     notifyListeners();

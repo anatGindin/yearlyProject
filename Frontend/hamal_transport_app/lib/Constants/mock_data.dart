@@ -3,7 +3,7 @@ import '../features/Contact_card/model/contact.dart';
 // mock data for contacts
 
 /// Individual mock missions for reuse
-final Mission mockMission1 = Mission(
+final Mission mockMission1 = Mission.chosen(
   id: 'm1',
   location: 'בסיס חיל הים',
   description: 'חבילה שבירה',
@@ -11,7 +11,7 @@ final Mission mockMission1 = Mission(
   time: DateTime.now().add(const Duration(hours: 1)),
 );
 
-final Mission mockMission2 = Mission(
+final Mission mockMission2 = Mission.chosen(
   id: 'm2',
   location: 'ירושלים - בן יהודה 12',
   description: 'מעטפה דחופה',
@@ -19,7 +19,7 @@ final Mission mockMission2 = Mission(
   time: DateTime.now().add(const Duration(days: 1)),
 );
 
-final Mission mockMission3 = Mission(
+final Mission mockMission3 = Mission.chosen(
   id: 'm3',
   location: 'חיפה - הנשיא 3',
   description: 'ארגז גדול, דורש עגלה',
