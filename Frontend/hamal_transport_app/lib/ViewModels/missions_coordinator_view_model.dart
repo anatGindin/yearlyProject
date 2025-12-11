@@ -28,6 +28,7 @@ class MissionsCoordinatorViewModel {
   void abandonMission(Mission mission) {
     myMissionsVM.remove(mission);
     availableMissionsVM.add(mission);
+    missionVM.updateStatus(MissionStatus.available);
   }
 
   void updateStatus(Mission mission, MissionStatus newStatus) {
