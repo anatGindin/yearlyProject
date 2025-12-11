@@ -11,12 +11,13 @@ class MissionListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     if (missions.isEmpty) {
-      return Center(child: Text(AppLocalizations.of(context)!.noMissions));
+      return Center(child: Text(l10n.noMissions));
     }
     return ListView.separated(
       itemCount: missions.length,
-      separatorBuilder: (_, __) => const SizedBox(height: 8),
+      separatorBuilder: (_, _) => const SizedBox(height: 8),
       itemBuilder: (context, index) => MissionCard(mission: missions[index]),
     );
   }

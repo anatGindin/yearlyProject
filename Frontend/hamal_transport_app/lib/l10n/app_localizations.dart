@@ -247,6 +247,186 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cannot launch navigation app'**
   String get cannotLaunchNavigation;
+
+  /// Login button text
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get login;
+
+  /// Sign Up button text
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get signup;
+
+  /// Email input label
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// Password input label
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// Forgot password button text
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password'**
+  String get forgotPassword;
+
+  /// Reset password dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get resetPassword;
+
+  /// Generic login error message
+  ///
+  /// In en, this message translates to:
+  /// **'Login failed'**
+  String get loginError;
+
+  /// Generic sign up error message
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up failed'**
+  String get signupError;
+
+  /// Text prompting user to sign up
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account?'**
+  String get dontHaveAccount;
+
+  /// Text prompting user to login
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account?'**
+  String get alreadyHaveAccount;
+
+  /// Full Name input label
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get name;
+
+  /// Phone Number input label
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get phone;
+
+  /// Confirm Password input label
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPassword;
+
+  /// Error when passwords don't match
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordMismatch;
+
+  /// Helper text for password rules
+  ///
+  /// In en, this message translates to:
+  /// **'Password must contain at least 6 characters, one uppercase, one lowercase, and one number.'**
+  String get passwordRules;
+
+  /// Message shown when signup is successful
+  ///
+  /// In en, this message translates to:
+  /// **'Signup Successful! Please Login.'**
+  String get signupSuccess;
+
+  /// Error message for empty required fields
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required'**
+  String get requiredField;
+
+  /// Error message for invalid email format
+  ///
+  /// In en, this message translates to:
+  /// **'The email address is not valid.'**
+  String get invalidEmail;
+
+  /// Error message when user does not exist
+  ///
+  /// In en, this message translates to:
+  /// **'No user found for that email.'**
+  String get userNotFound;
+
+  /// Error message for incorrect password
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong password provided for that user.'**
+  String get wrongPassword;
+
+  /// Fallback error message
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong.'**
+  String get genericError;
+
+  /// Error message when email is already registered
+  ///
+  /// In en, this message translates to:
+  /// **'This email is already in use.'**
+  String get emailAlreadyInUse;
+
+  /// Label for remember me checkbox
+  ///
+  /// In en, this message translates to:
+  /// **'Remember me'**
+  String get rememberMe;
+
+  /// Label for role selection dropdown
+  ///
+  /// In en, this message translates to:
+  /// **'Select your role'**
+  String get selectRole;
+
+  /// Driver role option
+  ///
+  /// In en, this message translates to:
+  /// **'Driver'**
+  String get driver;
+
+  /// Logistics team role option
+  ///
+  /// In en, this message translates to:
+  /// **'Logistics Team'**
+  String get logistics;
+
+  /// Validation error when role is not selected
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a role'**
+  String get roleRequired;
+
+  /// Title for under construction page
+  ///
+  /// In en, this message translates to:
+  /// **'Under Construction'**
+  String get underConstruction;
+
+  /// Message on under construction page
+  ///
+  /// In en, this message translates to:
+  /// **'This feature is coming soon!'**
+  String get underConstructionMessage;
+
+  /// Logout button text
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
 }
 
 class _AppLocalizationsDelegate

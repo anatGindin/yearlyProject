@@ -82,4 +82,95 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get cannotLaunchNavigation => 'לא ניתן לפתוח אפליקציית הניווט';
+
+  @override
+  String get login => 'התחברות';
+
+  @override
+  String get signup => 'הרשמה';
+
+  @override
+  String get email => 'אימייל';
+
+  @override
+  String get password => 'סיסמה';
+
+  @override
+  String get forgotPassword => 'שכחתי סיסמה';
+
+  @override
+  String get resetPassword => 'אפס סיסמה';
+
+  @override
+  String get loginError => 'התחברות נכשלה';
+
+  @override
+  String get signupError => 'הרשמה נכשלה';
+
+  @override
+  String get dontHaveAccount => 'אין לך חשבון?';
+
+  @override
+  String get alreadyHaveAccount => 'יש לך כבר חשבון?';
+
+  @override
+  String get name => 'שם מלא';
+
+  @override
+  String get phone => 'מספר טלפון';
+
+  @override
+  String get confirmPassword => 'אימות סיסמה';
+
+  @override
+  String get passwordMismatch => 'הסיסמאות אינן תואמות';
+
+  @override
+  String get passwordRules =>
+      'הסיסמה חייבת להכיל לפחות 6 תווים, אות גדולה, אות קטנה ומספר.';
+
+  @override
+  String get signupSuccess => 'ההרשמה הצליחה! אנא התחבר.';
+
+  @override
+  String get requiredField => 'שדה זה חובה';
+
+  @override
+  String get invalidEmail => 'כתובת האימייל אינה תקינה.';
+
+  @override
+  String get userNotFound => 'לא נמצא משתמש עם האימייל הזה.';
+
+  @override
+  String get wrongPassword => 'הסיסמה שגויה.';
+
+  @override
+  String get genericError => 'משהו השתבש.';
+
+  @override
+  String get emailAlreadyInUse => 'כתובת האימייל הזו כבר בשימוש.';
+
+  @override
+  String get rememberMe => 'זכור אותי';
+
+  @override
+  String get selectRole => 'בחר תפקיד';
+
+  @override
+  String get driver => 'נהג';
+
+  @override
+  String get logistics => 'צוות לוגיסטיקה';
+
+  @override
+  String get roleRequired => 'יש לבחור תפקיד';
+
+  @override
+  String get underConstruction => 'בבנייה';
+
+  @override
+  String get underConstructionMessage => 'עמוד זה נמצא בפיתוח!';
+
+  @override
+  String get logout => 'התנתק';
 }

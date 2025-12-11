@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hamal_transport_app/Views/new_mission_page.dart';
 import '../../l10n/app_localizations.dart';
-import '../new_mission_page.dart';
 
 /// Reusable FABs widget for phone call and new mission actions
 class MissionFABs extends StatelessWidget {
@@ -10,6 +10,7 @@ class MissionFABs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Stack(
       children: [
         // Bottom-left phone button
@@ -34,7 +35,7 @@ class MissionFABs extends StatelessWidget {
             ).push(MaterialPageRoute(builder: (_) => const NewMissionPage())),
             icon: const Icon(Icons.add_box),
             label: Text(
-              AppLocalizations.of(context)!.availableMissions,
+              l10n.availableMissions,
               style: const TextStyle(fontSize: 16),
             ),
           ),
