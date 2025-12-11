@@ -173,4 +173,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get logout => 'Logout';
+
+  @override
+  String get cancellationReason => 'Cancellation Reason';
+
+  @override
+  String get enterCancellationReason =>
+      'Please enter the reason for cancellation';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get confirm => 'Confirm';
 }

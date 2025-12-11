@@ -219,5 +219,21 @@
   "logout": "Logout",
   "@logout": {
     "description": "Logout button text"
+  },
+  "cancellationReason": "Cancellation Reason",
+  "@cancellationReason": {
+    "description": "Title for cancellation reason dialog"
+  },
+  "enterCancellationReason": "Please enter the reason for cancellation",
+  "@enterCancellationReason": {
+    "description": "Hint text for cancellation reason input"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "confirm": "Confirm",
+  "@confirm": {
+    "description": "Confirm button text"
   }
 }

@@ -219,5 +219,21 @@
   "logout": "התנתק",
   "@logout": {
     "description": "כפתור התנתקות"
+  },
+  "cancellationReason": "סיבת ביטול",
+  "@cancellationReason": {
+    "description": "כותרת לדיאלוג סיבת ביטול"
+  },
+  "enterCancellationReason": "אנא הזן את סיבת הביטול",
+  "@enterCancellationReason": {
+    "description": "טקסט עזר לשדה סיבת ביטול"
+  },
+  "cancel": "ביטול",
+  "@cancel": {
+    "description": "טקסט כפתור ביטול"
+  },
+  "confirm": "אישור",
+  "@confirm": {
+    "description": "טקסט כפתור אישור"
   }
 }
