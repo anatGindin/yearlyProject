@@ -173,4 +173,31 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get logout => 'התנתק';
+
+  @override
+  String get sortBy => 'סדר לפי';
+
+  @override
+  String get filterBy => 'סנן';
+
+  @override
+  String get closestToFurthest => 'מרחק: קרוב לרחוק';
+
+  @override
+  String get furthestToClosest => 'מרחק: רחוק לקרוב';
+
+  @override
+  String get newestToOldest => 'זמן: חדש לישן';
+
+  @override
+  String get oldestToNewest => 'זמן: ישן לחדש';
+
+  @override
+  String get noFilter => 'הצג את כל המשימות';
+
+  @override
+  String get chosenFilter => 'הצג משימות בסטטוס \'נבחר\'';
+
+  @override
+  String get pickedUpFilter => 'הצג משימות בסטטוס \'נאסף\'';
 }

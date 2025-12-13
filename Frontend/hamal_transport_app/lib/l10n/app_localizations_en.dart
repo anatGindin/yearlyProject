@@ -173,4 +173,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get logout => 'Logout';
+
+  @override
+  String get sortBy => 'Sort By';
+
+  @override
+  String get filterBy => 'Filter';
+
+  @override
+  String get closestToFurthest => 'Distance: closest to furthest';
+
+  @override
+  String get furthestToClosest => 'Distance: Furthest to closest';
+
+  @override
+  String get newestToOldest => 'Time: Newest to oldest';
+
+  @override
+  String get oldestToNewest => 'Time: Oldest to newest';
+
+  @override
+  String get noFilter => 'Show all missions';
+
+  @override
+  String get chosenFilter => 'Show \'Chosen\' missions';
+
+  @override
+  String get pickedUpFilter => 'Show \'Picked up\' missions';
 }

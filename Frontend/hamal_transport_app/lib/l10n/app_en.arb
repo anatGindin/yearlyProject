@@ -219,5 +219,41 @@
   "logout": "Logout",
   "@logout": {
     "description": "Logout button text"
+  },
+  "sortBy": "Sort By",
+  "@sortBy": {
+    "description": "Sort By button text"
+  },
+  "filterBy": "Filter",
+  "@filterBy": {
+    "description": "Filter button text"
+  },
+  "closestToFurthest": "Distance: closest to furthest",
+  "@closestToFurthest": {
+    "description": "Sort option - Distance: closest to furthest"
+  },
+  "furthestToClosest": "Distance: Furthest to closest",
+  "@furthestToClosest": {
+    "description": "Sort option - Distance: Furthest to closest"
+  },
+  "newestToOldest": "Time: Newest to oldest",
+  "@newestToOldest": {
+    "description": "Sort option - Time: Newest to oldest"
+  },
+  "oldestToNewest": "Time: Oldest to newest",
+  "@oldestToNewest": {
+    "description": "Sort option - Time: Oldest to newest"
+  },
+  "noFilter": "Show all missions",
+  "@noFilter": {
+    "description": "Filter option - Show all missions"
+  },
+  "chosenFilter": "Show 'Chosen' missions",
+  "@chosenFilter": {
+    "description": "Filter option - Show 'Chosen' missions"
+  },
+  "pickedUpFilter": "Show 'Picked up' missions",
+  "@pickedUpFilter": {
+    "description": "Show 'Picked up' missions"
   }
 }

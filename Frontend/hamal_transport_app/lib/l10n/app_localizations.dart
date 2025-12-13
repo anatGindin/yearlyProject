@@ -427,6 +427,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logout'**
   String get logout;
+
+  /// Sort By button text
+  ///
+  /// In en, this message translates to:
+  /// **'Sort By'**
+  String get sortBy;
+
+  /// Filter button text
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get filterBy;
+
+  /// Sort option - Distance: closest to furthest
+  ///
+  /// In en, this message translates to:
+  /// **'Distance: closest to furthest'**
+  String get closestToFurthest;
+
+  /// Sort option - Distance: Furthest to closest
+  ///
+  /// In en, this message translates to:
+  /// **'Distance: Furthest to closest'**
+  String get furthestToClosest;
+
+  /// Sort option - Time: Newest to oldest
+  ///
+  /// In en, this message translates to:
+  /// **'Time: Newest to oldest'**
+  String get newestToOldest;
+
+  /// Sort option - Time: Oldest to newest
+  ///
+  /// In en, this message translates to:
+  /// **'Time: Oldest to newest'**
+  String get oldestToNewest;
+
+  /// Filter option - Show all missions
+  ///
+  /// In en, this message translates to:
+  /// **'Show all missions'**
+  String get noFilter;
+
+  /// Filter option - Show 'Chosen' missions
+  ///
+  /// In en, this message translates to:
+  /// **'Show \'Chosen\' missions'**
+  String get chosenFilter;
+
+  /// Show 'Picked up' missions
+  ///
+  /// In en, this message translates to:
+  /// **'Show \'Picked up\' missions'**
+  String get pickedUpFilter;
 }
 
 class _AppLocalizationsDelegate
