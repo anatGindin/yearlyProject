@@ -17,8 +17,16 @@ class ListActionButton extends StatelessWidget {
     return ElevatedButton.icon(
       onPressed: onPressed,
       icon: Icon(icon),
-      style: ElevatedButton.styleFrom(alignment: Alignment.centerLeft),
-      label: Text(label, style: const TextStyle(fontSize: 16)),
+      style: ElevatedButton.styleFrom(
+        alignment: Directionality.of(context) == TextDirection.rtl
+            ? Alignment.centerRight
+            : Alignment.centerLeft,
+      ),
+      label: Text(
+        label,
+        style: const TextStyle(fontSize: 16),
+        textAlign: TextAlign.start,
+      ),
     );
   }
 }
