@@ -66,12 +66,12 @@ class MainPage extends StatelessWidget {
         content: Text(l10n.callDeskMessage),
         actionsAlignment: MainAxisAlignment.spaceBetween,
         actions: [
-          IconButton(
-            icon: Icon(Icons.phone),
+          ElevatedButton(
+            child: const Icon(Icons.phone),
             onPressed: () async {
-              final uri = Uri(scheme: 'tel', path: HAMAL_PHONE);
-              await launchUrl(uri);
               Navigator.of(context).pop();
+              final uri = Uri(scheme: 'tel', path: hamalPhone);
+              await launchUrl(uri);
             },
           ),
 
