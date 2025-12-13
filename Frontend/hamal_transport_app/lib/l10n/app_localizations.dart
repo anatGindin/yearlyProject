@@ -143,7 +143,7 @@ abstract class AppLocalizations {
   /// Message in call desk dialog
   ///
   /// In en, this message translates to:
-  /// **'Call Hamal desk at +1-800-555-1234'**
+  /// **'Call Hamal desk'**
   String get callDeskMessage;
 
   /// Close button

@@ -30,7 +30,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get callDesk => 'התקשר לדסק המשלוחים';
 
   @override
-  String get callDeskMessage => 'התקשר לדסק המשלוחים במספר +1-800-555-1234';
+  String get callDeskMessage => 'התקשר לדסק המשלוחים';
 
   @override
   String get close => 'סגור';

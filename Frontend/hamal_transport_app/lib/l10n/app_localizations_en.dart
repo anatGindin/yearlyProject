@@ -30,7 +30,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get callDesk => 'Call Hamal Desk';
 
   @override
-  String get callDeskMessage => 'Call Hamal desk at +1-800-555-1234';
+  String get callDeskMessage => 'Call Hamal desk';
 
   @override
   String get close => 'Close';
