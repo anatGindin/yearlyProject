@@ -427,6 +427,8 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logout'**
   String get logout;
+
+  String get profileTitle;
 }
 
 class _AppLocalizationsDelegate

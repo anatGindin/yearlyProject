@@ -173,4 +173,7 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get logout => 'התנתק';
+
+  @override
+  String get profileTitle => 'פרופיל';
 }
