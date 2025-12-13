@@ -28,7 +28,7 @@
   "@callDesk": {
     "description": "Title of call desk dialog"
   },
-  "callDeskMessage": "Call Hamal desk at +1-800-555-1234",
+  "callDeskMessage": "Call Hamal desk",
   "@callDeskMessage": {
     "description": "Message in call desk dialog"
   },

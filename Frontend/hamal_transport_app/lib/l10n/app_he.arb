@@ -28,7 +28,7 @@
   "@callDesk": {
     "description": "כותרת דיאלוג קריאה לדסק"
   },
-  "callDeskMessage": "התקשר לדסק המשלוחים במספר +1-800-555-1234",
+  "callDeskMessage": "התקשר לדסק המשלוחים",
   "@callDeskMessage": {
     "description": "הודעה בדיאלוג קריאה לדסק"
   },

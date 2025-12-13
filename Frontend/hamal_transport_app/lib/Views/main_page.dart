@@ -5,6 +5,8 @@ import '../l10n/app_localizations.dart';
 import 'Widgets/mission_app_bar.dart';
 import 'Widgets/mission_list_view.dart';
 import 'Widgets/mission_fabs.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../Constants/official_info.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -62,8 +64,18 @@ class MainPage extends StatelessWidget {
       builder: (BuildContext context) => AlertDialog(
         title: Text(l10n.callDesk),
         content: Text(l10n.callDeskMessage),
+        actionsAlignment: MainAxisAlignment.spaceBetween,
         actions: [
-          TextButton(
+          IconButton(
+            icon: Icon(Icons.phone),
+            onPressed: () async {
+              final uri = Uri(scheme: 'tel', path: HAMAL_PHONE);
+              await launchUrl(uri);
+              Navigator.of(context).pop();
+            },
+          ),
+
+          ElevatedButton(
             onPressed: () => Navigator.of(context).pop(),
             child: Text(l10n.close),
           ),
