@@ -35,7 +35,11 @@ class MissionsCoordinatorViewModel {
       abandonMission(mission);
       newStatus = 'available';
     }
+    String oldStatus = mission.status;
     missionVM.updateStatus(newStatus);
+    if (oldStatus != 'available') {
+      myMissionsVM.updateStatusChanged();
+    }
   }
 
   bool isAvailable(Mission mission) {

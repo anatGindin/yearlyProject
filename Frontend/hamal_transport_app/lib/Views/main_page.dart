@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hamal_transport_app/Models/missions_model.dart';
 import 'package:hamal_transport_app/ViewModels/my_missions_view_model.dart';
+import 'package:hamal_transport_app/Views/Widgets/list_action_button.dart';
 import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import 'Widgets/mission_app_bar.dart';
@@ -12,6 +14,7 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final myMissionsVM = context.watch<MyMissionsViewModel>();
     return Scaffold(
       appBar: const MissionAppBar(),
       body: SafeArea(
@@ -32,6 +35,17 @@ class MainPage extends StatelessWidget {
                     textAlign: TextAlign.right,
                   ),
                   const SizedBox(height: 12),
+                  ListActionButton(
+                    icon: Icons.sort,
+                    label: '${l10n.sortBy} ${myMissionsVM.getSortBy(context)}',
+                    onPressed: () => _showSortOptions(context),
+                  ),
+                  ListActionButton(
+                    icon: Icons.filter,
+                    label:
+                        '${l10n.filterBy}: ${myMissionsVM.getFilterBy(context)}',
+                    onPressed: () => _showFilterOptions(context),
+                  ),
                   // Expanded mission list
                   Expanded(
                     child: Consumer<MyMissionsViewModel>(
@@ -66,6 +80,81 @@ class MainPage extends StatelessWidget {
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
             child: Text(l10n.close),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showSortOptions(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final myMissionsVM = context.read<MyMissionsViewModel>();
+    showModalBottomSheet(
+      context: context,
+      builder: (_) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            title: Text(l10n.newestToOldest),
+            onTap: () {
+              myMissionsVM.sortBy(SortBy.timeNewestFirst);
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: Text(l10n.oldestToNewest),
+            onTap: () {
+              myMissionsVM.sortBy(SortBy.timeOldestFirst);
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: Text(l10n.closestToFurthest),
+            onTap: () {
+              myMissionsVM.sortBy(SortBy.distanceClosestFirst);
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: Text(l10n.furthestToClosest),
+            onTap: () {
+              myMissionsVM.sortBy(SortBy.distanceFurthestFirst);
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showFilterOptions(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final myMissionsVM = context.read<MyMissionsViewModel>();
+    showModalBottomSheet(
+      context: context,
+      builder: (_) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            title: Text(l10n.noFilter),
+            onTap: () {
+              myMissionsVM.filterBy(FilterBy.noFilter);
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: Text(l10n.chosenFilter),
+            onTap: () {
+              myMissionsVM.filterBy(FilterBy.chosenOnly);
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: Text(l10n.pickedUpFilter),
+            onTap: () {
+              myMissionsVM.filterBy(FilterBy.pickedUpOnly);
+              Navigator.pop(context);
+            },
           ),
         ],
       ),
