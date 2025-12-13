@@ -9,7 +9,7 @@ enum MissionStatus {
   cancelled,
   available;
 
-  String localizedLabel(BuildContext context) {
+  String displayName(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     switch (this) {
       case MissionStatus.chosen:
