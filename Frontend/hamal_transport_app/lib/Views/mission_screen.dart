@@ -74,7 +74,7 @@ class _MissionScreenState extends State<MissionScreen> {
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    '${l10n.mission}: ${missionVM.status().localizedLabel(context)}',
+                    '${l10n.mission}: ${missionVM.status().displayName(context)}',
                     style: Theme.of(
                       context,
                     ).textTheme.titleMedium?.copyWith(fontSize: 18),
