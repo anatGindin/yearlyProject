@@ -18,9 +18,9 @@ class MissionsListsModel {
         return (a, b) => a.location.compareTo(b.location);
       case SortBy.distanceFurthestFirst:
         return (a, b) => b.location.compareTo(a.location);
-      case SortBy.timeNewestFirst:
-        return (a, b) => a.time.compareTo(b.time);
       case SortBy.timeOldestFirst:
+        return (a, b) => a.time.compareTo(b.time);
+      case SortBy.timeNewestFirst:
         return (a, b) => b.time.compareTo(a.time);
     }
   }
