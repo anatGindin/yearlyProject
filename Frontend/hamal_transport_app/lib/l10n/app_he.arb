@@ -220,7 +220,7 @@
   "@logout": {
     "description": "כפתור התנתקות"
   },
-  "sortBy": "סדר לפי",
+  "sortBy": "סדר",
   "@sortBy": {
     "description": "כפתור מיון רשימה"
   },
@@ -228,31 +228,31 @@
   "@filterBy": {
     "description": "כפתור סינון רשימה"
   },
-  "closestToFurthest": "מרחק: קרוב לרחוק",
+  "closestToFurthest": "קרוב לרחוק",
   "@closestToFurthest": {
     "description": "אפשרות מיון - מרחק: קרוב לרחוק"
   },
-  "furthestToClosest": "מרחק: רחוק לקרוב",
+  "furthestToClosest": "רחוק לקרוב",
   "@furthestToClosest": {
     "description": "אפשרות מיון - מרחק: רחוק לקרוב"
   },
-  "newestToOldest": "זמן: חדש לישן",
+  "newestToOldest": "חדש לישן",
   "@newestToOldest": {
     "description": "אפשרות מיון - זמן: חדש לישן"
   },
-  "oldestToNewest": "זמן: ישן לחדש",
+  "oldestToNewest": "ישן לחדש",
   "@oldestToNewest": {
     "description": "אפשרות מיון - זמן: ישן לחדש"
   },
-  "noFilter": "הצג את כל המשימות",
+  "noFilter": "כל המשימות",
   "@noFilter": {
     "description": "אפשרות סינון - הצג את כל המשימות"
   },
-  "chosenFilter": "הצג משימות בסטטוס 'נבחר'",
+  "chosenFilter": "משימות בסטטוס 'נבחר'",
   "@chosenFilter": {
     "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
   },
-  "pickedUpFilter": "הצג משימות בסטטוס 'נאסף'",
+  "pickedUpFilter": "משימות בסטטוס 'נאסף'",
   "@pickedUpFilter": {
     "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
   }

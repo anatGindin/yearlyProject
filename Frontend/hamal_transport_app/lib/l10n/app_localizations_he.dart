@@ -175,29 +175,29 @@ class AppLocalizationsHe extends AppLocalizations {
   String get logout => 'התנתק';
 
   @override
-  String get sortBy => 'סדר לפי';
+  String get sortBy => 'סדר';
 
   @override
   String get filterBy => 'סנן';
 
   @override
-  String get closestToFurthest => 'מרחק: קרוב לרחוק';
+  String get closestToFurthest => 'קרוב לרחוק';
 
   @override
-  String get furthestToClosest => 'מרחק: רחוק לקרוב';
+  String get furthestToClosest => 'רחוק לקרוב';
 
   @override
-  String get newestToOldest => 'זמן: חדש לישן';
+  String get newestToOldest => 'חדש לישן';
 
   @override
-  String get oldestToNewest => 'זמן: ישן לחדש';
+  String get oldestToNewest => 'ישן לחדש';
 
   @override
-  String get noFilter => 'הצג את כל המשימות';
+  String get noFilter => 'כל המשימות';
 
   @override
-  String get chosenFilter => 'הצג משימות בסטטוס \'נבחר\'';
+  String get chosenFilter => 'משימות בסטטוס \'נבחר\'';
 
   @override
-  String get pickedUpFilter => 'הצג משימות בסטטוס \'נאסף\'';
+  String get pickedUpFilter => 'משימות בסטטוס \'נאסף\'';
 }

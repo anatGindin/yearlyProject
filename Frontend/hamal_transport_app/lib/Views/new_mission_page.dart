@@ -23,11 +23,11 @@ class NewMissionPage extends StatelessWidget {
               ListActionButton(
                 icon: Icons.sort,
                 label:
-                    '${l10n.sortBy} ${availableMissionsVM.getSortBy(context)}',
+                    '${l10n.sortBy}: ${availableMissionsVM.getSortBy(context)}',
                 onPressed: () => _showSortOptions(context),
               ),
               ListActionButton(
-                icon: Icons.filter,
+                icon: Icons.filter_alt,
                 label:
                     '${l10n.filterBy}: ${availableMissionsVM.getFilterBy(context)}',
                 onPressed: () => _showFilterOptions(context),

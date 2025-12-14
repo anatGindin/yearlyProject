@@ -175,29 +175,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logout => 'Logout';
 
   @override
-  String get sortBy => 'Sort By';
+  String get sortBy => 'Sort';
 
   @override
   String get filterBy => 'Filter';
 
   @override
-  String get closestToFurthest => 'Distance: closest to furthest';
+  String get closestToFurthest => 'Closest to furthest';
 
   @override
-  String get furthestToClosest => 'Distance: Furthest to closest';
+  String get furthestToClosest => 'Furthest to closest';
 
   @override
-  String get newestToOldest => 'Time: Newest to oldest';
+  String get newestToOldest => 'Newest to oldest';
 
   @override
-  String get oldestToNewest => 'Time: Oldest to newest';
+  String get oldestToNewest => 'Oldest to newest';
 
   @override
-  String get noFilter => 'Show all missions';
+  String get noFilter => 'All missions';
 
   @override
-  String get chosenFilter => 'Show \'Chosen\' missions';
+  String get chosenFilter => '\'Chosen\' missions';
 
   @override
-  String get pickedUpFilter => 'Show \'Picked up\' missions';
+  String get pickedUpFilter => '\'Picked up\' missions';
 }

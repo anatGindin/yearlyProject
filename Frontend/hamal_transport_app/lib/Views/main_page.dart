@@ -37,11 +37,11 @@ class MainPage extends StatelessWidget {
                   const SizedBox(height: 12),
                   ListActionButton(
                     icon: Icons.sort,
-                    label: '${l10n.sortBy} ${myMissionsVM.getSortBy(context)}',
+                    label: '${l10n.sortBy}: ${myMissionsVM.getSortBy(context)}',
                     onPressed: () => _showSortOptions(context),
                   ),
                   ListActionButton(
-                    icon: Icons.filter,
+                    icon: Icons.filter_alt,
                     label:
                         '${l10n.filterBy}: ${myMissionsVM.getFilterBy(context)}',
                     onPressed: () => _showFilterOptions(context),
