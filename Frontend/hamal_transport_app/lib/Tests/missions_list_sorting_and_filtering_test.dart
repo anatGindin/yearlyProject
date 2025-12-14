@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hamal_transport_app/Constants/mock_data.dart';
+import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Models/missions_model.dart';
 import 'package:hamal_transport_app/ViewModels/available_missions_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/my_missions_view_model.dart';
@@ -18,9 +19,9 @@ void main() {
 
       // Create ViewModels with initial state
       myVM = MyMissionsViewModel(missionsLists);
-      sampleMissions[0].status = 'chosen';
-      sampleMissions[1].status = 'chosen';
-      sampleMissions[2].status = 'picked up';
+      sampleMissions[0].status = MissionStatus.chosen;
+      sampleMissions[1].status = MissionStatus.chosen;
+      sampleMissions[2].status = MissionStatus.pickedUp;
     });
     test('sort by furthest to closest', () {
       myVM.sortBy(SortBy.distanceFurthestFirst);
@@ -58,14 +59,14 @@ void main() {
       myVM.filterBy(FilterBy.chosenOnly);
 
       final missions = myVM.myMissions;
-      expect(missions.every((m) => m.status == 'chosen'), true);
+      expect(missions.every((m) => m.status == MissionStatus.chosen), true);
     });
 
     test('filter picked up only', () {
       myVM.filterBy(FilterBy.pickedUpOnly);
 
       final missions = myVM.myMissions;
-      expect(missions.every((m) => m.status == 'picked up'), true);
+      expect(missions.every((m) => m.status == MissionStatus.pickedUp), true);
     });
 
     test('combined filter + sort', () {

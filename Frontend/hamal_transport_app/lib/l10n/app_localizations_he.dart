@@ -30,7 +30,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get callDesk => 'התקשר לדסק המשלוחים';
 
   @override
-  String get callDeskMessage => 'התקשר לדסק המשלוחים במספר +1-800-555-1234';
+  String get callDeskMessage => 'התקשר לדסק המשלוחים';
 
   @override
   String get close => 'סגור';
@@ -200,4 +200,16 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get pickedUpFilter => 'משימות בסטטוס \'נאסף\'';
+
+  @override
+  String get cancellationReason => 'סיבת ביטול';
+
+  @override
+  String get enterCancellationReason => 'אנא הזן את סיבת הביטול';
+
+  @override
+  String get cancel => 'ביטול';
+
+  @override
+  String get confirm => 'אישור';
 }

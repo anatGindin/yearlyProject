@@ -23,7 +23,7 @@ class _MissionScreenState extends State<MissionScreen> {
     super.initState();
   }
 
-  void _updateStatus(String newStatus) {
+  void _updateStatus(MissionStatus newStatus) {
     final mission = widget.mission;
     final missionCoordinator = context.read<MissionsCoordinatorViewModel>();
     missionCoordinator.updateStatus(mission, newStatus);
@@ -74,7 +74,7 @@ class _MissionScreenState extends State<MissionScreen> {
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    '${l10n.mission}: ${_statusLabel(missionVM.status())}',
+                    '${l10n.mission}: ${missionVM.status().displayName(context)}',
                     style: Theme.of(
                       context,
                     ).textTheme.titleMedium?.copyWith(fontSize: 18),
@@ -84,33 +84,41 @@ class _MissionScreenState extends State<MissionScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      ElevatedButton.icon(
-                        onPressed: () => _showStatusOptions(),
-                        icon: const Icon(Icons.update),
-                        label: Text(
-                          l10n.updateStatus,
-                          style: const TextStyle(fontSize: 16),
+                      // Only show update status button for chosen missions (not available)
+                      if (!missionsCoordinator.isAvailable(mission))
+                        ElevatedButton.icon(
+                          onPressed:
+                              (missionVM.status() == MissionStatus.delivered)
+                              ? null
+                              : () => _showStatusOptions(),
+                          icon: const Icon(Icons.update),
+                          label: Text(
+                            l10n.updateStatus,
+                            style: const TextStyle(fontSize: 16),
+                          ),
                         ),
-                      ),
-                      ElevatedButton.icon(
-                        onPressed: () async {
-                          final success = await missionVM.launchNavigation();
-                          // Guard the context we are about to use
-                          if (!context.mounted) return;
-                          if (!success) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(l10n.cannotLaunchNavigation),
-                              ),
-                            );
-                          }
-                        },
-                        icon: const Icon(Icons.navigation),
-                        label: Text(
-                          l10n.navigateWaze,
-                          style: const TextStyle(fontSize: 16),
+                      // Only show navigate button for chosen and picked up missions
+                      if (missionVM.status() == MissionStatus.chosen ||
+                          missionVM.status() == MissionStatus.pickedUp)
+                        ElevatedButton.icon(
+                          onPressed: () async {
+                            final success = await missionVM.launchNavigation();
+                            // Guard the context we are about to use
+                            if (!context.mounted) return;
+                            if (!success) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(l10n.cannotLaunchNavigation),
+                                ),
+                              );
+                            }
+                          },
+                          icon: const Icon(Icons.navigation),
+                          label: Text(
+                            l10n.navigateWaze,
+                            style: const TextStyle(fontSize: 16),
+                          ),
                         ),
-                      ),
                     ],
                   ),
                   const SizedBox(height: 12),
@@ -145,6 +153,9 @@ class _MissionScreenState extends State<MissionScreen> {
   }
 
   void _showStatusOptions() {
+    final mission = widget.mission;
+    final currentStatus = mission.status;
+
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
@@ -152,55 +163,81 @@ class _MissionScreenState extends State<MissionScreen> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ListTile(title: Text(l10n.selectStatus)),
-            ListTile(
-              title: Text(l10n.chosen),
-              onTap: () {
-                Navigator.of(context).pop();
-                _updateStatus('chosen');
-              },
-            ),
-            ListTile(
-              title: Text(l10n.pickedUp),
-              onTap: () {
-                Navigator.of(context).pop();
-                _updateStatus('picked_up');
-              },
-            ),
-            ListTile(
-              title: Text(l10n.delivered),
-              onTap: () {
-                Navigator.of(context).pop();
-                _updateStatus('delivered');
-              },
-            ),
-            ListTile(
-              title: Text(l10n.cancelled),
-              onTap: () {
-                Navigator.of(context).pop();
-                _updateStatus('cancelled');
-              },
-            ),
+            // Show "Picked Up" option only for chosen missions
+            if (currentStatus == MissionStatus.chosen)
+              ListTile(
+                title: Text(l10n.pickedUp),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  _updateStatus(MissionStatus.pickedUp);
+                },
+              ),
+            // Show "Delivered" option only for picked up missions
+            if (currentStatus == MissionStatus.pickedUp)
+              ListTile(
+                title: Text(l10n.delivered),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  _updateStatus(MissionStatus.delivered);
+                  // Navigate back to main page after delivery
+                  Navigator.of(context).pop();
+                },
+              ),
+            // Show "Cancelled" option for both chosen and picked up missions
+            if (currentStatus == MissionStatus.chosen ||
+                currentStatus == MissionStatus.pickedUp)
+              ListTile(
+                title: Text(l10n.cancelled),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  _showCancellationReasonDialog();
+                },
+              ),
           ],
         );
       },
     );
   }
 
-  // Map internal status codes to localized labels for display
-  String _statusLabel(String code) {
-    switch (code) {
-      case 'chosen':
-        return l10n.chosen;
-      case 'picked_up':
-        return l10n.pickedUp;
-      case 'delivered':
-        return l10n.delivered;
-      case 'cancelled':
-        return l10n.cancelled;
-      case 'available':
-        return l10n.available;
-      default:
-        return code;
-    }
+  void _showCancellationReasonDialog() {
+    String cancellationReason = '';
+
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text(l10n.cancellationReason),
+          content: TextField(
+            maxLines: 3,
+            onChanged: (value) {
+              cancellationReason = value;
+            },
+            decoration: InputDecoration(
+              hintText: l10n.enterCancellationReason,
+              border: const OutlineInputBorder(),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+              child: Text(l10n.cancel),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+                // TODO: Save cancellation reason (cancellationReason)
+                cancellationReason;
+                _updateStatus(MissionStatus.cancelled);
+                // Navigate back to main page after cancellation
+                Navigator.of(context).pop();
+              },
+              child: Text(l10n.confirm),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

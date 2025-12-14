@@ -28,7 +28,7 @@
   "@callDesk": {
     "description": "כותרת דיאלוג קריאה לדסק"
   },
-  "callDeskMessage": "התקשר לדסק המשלוחים במספר +1-800-555-1234",
+  "callDeskMessage": "התקשר לדסק המשלוחים",
   "@callDeskMessage": {
     "description": "הודעה בדיאלוג קריאה לדסק"
   },
@@ -255,5 +255,21 @@
   "pickedUpFilter": "משימות בסטטוס 'נאסף'",
   "@pickedUpFilter": {
     "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
+  },
+  "cancellationReason": "סיבת ביטול",
+  "@cancellationReason": {
+    "description": "כותרת לדיאלוג סיבת ביטול"
+  },
+  "enterCancellationReason": "אנא הזן את סיבת הביטול",
+  "@enterCancellationReason": {
+    "description": "טקסט עזר לשדה סיבת ביטול"
+  },
+  "cancel": "ביטול",
+  "@cancel": {
+    "description": "טקסט כפתור ביטול"
+  },
+  "confirm": "אישור",
+  "@confirm": {
+    "description": "טקסט כפתור אישור"
   }
 }

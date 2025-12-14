@@ -30,9 +30,9 @@ class MissionsListsModel {
       case FilterBy.noFilter:
         return (a) => true;
       case FilterBy.chosenOnly:
-        return (a) => a.status == 'chosen';
+        return (a) => a.status == MissionStatus.chosen;
       case FilterBy.pickedUpOnly:
-        return (a) => a.status == 'picked_up';
+        return (a) => a.status == MissionStatus.pickedUp;
     }
   }
 

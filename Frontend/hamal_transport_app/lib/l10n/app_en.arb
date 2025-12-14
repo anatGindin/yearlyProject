@@ -28,7 +28,7 @@
   "@callDesk": {
     "description": "Title of call desk dialog"
   },
-  "callDeskMessage": "Call Hamal desk at +1-800-555-1234",
+  "callDeskMessage": "Call Hamal desk",
   "@callDeskMessage": {
     "description": "Message in call desk dialog"
   },
@@ -255,5 +255,21 @@
   "pickedUpFilter": "'Picked up' missions",
   "@pickedUpFilter": {
     "description": "Show 'Picked up' missions"
+  },
+  "cancellationReason": "Cancellation Reason",
+  "@cancellationReason": {
+    "description": "Title for cancellation reason dialog"
+  },
+  "enterCancellationReason": "Please enter the reason for cancellation",
+  "@enterCancellationReason": {
+    "description": "Hint text for cancellation reason input"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "confirm": "Confirm",
+  "@confirm": {
+    "description": "Confirm button text"
   }
 }
