@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
 
 class UserProfile {
