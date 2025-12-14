@@ -176,4 +176,35 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profileTitle => 'Profile';
+
+  @override
+  String get cancellationReason => 'Cancellation Reason';
+
+  @override
+  String get enterCancellationReason =>
+      'Please enter the reason for cancellation';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get carType => 'Car Type';
+
+  @override
+  String get carTypeRequired => 'Please select a car type';
+
+  @override
+  String get privateCar => 'Private Car';
+
+  @override
+  String get trailer => 'Trailer';
+
+  @override
+  String get pickupTruck => 'Pickup Truck';
+
+  @override
+  String get truck => 'Truck';
 }

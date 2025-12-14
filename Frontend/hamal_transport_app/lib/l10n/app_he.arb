@@ -28,7 +28,7 @@
   "@callDesk": {
     "description": "כותרת דיאלוג קריאה לדסק"
   },
-  "callDeskMessage": "התקשר לדסק המשלוחים במספר +1-800-555-1234",
+  "callDeskMessage": "התקשר לדסק המשלוחים",
   "@callDeskMessage": {
     "description": "הודעה בדיאלוג קריאה לדסק"
   },
@@ -220,8 +220,48 @@
   "@logout": {
     "description": "כפתור התנתקות"
   },
-  "profileTitle": "פרופיל",
-  "@profileTitle":{
-  "description": "עמוד אישי"
+  "profile": "פרופיל אישי",
+  "@profile":{
+  "description":"כותרת לעמוד פרופיל משתמש"
+  }
+  "cancellationReason": "סיבת ביטול",
+  "@cancellationReason": {
+    "description": "כותרת לדיאלוג סיבת ביטול"
+  },
+  "enterCancellationReason": "אנא הזן את סיבת הביטול",
+  "@enterCancellationReason": {
+    "description": "טקסט עזר לשדה סיבת ביטול"
+  },
+  "cancel": "ביטול",
+  "@cancel": {
+    "description": "טקסט כפתור ביטול"
+  },
+  "confirm": "אישור",
+  "@confirm": {
+    "description": "טקסט כפתור אישור"
+  },
+  "carType": "סוג רכב",
+  "@carType": {
+    "description": "תווית לבחירת סוג רכב"
+  },
+  "carTypeRequired": "אנא בחר סוג רכב",
+  "@carTypeRequired": {
+    "description": "שגיאת אימות כשלא נבחר סוג רכב"
+  },
+  "privateCar": "רכב פרטי",
+  "@privateCar": {
+    "description": "סוג רכב - פרטי"
+  },
+  "trailer": "נגרר",
+  "@trailer": {
+    "description": "סוג רכב - נגרר"
+  },
+  "pickupTruck": "טנדר",
+  "@pickupTruck": {
+    "description": "סוג רכב - טנדר"
+  },
+  "truck": "משאית",
+  "@truck": {
+    "description": "סוג רכב - משאית"
   }
 }

@@ -176,4 +176,34 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get profileTitle => 'פרופיל';
+
+  @override
+  String get cancellationReason => 'סיבת ביטול';
+
+  @override
+  String get enterCancellationReason => 'אנא הזן את סיבת הביטול';
+
+  @override
+  String get cancel => 'ביטול';
+
+  @override
+  String get confirm => 'אישור';
+
+  @override
+  String get carType => 'סוג רכב';
+
+  @override
+  String get carTypeRequired => 'אנא בחר סוג רכב';
+
+  @override
+  String get privateCar => 'רכב פרטי';
+
+  @override
+  String get trailer => 'נגרר';
+
+  @override
+  String get pickupTruck => 'טנדר';
+
+  @override
+  String get truck => 'משאית';
 }
