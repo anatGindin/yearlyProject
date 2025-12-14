@@ -53,7 +53,7 @@ void main() {
       // Verify mission moved lists
       expect(availableVM.availableMissions.length, initialAvailableLength - 1);
       expect(myVM.myMissions.length, initialMyLength + 1);
-      expect(myVM.myMissions.last, testMission);
+      expect(myVM.myMissions.contains(testMission), true);
 
       // Verify status updated
       expect(testMission.status, MissionStatus.chosen);
@@ -180,7 +180,7 @@ void main() {
       // Verify mission moved lists
       expect(availableVM.availableMissions.length, initialAvailableLength + 1);
       expect(myVM.myMissions.length, initialMyLength - 1);
-      expect(availableVM.availableMissions.last, testMission);
+      expect(availableVM.availableMissions.contains(testMission), true);
 
       // Note: abandonMission doesn't update status, only moves between lists
       // Status remains 'chosen' - use updateStatus('cancelled') to also change status

@@ -38,8 +38,12 @@ class MissionsCoordinatorViewModel {
     } else if (newStatus == MissionStatus.delivered) {
       myMissionsVM.remove(mission);
     }
+    MissionStatus oldStatus = mission.status;
 
     missionVM.updateStatus(newStatus);
+    if (oldStatus != MissionStatus.available) {
+      myMissionsVM.updateStatusChanged();
+    }
   }
 
   bool isAvailable(Mission mission) {
