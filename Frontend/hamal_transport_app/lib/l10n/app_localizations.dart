@@ -451,6 +451,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Confirm'**
   String get confirm;
+
+  /// Label for car type selection
+  ///
+  /// In en, this message translates to:
+  /// **'Car Type'**
+  String get carType;
+
+  /// Validation error for car type
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a car type'**
+  String get carTypeRequired;
+
+  /// Car type - Private
+  ///
+  /// In en, this message translates to:
+  /// **'Private Car'**
+  String get privateCar;
+
+  /// Car type - Trailer
+  ///
+  /// In en, this message translates to:
+  /// **'Trailer'**
+  String get trailer;
+
+  /// Car type - Pickup Truck
+  ///
+  /// In en, this message translates to:
+  /// **'Pickup Truck'**
+  String get pickupTruck;
+
+  /// Car type - Truck
+  ///
+  /// In en, this message translates to:
+  /// **'Truck'**
+  String get truck;
 }
 
 class _AppLocalizationsDelegate

@@ -43,6 +43,7 @@ class SignupScreenViewModel extends ChangeNotifier {
     required String name,
     required String phone,
     required UserRole role,
+    DriverProfile? driverProfile,
   }) async {
     _isLoading = true;
     _error = null;
@@ -55,6 +56,7 @@ class SignupScreenViewModel extends ChangeNotifier {
         name: name,
         phone: phone,
         role: role,
+        driverProfile: driverProfile,
       );
 
       _isLoading = false;

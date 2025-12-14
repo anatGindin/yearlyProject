@@ -235,5 +235,29 @@
   "confirm": "Confirm",
   "@confirm": {
     "description": "Confirm button text"
+  },
+  "carType": "Car Type",
+  "@carType": {
+    "description": "Label for car type selection"
+  },
+  "carTypeRequired": "Please select a car type",
+  "@carTypeRequired": {
+    "description": "Validation error for car type"
+  },
+  "privateCar": "Private Car",
+  "@privateCar": {
+    "description": "Car type - Private"
+  },
+  "trailer": "Trailer",
+  "@trailer": {
+    "description": "Car type - Trailer"
+  },
+  "pickupTruck": "Pickup Truck",
+  "@pickupTruck": {
+    "description": "Car type - Pickup Truck"
+  },
+  "truck": "Truck",
+  "@truck": {
+    "description": "Car type - Truck"
   }
 }
