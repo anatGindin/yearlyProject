@@ -219,5 +219,9 @@
   "logout": "Logout",
   "@logout": {
     "description": "Logout button text"
-  }
+  },
+  "profileTitle": "Profile",
+    "@profileTitle":{
+    "description": "Profile page"
+    }
 }

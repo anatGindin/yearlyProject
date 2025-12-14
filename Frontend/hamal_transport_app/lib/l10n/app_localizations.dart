@@ -428,6 +428,10 @@ abstract class AppLocalizations {
   /// **'Logout'**
   String get logout;
 
+  /// Profile page
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
   String get profileTitle;
 }
 

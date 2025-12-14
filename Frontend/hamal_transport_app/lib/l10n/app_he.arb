@@ -219,5 +219,9 @@
   "logout": "התנתק",
   "@logout": {
     "description": "כפתור התנתקות"
+  },
+  "profileTitle": "פרופיל",
+  "@profileTitle":{
+  "description": "עמוד אישי"
   }
 }
