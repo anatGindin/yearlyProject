@@ -201,7 +201,7 @@ class _MissionScreenState extends State<MissionScreen> {
 
   void _showCancellationReasonDialog() {
     String cancellationReason = '';
-
+    final missionCoordinator = context.read<MissionsCoordinatorViewModel>();
     showDialog<void>(
       context: context,
       builder: (BuildContext dialogContext) {
@@ -227,9 +227,7 @@ class _MissionScreenState extends State<MissionScreen> {
             TextButton(
               onPressed: () {
                 Navigator.of(dialogContext).pop();
-                // TODO: Save cancellation reason (cancellationReason)
-                cancellationReason;
-                _updateStatus(MissionStatus.cancelled);
+                missionCoordinator.cancelMission(cancellationReason);
                 // Navigate back to main page after cancellation
                 Navigator.of(context).pop();
               },

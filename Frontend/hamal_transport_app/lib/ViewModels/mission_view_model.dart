@@ -56,4 +56,10 @@ class MissionViewModel extends ChangeNotifier {
 
     return false; // View will show the error message
   }
+
+  void cancelMission(String cancellationReason) {
+    // for now we just save the reason, in the future we will send it to the server
+    // so the server can notify the logistics supervisor
+    mission.cancellationReason = cancellationReason;
+  }
 }

@@ -33,6 +33,7 @@ class Mission {
   final Contact contact;
   final DateTime time;
   MissionStatus status; // mutable so UI can update delivery status
+  String cancellationReason;
 
   Mission({
     required this.id,
@@ -41,6 +42,7 @@ class Mission {
     required this.contact,
     required this.time,
     this.status = MissionStatus.available,
+    this.cancellationReason = '',
   });
 
   Mission.chosen({
@@ -50,6 +52,7 @@ class Mission {
     required this.contact,
     required this.time,
     this.status = MissionStatus.chosen,
+    this.cancellationReason = '',
   });
 
   /// compare Mission.id

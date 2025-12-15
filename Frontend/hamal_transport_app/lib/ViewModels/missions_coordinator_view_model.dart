@@ -32,10 +32,7 @@ class MissionsCoordinatorViewModel {
   }
 
   void updateStatus(Mission mission, MissionStatus newStatus) {
-    if (newStatus == MissionStatus.cancelled) {
-      abandonMission(mission);
-      newStatus = MissionStatus.available;
-    } else if (newStatus == MissionStatus.delivered) {
+    if (newStatus == MissionStatus.delivered) {
       myMissionsVM.remove(mission);
     }
     MissionStatus oldStatus = mission.status;
@@ -44,6 +41,11 @@ class MissionsCoordinatorViewModel {
     if (oldStatus != MissionStatus.available) {
       myMissionsVM.updateStatusChanged();
     }
+  }
+
+  void cancelMission(String cancellationReason) {
+    abandonMission(missionVM.mission);
+    missionVM.cancelMission(cancellationReason);
   }
 
   bool isAvailable(Mission mission) {
