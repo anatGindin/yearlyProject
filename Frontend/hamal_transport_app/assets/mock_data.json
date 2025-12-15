@@ -1,0 +1,61 @@
+{
+    "sampleMissions": [
+        {
+            "id": "m1",
+            "location": "בסיס חיל הים",
+            "description": "חבילה שבירה",
+            "contact": {
+                "fullName": "שימחה ריף",
+                "phoneNumber": "+972-50-333-4444"
+            },
+            "time": "2025-12-15 10:00",
+            "status": "chosen"
+        },
+        {
+            "id": "m2",
+            "location": "ירושלים - בן יהודה 12",
+            "description": "מעטפה דחופה",
+            "contact": {
+                "fullName": "אבי רון",
+                "phoneNumber": "+972-52-9876543"
+            },
+            "time": "2025-12-16 14:30",
+            "status": "chosen"
+        },
+        {
+            "id": "m3",
+            "location": "חיפה - הנשיא 3",
+            "description": "ארגז גדול, דורש עגלה",
+            "contact": {
+                "fullName": "גרי המבורגרי",
+                "phoneNumber": "+972-54-5555555"
+            },
+            "time": "2025-12-15 15:00",
+            "status": "chosen"
+        }
+    ],
+    "availableMissions": [
+        {
+            "id": "a1",
+            "location": "רמת גן - ביאליק 5",
+            "description": "חבילה קטנה",
+            "contact": {
+                "fullName": "יהודה המכבי",
+                "phoneNumber": "+972-50-1111111"
+            },
+            "time": "2025-12-15 12:00",
+            "status": "available"
+        },
+        {
+            "id": "a2",
+            "location": "ראשון לציון - העצמאות 21",
+            "description": "מסמכים",
+            "contact": {
+                "fullName": "בובספוג מכנסמרובע",
+                "phoneNumber": "+972-50-2222222"
+            },
+            "time": "2025-12-15 14:00",
+            "status": "available"
+        }
+    ]
+}

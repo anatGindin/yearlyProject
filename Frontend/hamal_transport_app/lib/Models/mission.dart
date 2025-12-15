@@ -58,6 +58,45 @@ class Mission {
     List<String>? comments,
   }) : comments = comments ?? [];
 
+  // JSON to object constructor
+  factory Mission.fromJson(Map<String, dynamic> json) {
+    // Parse status.
+    MissionStatus status = MissionStatus.available;
+    if (json['status'] != null) {
+      status = MissionStatus.values.firstWhere(
+        (e) => e.name == json['status'],
+        orElse: () => MissionStatus.available,
+      );
+    }
+
+    // Parse time.
+    DateTime time = DateTime.now();
+    if (json['time'] != null) {
+      time = DateTime.parse(json['time'] as String);
+    }
+
+    return Mission(
+      id: json['id'] as String,
+      location: json['location'] as String,
+      description: json['description'] as String,
+      contact: Contact.fromJson(json['contact'] as Map<String, dynamic>),
+      time: time,
+      status: status,
+    );
+  }
+
+  // Object to JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'location': location,
+      'description': description,
+      'contact': contact.toJson(),
+      'time': time.toIso8601String(),
+      'status': status.name,
+    };
+  }
+
   /// compare Mission.id
   @override
   bool operator ==(Object other) {
