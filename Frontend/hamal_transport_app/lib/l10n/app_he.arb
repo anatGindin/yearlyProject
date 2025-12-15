@@ -196,6 +196,10 @@
   "@selectRole": {
     "description": "תווית לבחירת תפקיד"
   },
+  "role":"תפקיד",
+  "@role": {
+  "description": "כותרת לתפקיד"
+  },
   "driver": "נהג",
   "@driver": {
     "description": "אפשרות תפקיד נהג"
@@ -204,6 +208,10 @@
   "@logistics": {
     "description": "אפשרות תפקיד צוות לוגיסטיקה"
   },
+  "admin": "מנהל",
+    "@admin": {
+      "description": "אפשרות תפקיד מנהל"
+      },
   "roleRequired": "יש לבחור תפקיד",
   "@roleRequired": {
     "description": "שגיאת אימות כשלא נבחר תפקיד"
@@ -220,10 +228,10 @@
   "@logout": {
     "description": "כפתור התנתקות"
   },
-  "profile": "פרופיל אישי",
-  "@profile":{
+  "profileTitle": "פרופיל אישי",
+  "@profileTitle":{
   "description":"כותרת לעמוד פרופיל משתמש"
-  }
+  },
   "cancellationReason": "סיבת ביטול",
   "@cancellationReason": {
     "description": "כותרת לדיאלוג סיבת ביטול"

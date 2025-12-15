@@ -30,7 +30,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get callDesk => 'התקשר לדסק המשלוחים';
 
   @override
-  String get callDeskMessage => 'התקשר לדסק המשלוחים במספר +1-800-555-1234';
+  String get callDeskMessage => 'התקשר לדסק המשלוחים';
 
   @override
   String get close => 'סגור';
@@ -157,10 +157,16 @@ class AppLocalizationsHe extends AppLocalizations {
   String get selectRole => 'בחר תפקיד';
 
   @override
+  String get role => 'תפקיד';
+
+  @override
   String get driver => 'נהג';
 
   @override
   String get logistics => 'צוות לוגיסטיקה';
+
+  @override
+  String get admin => 'מנהל';
 
   @override
   String get roleRequired => 'יש לבחור תפקיד';
@@ -175,7 +181,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get logout => 'התנתק';
 
   @override
-  String get profileTitle => 'פרופיל';
+  String get profileTitle => 'פרופיל אישי';
 
   @override
   String get cancellationReason => 'סיבת ביטול';

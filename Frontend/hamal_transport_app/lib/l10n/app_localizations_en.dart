@@ -30,7 +30,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get callDesk => 'Call Hamal Desk';
 
   @override
-  String get callDeskMessage => 'Call Hamal desk at +1-800-555-1234';
+  String get callDeskMessage => 'Call Hamal desk';
 
   @override
   String get close => 'Close';
@@ -157,10 +157,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectRole => 'Select your role';
 
   @override
+  String get role => 'Role';
+
+  @override
   String get driver => 'Driver';
 
   @override
   String get logistics => 'Logistics Team';
+
+  @override
+  String get admin => 'Admin';
 
   @override
   String get roleRequired => 'Please select a role';
@@ -175,7 +181,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logout => 'Logout';
 
   @override
-  String get profileTitle => 'Profile';
+  String get profileTitle => 'Profile Page';
 
   @override
   String get cancellationReason => 'Cancellation Reason';
