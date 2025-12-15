@@ -4,13 +4,63 @@ import '../../l10n/app_localizations.dart';
 import '../Services/authentication_service.dart';
 import '../Views/Authentication/login_screen_view.dart';
 
-class UserProfilePage extends StatelessWidget {
-  final UserProfileViewModel userProfileVM;
-  UserProfilePage({required this.userProfileVM, super.key});
+class UserProfilePage extends StatefulWidget {
+  UserProfilePage({super.key});
   final authService = AuthenticationService();
+
+  @override
+  createState() => _UserProfilePageState();
+}
+
+class _UserProfilePageState extends State<UserProfilePage> {
+  final authService = AuthenticationService();
+  UserProfileViewModel? userProfileVM;
+  bool loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserProfile();
+  }
+
+  Future<void> _loadUserProfile() async {
+    try {
+      final user = authService.currentUser;
+      if (user == null) {
+        // redirect to login if not authenticated
+        if (context.mounted) {
+          Navigator.pushReplacement(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (_, _, _) => const LoginScreenView(),
+              transitionDuration: Duration.zero,
+            ),
+          );
+        }
+        return;
+      }
+
+      final profile = await authService.getUserProfile(user);
+      setState(() {
+        userProfileVM = UserProfileViewModel(profile);
+        loading = false;
+      });
+    } catch (e) {
+      setState(() => loading = false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+
+    if (loading) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
+    if (userProfileVM == null) {
+      return const Scaffold(body: Center(child: Text("Error loading profile")));
+    }
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.profileTitle), centerTitle: true),
@@ -20,26 +70,26 @@ class UserProfilePage extends StatelessWidget {
             children: [
               Text(l10n.name),
               const Text(" : "),
-              Text(userProfileVM.name()),
+              Text(userProfileVM!.name()),
             ],
           ),
           Row(
             children: [
               Text(l10n.phone),
               const Text(" : "),
-              Text(userProfileVM.phone()),
+              Text(userProfileVM!.phone()),
             ],
           ),
           Row(
             children: [
               Text(l10n.role),
               const Text(" : "),
-              Text(userProfileVM.role(l10n)),
-              Icon(userProfileVM.roleIcon()),
+              Text(userProfileVM!.role(l10n)),
+              Icon(userProfileVM!.roleIcon()),
             ],
           ),
           _buildDriverInfo(context),
-          Spacer(),
+          const Spacer(),
           FilledButton.icon(
             onPressed: () async {
               await authService.signOut();
@@ -70,8 +120,8 @@ class UserProfilePage extends StatelessWidget {
 
   Widget _buildDriverInfo(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    if (userProfileVM.isDriver()) {
-      final driverProfileVM = userProfileVM.driverProfileVM!;
+    if (userProfileVM!.isDriver()) {
+      final driverProfileVM = userProfileVM!.driverProfileVM!;
       return Row(
         children: [
           Text(l10n.carType),
