@@ -8,6 +8,13 @@ import 'package:hamal_transport_app/ViewModels/my_missions_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/missions_coordinator_view_model.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize mock data before running any tests
+  setUpAll(() async {
+    await initializeMockData();
+  });
+
   group('MissionsCoordinatorViewModel - takeMission', () {
     late MissionsListsModel missionsLists;
     late AvailableMissionsViewModel availableVM;
