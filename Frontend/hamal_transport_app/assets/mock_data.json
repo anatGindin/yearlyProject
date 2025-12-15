@@ -9,7 +9,8 @@
                 "phoneNumber": "+972-50-333-4444"
             },
             "time": "2025-12-15 10:00",
-            "status": "chosen"
+            "status": "chosen",
+            "comments": []
         },
         {
             "id": "m2",
@@ -20,7 +21,8 @@
                 "phoneNumber": "+972-52-9876543"
             },
             "time": "2025-12-16 14:30",
-            "status": "chosen"
+            "status": "chosen",
+            "comments": []
         },
         {
             "id": "m3",
@@ -31,7 +33,8 @@
                 "phoneNumber": "+972-54-5555555"
             },
             "time": "2025-12-15 15:00",
-            "status": "chosen"
+            "status": "chosen",
+            "comments": []
         }
     ],
     "availableMissions": [
@@ -44,7 +47,8 @@
                 "phoneNumber": "+972-50-1111111"
             },
             "time": "2025-12-15 12:00",
-            "status": "available"
+            "status": "available",
+            "comments": []
         },
         {
             "id": "a2",
@@ -55,7 +59,8 @@
                 "phoneNumber": "+972-50-2222222"
             },
             "time": "2025-12-15 14:00",
-            "status": "available"
+            "status": "available",
+            "comments": []
         }
     ]
 }

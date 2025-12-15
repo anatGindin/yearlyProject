@@ -34,7 +34,7 @@ class Mission {
   final DateTime time;
   MissionStatus status; // mutable so UI can update delivery status
   String cancellationReason;
-  List<String> comments;
+  final List<String> comments;
 
   Mission({
     required this.id,
@@ -44,8 +44,8 @@ class Mission {
     required this.time,
     this.status = MissionStatus.available,
     this.cancellationReason = '',
-    List<String>? comments,
-  }) : comments = comments ?? [];
+    required this.comments,
+  });
 
   Mission.chosen({
     required this.id,
@@ -55,8 +55,8 @@ class Mission {
     required this.time,
     this.status = MissionStatus.chosen,
     this.cancellationReason = '',
-    List<String>? comments,
-  }) : comments = comments ?? [];
+    required this.comments,
+  });
 
   // JSON to object constructor
   factory Mission.fromJson(Map<String, dynamic> json) {
@@ -75,6 +75,13 @@ class Mission {
       time = DateTime.parse(json['time'] as String);
     }
 
+    // Parse comments (null-safe)
+    final List<String> comments =
+        (json['comments'] as List<dynamic>?)
+            ?.map((e) => e.toString())
+            .toList() ??
+        [];
+
     return Mission(
       id: json['id'] as String,
       location: json['location'] as String,
@@ -82,6 +89,7 @@ class Mission {
       contact: Contact.fromJson(json['contact'] as Map<String, dynamic>),
       time: time,
       status: status,
+      comments: comments,
     );
   }
 
@@ -94,6 +102,7 @@ class Mission {
       'contact': contact.toJson(),
       'time': time.toIso8601String(),
       'status': status.name,
+      'comments': comments,
     };
   }
 
