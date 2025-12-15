@@ -446,6 +446,60 @@ abstract class AppLocalizations {
   /// **'Profile Page'**
   String get profileTitle;
 
+  /// Sort By button text
+  ///
+  /// In en, this message translates to:
+  /// **'Sort'**
+  String get sortBy;
+
+  /// Filter button text
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get filterBy;
+
+  /// Sort option - Distance: closest to furthest
+  ///
+  /// In en, this message translates to:
+  /// **'Closest to furthest'**
+  String get closestToFurthest;
+
+  /// Sort option - Distance: Furthest to closest
+  ///
+  /// In en, this message translates to:
+  /// **'Furthest to closest'**
+  String get furthestToClosest;
+
+  /// Sort option - Time: Newest to oldest
+  ///
+  /// In en, this message translates to:
+  /// **'Newest to oldest'**
+  String get newestToOldest;
+
+  /// Sort option - Time: Oldest to newest
+  ///
+  /// In en, this message translates to:
+  /// **'Oldest to newest'**
+  String get oldestToNewest;
+
+  /// Filter option - Show all missions
+  ///
+  /// In en, this message translates to:
+  /// **'All missions'**
+  String get noFilter;
+
+  /// Filter option - Show 'Chosen' missions
+  ///
+  /// In en, this message translates to:
+  /// **'\'Chosen\' missions'**
+  String get chosenFilter;
+
+  /// Show 'Picked up' missions
+  ///
+  /// In en, this message translates to:
+  /// **'\'Picked up\' missions'**
+  String get pickedUpFilter;
+
   /// Title for cancellation reason dialog
   ///
   /// In en, this message translates to:
@@ -505,60 +559,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Truck'**
   String get truck;
-
-  /// Sort By button text
-  ///
-  /// In en, this message translates to:
-  /// **'Sort'**
-  String get sortBy;
-
-  /// Filter button text
-  ///
-  /// In en, this message translates to:
-  /// **'Filter'**
-  String get filterBy;
-
-  /// Sort option - Distance: closest to furthest
-  ///
-  /// In en, this message translates to:
-  /// **'Closest to furthest'**
-  String get closestToFurthest;
-
-  /// Sort option - Distance: Furthest to closest
-  ///
-  /// In en, this message translates to:
-  /// **'Furthest to closest'**
-  String get furthestToClosest;
-
-  /// Sort option - Time: Newest to oldest
-  ///
-  /// In en, this message translates to:
-  /// **'Newest to oldest'**
-  String get newestToOldest;
-
-  /// Sort option - Time: Oldest to newest
-  ///
-  /// In en, this message translates to:
-  /// **'Oldest to newest'**
-  String get oldestToNewest;
-
-  /// Filter option - Show all missions
-  ///
-  /// In en, this message translates to:
-  /// **'All missions'**
-  String get noFilter;
-
-  /// Filter option - Show 'Chosen' missions
-  ///
-  /// In en, this message translates to:
-  /// **'\'Chosen\' missions'**
-  String get chosenFilter;
-
-  /// Show 'Picked up' missions
-  ///
-  /// In en, this message translates to:
-  /// **'\'Picked up\' missions'**
-  String get pickedUpFilter;
 }
 
 class _AppLocalizationsDelegate

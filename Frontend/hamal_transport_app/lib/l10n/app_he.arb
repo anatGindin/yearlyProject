@@ -230,7 +230,7 @@
   },
   "profileTitle": "פרופיל אישי",
   "@profileTitle":{
-  "description":"כותרת לעמוד פרופיל משתמש"}
+  "description":"כותרת לעמוד פרופיל משתמש"},
 
   "sortBy": "סדר",
   "@sortBy": {
