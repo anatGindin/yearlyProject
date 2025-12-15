@@ -238,17 +238,4 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pickedUpFilter => '\'Picked up\' missions';
-
-  @override
-  String get cancellationReason => 'Cancellation Reason';
-
-  @override
-  String get enterCancellationReason =>
-      'Please enter the reason for cancellation';
-
-  @override
-  String get cancel => 'Cancel';
-
-  @override
-  String get confirm => 'Confirm';
 }

@@ -505,6 +505,7 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Truck'**
   String get truck;
+
   /// Sort By button text
   ///
   /// In en, this message translates to:
@@ -558,30 +559,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'\'Picked up\' missions'**
   String get pickedUpFilter;
-
-  /// Title for cancellation reason dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Cancellation Reason'**
-  String get cancellationReason;
-
-  /// Hint text for cancellation reason input
-  ///
-  /// In en, this message translates to:
-  /// **'Please enter the reason for cancellation'**
-  String get enterCancellationReason;
-
-  /// Cancel button text
-  ///
-  /// In en, this message translates to:
-  /// **'Cancel'**
-  String get cancel;
-
-  /// Confirm button text
-  ///
-  /// In en, this message translates to:
-  /// **'Confirm'**
-  String get confirm;
 }
 
 class _AppLocalizationsDelegate

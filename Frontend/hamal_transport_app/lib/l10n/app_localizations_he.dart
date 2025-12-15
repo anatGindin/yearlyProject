@@ -212,6 +212,7 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get truck => 'משאית';
+
   String get sortBy => 'סדר';
 
   @override
@@ -237,16 +238,4 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get pickedUpFilter => 'משימות בסטטוס \'נאסף\'';
-
-  @override
-  String get cancellationReason => 'סיבת ביטול';
-
-  @override
-  String get enterCancellationReason => 'אנא הזן את סיבת הביטול';
-
-  @override
-  String get cancel => 'ביטול';
-
-  @override
-  String get confirm => 'אישור';
 }
