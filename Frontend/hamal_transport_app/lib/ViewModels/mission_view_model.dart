@@ -27,6 +27,10 @@ class MissionViewModel extends ChangeNotifier {
     return mission.time;
   }
 
+  List<String> comments() {
+    return mission.comments;
+  }
+
   /// Update the status of the mission
   void updateStatus(MissionStatus newStatus) {
     // mission is passed by reference so it is updeted in the list
@@ -61,5 +65,16 @@ class MissionViewModel extends ChangeNotifier {
     // for now we just save the reason, in the future we will send it to the server
     // so the server can notify the logistics supervisor
     mission.cancellationReason = cancellationReason;
+  }
+
+  void addComment(String comment) {
+    mission.comments.add(comment);
+    notifyListeners();
+  }
+
+  void deleteComment(int index) {
+    if (index < 0 || index >= mission.comments.length) return;
+    mission.comments.removeAt(index);
+    notifyListeners();
   }
 }

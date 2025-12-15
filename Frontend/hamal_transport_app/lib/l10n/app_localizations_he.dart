@@ -212,4 +212,23 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get confirm => 'אישור';
+
+  @override
+  String get comments => 'ההערות שלי';
+
+  @override
+  String get noComments => 'אין הערות להציג';
+
+  @override
+  String get addComment => 'הוסף הערה';
+
+  @override
+  String get enterComment => 'אנא הזן את ההערה';
+
+  @override
+  String get deleteComment => 'מחק הערה';
+
+  @override
+  String get deleteCommentConfirmation =>
+      'האם אתה בטוח שאתה רוצה למחוק את ההערה?';
 }

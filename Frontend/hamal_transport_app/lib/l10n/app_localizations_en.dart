@@ -213,4 +213,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get confirm => 'Confirm';
+
+  @override
+  String get comments => 'My comment';
+
+  @override
+  String get noComments => 'There are no comments';
+
+  @override
+  String get addComment => 'Add comment';
+
+  @override
+  String get enterComment => 'Enter comment';
+
+  @override
+  String get deleteComment => 'Delete comment';
+
+  @override
+  String get deleteCommentConfirmation =>
+      'Are you sure you want to delete this comment?';
 }

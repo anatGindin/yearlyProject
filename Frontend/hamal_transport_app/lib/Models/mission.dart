@@ -34,6 +34,7 @@ class Mission {
   final DateTime time;
   MissionStatus status; // mutable so UI can update delivery status
   String cancellationReason;
+  List<String> comments;
 
   Mission({
     required this.id,
@@ -43,7 +44,8 @@ class Mission {
     required this.time,
     this.status = MissionStatus.available,
     this.cancellationReason = '',
-  });
+    List<String>? comments,
+  }) : comments = comments ?? [];
 
   Mission.chosen({
     required this.id,
@@ -53,7 +55,8 @@ class Mission {
     required this.time,
     this.status = MissionStatus.chosen,
     this.cancellationReason = '',
-  });
+    List<String>? comments,
+  }) : comments = comments ?? [];
 
   /// compare Mission.id
   @override
