@@ -6,6 +6,12 @@ import 'package:hamal_transport_app/ViewModels/available_missions_view_model.dar
 import 'package:hamal_transport_app/ViewModels/my_missions_view_model.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUpAll(() async {
+    await initializeMockData();
+  });
+
   group('MyMissionsViewModel Sorting & Filtering', () {
     late MissionsListsModel missionsLists;
     late MyMissionsViewModel myVM;
