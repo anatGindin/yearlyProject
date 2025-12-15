@@ -38,22 +38,25 @@ class MissionViewModel extends ChangeNotifier {
   /// Returns true if navigation launched, false otherwise.
   Future<bool> launchNavigation() async {
     final address = mission.location;
-    final wazeUri = Uri.parse('waze://?q=${Uri.encodeComponent(address)}');
 
-    if (await canLaunchUrl(wazeUri)) {
-      await launchUrl(wazeUri);
+    // Try Waze first
+    try {
+      final wazeUri = Uri.parse('waze://?q=${Uri.encodeComponent(address)}');
+      await launchUrl(wazeUri, mode: LaunchMode.externalApplication);
       return true;
+    } catch (e) {
+      // Ignore and fallback to Google Maps
     }
 
-    final googleUri = Uri.parse(
-      'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(address)}',
-    );
-
-    if (await canLaunchUrl(googleUri)) {
-      await launchUrl(googleUri);
+    // Fallback to Google Maps
+    try {
+      final googleUri = Uri.parse(
+        'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(address)}',
+      );
+      await launchUrl(googleUri, mode: LaunchMode.externalApplication);
       return true;
+    } catch (e) {
+      return false; // View will show the error message
     }
-
-    return false; // View will show the error message
   }
 }
