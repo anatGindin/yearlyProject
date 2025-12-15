@@ -231,6 +231,41 @@
   "profileTitle": "פרופיל אישי",
   "@profileTitle":{
   "description":"כותרת לעמוד פרופיל משתמש"
+  "sortBy": "סדר",
+  "@sortBy": {
+    "description": "כפתור מיון רשימה"
+  },
+  "filterBy": "סנן",
+  "@filterBy": {
+    "description": "כפתור סינון רשימה"
+  },
+  "closestToFurthest": "קרוב לרחוק",
+  "@closestToFurthest": {
+    "description": "אפשרות מיון - מרחק: קרוב לרחוק"
+  },
+  "furthestToClosest": "רחוק לקרוב",
+  "@furthestToClosest": {
+    "description": "אפשרות מיון - מרחק: רחוק לקרוב"
+  },
+  "newestToOldest": "חדש לישן",
+  "@newestToOldest": {
+    "description": "אפשרות מיון - זמן: חדש לישן"
+  },
+  "oldestToNewest": "ישן לחדש",
+  "@oldestToNewest": {
+    "description": "אפשרות מיון - זמן: ישן לחדש"
+  },
+  "noFilter": "כל המשימות",
+  "@noFilter": {
+    "description": "אפשרות סינון - הצג את כל המשימות"
+  },
+  "chosenFilter": "משימות בסטטוס 'נבחר'",
+  "@chosenFilter": {
+    "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
+  },
+  "pickedUpFilter": "משימות בסטטוס 'נאסף'",
+  "@pickedUpFilter": {
+    "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
   },
   "cancellationReason": "סיבת ביטול",
   "@cancellationReason": {

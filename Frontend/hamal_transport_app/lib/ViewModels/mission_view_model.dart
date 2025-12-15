@@ -7,7 +7,7 @@ class MissionViewModel extends ChangeNotifier {
   Mission mission;
   MissionViewModel(this.mission);
 
-  String status() {
+  MissionStatus status() {
     return mission.status;
   }
 
@@ -28,7 +28,7 @@ class MissionViewModel extends ChangeNotifier {
   }
 
   /// Update the status of the mission
-  void updateStatus(String newStatus) {
+  void updateStatus(MissionStatus newStatus) {
     // mission is passed by reference so it is updeted in the list
     mission.status = newStatus;
     notifyListeners();
@@ -38,22 +38,25 @@ class MissionViewModel extends ChangeNotifier {
   /// Returns true if navigation launched, false otherwise.
   Future<bool> launchNavigation() async {
     final address = mission.location;
-    final wazeUri = Uri.parse('waze://?q=${Uri.encodeComponent(address)}');
 
-    if (await canLaunchUrl(wazeUri)) {
-      await launchUrl(wazeUri);
+    // Try Waze first
+    try {
+      final wazeUri = Uri.parse('waze://?q=${Uri.encodeComponent(address)}');
+      await launchUrl(wazeUri, mode: LaunchMode.externalApplication);
       return true;
+    } catch (e) {
+      // Ignore and fallback to Google Maps
     }
 
-    final googleUri = Uri.parse(
-      'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(address)}',
-    );
-
-    if (await canLaunchUrl(googleUri)) {
-      await launchUrl(googleUri);
+    // Fallback to Google Maps
+    try {
+      final googleUri = Uri.parse(
+        'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(address)}',
+      );
+      await launchUrl(googleUri, mode: LaunchMode.externalApplication);
       return true;
+    } catch (e) {
+      return false; // View will show the error message
     }
-
-    return false; // View will show the error message
   }
 }

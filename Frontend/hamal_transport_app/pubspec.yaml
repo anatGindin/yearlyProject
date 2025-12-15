@@ -34,3 +34,4 @@ flutter:
   generate: true
   assets:
     - Resources/Images/
+    - assets/mock_data.json

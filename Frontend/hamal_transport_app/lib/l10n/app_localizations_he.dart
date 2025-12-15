@@ -212,4 +212,41 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get truck => 'משאית';
+  String get sortBy => 'סדר';
+
+  @override
+  String get filterBy => 'סנן';
+
+  @override
+  String get closestToFurthest => 'קרוב לרחוק';
+
+  @override
+  String get furthestToClosest => 'רחוק לקרוב';
+
+  @override
+  String get newestToOldest => 'חדש לישן';
+
+  @override
+  String get oldestToNewest => 'ישן לחדש';
+
+  @override
+  String get noFilter => 'כל המשימות';
+
+  @override
+  String get chosenFilter => 'משימות בסטטוס \'נבחר\'';
+
+  @override
+  String get pickedUpFilter => 'משימות בסטטוס \'נאסף\'';
+
+  @override
+  String get cancellationReason => 'סיבת ביטול';
+
+  @override
+  String get enterCancellationReason => 'אנא הזן את סיבת הביטול';
+
+  @override
+  String get cancel => 'ביטול';
+
+  @override
+  String get confirm => 'אישור';
 }
