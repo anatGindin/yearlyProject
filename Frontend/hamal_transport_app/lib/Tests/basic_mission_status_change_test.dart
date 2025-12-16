@@ -115,6 +115,31 @@ void main() {
       // Verify status updated
       expect(testMission.status, MissionStatus.delivered);
     });
+
+    test('cancelMission returns mission to available', () {
+      coordinator.setMissionVM(missionVM);
+      testMission = sampleMissions[0];
+      int initialAvailableLength = availableMissions.length;
+      int initialMyLength = sampleMissions.length;
+
+      // Verify initial state
+      expect(availableVM.availableMissions.length, initialAvailableLength);
+      expect(myVM.myMissions.length, initialMyLength);
+      expect(testMission.status, MissionStatus.chosen);
+      expect(myVM.myMissions.contains(testMission), true);
+
+      // Perform action
+      coordinator.cancelMission("cancellationReason");
+
+      // Verify mission moved back to available
+      expect(availableVM.availableMissions.length, initialAvailableLength + 1);
+      expect(myVM.myMissions.length, initialMyLength - 1);
+      expect(availableVM.availableMissions.contains(testMission), true);
+      expect(myVM.myMissions.contains(testMission), false);
+
+      // Verify status updated to available (not cancelled)
+      expect(testMission.status, MissionStatus.available);
+    });
   });
 
   group('MissionsCoordinatorViewModel - abandonMission', () {
