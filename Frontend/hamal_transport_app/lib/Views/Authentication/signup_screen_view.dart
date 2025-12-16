@@ -13,9 +13,12 @@ class SignupScreenView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => SignupScreenViewModel(),
-      child: const Scaffold(
+      child: Scaffold(
         resizeToAvoidBottomInset: false,
-        body: _SignupContent(),
+        body: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: const _SignupContent(),
+        ),
       ),
     );
   }
@@ -38,7 +41,8 @@ class _SignupContentState extends State<_SignupContent> {
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
 
-  UserRole? _selectedRole = UserRole.driver;
+  UserRole _selectedRole = UserRole.driver;
+  CarType? _selectedCarType;
 
   @override
   void dispose() {
@@ -55,12 +59,18 @@ class _SignupContentState extends State<_SignupContent> {
     AppLocalizations l10n,
   ) async {
     if (_formKey.currentState!.validate()) {
+      final driverProfile =
+          _selectedRole == UserRole.driver && _selectedCarType != null
+          ? DriverProfile(carType: _selectedCarType!)
+          : null;
+
       final success = await viewModel.signup(
         email: _emailController.text,
         password: _passwordController.text,
         name: _nameController.text,
         phone: _phoneController.text,
-        role: _selectedRole!,
+        role: _selectedRole,
+        driverProfile: driverProfile,
       );
       if (success && mounted) {
         await showDialog<void>(
@@ -101,8 +111,7 @@ class _SignupContentState extends State<_SignupContent> {
           case AuthenticationError.emailInvalid:
             message = l10n.invalidEmail;
           case AuthenticationError.passwordInvalid:
-            message = l10n
-                .passwordRules; // Or a specific error if validation failed on server side
+            message = l10n.passwordRules;
           case AuthenticationError.networkRequestFailed:
             message = l10n.genericError;
           case AuthenticationError.emailAlreadyInUse:
@@ -113,7 +122,10 @@ class _SignupContentState extends State<_SignupContent> {
         }
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(message), backgroundColor: Colors.red),
+          SnackBar(
+            content: Text(message),
+            backgroundColor: Theme.of(context).colorScheme.error,
+          ),
         );
       }
     });
@@ -122,10 +134,10 @@ class _SignupContentState extends State<_SignupContent> {
       height: 160,
       title: Text(
         l10n.signup,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 32,
           fontWeight: FontWeight.bold,
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.onPrimary,
         ),
         textAlign: TextAlign.center,
       ),
@@ -144,6 +156,37 @@ class _SignupContentState extends State<_SignupContent> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                // Role Segmentation
+                Center(
+                  child: SegmentedButton<UserRole>(
+                    segments: <ButtonSegment<UserRole>>[
+                      ButtonSegment<UserRole>(
+                        value: UserRole.driver,
+                        label: Text(l10n.driver),
+                      ),
+                      ButtonSegment<UserRole>(
+                        value: UserRole.logistics,
+                        label: Text(l10n.logistics),
+                      ),
+                    ],
+                    selected: <UserRole>{_selectedRole},
+                    onSelectionChanged: (Set<UserRole> newSelection) {
+                      setState(() {
+                        _selectedRole = newSelection.first;
+                        if (_selectedRole == UserRole.logistics) {
+                          _selectedCarType = null;
+                        }
+                      });
+                    },
+                    showSelectedIcon: false,
+                    style: const ButtonStyle(
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      visualDensity: VisualDensity.compact,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+
                 // Name Field
                 _CustomTextField(
                   controller: _nameController,
@@ -162,33 +205,6 @@ class _SignupContentState extends State<_SignupContent> {
                   validator: (value) => (value == null || value.isEmpty)
                       ? l10n.requiredField
                       : null,
-                ),
-                const SizedBox(height: 16),
-
-                // Role Dropdown
-                DropdownButtonFormField<UserRole>(
-                  initialValue: _selectedRole,
-                  decoration: InputDecoration(
-                    labelText: l10n.selectRole,
-                    border: const UnderlineInputBorder(),
-                  ),
-                  items: [
-                    DropdownMenuItem(
-                      value: UserRole.driver,
-                      child: Text(l10n.driver),
-                    ),
-                    DropdownMenuItem(
-                      value: UserRole.logistics,
-                      child: Text(l10n.logistics),
-                    ),
-                  ],
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedRole = value;
-                    });
-                  },
-                  validator: (value) =>
-                      value == null ? l10n.roleRequired : null,
                 ),
                 const SizedBox(height: 16),
 
@@ -251,7 +267,33 @@ class _SignupContentState extends State<_SignupContent> {
                       ? l10n.passwordMismatch
                       : null,
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 16),
+                // Car Type Selection (only for Driver)
+                if (_selectedRole == UserRole.driver) ...[
+                  DropdownButtonFormField<CarType>(
+                    initialValue: _selectedCarType,
+                    decoration: InputDecoration(labelText: l10n.carType),
+                    items: CarType.values.map((CarType type) {
+                      return DropdownMenuItem<CarType>(
+                        value: type,
+                        child: Text(type.displayName(l10n)),
+                      );
+                    }).toList(),
+                    onChanged: (CarType? newValue) {
+                      setState(() {
+                        _selectedCarType = newValue;
+                      });
+                    },
+                    validator: (value) {
+                      if (_selectedRole == UserRole.driver && value == null) {
+                        return l10n.carTypeRequired;
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+
+                const SizedBox(height: 20),
 
                 _ActionButtons(
                   isLoading: viewModel.isLoading,
@@ -294,7 +336,6 @@ class _CustomTextField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         labelText: labelText,
-        border: const UnderlineInputBorder(),
         suffixIcon: suffixIcon,
         helperText: helperText,
         helperMaxLines: helperMaxLines,
@@ -329,11 +370,7 @@ class _ActionButtons extends StatelessWidget {
       children: [
         FilledButton(
           onPressed: onSignup,
-          style: FilledButton.styleFrom(
-            backgroundColor: const Color(0xFF364678),
-            foregroundColor: Colors.white,
-            minimumSize: const Size.fromHeight(50),
-          ),
+          style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(50)),
           child: Text(l10n.signup),
         ),
         const SizedBox(height: 16),
@@ -341,8 +378,6 @@ class _ActionButtons extends StatelessWidget {
           onPressed: onLogin,
           style: OutlinedButton.styleFrom(
             minimumSize: const Size.fromHeight(50),
-            foregroundColor: const Color(0xFF364678),
-            side: const BorderSide(color: Color(0xFF364678)),
           ),
           child: Text(l10n.login),
         ),
