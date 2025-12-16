@@ -64,6 +64,8 @@ def create_mission(new_mission: Mission):
         json.dump(missions, f)
     return new_mission
 
-
+@app.get("/Missions/", response_model=List[Mission])
+def get_all_missions():
+    return missions
 
 
