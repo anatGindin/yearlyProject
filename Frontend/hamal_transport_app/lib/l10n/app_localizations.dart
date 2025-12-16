@@ -541,6 +541,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to delete this comment?'**
   String get deleteCommentConfirmation;
+
+  /// Label for car type selection
+  ///
+  /// In en, this message translates to:
+  /// **'Car Type'**
+  String get carType;
+
+  /// Validation error for car type
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a car type'**
+  String get carTypeRequired;
+
+  /// Car type - Private
+  ///
+  /// In en, this message translates to:
+  /// **'Private Car'**
+  String get privateCar;
+
+  /// Car type - Trailer
+  ///
+  /// In en, this message translates to:
+  /// **'Trailer'**
+  String get trailer;
+
+  /// Car type - Pickup Truck
+  ///
+  /// In en, this message translates to:
+  /// **'Pickup Truck'**
+  String get pickupTruck;
+
+  /// Car type - Truck
+  ///
+  /// In en, this message translates to:
+  /// **'Truck'**
+  String get truck;
+
+  /// Label for confirm email field
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Email'**
+  String get confirmEmail;
+
+  /// Error message when emails do not match
+  ///
+  /// In en, this message translates to:
+  /// **'Emails do not match'**
+  String get emailMismatch;
 }
 
 class _AppLocalizationsDelegate

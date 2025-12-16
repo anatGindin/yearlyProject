@@ -232,4 +232,28 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get deleteCommentConfirmation =>
       'Are you sure you want to delete this comment?';
+
+  @override
+  String get carType => 'Car Type';
+
+  @override
+  String get carTypeRequired => 'Please select a car type';
+
+  @override
+  String get privateCar => 'Private Car';
+
+  @override
+  String get trailer => 'Trailer';
+
+  @override
+  String get pickupTruck => 'Pickup Truck';
+
+  @override
+  String get truck => 'Truck';
+
+  @override
+  String get confirmEmail => 'Confirm Email';
+
+  @override
+  String get emailMismatch => 'Emails do not match';
 }

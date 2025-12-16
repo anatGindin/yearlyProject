@@ -231,4 +231,28 @@ class AppLocalizationsHe extends AppLocalizations {
   @override
   String get deleteCommentConfirmation =>
       'האם אתה בטוח שאתה רוצה למחוק את ההערה?';
+
+  @override
+  String get carType => 'סוג רכב';
+
+  @override
+  String get carTypeRequired => 'אנא בחר סוג רכב';
+
+  @override
+  String get privateCar => 'רכב פרטי';
+
+  @override
+  String get trailer => 'נגרר';
+
+  @override
+  String get pickupTruck => 'טנדר';
+
+  @override
+  String get truck => 'משאית';
+
+  @override
+  String get confirmEmail => 'אישור אימייל';
+
+  @override
+  String get emailMismatch => 'כתובות המייל לא תואמות';
 }

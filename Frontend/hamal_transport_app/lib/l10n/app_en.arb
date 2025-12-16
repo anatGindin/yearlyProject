@@ -295,5 +295,37 @@
   "deleteCommentConfirmation": "Are you sure you want to delete this comment?",
   "@deleteCommentConfirmation": {
     "description": "Delete comment message"
+  },
+  "carType": "Car Type",
+  "@carType": {
+    "description": "Label for car type selection"
+  },
+  "carTypeRequired": "Please select a car type",
+  "@carTypeRequired": {
+    "description": "Validation error for car type"
+  },
+  "privateCar": "Private Car",
+  "@privateCar": {
+    "description": "Car type - Private"
+  },
+  "trailer": "Trailer",
+  "@trailer": {
+    "description": "Car type - Trailer"
+  },
+  "pickupTruck": "Pickup Truck",
+  "@pickupTruck": {
+    "description": "Car type - Pickup Truck"
+  },
+  "truck": "Truck",
+  "@truck": {
+    "description": "Car type - Truck"
+  },
+  "confirmEmail": "Confirm Email",
+  "@confirmEmail": {
+    "description": "Label for confirm email field"
+  },
+  "emailMismatch": "Emails do not match",
+  "@emailMismatch": {
+    "description": "Error message when emails do not match"
   }
 }

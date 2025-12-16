@@ -10,6 +10,7 @@ class FakeAuthenticationService extends Mock implements AuthenticationService {
   String? lastName;
   String? lastPhone;
   UserRole? lastRole;
+  DriverProfile? lastDriverProfile;
 
   bool shouldThrow = false;
   AuthenticationError? errorToThrow;
@@ -53,6 +54,7 @@ class FakeAuthenticationService extends Mock implements AuthenticationService {
     required String name,
     required String phone,
     required UserRole role,
+    DriverProfile? driverProfile,
   }) async {
     if (shouldThrow) {
       if (errorToThrow != null) {
@@ -67,6 +69,7 @@ class FakeAuthenticationService extends Mock implements AuthenticationService {
     lastName = name;
     lastPhone = phone;
     lastRole = role;
+    lastDriverProfile = driverProfile;
 
     final profile = UserProfile(
       uid: 'test-uid',
@@ -74,6 +77,7 @@ class FakeAuthenticationService extends Mock implements AuthenticationService {
       name: name,
       phone: phone,
       role: role,
+      driverProfile: driverProfile,
     );
     return profile;
   }

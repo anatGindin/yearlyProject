@@ -38,6 +38,7 @@ void main() {
         name: 'Test User',
         phone: '1234567890',
         role: UserRole.driver,
+        driverProfile: DriverProfile(carType: CarType.private),
       );
 
       expect(success, true);
@@ -47,7 +48,9 @@ void main() {
       expect(fakeAuthService.lastPassword, 'Pass123');
       expect(fakeAuthService.lastName, 'Test User');
       expect(fakeAuthService.lastPhone, '1234567890');
+      expect(fakeAuthService.lastPhone, '1234567890');
       expect(fakeAuthService.lastRole, UserRole.driver);
+      expect(fakeAuthService.lastDriverProfile!.carType, CarType.private);
     });
 
     test('Signup Failure sets error', () async {
