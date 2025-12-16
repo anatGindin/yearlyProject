@@ -295,5 +295,13 @@
   "truck": "Truck",
   "@truck": {
     "description": "Car type - Truck"
+  },
+  "confirmEmail": "Confirm Email",
+  "@confirmEmail": {
+    "description": "Label for confirm email field"
+  },
+  "emailMismatch": "Emails do not match",
+  "@emailMismatch": {
+    "description": "Error message when emails do not match"
   }
 }

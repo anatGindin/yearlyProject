@@ -541,6 +541,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Truck'**
   String get truck;
+
+  /// Label for confirm email field
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Email'**
+  String get confirmEmail;
+
+  /// Error message when emails do not match
+  ///
+  /// In en, this message translates to:
+  /// **'Emails do not match'**
+  String get emailMismatch;
 }
 
 class _AppLocalizationsDelegate
