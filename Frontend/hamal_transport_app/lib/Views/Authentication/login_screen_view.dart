@@ -14,9 +14,12 @@ class LoginScreenView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => LoginScreenViewModel(),
-      child: const Scaffold(
+      child: Scaffold(
         resizeToAvoidBottomInset: false,
-        body: _LoginContent(),
+        body: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: const _LoginContent(),
+        ),
       ),
     );
   }
@@ -192,7 +195,11 @@ class _LoginContentState extends State<_LoginContent> {
                                 transitionDuration: Duration.zero,
                                 reverseTransitionDuration: Duration.zero,
                               ),
-                            );
+                            ).whenComplete(() {
+                              _emailController.clear();
+                              _passwordController.clear();
+                              FocusScope.of(context).requestFocus(FocusNode());
+                            });
                           },
                           style: OutlinedButton.styleFrom(
                             minimumSize: const Size.fromHeight(50),

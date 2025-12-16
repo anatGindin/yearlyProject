@@ -13,9 +13,12 @@ class SignupScreenView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => SignupScreenViewModel(),
-      child: const Scaffold(
+      child: Scaffold(
         resizeToAvoidBottomInset: false,
-        body: _SignupContent(),
+        body: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: const _SignupContent(),
+        ),
       ),
     );
   }
