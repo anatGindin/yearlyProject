@@ -506,6 +506,42 @@ abstract class AppLocalizations {
   /// **'Confirm'**
   String get confirm;
 
+  /// My comment label
+  ///
+  /// In en, this message translates to:
+  /// **'My comment'**
+  String get comments;
+
+  /// Message when there are no comments
+  ///
+  /// In en, this message translates to:
+  /// **'There are no comments'**
+  String get noComments;
+
+  /// Add comment button text
+  ///
+  /// In en, this message translates to:
+  /// **'Add comment'**
+  String get addComment;
+
+  /// Hint text for Add comment input
+  ///
+  /// In en, this message translates to:
+  /// **'Enter comment'**
+  String get enterComment;
+
+  /// Delete comment label
+  ///
+  /// In en, this message translates to:
+  /// **'Delete comment'**
+  String get deleteComment;
+
+  /// Delete comment message
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this comment?'**
+  String get deleteCommentConfirmation;
+
   /// Label for car type selection
   ///
   /// In en, this message translates to:

@@ -272,6 +272,30 @@
   "@confirm": {
     "description": "טקסט כפתור אישור"
   },
+  "comments": "ההערות שלי",
+  "@comments": {
+    "description": "תווית ההערות שלי"
+  },
+  "noComments": "אין הערות להציג",
+  "@noComments": {
+    "description": "הודעה כשאין הערות"
+  },
+  "addComment": "הוסף הערה",
+  "@addComment": {
+    "description": "טקסט כפתור הוסף הערה"
+  },
+  "enterComment": "אנא הזן את ההערה",
+  "@enterComment": {
+    "description": "טקסט עזר לשדה הוסף הערה"
+  },
+  "deleteComment": "מחק הערה",
+  "@deleteComment": {
+    "description": "תווית מחק הערה"
+  },
+  "deleteCommentConfirmation": "האם אתה בטוח שאתה רוצה למחוק את ההערה?",
+  "@deleteCommentConfirmation": {
+    "description": "הודעת מחק הערה"
+  },
   "carType": "סוג רכב",
   "@carType": {
     "description": "תווית לבחירת סוג רכב"

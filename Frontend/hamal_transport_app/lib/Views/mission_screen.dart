@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/ViewModels/mission_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/missions_coordinator_view_model.dart';
+import 'package:hamal_transport_app/Views/Widgets/comments_list_view.dart';
 import 'package:provider/provider.dart';
 import '../Models/mission.dart';
 import '../l10n/app_localizations.dart';
@@ -80,6 +81,8 @@ class _MissionScreenState extends State<MissionScreen> {
                     ).textTheme.titleMedium?.copyWith(fontSize: 18),
                     textAlign: TextAlign.right,
                   ),
+                  const SizedBox(height: 12), const SizedBox(height: 16),
+                  MissionCommentsTile(missionViewModel: missionVM),
                   const Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -201,7 +204,7 @@ class _MissionScreenState extends State<MissionScreen> {
 
   void _showCancellationReasonDialog() {
     String cancellationReason = '';
-
+    final missionCoordinator = context.read<MissionsCoordinatorViewModel>();
     showDialog<void>(
       context: context,
       builder: (BuildContext dialogContext) {
@@ -227,9 +230,7 @@ class _MissionScreenState extends State<MissionScreen> {
             TextButton(
               onPressed: () {
                 Navigator.of(dialogContext).pop();
-                // TODO: Save cancellation reason (cancellationReason)
-                cancellationReason;
-                _updateStatus(MissionStatus.cancelled);
+                missionCoordinator.cancelMission(cancellationReason);
                 // Navigate back to main page after cancellation
                 Navigator.of(context).pop();
               },

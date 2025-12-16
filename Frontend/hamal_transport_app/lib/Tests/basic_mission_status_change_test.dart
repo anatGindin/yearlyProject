@@ -116,7 +116,7 @@ void main() {
       expect(testMission.status, MissionStatus.delivered);
     });
 
-    test('updateStatus to cancelled returns mission to available', () {
+    test('cancelMission returns mission to available', () {
       coordinator.setMissionVM(missionVM);
       testMission = sampleMissions[0];
       int initialAvailableLength = availableMissions.length;
@@ -129,7 +129,7 @@ void main() {
       expect(myVM.myMissions.contains(testMission), true);
 
       // Perform action
-      coordinator.updateStatus(testMission, MissionStatus.cancelled);
+      coordinator.cancelMission("cancellationReason");
 
       // Verify mission moved back to available
       expect(availableVM.availableMissions.length, initialAvailableLength + 1);
