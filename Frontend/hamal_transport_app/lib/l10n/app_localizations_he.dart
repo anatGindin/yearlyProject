@@ -212,4 +212,22 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get confirm => 'אישור';
+
+  @override
+  String get carType => 'סוג רכב';
+
+  @override
+  String get carTypeRequired => 'אנא בחר סוג רכב';
+
+  @override
+  String get privateCar => 'רכב פרטי';
+
+  @override
+  String get trailer => 'נגרר';
+
+  @override
+  String get pickupTruck => 'טנדר';
+
+  @override
+  String get truck => 'משאית';
 }

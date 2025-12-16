@@ -271,5 +271,29 @@
   "confirm": "אישור",
   "@confirm": {
     "description": "טקסט כפתור אישור"
+  },
+  "carType": "סוג רכב",
+  "@carType": {
+    "description": "תווית לבחירת סוג רכב"
+  },
+  "carTypeRequired": "אנא בחר סוג רכב",
+  "@carTypeRequired": {
+    "description": "שגיאת אימות כשלא נבחר סוג רכב"
+  },
+  "privateCar": "רכב פרטי",
+  "@privateCar": {
+    "description": "סוג רכב - פרטי"
+  },
+  "trailer": "נגרר",
+  "@trailer": {
+    "description": "סוג רכב - נגרר"
+  },
+  "pickupTruck": "טנדר",
+  "@pickupTruck": {
+    "description": "סוג רכב - טנדר"
+  },
+  "truck": "משאית",
+  "@truck": {
+    "description": "סוג רכב - משאית"
   }
 }
