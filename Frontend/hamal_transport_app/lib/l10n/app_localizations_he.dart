@@ -230,4 +230,10 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get truck => 'משאית';
+
+  @override
+  String get confirmEmail => 'אישור אימייל';
+
+  @override
+  String get emailMismatch => 'כתובות המייל לא תואמות';
 }

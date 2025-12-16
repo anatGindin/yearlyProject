@@ -295,5 +295,13 @@
   "truck": "משאית",
   "@truck": {
     "description": "סוג רכב - משאית"
+  },
+  "confirmEmail": "אישור אימייל",
+  "@confirmEmail": {
+    "description": "כותרת לדיאלוג אישור אימייל"
+  },
+  "emailMismatch": "כתובות המייל לא תואמות",
+  "@emailMismatch": {
+    "description": "הודעת שגיאה כשכתובות המייל לא תואמות"
   }
 }

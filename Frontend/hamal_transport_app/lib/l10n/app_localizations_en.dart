@@ -231,4 +231,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get truck => 'Truck';
+
+  @override
+  String get confirmEmail => 'Confirm Email';
+
+  @override
+  String get emailMismatch => 'Emails do not match';
 }

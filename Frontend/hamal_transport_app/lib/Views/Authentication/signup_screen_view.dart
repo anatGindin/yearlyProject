@@ -36,6 +36,7 @@ class _SignupContentState extends State<_SignupContent> {
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
 
   final _emailController = TextEditingController();
+  final _confirmEmailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _nameController = TextEditingController();
@@ -47,6 +48,7 @@ class _SignupContentState extends State<_SignupContent> {
   @override
   void dispose() {
     _emailController.dispose();
+    _confirmEmailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     _nameController.dispose();
@@ -224,6 +226,23 @@ class _SignupContentState extends State<_SignupContent> {
                           ? l10n.invalidEmail
                           : null,
                     );
+                  },
+                ),
+                const SizedBox(height: 16),
+
+                // Confirm Email Field
+                _CustomTextField(
+                  controller: _confirmEmailController,
+                  labelText: l10n.confirmEmail,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (val) {
+                    if (val == null || val.isEmpty) {
+                      return l10n.requiredField;
+                    }
+                    if (val != _emailController.text) {
+                      return l10n.emailMismatch;
+                    }
+                    return null;
                   },
                 ),
                 const SizedBox(height: 16),
