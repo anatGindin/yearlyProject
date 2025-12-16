@@ -198,7 +198,11 @@ class _LoginContentState extends State<_LoginContent> {
                             ).whenComplete(() {
                               _emailController.clear();
                               _passwordController.clear();
-                              FocusScope.of(context).requestFocus(FocusNode());
+                              if (context.mounted) {
+                                FocusScope.of(
+                                  context,
+                                ).requestFocus(FocusNode());
+                              }
                             });
                           },
                           style: OutlinedButton.styleFrom(
