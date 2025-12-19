@@ -327,5 +327,9 @@
   "emailMismatch": "כתובות המייל לא תואמות",
   "@emailMismatch": {
     "description": "הודעת שגיאה כשכתובות המייל לא תואמות"
+  },
+  "calculatingRoute": "מחשב מסלול...",
+  "@calculatingRoute": {
+    "description": "הודעה המוצגת בזמן חישוב מסלול"
   }
 }

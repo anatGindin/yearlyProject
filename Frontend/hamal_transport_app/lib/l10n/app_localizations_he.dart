@@ -255,4 +255,7 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get emailMismatch => 'כתובות המייל לא תואמות';
+
+  @override
+  String get calculatingRoute => 'מחשב מסלול...';
 }

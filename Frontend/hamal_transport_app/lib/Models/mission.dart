@@ -26,9 +26,34 @@ enum MissionStatus {
   }
 }
 
+class Location {
+  final String name;
+  final double latitude;
+  final double longitude;
+
+  Location({
+    required this.name,
+    required this.latitude,
+    required this.longitude,
+  });
+
+  factory Location.fromJson(Map<String, dynamic> json) {
+    return Location(
+      name: json['name'] as String,
+      latitude: json['latitude'] as double,
+      longitude: json['longitude'] as double,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'name': name, 'latitude': latitude, 'longitude': longitude};
+  }
+}
+
 class Mission {
   final String id;
-  final String location;
+  final Location source;
+  final Location destination;
   final String description;
   final Contact contact;
   final DateTime time;
@@ -38,7 +63,8 @@ class Mission {
 
   Mission({
     required this.id,
-    required this.location,
+    required this.source,
+    required this.destination,
     required this.description,
     required this.contact,
     required this.time,
@@ -49,7 +75,8 @@ class Mission {
 
   Mission.chosen({
     required this.id,
-    required this.location,
+    required this.source,
+    required this.destination,
     required this.description,
     required this.contact,
     required this.time,
@@ -84,7 +111,10 @@ class Mission {
 
     return Mission(
       id: json['id'] as String,
-      location: json['location'] as String,
+      source: Location.fromJson(json['source'] as Map<String, dynamic>),
+      destination: Location.fromJson(
+        json['destination'] as Map<String, dynamic>,
+      ),
       description: json['description'] as String,
       contact: Contact.fromJson(json['contact'] as Map<String, dynamic>),
       time: time,
@@ -97,7 +127,8 @@ class Mission {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'location': location,
+      'source': source.toJson(),
+      'destination': destination.toJson(),
       'description': description,
       'contact': contact.toJson(),
       'time': time.toIso8601String(),

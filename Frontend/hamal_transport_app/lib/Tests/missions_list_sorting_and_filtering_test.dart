@@ -34,7 +34,10 @@ void main() {
 
       final missions = myVM.myMissions;
       expect(
-        missions.first.location.compareTo(missions.last.location) > 0,
+        missions.first.destination.name.compareTo(
+              missions.last.destination.name,
+            ) >
+            0,
         true,
       );
     });
@@ -43,7 +46,10 @@ void main() {
 
       final missions = myVM.myMissions;
       expect(
-        missions.first.location.compareTo(missions.last.location) < 0,
+        missions.first.destination.name.compareTo(
+              missions.last.destination.name,
+            ) <
+            0,
         true,
       );
     });
@@ -104,7 +110,10 @@ void main() {
 
       final missions = availVM.availableMissions;
       expect(
-        missions.first.location.compareTo(missions.last.location) > 0,
+        missions.first.destination.name.compareTo(
+              missions.last.destination.name,
+            ) >
+            0,
         true,
       );
     });
@@ -113,7 +122,10 @@ void main() {
 
       final missions = availVM.availableMissions;
       expect(
-        missions.first.location.compareTo(missions.last.location) < 0,
+        missions.first.destination.name.compareTo(
+              missions.last.destination.name,
+            ) <
+            0,
         true,
       );
     });

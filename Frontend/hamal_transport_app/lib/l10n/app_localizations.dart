@@ -589,6 +589,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Emails do not match'**
   String get emailMismatch;
+
+  /// Message displayed while calculating route
+  ///
+  /// In en, this message translates to:
+  /// **'Calculating route...'**
+  String get calculatingRoute;
 }
 
 class _AppLocalizationsDelegate

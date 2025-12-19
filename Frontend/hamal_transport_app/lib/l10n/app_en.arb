@@ -327,5 +327,9 @@
   "emailMismatch": "Emails do not match",
   "@emailMismatch": {
     "description": "Error message when emails do not match"
+  },
+  "calculatingRoute": "Calculating route...",
+  "@calculatingRoute": {
+    "description": "Message displayed while calculating route"
   }
 }

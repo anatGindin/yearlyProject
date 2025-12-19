@@ -256,4 +256,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get emailMismatch => 'Emails do not match';
+
+  @override
+  String get calculatingRoute => 'Calculating route...';
 }
