@@ -14,11 +14,18 @@ class MissionsListsModel {
 
   static Comparator getSortComperator(SortBy sortBy) {
     switch (sortBy) {
-      // TODO: implement distance-based sorting. Fix tests after that.
       case SortBy.distanceClosestFirst:
-        return (a, b) => a.destination.name.compareTo(b.destination.name);
+        return (a, b) {
+          final distanceA = a.source.distanceTo(a.destination);
+          final distanceB = b.source.distanceTo(b.destination);
+          return distanceA.compareTo(distanceB);
+        };
       case SortBy.distanceFurthestFirst:
-        return (a, b) => b.destination.name.compareTo(a.destination.name);
+        return (a, b) {
+          final distanceA = a.source.distanceTo(a.destination);
+          final distanceB = b.source.distanceTo(b.destination);
+          return distanceB.compareTo(distanceA);
+        };
       case SortBy.timeOldestFirst:
         return (a, b) => a.time.compareTo(b.time);
       case SortBy.timeNewestFirst:

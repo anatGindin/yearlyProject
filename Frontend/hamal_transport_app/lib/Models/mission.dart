@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import '../features/Contact_card/model/contact.dart';
 import '../l10n/app_localizations.dart';
+import 'location.dart';
 
 enum MissionStatus {
   chosen,
@@ -23,30 +24,6 @@ enum MissionStatus {
       case MissionStatus.available:
         return l10n.available;
     }
-  }
-}
-
-class Location {
-  final String name;
-  final double latitude;
-  final double longitude;
-
-  Location({
-    required this.name,
-    required this.latitude,
-    required this.longitude,
-  });
-
-  factory Location.fromJson(Map<String, dynamic> json) {
-    return Location(
-      name: json['name'] as String,
-      latitude: json['latitude'] as double,
-      longitude: json['longitude'] as double,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {'name': name, 'latitude': latitude, 'longitude': longitude};
   }
 }
 

@@ -3,19 +3,10 @@ import 'package:http/http.dart' as http;
 
 /// Service for calculating routes using OpenStreetMap (OSRM)
 class RoutingService {
-  // OSRM demo server (free, no API key needed)
   static const String _baseUrl = 'https://router.project-osrm.org';
 
   /// Calculate route between two points
-  ///
   /// Returns a RouteResult with distance (in meters) and duration (in seconds)
-  ///
-  /// Parameters:
-  /// - startLat: Starting point latitude
-  /// - startLon: Starting point longitude
-  /// - endLat: Destination point latitude
-  /// - endLon: Destination point longitude
-  /// - profile: Transportation mode ('car', 'bike', 'foot') - default is 'car'
   static Future<RouteResult?> getRoute({
     required double startLat,
     required double startLon,
@@ -107,7 +98,7 @@ class RouteInfo {
     required this.durationInSeconds,
   });
 
-  /// Format distance as string (e.g., "5.2 km" or "850 m")
+  /// Format distance as string.
   String get formattedDistance {
     if (distanceKm >= 1) {
       return '${distanceKm.toStringAsFixed(1)} km';
@@ -116,7 +107,7 @@ class RouteInfo {
     }
   }
 
-  /// Format duration as string (e.g., "1h 30m" or "45m")
+  /// Format duration as string.
   String get formattedDuration {
     final hours = (durationMinutes / 60).floor();
     final minutes = (durationMinutes % 60).round();

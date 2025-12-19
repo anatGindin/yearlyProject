@@ -35,10 +35,6 @@ void main() {
         // Check formatted output
         expect(routeInfo.formattedDistance, isNotEmpty);
         expect(routeInfo.formattedDuration, isNotEmpty);
-
-        print('✓ Route calculated successfully!');
-        print('  Distance: ${routeInfo.formattedDistance}');
-        print('  Duration: ${routeInfo.formattedDuration}');
       }
     });
 
@@ -64,7 +60,6 @@ void main() {
           expect(routeInfo.formattedDistance, contains('m'));
           expect(routeInfo.formattedDistance, isNot(contains('km')));
         }
-        print('✓ Short distance: ${routeInfo.formattedDistance}');
       }
     });
 
@@ -84,9 +79,6 @@ void main() {
       );
 
       expect(carRoute, isNotNull);
-      print(
-        '✓ Car route: ${carRoute?.formattedDistance}, ${carRoute?.formattedDuration}',
-      );
     });
   });
 }
