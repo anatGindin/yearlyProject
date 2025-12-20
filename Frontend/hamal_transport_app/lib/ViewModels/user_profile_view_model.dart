@@ -1,31 +1,37 @@
 import 'package:flutter/material.dart';
 import '../Models/user_profile.dart';
 import '../l10n/app_localizations.dart';
+import '../Services/authentication_service.dart';
 
-class UserProfileViewModel {
-  UserProfile userProfile;
-  DriverProfileViewModel? driverProfileVM;
+class UserProfileViewModel extends ChangeNotifier {
+  final UserProfile userProfile;
+  DriverProfileExtension? driverProfileExtension;
+  final AuthenticationService _authService = AuthenticationService();
+
   UserProfileViewModel(this.userProfile) {
+    updateDriverProfile(userProfile);
+  }
+
+  Future<void> logOut() async {
+    await _authService.signOut();
+    notifyListeners();
+  }
+
+  void updateDriverProfile(UserProfile userProfile) {
     if (userProfile.driverProfile != null) {
-      driverProfileVM = DriverProfileViewModel(userProfile.driverProfile!);
+      driverProfileExtension = DriverProfileExtension(
+        userProfile.driverProfile!,
+      );
     }
   }
 
-  String name() {
-    return userProfile.name;
-  }
+  String get name => userProfile.name;
 
-  String email() {
-    return userProfile.email;
-  }
+  String get email => userProfile.email;
 
-  String phone() {
-    return userProfile.phone;
-  }
+  String get phone => userProfile.phone;
 
-  bool isDriver() {
-    return userProfile.role == UserRole.driver;
-  }
+  bool get isDriver => userProfile.role == UserRole.driver;
 
   String role(AppLocalizations l10n) {
     switch (userProfile.role) {
@@ -50,10 +56,10 @@ class UserProfileViewModel {
   }
 }
 
-class DriverProfileViewModel {
+class DriverProfileExtension {
   DriverProfile driverProfile;
 
-  DriverProfileViewModel(this.driverProfile);
+  DriverProfileExtension(this.driverProfile);
 
   IconData carTypeIcon() {
     switch (driverProfile.carType) {

@@ -6,6 +6,7 @@ import '../../Services/authentication_service.dart';
 import '../role_based_routing.dart';
 import 'signup_screen_view.dart';
 import '../Widgets/stage_header_background.dart';
+import '../../ViewModels/user_profile_view_model.dart';
 
 class LoginScreenView extends StatelessWidget {
   const LoginScreenView({super.key});
@@ -160,6 +161,7 @@ class _LoginContentState extends State<_LoginContent> {
                                 _passwordController.text,
                               );
                               if (userProfile != null && mounted) {
+                                print(userProfile.name);
                                 navigator.pushReplacement(
                                   PageRouteBuilder(
                                     pageBuilder:
@@ -167,9 +169,16 @@ class _LoginContentState extends State<_LoginContent> {
                                           context,
                                           animation,
                                           secondaryAnimation,
-                                        ) => getDestinationForRole(
-                                          userProfile.role,
-                                        ),
+                                        ) {
+                                          return ChangeNotifierProvider(
+                                            create: (_) => UserProfileViewModel(
+                                              userProfile,
+                                            ),
+                                            child: getDestinationForRole(
+                                              userProfile.role,
+                                            ),
+                                          );
+                                        },
                                     transitionDuration: Duration.zero,
                                   ),
                                 );

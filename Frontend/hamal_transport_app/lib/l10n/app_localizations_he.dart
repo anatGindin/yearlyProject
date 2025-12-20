@@ -157,10 +157,16 @@ class AppLocalizationsHe extends AppLocalizations {
   String get selectRole => 'בחר תפקיד';
 
   @override
+  String get role => 'תפקיד';
+
+  @override
   String get driver => 'נהג';
 
   @override
   String get logistics => 'צוות לוגיסטיקה';
+
+  @override
+  String get admin => 'מנהל';
 
   @override
   String get roleRequired => 'יש לבחור תפקיד';
@@ -173,6 +179,9 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get logout => 'התנתק';
+
+  @override
+  String get profileTitle => 'פרופיל אישי';
 
   @override
   String get sortBy => 'סדר';

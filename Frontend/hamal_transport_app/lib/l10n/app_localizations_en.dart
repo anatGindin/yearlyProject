@@ -157,10 +157,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectRole => 'Select your role';
 
   @override
+  String get role => 'Role';
+
+  @override
   String get driver => 'Driver';
 
   @override
   String get logistics => 'Logistics Team';
+
+  @override
+  String get admin => 'Admin';
 
   @override
   String get roleRequired => 'Please select a role';
@@ -173,6 +179,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get logout => 'Logout';
+
+  @override
+  String get profileTitle => 'Profile Page';
 
   @override
   String get sortBy => 'Sort';
