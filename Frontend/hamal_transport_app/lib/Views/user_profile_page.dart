@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/ViewModels/user_profile_view_model.dart';
 import 'package:provider/provider.dart';
