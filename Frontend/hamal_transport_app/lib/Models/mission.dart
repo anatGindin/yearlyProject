@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:hamal_transport_app/Models/user_profile.dart';
 import '../features/Contact_card/model/contact.dart';
 import '../l10n/app_localizations.dart';
 
@@ -33,6 +34,7 @@ class Mission {
   final Contact contact;
   final DateTime time;
   MissionStatus status; // mutable so UI can update delivery status
+  final CarType carType;
   String cancellationReason;
   final List<String> comments;
 
@@ -45,6 +47,7 @@ class Mission {
     this.status = MissionStatus.available,
     this.cancellationReason = '',
     required this.comments,
+    required this.carType,
   });
 
   Mission.chosen({
@@ -56,6 +59,7 @@ class Mission {
     this.status = MissionStatus.chosen,
     this.cancellationReason = '',
     required this.comments,
+    required this.carType,
   });
 
   // JSON to object constructor
@@ -68,6 +72,13 @@ class Mission {
         orElse: () => MissionStatus.available,
       );
     }
+
+    // Parse status.
+    CarType carType;
+    carType = CarType.values.firstWhere(
+      (e) => e.name == json['carType'],
+      orElse: () => CarType.private,
+    );
 
     // Parse time.
     DateTime time = DateTime.now();
@@ -90,6 +101,7 @@ class Mission {
       time: time,
       status: status,
       comments: comments,
+      carType: carType,
     );
   }
 
@@ -102,6 +114,7 @@ class Mission {
       'contact': contact.toJson(),
       'time': time.toIso8601String(),
       'status': status.name,
+      'carType': carType.name,
       'comments': comments,
     };
   }

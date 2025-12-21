@@ -10,6 +10,7 @@
             },
             "time": "2025-12-15 10:00",
             "status": "chosen",
+            "carType": "private",
             "comments": []
         },
         {
@@ -22,6 +23,7 @@
             },
             "time": "2025-12-16 14:30",
             "status": "chosen",
+            "carType": "private",
             "comments": []
         },
         {
@@ -34,6 +36,7 @@
             },
             "time": "2025-12-15 15:00",
             "status": "chosen",
+            "carType": "trailer",
             "comments": []
         }
     ],
@@ -48,6 +51,7 @@
             },
             "time": "2025-12-15 12:00",
             "status": "available",
+            "carType": "private",
             "comments": []
         },
         {
@@ -60,6 +64,7 @@
             },
             "time": "2025-12-15 14:00",
             "status": "available",
+            "carType": "private",
             "comments": []
         }
     ]

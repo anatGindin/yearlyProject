@@ -63,6 +63,14 @@ class _MissionScreenState extends State<MissionScreen> {
                     ).textTheme.bodyLarge?.copyWith(fontSize: 18),
                     textAlign: TextAlign.right,
                   ),
+                  const SizedBox(height: 12),
+                  Text(
+                    '${l10n.carType}: ${missionVM.carType().displayName(l10n)}',
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyLarge?.copyWith(fontSize: 18),
+                    textAlign: TextAlign.right,
+                  ),
                   const SizedBox(height: 16),
                   ContactCardActionable(vm: contactVM),
                   const SizedBox(height: 16),
