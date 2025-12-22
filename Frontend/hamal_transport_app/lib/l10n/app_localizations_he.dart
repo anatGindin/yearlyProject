@@ -214,6 +214,12 @@ class AppLocalizationsHe extends AppLocalizations {
   String get confirm => 'אישור';
 
   @override
+  String get sourceContact => 'איש קשר בנקודת האיסוף';
+
+  @override
+  String get destinationContact => 'איש קשר ביעד';
+
+  @override
   String get comments => 'ההערות שלי';
 
   @override

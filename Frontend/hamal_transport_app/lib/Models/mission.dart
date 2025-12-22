@@ -31,7 +31,8 @@ class Mission {
   final String id;
   final String location;
   final String description;
-  final Contact contact;
+  final Contact sourceContact;
+  final Contact destinationContact;
   final DateTime time;
   MissionStatus status; // mutable so UI can update delivery status
   final CarType carType;
@@ -42,7 +43,8 @@ class Mission {
     required this.id,
     required this.location,
     required this.description,
-    required this.contact,
+    required this.sourceContact,
+    required this.destinationContact,
     required this.time,
     this.status = MissionStatus.available,
     this.cancellationReason = '',
@@ -54,7 +56,8 @@ class Mission {
     required this.id,
     required this.location,
     required this.description,
-    required this.contact,
+    required this.sourceContact,
+    required this.destinationContact,
     required this.time,
     this.status = MissionStatus.chosen,
     this.cancellationReason = '',
@@ -97,7 +100,12 @@ class Mission {
       id: json['id'] as String,
       location: json['location'] as String,
       description: json['description'] as String,
-      contact: Contact.fromJson(json['contact'] as Map<String, dynamic>),
+      sourceContact: Contact.fromJson(
+        json['sourceContact'] as Map<String, dynamic>,
+      ),
+      destinationContact: Contact.fromJson(
+        json['destinationContact'] as Map<String, dynamic>,
+      ),
       time: time,
       status: status,
       comments: comments,
@@ -111,7 +119,8 @@ class Mission {
       'id': id,
       'location': location,
       'description': description,
-      'contact': contact.toJson(),
+      'sourceContact': sourceContact.toJson(),
+      'destinationContact': destinationContact.toJson(),
       'time': time.toIso8601String(),
       'status': status.name,
       'carType': carType.name,

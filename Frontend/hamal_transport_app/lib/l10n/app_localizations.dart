@@ -506,6 +506,18 @@ abstract class AppLocalizations {
   /// **'Confirm'**
   String get confirm;
 
+  /// No description provided for @sourceContact.
+  ///
+  /// In en, this message translates to:
+  /// **'Source contact'**
+  String get sourceContact;
+
+  /// No description provided for @destinationContact.
+  ///
+  /// In en, this message translates to:
+  /// **'Destination contact'**
+  String get destinationContact;
+
   /// My comment label
   ///
   /// In en, this message translates to:

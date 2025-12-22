@@ -20,8 +20,12 @@ class MissionViewModel extends ChangeNotifier {
     return mission.description;
   }
 
-  Contact contact() {
-    return mission.contact;
+  Contact sourceContact() {
+    return mission.sourceContact;
+  }
+
+  Contact destinationContact() {
+    return mission.destinationContact;
   }
 
   DateTime time() {

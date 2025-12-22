@@ -35,7 +35,8 @@ class _MissionScreenState extends State<MissionScreen> {
     l10n = AppLocalizations.of(context)!;
     final mission = widget.mission;
     final missionsCoordinator = context.read<MissionsCoordinatorViewModel>();
-    final contactVM = ContactViewModel(mission.contact);
+    final sourceContactVM = ContactViewModel(mission.sourceContact);
+    final destinationContactVM = ContactViewModel(mission.destinationContact);
     return ChangeNotifierProvider(
       create: (context) => MissionViewModel(mission),
       child: Scaffold(
@@ -72,7 +73,23 @@ class _MissionScreenState extends State<MissionScreen> {
                     textAlign: TextAlign.right,
                   ),
                   const SizedBox(height: 16),
-                  ContactCardActionable(vm: contactVM),
+                  Text(
+                    l10n.sourceContact,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.titleLarge?.copyWith(fontSize: 16),
+                    textAlign: TextAlign.right,
+                  ),
+                  ContactCardActionable(vm: sourceContactVM),
+                  const SizedBox(height: 16),
+                  Text(
+                    l10n.destinationContact,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.titleLarge?.copyWith(fontSize: 16),
+                    textAlign: TextAlign.right,
+                  ),
+                  ContactCardActionable(vm: destinationContactVM),
                   const SizedBox(height: 16),
                   Text(
                     '${l10n.time}${missionVM.time()}',

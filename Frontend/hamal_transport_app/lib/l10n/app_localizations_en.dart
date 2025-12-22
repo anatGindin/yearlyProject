@@ -215,6 +215,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get confirm => 'Confirm';
 
   @override
+  String get sourceContact => 'Source contact';
+
+  @override
+  String get destinationContact => 'Destination contact';
+
+  @override
   String get comments => 'My comment';
 
   @override

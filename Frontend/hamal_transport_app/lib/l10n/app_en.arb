@@ -272,6 +272,14 @@
   "@confirm": {
     "description": "Confirm button text"
   },
+  "sourceContact": "Source contact",
+  "@comments": {
+    "description": "Source contact label"
+  },
+  "destinationContact": "Destination contact",
+  "@comments": {
+    "description": "Destination contact label"
+  },
   "comments": "My comment",
   "@comments": {
     "description": "My comment label"

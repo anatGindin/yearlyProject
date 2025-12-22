@@ -4,7 +4,11 @@
             "id": "m1",
             "location": "בסיס חיל הים",
             "description": "חבילה שבירה",
-            "contact": {
+            "sourceContact": {
+                "fullName": "סמי סביב",
+                "phoneNumber": "+972-54-1111111"
+            },
+            "destinationContact": {
                 "fullName": "שימחה ריף",
                 "phoneNumber": "+972-50-333-4444"
             },
@@ -17,7 +21,11 @@
             "id": "m2",
             "location": "ירושלים - בן יהודה 12",
             "description": "מעטפה דחופה",
-            "contact": {
+            "sourceContact": {
+                "fullName": "אלי קופטר",
+                "phoneNumber": "+972-54-0000000"
+            },
+            "destinationContact": {
                 "fullName": "אבי רון",
                 "phoneNumber": "+972-52-9876543"
             },
@@ -30,7 +38,11 @@
             "id": "m3",
             "location": "חיפה - הנשיא 3",
             "description": "ארגז גדול, דורש עגלה",
-            "contact": {
+            "sourceContact": {
+                "fullName": "ניר דמתי",
+                "phoneNumber": "+972-54-2222222"
+            },
+            "destinationContact": {
                 "fullName": "גרי המבורגרי",
                 "phoneNumber": "+972-54-5555555"
             },
@@ -45,7 +57,11 @@
             "id": "a1",
             "location": "רמת גן - ביאליק 5",
             "description": "חבילה קטנה",
-            "contact": {
+            "sourceContact": {
+                "fullName": "מרדכי היהודי",
+                "phoneNumber": "+972-54-9999999"
+            },
+            "destinationContact": {
                 "fullName": "יהודה המכבי",
                 "phoneNumber": "+972-50-1111111"
             },
@@ -58,7 +74,11 @@
             "id": "a2",
             "location": "ראשון לציון - העצמאות 21",
             "description": "מסמכים",
-            "contact": {
+            "sourceContact": {
+                "fullName": "פטריק סטאר",
+                "phoneNumber": "+972-54-7777777"
+            },
+            "destinationContact": {
                 "fullName": "בובספוג מכנסמרובע",
                 "phoneNumber": "+972-50-2222222"
             },

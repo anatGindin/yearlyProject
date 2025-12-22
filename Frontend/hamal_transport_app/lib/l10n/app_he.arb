@@ -272,6 +272,14 @@
   "@confirm": {
     "description": "טקסט כפתור אישור"
   },
+  "sourceContact": "איש קשר בנקודת האיסוף",
+  "@comments": {
+    "description": "תווית איש קשר בנקודת האיסוף"
+  },
+  "destinationContact": "איש קשר ביעד",
+  "@comments": {
+    "description": "תווית איש קשר ביעד"
+  },
   "comments": "ההערות שלי",
   "@comments": {
     "description": "תווית ההערות שלי"
