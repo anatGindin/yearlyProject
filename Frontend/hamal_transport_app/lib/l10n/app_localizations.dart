@@ -365,7 +365,7 @@ abstract class AppLocalizations {
   /// Error message for incorrect password
   ///
   /// In en, this message translates to:
-  /// **'Wrong password provided for that user.'**
+  /// **'Email address or password is incorrect'**
   String get wrongPassword;
 
   /// Fallback error message
@@ -589,6 +589,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Emails do not match'**
   String get emailMismatch;
+
+  /// Notice text on forgot password screen explaining what will happen
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email address and we\'ll send you a link to reset your password.'**
+  String get resetPasswordNotice;
+
+  /// Success message when password reset email is sent
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset email sent! Check your inbox.'**
+  String get passwordResetSent;
 }
 
 class _AppLocalizationsDelegate

@@ -176,7 +176,7 @@
   "@userNotFound": {
     "description": "שגיאה כשלא קיים משתמש"
   },
-  "wrongPassword": "הסיסמה שגויה.",
+  "wrongPassword": "כתובת האימייל או הסיסמה שגויה.",
   "@wrongPassword": {
     "description": "שגיאה על סיסמה לא נכונה"
   },
@@ -327,5 +327,13 @@
   "emailMismatch": "כתובות המייל לא תואמות",
   "@emailMismatch": {
     "description": "הודעת שגיאה כשכתובות המייל לא תואמות"
+  },
+  "resetPasswordNotice": "הזן את כתובת האימייל שלך ונשלח לך קישור לאיפוס הסיסמה.",
+  "@resetPasswordNotice": {
+    "description": "טקסט הסבר בדף שכחתי סיסמה"
+  },
+  "passwordResetSent": "נשלח אימייל לאיפוס סיסמה! בדוק את תיבת הדואר שלך.",
+  "@passwordResetSent": {
+    "description": "הודעת הצלחה כששליחת אימייל לאיפוס סיסמה הצליחה"
   }
 }

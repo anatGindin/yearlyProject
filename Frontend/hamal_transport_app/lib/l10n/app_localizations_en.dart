@@ -142,7 +142,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get userNotFound => 'No user found for that email.';
 
   @override
-  String get wrongPassword => 'Wrong password provided for that user.';
+  String get wrongPassword => 'Email address or password is incorrect';
 
   @override
   String get genericError => 'Something went wrong.';
@@ -256,4 +256,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get emailMismatch => 'Emails do not match';
+
+  @override
+  String get resetPasswordNotice =>
+      'Enter your email address and we\'ll send you a link to reset your password.';
+
+  @override
+  String get passwordResetSent =>
+      'Password reset email sent! Check your inbox.';
 }

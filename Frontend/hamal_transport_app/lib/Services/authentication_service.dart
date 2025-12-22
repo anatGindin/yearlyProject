@@ -164,6 +164,17 @@ class AuthenticationService {
     }
   }
 
+  Future<void> resetPassword(String email) async {
+    try {
+      if (!validateEmail(email)) {
+        throw AuthenticationError.emailInvalid;
+      }
+      await _authProvider.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      throw AuthenticationError.unknown;
+    }
+  }
+
   // Static util methods for UI validation
   static bool validatePassword(String password) {
     int checksPassed = 0;
@@ -197,4 +208,5 @@ enum AuthenticationError {
   wrongPassword,
   unknown,
   databaseError,
+  userNotFound,
 }

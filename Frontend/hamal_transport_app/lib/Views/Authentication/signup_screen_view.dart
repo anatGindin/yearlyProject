@@ -358,6 +358,7 @@ class _CustomTextField extends StatelessWidget {
         suffixIcon: suffixIcon,
         helperText: helperText,
         helperMaxLines: helperMaxLines,
+        errorMaxLines: helperMaxLines,
       ),
       keyboardType: keyboardType,
       obscureText: obscureText,

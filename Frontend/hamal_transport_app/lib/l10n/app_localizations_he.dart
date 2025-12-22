@@ -142,7 +142,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get userNotFound => 'לא נמצא משתמש עם האימייל הזה.';
 
   @override
-  String get wrongPassword => 'הסיסמה שגויה.';
+  String get wrongPassword => 'כתובת האימייל או הסיסמה שגויה.';
 
   @override
   String get genericError => 'משהו השתבש.';
@@ -255,4 +255,12 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get emailMismatch => 'כתובות המייל לא תואמות';
+
+  @override
+  String get resetPasswordNotice =>
+      'הזן את כתובת האימייל שלך ונשלח לך קישור לאיפוס הסיסמה.';
+
+  @override
+  String get passwordResetSent =>
+      'נשלח אימייל לאיפוס סיסמה! בדוק את תיבת הדואר שלך.';
 }
