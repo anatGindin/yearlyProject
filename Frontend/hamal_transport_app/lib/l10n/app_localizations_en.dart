@@ -221,7 +221,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get destinationContact => 'Destination contact';
 
   @override
-  String get comments => 'My comment';
+  String get comments => 'My comments';
 
   @override
   String get noComments => 'There are no comments';

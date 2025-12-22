@@ -44,77 +44,87 @@ class _MissionScreenState extends State<MissionScreen> {
         body: Consumer<MissionViewModel>(
           builder: (context, missionVM, _) {
             missionsCoordinator.setMissionVM(missionVM);
-            return Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    missionVM.location(),
-                    style: Theme.of(
-                      context,
-                    ).textTheme.titleLarge?.copyWith(fontSize: 24),
-                    textAlign: TextAlign.right,
+            return Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              missionVM.location(),
+                              style: Theme.of(
+                                context,
+                              ).textTheme.titleLarge?.copyWith(fontSize: 24),
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              missionVM.description(),
+                              style: Theme.of(
+                                context,
+                              ).textTheme.bodyLarge?.copyWith(fontSize: 18),
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            '${l10n.carType}: ${missionVM.carType().displayName(l10n)}',
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyLarge?.copyWith(fontSize: 16),
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            '${l10n.sourceContact}:',
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyLarge?.copyWith(fontSize: 16),
+                          ),
+                          ContactCardActionable(vm: sourceContactVM),
+                          const SizedBox(height: 16),
+                          Text(
+                            '${l10n.destinationContact}:',
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyLarge?.copyWith(fontSize: 16),
+                          ),
+                          ContactCardActionable(vm: destinationContactVM),
+                          const SizedBox(height: 16),
+                          Text(
+                            '${l10n.time}${missionVM.time()}',
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyLarge?.copyWith(fontSize: 16),
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            '${l10n.mission}: ${missionVM.status().displayName(context)}',
+                            style: Theme.of(
+                              context,
+                            ).textTheme.titleMedium?.copyWith(fontSize: 18),
+                          ),
+                          const SizedBox(height: 12),
+                          const SizedBox(height: 16),
+                          MissionCommentsTile(missionViewModel: missionVM),
+                        ],
+                      ),
+                    ),
                   ),
-                  const SizedBox(height: 12),
-                  Text(
-                    missionVM.description(),
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyLarge?.copyWith(fontSize: 18),
-                    textAlign: TextAlign.right,
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    '${l10n.carType}: ${missionVM.carType().displayName(l10n)}',
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyLarge?.copyWith(fontSize: 18),
-                    textAlign: TextAlign.right,
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    l10n.sourceContact,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.titleLarge?.copyWith(fontSize: 16),
-                    textAlign: TextAlign.right,
-                  ),
-                  ContactCardActionable(vm: sourceContactVM),
-                  const SizedBox(height: 16),
-                  Text(
-                    l10n.destinationContact,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.titleLarge?.copyWith(fontSize: 16),
-                    textAlign: TextAlign.right,
-                  ),
-                  ContactCardActionable(vm: destinationContactVM),
-                  const SizedBox(height: 16),
-                  Text(
-                    '${l10n.time}${missionVM.time()}',
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyLarge?.copyWith(fontSize: 16),
-                    textAlign: TextAlign.right,
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    '${l10n.mission}: ${missionVM.status().displayName(context)}',
-                    style: Theme.of(
-                      context,
-                    ).textTheme.titleMedium?.copyWith(fontSize: 18),
-                    textAlign: TextAlign.right,
-                  ),
-                  const SizedBox(height: 12), const SizedBox(height: 16),
-                  MissionCommentsTile(missionViewModel: missionVM),
-                  const Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Only show update status button for chosen missions (not available)
-                      if (!missionsCoordinator.isAvailable(mission))
-                        ElevatedButton.icon(
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Only show update status button for chosen missions (not available)
+                    if (!missionsCoordinator.isAvailable(mission))
+                      Expanded(
+                        child: ElevatedButton.icon(
                           onPressed:
                               (missionVM.status() == MissionStatus.delivered)
                               ? null
@@ -123,12 +133,18 @@ class _MissionScreenState extends State<MissionScreen> {
                           label: Text(
                             l10n.updateStatus,
                             style: const TextStyle(fontSize: 16),
+                            textAlign: TextAlign.center,
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size.fromHeight(64),
                           ),
                         ),
-                      // Only show navigate button for chosen and picked up missions
-                      if (missionVM.status() == MissionStatus.chosen ||
-                          missionVM.status() == MissionStatus.pickedUp)
-                        ElevatedButton.icon(
+                      ),
+                    // Only show navigate button for chosen and picked up missions
+                    if (missionVM.status() == MissionStatus.chosen ||
+                        missionVM.status() == MissionStatus.pickedUp)
+                      Expanded(
+                        child: ElevatedButton.icon(
                           onPressed: () async {
                             final success = await missionVM.launchNavigation();
                             // Guard the context we are about to use
@@ -141,38 +157,42 @@ class _MissionScreenState extends State<MissionScreen> {
                               );
                             }
                           },
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size.fromHeight(64),
+                          ),
                           icon: const Icon(Icons.navigation),
                           label: Text(
                             l10n.navigateWaze,
                             style: const TextStyle(fontSize: 16),
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  // Show Take button when this mission is available
-                  if (missionsCoordinator.isAvailable(mission))
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          missionsCoordinator.takeMission(mission);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(l10n.missionTaken)),
-                          );
-                        },
-                        icon: const Icon(Icons.check),
-                        label: Text(
-                          l10n.takeMission,
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                        ),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                // Show Take button when this mission is available
+                if (missionsCoordinator.isAvailable(mission))
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        missionsCoordinator.takeMission(mission);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(l10n.missionTaken)),
+                        );
+                      },
+                      icon: const Icon(Icons.check),
+                      label: Text(
+                        l10n.takeMission,
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 14),
                       ),
                     ),
-                ],
-              ),
+                  ),
+              ],
             );
           },
         ),

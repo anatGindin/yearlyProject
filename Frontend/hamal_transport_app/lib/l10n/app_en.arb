@@ -280,9 +280,9 @@
   "@comments": {
     "description": "Destination contact label"
   },
-  "comments": "My comment",
+  "comments": "My comments",
   "@comments": {
-    "description": "My comment label"
+    "description": "My comments label"
   },
   "noComments": "There are no comments",
   "@noComments": {

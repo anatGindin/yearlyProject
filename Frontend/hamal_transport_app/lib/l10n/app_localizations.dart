@@ -518,10 +518,10 @@ abstract class AppLocalizations {
   /// **'Destination contact'**
   String get destinationContact;
 
-  /// My comment label
+  /// My comments label
   ///
   /// In en, this message translates to:
-  /// **'My comment'**
+  /// **'My comments'**
   String get comments;
 
   /// Message when there are no comments
