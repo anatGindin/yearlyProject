@@ -252,6 +252,8 @@ class _MissionScreenState extends State<MissionScreen> {
     final missions = availableMissionsVM.availableMissions;
     // TODO: Change to the actual suggested missions.
 
+    if (missions.isEmpty) return;
+
     showDialog<void>(
       context: context,
       builder: (BuildContext dialogContext) {
