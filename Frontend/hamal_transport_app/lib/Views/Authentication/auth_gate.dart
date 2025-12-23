@@ -34,7 +34,6 @@ class _AuthGateState extends State<AuthGate> {
     final userProfile = await authService.getUserProfile(
       authService.currentUser!,
     );
-    print(userProfile.name);
     return ChangeNotifierProvider(
       create: (_) => UserProfileViewModel(userProfile),
       child: getDestinationForRole(userProfile.role),
