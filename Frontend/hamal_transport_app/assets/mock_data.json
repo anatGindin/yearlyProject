@@ -13,12 +13,17 @@
                 "longitude": 34.9888
             },
             "description": "חבילה שבירה",
-            "contact": {
+            "sourceContact": {
+                "fullName": "סמי סביב",
+                "phoneNumber": "+972-54-1111111"
+            },
+            "destinationContact": {
                 "fullName": "שימחה ריף",
                 "phoneNumber": "+972-50-333-4444"
             },
             "time": "2025-12-15 10:00",
             "status": "chosen",
+            "carType": "private",
             "comments": []
         },
         {
@@ -34,12 +39,17 @@
                 "longitude": 35.2199
             },
             "description": "מעטפה דחופה",
-            "contact": {
+            "sourceContact": {
+                "fullName": "אלי קופטר",
+                "phoneNumber": "+972-54-0000000"
+            },
+            "destinationContact": {
                 "fullName": "אבי רון",
                 "phoneNumber": "+972-52-9876543"
             },
             "time": "2025-12-16 14:30",
             "status": "chosen",
+            "carType": "private",
             "comments": []
         },
         {
@@ -55,12 +65,17 @@
                 "longitude": 34.9983
             },
             "description": "ארגז גדול, דורש עגלה",
-            "contact": {
+            "sourceContact": {
+                "fullName": "ניר דמתי",
+                "phoneNumber": "+972-54-2222222"
+            },
+            "destinationContact": {
                 "fullName": "גרי המבורגרי",
                 "phoneNumber": "+972-54-5555555"
             },
             "time": "2025-12-15 15:00",
             "status": "chosen",
+            "carType": "trailer",
             "comments": []
         }
     ],
@@ -78,12 +93,17 @@
                 "longitude": 34.8238
             },
             "description": "חבילה קטנה",
-            "contact": {
+            "sourceContact": {
+                "fullName": "מרדכי היהודי",
+                "phoneNumber": "+972-54-9999999"
+            },
+            "destinationContact": {
                 "fullName": "יהודה המכבי",
                 "phoneNumber": "+972-50-1111111"
             },
             "time": "2025-12-15 12:00",
             "status": "available",
+            "carType": "private",
             "comments": []
         },
         {
@@ -99,12 +119,17 @@
                 "longitude": 34.8037
             },
             "description": "מסמכים",
-            "contact": {
+            "sourceContact": {
+                "fullName": "פטריק סטאר",
+                "phoneNumber": "+972-54-7777777"
+            },
+            "destinationContact": {
                 "fullName": "בובספוג מכנסמרובע",
                 "phoneNumber": "+972-50-2222222"
             },
             "time": "2025-12-15 14:00",
             "status": "available",
+            "carType": "private",
             "comments": []
         }
     ]

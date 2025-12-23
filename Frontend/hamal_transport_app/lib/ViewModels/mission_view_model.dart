@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hamal_transport_app/Models/user_profile.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../Models/mission.dart';
 import '../features/Contact_card/model/contact.dart';
@@ -19,8 +20,12 @@ class MissionViewModel extends ChangeNotifier {
     return mission.description;
   }
 
-  Contact contact() {
-    return mission.contact;
+  Contact sourceContact() {
+    return mission.sourceContact;
+  }
+
+  Contact destinationContact() {
+    return mission.destinationContact;
   }
 
   DateTime time() {
@@ -29,6 +34,10 @@ class MissionViewModel extends ChangeNotifier {
 
   List<String> comments() {
     return mission.comments;
+  }
+
+  CarType carType() {
+    return mission.carType;
   }
 
   /// Update the status of the mission

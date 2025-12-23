@@ -542,10 +542,22 @@ abstract class AppLocalizations {
   /// **'Confirm'**
   String get confirm;
 
-  /// My comment label
+  /// Source contact label
   ///
   /// In en, this message translates to:
-  /// **'My comment'**
+  /// **'Source contact'**
+  String get sourceContact;
+
+  /// Destination contact label
+  ///
+  /// In en, this message translates to:
+  /// **'Destination contact'**
+  String get destinationContact;
+
+  /// My comments label
+  ///
+  /// In en, this message translates to:
+  /// **'My comments'**
   String get comments;
 
   /// Message when there are no comments

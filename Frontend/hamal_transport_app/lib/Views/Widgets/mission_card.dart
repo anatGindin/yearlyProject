@@ -33,7 +33,7 @@ class MissionCard extends StatelessWidget {
               textAlign: TextAlign.right,
             ),
             const SizedBox(height: 8),
-            ContactCard(vm: ContactViewModel(mission.contact)),
+            ContactCard(vm: ContactViewModel(mission.destinationContact)),
             const SizedBox(height: 8),
             Text(
               '${l10n.time}${_formatDateTime(mission.time)}',

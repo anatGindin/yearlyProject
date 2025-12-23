@@ -296,9 +296,17 @@
   "@confirm": {
     "description": "Confirm button text"
   },
-  "comments": "My comment",
+  "sourceContact": "Source contact",
+  "@sourceContact": {
+    "description": "Source contact label"
+  },
+  "destinationContact": "Destination contact",
+  "@destinationContact": {
+    "description": "Destination contact label"
+  },
+  "comments": "My comments",
   "@comments": {
-    "description": "My comment label"
+    "description": "My comments label"
   },
   "noComments": "There are no comments",
   "@noComments": {
