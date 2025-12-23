@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hamal_transport_app/Views/Widgets/logout_button.dart';
 import '../l10n/app_localizations.dart';
-import '../Services/authentication_service.dart';
-import 'Authentication/login_screen_view.dart';
 
 class UnderConstructionPage extends StatelessWidget {
   const UnderConstructionPage({super.key});
@@ -9,7 +8,6 @@ class UnderConstructionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final authService = AuthenticationService();
 
     return Scaffold(
       appBar: AppBar(
@@ -45,28 +43,8 @@ class UnderConstructionPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 48),
-              FilledButton.icon(
-                onPressed: () async {
-                  await authService.signOut();
-                  if (context.mounted) {
-                    Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            const LoginScreenView(),
-                        transitionDuration: Duration.zero,
-                      ),
-                    );
-                  }
-                },
-                icon: const Icon(Icons.logout),
-                label: Text(l10n.logout),
-                style: FilledButton.styleFrom(
-                  backgroundColor: const Color(0xFF364678),
-                  foregroundColor: Colors.white,
-                  minimumSize: const Size(200, 50),
-                ),
-              ),
+
+              const LogoutButton(),
             ],
           ),
         ),

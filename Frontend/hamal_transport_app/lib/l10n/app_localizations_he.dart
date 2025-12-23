@@ -267,6 +267,8 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get calculatingRoute => 'מחשב מסלול...';
+
+  @override
   String get resetPasswordNotice =>
       'הזן את כתובת האימייל שלך ונשלח לך קישור לאיפוס הסיסמה.';
 

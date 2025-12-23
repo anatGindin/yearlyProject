@@ -613,6 +613,7 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Calculating route...'**
   String get calculatingRoute;
+
   /// Notice text on forgot password screen explaining what will happen
   ///
   /// In en, this message translates to:
