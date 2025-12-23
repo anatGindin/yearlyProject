@@ -200,6 +200,12 @@ abstract class AppLocalizations {
   /// **'Suggested Missions'**
   String get suggestedMissions;
 
+  /// Helper text shown in the suggested missions dialog above the list
+  ///
+  /// In en, this message translates to:
+  /// **'Based on your mission, here are some other missions you may be able to take:'**
+  String get suggestedMissionsMessage;
+
   /// Subtitle for mission selection dialog
   ///
   /// In en, this message translates to:

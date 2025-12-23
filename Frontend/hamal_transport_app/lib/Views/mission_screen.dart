@@ -257,43 +257,59 @@ class _MissionScreenState extends State<MissionScreen> {
       builder: (BuildContext dialogContext) {
         return AlertDialog(
           title: Text(l10n.suggestedMissions),
-          content: SizedBox(
-            width: double.maxFinite,
-            child: missions.isEmpty
-                ? Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(l10n.noMissions, textAlign: TextAlign.center),
-                  )
-                : ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: missions.length,
-                    itemBuilder: (context, index) {
-                      final mission = missions[index];
-                      return Card(
-                        margin: const EdgeInsets.symmetric(vertical: 4),
-                        child: ListTile(
-                          title: Text(
-                            '${mission.source.name} → ${mission.destination.name}',
-                            style: const TextStyle(fontSize: 14),
-                          ),
-                          subtitle: Text(
-                            mission.description,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          trailing: const Icon(Icons.arrow_forward),
-                          onTap: () {
-                            Navigator.of(dialogContext).pop();
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => MissionScreen(mission: mission),
-                              ),
-                            );
-                          },
+          content: ConstrainedBox(
+            constraints: const BoxConstraints(maxHeight: 420),
+            child: SizedBox(
+              width: double.maxFinite,
+              child: missions.isEmpty
+                  ? Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(l10n.noMissions, textAlign: TextAlign.center),
+                    )
+                  : Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          l10n.suggestedMissionsMessage,
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ),
-                      );
-                    },
-                  ),
+                        const SizedBox(height: 12),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: missions.length,
+                            itemBuilder: (context, index) {
+                              final mission = missions[index];
+                              return Card(
+                                margin: const EdgeInsets.symmetric(vertical: 4),
+                                child: ListTile(
+                                  title: Text(
+                                    '${mission.source.name} → ${mission.destination.name}',
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
+                                  subtitle: Text(
+                                    mission.description,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  trailing: const Icon(Icons.arrow_forward),
+                                  onTap: () {
+                                    Navigator.of(dialogContext).pop();
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (_) =>
+                                            MissionScreen(mission: mission),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+            ),
           ),
           actions: [
             TextButton(

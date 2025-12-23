@@ -60,6 +60,10 @@ class AppLocalizationsHe extends AppLocalizations {
   String get suggestedMissions => 'משימות מוצעות';
 
   @override
+  String get suggestedMissionsMessage =>
+      'בהתאם למשימה שלך, הנה עוד כמה משימות שאולי תוכל לקחת:';
+
+  @override
   String get selectMission => 'בחר משימה לצפייה בפרטים';
 
   @override

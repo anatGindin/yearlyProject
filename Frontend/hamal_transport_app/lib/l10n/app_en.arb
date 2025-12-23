@@ -68,6 +68,10 @@
   "@suggestedMissions": {
     "description": "Title for suggested missions dialog"
   },
+  "suggestedMissionsMessage": "Based on your mission, here are some other missions you may be able to take:",
+  "@suggestedMissionsMessage": {
+    "description": "Helper text shown in the suggested missions dialog above the list"
+  },
   "selectMission": "Select a mission to view details",
   "@selectMission": {
     "description": "Subtitle for mission selection dialog"
