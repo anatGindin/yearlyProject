@@ -196,6 +196,10 @@
   "@selectRole": {
     "description": "Label for role selection dropdown"
   },
+  "role":"Role",
+    "@role": {
+    "description": "Title for role"
+    },
   "driver": "Driver",
   "@driver": {
     "description": "Driver role option"
@@ -204,6 +208,10 @@
   "@logistics": {
     "description": "Logistics team role option"
   },
+  "admin": "Admin",
+  "@admin": {
+    "description": "Admin role option"
+    },
   "roleRequired": "Please select a role",
   "@roleRequired": {
     "description": "Validation error when role is not selected"
@@ -220,6 +228,10 @@
   "@logout": {
     "description": "Logout button text"
   },
+   "profileTitle": "Profile Page",
+    "@profileTitle":{
+    "description":"Title for user profile page"
+    },
   "sortBy": "Sort",
   "@sortBy": {
     "description": "Sort By button text"

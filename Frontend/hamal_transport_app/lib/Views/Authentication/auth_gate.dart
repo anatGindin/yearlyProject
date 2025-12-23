@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hamal_transport_app/ViewModels/user_profile_view_model.dart';
+import 'package:provider/provider.dart';
 import '../../Services/authentication_service.dart';
 import '../role_based_routing.dart';
 import 'login_screen_view.dart';
@@ -12,25 +14,30 @@ class AuthGate extends StatefulWidget {
 
 class _AuthGateState extends State<AuthGate> {
   Future<Widget>? _destinationFuture;
-  final AuthenticationService _authService = AuthenticationService();
 
   @override
   void initState() {
     super.initState();
-    _destinationFuture = _determineDestination();
+    final authService = context.read<AuthenticationService>();
+    _destinationFuture = _determineDestination(authService);
   }
 
-  Future<Widget> _determineDestination() async {
-    final shouldAutoLogin = await _authService.shouldAutoLogin();
+  Future<Widget> _determineDestination(
+    AuthenticationService authService,
+  ) async {
+    final shouldAutoLogin = await authService.shouldAutoLogin();
     if (!shouldAutoLogin) {
       return const LoginScreenView();
     }
 
     // User is logged in, fetch their profile and route based on role
-    final userProfile = await _authService.getUserProfile(
-      _authService.currentUser!,
+    final userProfile = await authService.getUserProfile(
+      authService.currentUser!,
     );
-    return getDestinationForRole(userProfile.role);
+    return ChangeNotifierProvider(
+      create: (_) => UserProfileViewModel(userProfile),
+      child: getDestinationForRole(userProfile.role),
+    );
   }
 
   @override

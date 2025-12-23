@@ -392,6 +392,12 @@ abstract class AppLocalizations {
   /// **'Select your role'**
   String get selectRole;
 
+  /// Title for role
+  ///
+  /// In en, this message translates to:
+  /// **'Role'**
+  String get role;
+
   /// Driver role option
   ///
   /// In en, this message translates to:
@@ -403,6 +409,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logistics Team'**
   String get logistics;
+
+  /// Admin role option
+  ///
+  /// In en, this message translates to:
+  /// **'Admin'**
+  String get admin;
 
   /// Validation error when role is not selected
   ///
@@ -427,6 +439,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logout'**
   String get logout;
+
+  /// Title for user profile page
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Page'**
+  String get profileTitle;
 
   /// Sort By button text
   ///
