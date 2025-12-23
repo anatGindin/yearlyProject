@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/ViewModels/user_profile_view_model.dart';
+import 'package:hamal_transport_app/Views/Widgets/logout_button.dart';
 import 'package:provider/provider.dart';
 import '../../l10n/app_localizations.dart';
-import '../Views/Authentication/auth_gate.dart';
 
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({super.key});
@@ -49,24 +49,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               ),
               _buildDriverInfo(context),
               const Spacer(),
-              FilledButton.icon(
-                onPressed: () {
-                  context.read<UserProfileViewModel>().logOut();
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => const AuthGate()),
-                    (route) =>
-                        false, // This predicate removes all previous routes
-                  );
-                },
-                icon: const Icon(Icons.logout),
-                label: Text(l10n.logout),
-                //TODO: get from theme
-                style: FilledButton.styleFrom(
-                  backgroundColor: const Color(0xFF364678),
-                  foregroundColor: Colors.white,
-                  minimumSize: const Size(200, 50),
-                ),
-              ),
+              const LogoutButton(),
               const SizedBox(height: 16),
             ],
           );
