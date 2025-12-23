@@ -194,6 +194,24 @@ abstract class AppLocalizations {
   /// **'Take Mission'**
   String get takeMission;
 
+  /// Title for suggested missions dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested Missions'**
+  String get suggestedMissions;
+
+  /// Helper text shown in the suggested missions dialog above the list
+  ///
+  /// In en, this message translates to:
+  /// **'Based on your mission, here are some other missions you may be able to take:'**
+  String get suggestedMissionsMessage;
+
+  /// Subtitle for mission selection dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Select a mission to view details'**
+  String get selectMission;
+
   /// Select status menu title
   ///
   /// In en, this message translates to:

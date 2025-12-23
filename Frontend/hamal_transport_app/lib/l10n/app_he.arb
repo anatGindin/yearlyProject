@@ -64,6 +64,18 @@
   "@takeMission": {
     "description": "כפתור לקיחת משימה"
   },
+  "suggestedMissions": "משימות מוצעות",
+  "@suggestedMissions": {
+    "description": "כותרת לדיאלוג משימות מוצעות"
+  },
+  "suggestedMissionsMessage": "בהתאם למשימה שלך, הנה עוד כמה משימות שאולי תוכל לקחת:",
+  "@suggestedMissionsMessage": {
+    "description": "טקסט עזר שמופיע בדיאלוג משימות מוצעות מעל הרשימה"
+  },
+  "selectMission": "בחר משימה לצפייה בפרטים",
+  "@selectMission": {
+    "description": "כותרת משנה לדיאלוג בחירת משימה"
+  },
   "selectStatus": "בחר סטטוס",
   "@selectStatus": {
     "description": "כותרת תפריט בחירת סטטוס"

@@ -57,6 +57,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get takeMission => 'Take Mission';
 
   @override
+  String get suggestedMissions => 'Suggested Missions';
+
+  @override
+  String get suggestedMissionsMessage =>
+      'Based on your mission, here are some other missions you may be able to take:';
+
+  @override
+  String get selectMission => 'Select a mission to view details';
+
+  @override
   String get selectStatus => 'Select Status';
 
   @override
