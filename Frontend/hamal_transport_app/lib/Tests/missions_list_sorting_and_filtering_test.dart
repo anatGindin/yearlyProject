@@ -33,19 +33,25 @@ void main() {
       myVM.sortBy(SortBy.distanceFurthestFirst);
 
       final missions = myVM.myMissions;
-      expect(
-        missions.first.location.compareTo(missions.last.location) > 0,
-        true,
+      final firstDistance = missions.first.source.distanceTo(
+        missions.first.destination,
       );
+      final lastDistance = missions.last.source.distanceTo(
+        missions.last.destination,
+      );
+      expect(firstDistance > lastDistance, true);
     });
     test('sort by closest to furthest', () {
       myVM.sortBy(SortBy.distanceClosestFirst);
 
       final missions = myVM.myMissions;
-      expect(
-        missions.first.location.compareTo(missions.last.location) < 0,
-        true,
+      final firstDistance = missions.first.source.distanceTo(
+        missions.first.destination,
       );
+      final lastDistance = missions.last.source.distanceTo(
+        missions.last.destination,
+      );
+      expect(firstDistance < lastDistance, true);
     });
     test('sort by newest to oldest', () {
       myVM.sortBy(SortBy.timeNewestFirst);
@@ -103,19 +109,25 @@ void main() {
       availVM.sortBy(SortBy.distanceFurthestFirst);
 
       final missions = availVM.availableMissions;
-      expect(
-        missions.first.location.compareTo(missions.last.location) > 0,
-        true,
+      final firstDistance = missions.first.source.distanceTo(
+        missions.first.destination,
       );
+      final lastDistance = missions.last.source.distanceTo(
+        missions.last.destination,
+      );
+      expect(firstDistance > lastDistance, true);
     });
     test('sort by closest to furthest', () {
       availVM.sortBy(SortBy.distanceClosestFirst);
 
       final missions = availVM.availableMissions;
-      expect(
-        missions.first.location.compareTo(missions.last.location) < 0,
-        true,
+      final firstDistance = missions.first.source.distanceTo(
+        missions.first.destination,
       );
+      final lastDistance = missions.last.source.distanceTo(
+        missions.last.destination,
+      );
+      expect(firstDistance < lastDistance, true);
     });
     test('sort by newest to oldest', () {
       availVM.sortBy(SortBy.timeNewestFirst);

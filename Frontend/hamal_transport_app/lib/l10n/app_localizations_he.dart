@@ -257,6 +257,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get emailMismatch => 'כתובות המייל לא תואמות';
 
   @override
+  String get calculatingRoute => 'מחשב מסלול...';
   String get resetPasswordNotice =>
       'הזן את כתובת האימייל שלך ונשלח לך קישור לאיפוס הסיסמה.';
 

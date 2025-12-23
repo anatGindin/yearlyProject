@@ -258,6 +258,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emailMismatch => 'Emails do not match';
 
   @override
+  String get calculatingRoute => 'Calculating route...';
   String get resetPasswordNotice =>
       'Enter your email address and we\'ll send you a link to reset your password.';
 

@@ -590,6 +590,11 @@ abstract class AppLocalizations {
   /// **'Emails do not match'**
   String get emailMismatch;
 
+  /// Message displayed while calculating route
+  ///
+  /// In en, this message translates to:
+  /// **'Calculating route...'**
+  String get calculatingRoute;
   /// Notice text on forgot password screen explaining what will happen
   ///
   /// In en, this message translates to:

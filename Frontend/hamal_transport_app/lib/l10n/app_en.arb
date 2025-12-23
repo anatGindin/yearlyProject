@@ -328,6 +328,10 @@
   "@emailMismatch": {
     "description": "Error message when emails do not match"
   },
+  "calculatingRoute": "Calculating route...",
+  "@calculatingRoute": {
+    "description": "Message displayed while calculating route"
+  },
   "resetPasswordNotice": "Enter your email address and we'll send you a link to reset your password.",
   "@resetPasswordNotice": {
     "description": "Notice text on forgot password screen explaining what will happen"

@@ -41,7 +41,10 @@ class NewMissionPage extends StatelessWidget {
                     final m = availableMissionsVM.availableMissions[index];
                     return Card(
                       child: ListTile(
-                        title: Text(m.location, textAlign: TextAlign.right),
+                        title: Text(
+                          '${m.source.name}\r\n${m.destination.name}',
+                          textAlign: TextAlign.right,
+                        ),
                         subtitle: Text(
                           m.description,
                           textAlign: TextAlign.right,

@@ -328,6 +328,10 @@
   "@emailMismatch": {
     "description": "הודעת שגיאה כשכתובות המייל לא תואמות"
   },
+  "calculatingRoute": "מחשב מסלול...",
+  "@calculatingRoute": {
+    "description": "הודעה המוצגת בזמן חישוב מסלול"
+},
   "resetPasswordNotice": "הזן את כתובת האימייל שלך ונשלח לך קישור לאיפוס הסיסמה.",
   "@resetPasswordNotice": {
     "description": "טקסט הסבר בדף שכחתי סיסמה"
