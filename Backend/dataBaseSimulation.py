@@ -68,4 +68,17 @@ def create_mission(new_mission: Mission):
 def get_all_missions():
     return missions
 
+#get the available missions
+@app.get("/Missions/available", response_model=List[Mission])
+def get_available_missions():
+    available_missions = [mission for mission in missions if mission.status == "available"]
+    return available_missions
+
+#get the missions assigned to a specific driver
+@app.get("/Missions/driver/{driver_id}", response_model=List[Mission])
+def get_missions_by_driver(driver_id: str):
+    #change when given DB
+    driver_missions = []
+    return driver_missions
+
 
