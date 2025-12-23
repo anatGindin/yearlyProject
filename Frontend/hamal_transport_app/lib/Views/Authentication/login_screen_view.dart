@@ -5,6 +5,7 @@ import '../../ViewModels/login_screen_view_model.dart';
 import '../../Services/authentication_service.dart';
 import '../role_based_routing.dart';
 import 'signup_screen_view.dart';
+import 'forgot_password_view.dart';
 import '../Widgets/stage_header_background.dart';
 
 class LoginScreenView extends StatelessWidget {
@@ -48,6 +49,7 @@ class _LoginContentState extends State<_LoginContent> {
   Widget build(BuildContext context) {
     final viewModel = context.watch<LoginScreenViewModel>();
     final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (viewModel.error != null) {
@@ -70,7 +72,10 @@ class _LoginContentState extends State<_LoginContent> {
         }
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(message), backgroundColor: Colors.red),
+          SnackBar(
+            content: Text(message),
+            backgroundColor: theme.colorScheme.error,
+          ),
         );
       }
     });
@@ -95,11 +100,11 @@ class _LoginContentState extends State<_LoginContent> {
                   child: Column(
                     children: [
                       TextFormField(
+                        textDirection: TextDirection.ltr,
                         controller: _emailController,
                         decoration: InputDecoration(
                           labelText: l10n.email,
                           prefixIcon: const Icon(Icons.email_outlined),
-                          border: const UnderlineInputBorder(),
                         ),
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
@@ -115,7 +120,6 @@ class _LoginContentState extends State<_LoginContent> {
                         decoration: InputDecoration(
                           labelText: l10n.password,
                           prefixIcon: const Icon(Icons.lock_outline),
-                          border: const UnderlineInputBorder(),
                           suffixIcon: IconButton(
                             icon: Icon(
                               viewModel.isPasswordVisible
@@ -139,15 +143,47 @@ class _LoginContentState extends State<_LoginContent> {
                       Row(
                         children: [
                           Checkbox(
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
                             value: viewModel.rememberMe,
-                            activeColor: const Color(0xFF364678),
                             onChanged: viewModel.toggleRememberMe,
                           ),
-                          Text(l10n.rememberMe),
+                          Text(
+                            l10n.rememberMe,
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                          const Spacer(),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder:
+                                      (
+                                        context,
+                                        animation,
+                                        secondaryAnimation,
+                                      ) => const ForgotPasswordView(),
+                                  transitionDuration: Duration.zero,
+                                  reverseTransitionDuration: Duration.zero,
+                                ),
+                              ).whenComplete(() {
+                                if (context.mounted) {
+                                  FocusScope.of(
+                                    context,
+                                  ).requestFocus(FocusNode());
+                                }
+                              });
+                            },
+                            child: Text(
+                              l10n.forgotPassword,
+                              style: const TextStyle(fontSize: 12),
+                            ),
+                          ),
                         ],
                       ),
 
-                      // const SizedBox(height: 24), // Replaced 40 with 24 + checkbox height balance
+                      const SizedBox(height: 8),
                       if (viewModel.isLoading)
                         const CircularProgressIndicator()
                       else ...[
@@ -177,8 +213,6 @@ class _LoginContentState extends State<_LoginContent> {
                             }
                           },
                           style: FilledButton.styleFrom(
-                            backgroundColor: const Color(0xFF364678),
-                            foregroundColor: Colors.white,
                             minimumSize: const Size.fromHeight(50),
                           ),
                           child: Text(l10n.login),
@@ -207,8 +241,6 @@ class _LoginContentState extends State<_LoginContent> {
                           },
                           style: OutlinedButton.styleFrom(
                             minimumSize: const Size.fromHeight(50),
-                            foregroundColor: const Color(0xFF364678),
-                            side: const BorderSide(color: Color(0xFF364678)),
                           ),
                           child: Text(l10n.signup),
                         ),
