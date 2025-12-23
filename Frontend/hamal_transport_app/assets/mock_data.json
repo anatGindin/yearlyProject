@@ -2,7 +2,16 @@
     "sampleMissions": [
         {
             "id": "m1",
-            "location": "בסיס חיל הים",
+            "source": {
+                "name": "טכניון חיפה",
+                "latitude": 32.7767,
+                "longitude": 35.0231
+            },
+            "destination": {
+                "name": "בסיס חיל הים",
+                "latitude": 32.8274,
+                "longitude": 34.9888
+            },
             "description": "חבילה שבירה",
             "sourceContact": {
                 "fullName": "סמי סביב",
@@ -19,7 +28,16 @@
         },
         {
             "id": "m2",
-            "location": "ירושלים - בן יהודה 12",
+            "source": {
+                "name": "טכניון חיפה",
+                "latitude": 32.7767,
+                "longitude": 35.0231
+            },
+            "destination": {
+                "name": "ירושלים - בן יהודה 12",
+                "latitude": 31.7801,
+                "longitude": 35.2199
+            },
             "description": "מעטפה דחופה",
             "sourceContact": {
                 "fullName": "אלי קופטר",
@@ -36,7 +54,16 @@
         },
         {
             "id": "m3",
-            "location": "חיפה - הנשיא 3",
+            "source": {
+                "name": "טכניון חיפה",
+                "latitude": 32.7767,
+                "longitude": 35.0231
+            },
+            "destination": {
+                "name": "חיפה - הנשיא 3",
+                "latitude": 32.8191,
+                "longitude": 34.9983
+            },
             "description": "ארגז גדול, דורש עגלה",
             "sourceContact": {
                 "fullName": "ניר דמתי",
@@ -55,7 +82,16 @@
     "availableMissions": [
         {
             "id": "a1",
-            "location": "רמת גן - ביאליק 5",
+            "source": {
+                "name": "טכניון חיפה",
+                "latitude": 32.7767,
+                "longitude": 35.0231
+            },
+            "destination": {
+                "name": "רמת גן - ביאליק 5",
+                "latitude": 32.0706,
+                "longitude": 34.8238
+            },
             "description": "חבילה קטנה",
             "sourceContact": {
                 "fullName": "מרדכי היהודי",
@@ -72,7 +108,16 @@
         },
         {
             "id": "a2",
-            "location": "ראשון לציון - העצמאות 21",
+            "source": {
+                "name": "טכניון חיפה",
+                "latitude": 32.7767,
+                "longitude": 35.0231
+            },
+            "destination": {
+                "name": "ראשון לציון - העצמאות 21",
+                "latitude": 31.9730,
+                "longitude": 34.8037
+            },
             "description": "מסמכים",
             "sourceContact": {
                 "fullName": "פטריק סטאר",

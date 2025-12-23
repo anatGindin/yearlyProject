@@ -13,7 +13,7 @@ class MissionViewModel extends ChangeNotifier {
   }
 
   String location() {
-    return mission.location;
+    return '${mission.source.name}\r\n${mission.destination.name}';
   }
 
   String description() {
@@ -50,7 +50,11 @@ class MissionViewModel extends ChangeNotifier {
   /// Launch Waze (or fallback to Google Maps).
   /// Returns true if navigation launched, false otherwise.
   Future<bool> launchNavigation() async {
-    final address = mission.location;
+    String address = mission.source.name;
+
+    if (mission.status == MissionStatus.pickedUp) {
+      address = mission.destination.name;
+    }
 
     // Try Waze first
     try {

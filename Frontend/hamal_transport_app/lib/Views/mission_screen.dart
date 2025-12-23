@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/ViewModels/mission_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/missions_coordinator_view_model.dart';
+import 'package:hamal_transport_app/ViewModels/available_missions_view_model.dart';
 import 'package:hamal_transport_app/Views/Widgets/comments_list_view.dart';
 import 'package:provider/provider.dart';
 import '../Models/mission.dart';
 import '../l10n/app_localizations.dart';
 import '../features/Contact_card/view/contact_view.dart';
 import '../features/Contact_card/view_model/contact_vm.dart';
+import '../Services/routing_service.dart';
 
 class MissionScreen extends StatefulWidget {
   final Mission mission;
@@ -62,6 +64,8 @@ class _MissionScreenState extends State<MissionScreen> {
                               ).textTheme.titleLarge?.copyWith(fontSize: 24),
                             ),
                           ),
+                          const SizedBox(height: 12),
+                          _buildRouteInfo(mission),
                           const SizedBox(height: 12),
                           Align(
                             alignment: Alignment.centerRight,
@@ -181,6 +185,7 @@ class _MissionScreenState extends State<MissionScreen> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(l10n.missionTaken)),
                         );
+                        _showSuggestedMissionsDialog();
                       },
                       icon: const Icon(Icons.check),
                       label: Text(
@@ -283,6 +288,209 @@ class _MissionScreenState extends State<MissionScreen> {
             ),
           ],
         );
+      },
+    );
+  }
+
+  void _showSuggestedMissionsDialog() {
+    final availableMissionsVM = context.read<AvailableMissionsViewModel>();
+    final missions = availableMissionsVM.availableMissions;
+    // TODO: Change to the actual suggested missions.
+
+    if (missions.isEmpty) return;
+
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text(l10n.suggestedMissions),
+          content: ConstrainedBox(
+            constraints: const BoxConstraints(maxHeight: 420),
+            child: SizedBox(
+              width: double.maxFinite,
+              child: missions.isEmpty
+                  ? Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(l10n.noMissions, textAlign: TextAlign.center),
+                    )
+                  : Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          l10n.suggestedMissionsMessage,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        const SizedBox(height: 12),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: missions.length,
+                            itemBuilder: (context, index) {
+                              final mission = missions[index];
+                              return Card(
+                                margin: const EdgeInsets.symmetric(vertical: 4),
+                                child: ListTile(
+                                  title: Text(
+                                    '${mission.source.name} → ${mission.destination.name}',
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
+                                  subtitle: Text(
+                                    mission.description,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  trailing: const Icon(Icons.arrow_forward),
+                                  onTap: () {
+                                    Navigator.of(dialogContext).pop();
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (_) =>
+                                            MissionScreen(mission: mission),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+              child: Text(l10n.close),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildRouteInfo(Mission mission) {
+    return FutureBuilder<RouteInfo?>(
+      future: RoutingService.getRouteInfo(
+        startLat: mission.source.latitude,
+        startLon: mission.source.longitude,
+        endLat: mission.destination.latitude,
+        endLon: mission.destination.longitude,
+        profile: 'car',
+      ),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Card(
+            color: Colors.blue.shade50,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  const SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(l10n.calculatingRoute),
+                ],
+              ),
+            ),
+          );
+        }
+
+        if (snapshot.hasData && snapshot.data != null) {
+          final route = snapshot.data!;
+          return Card(
+            color: Colors.blue.shade50,
+            elevation: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            mission.source.name,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                route.formattedDistance,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              const Icon(
+                                Icons.straighten,
+                                color: Colors.blue,
+                                size: 20,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 4),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                route.formattedDuration,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              const Icon(
+                                Icons.access_time,
+                                color: Colors.blue,
+                                size: 20,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            mission.destination.name,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(width: 12),
+                      const Icon(
+                        Icons.arrow_back,
+                        color: Colors.blue,
+                        size: 24,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+
+        return const SizedBox.shrink();
       },
     );
   }

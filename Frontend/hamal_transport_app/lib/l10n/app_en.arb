@@ -64,6 +64,18 @@
   "@takeMission": {
     "description": "Take mission button"
   },
+  "suggestedMissions": "Suggested Missions",
+  "@suggestedMissions": {
+    "description": "Title for suggested missions dialog"
+  },
+  "suggestedMissionsMessage": "Based on your mission, here are some other missions you may be able to take:",
+  "@suggestedMissionsMessage": {
+    "description": "Helper text shown in the suggested missions dialog above the list"
+  },
+  "selectMission": "Select a mission to view details",
+  "@selectMission": {
+    "description": "Subtitle for mission selection dialog"
+  },
   "selectStatus": "Select Status",
   "@selectStatus": {
     "description": "Select status menu title"
@@ -176,7 +188,7 @@
   "@userNotFound": {
     "description": "Error message when user does not exist"
   },
-  "wrongPassword": "Wrong password provided for that user.",
+  "wrongPassword": "Email address or password is incorrect",
   "@wrongPassword": {
     "description": "Error message for incorrect password"
   },
@@ -196,6 +208,10 @@
   "@selectRole": {
     "description": "Label for role selection dropdown"
   },
+  "role":"Role",
+    "@role": {
+    "description": "Title for role"
+    },
   "driver": "Driver",
   "@driver": {
     "description": "Driver role option"
@@ -204,6 +220,10 @@
   "@logistics": {
     "description": "Logistics team role option"
   },
+  "admin": "Admin",
+  "@admin": {
+    "description": "Admin role option"
+    },
   "roleRequired": "Please select a role",
   "@roleRequired": {
     "description": "Validation error when role is not selected"
@@ -220,6 +240,10 @@
   "@logout": {
     "description": "Logout button text"
   },
+   "profileTitle": "Profile Page",
+    "@profileTitle":{
+    "description":"Title for user profile page"
+    },
   "sortBy": "Sort",
   "@sortBy": {
     "description": "Sort By button text"
@@ -335,5 +359,17 @@
   "emailMismatch": "Emails do not match",
   "@emailMismatch": {
     "description": "Error message when emails do not match"
+  },
+  "calculatingRoute": "Calculating route...",
+  "@calculatingRoute": {
+    "description": "Message displayed while calculating route"
+  },
+  "resetPasswordNotice": "Enter your email address and we'll send you a link to reset your password.",
+  "@resetPasswordNotice": {
+    "description": "Notice text on forgot password screen explaining what will happen"
+  },
+  "passwordResetSent": "Password reset email sent! Check your inbox.",
+  "@passwordResetSent": {
+    "description": "Success message when password reset email is sent"
   }
 }

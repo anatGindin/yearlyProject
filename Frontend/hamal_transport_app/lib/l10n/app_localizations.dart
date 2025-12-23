@@ -194,6 +194,24 @@ abstract class AppLocalizations {
   /// **'Take Mission'**
   String get takeMission;
 
+  /// Title for suggested missions dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested Missions'**
+  String get suggestedMissions;
+
+  /// Helper text shown in the suggested missions dialog above the list
+  ///
+  /// In en, this message translates to:
+  /// **'Based on your mission, here are some other missions you may be able to take:'**
+  String get suggestedMissionsMessage;
+
+  /// Subtitle for mission selection dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Select a mission to view details'**
+  String get selectMission;
+
   /// Select status menu title
   ///
   /// In en, this message translates to:
@@ -365,7 +383,7 @@ abstract class AppLocalizations {
   /// Error message for incorrect password
   ///
   /// In en, this message translates to:
-  /// **'Wrong password provided for that user.'**
+  /// **'Email address or password is incorrect'**
   String get wrongPassword;
 
   /// Fallback error message
@@ -392,6 +410,12 @@ abstract class AppLocalizations {
   /// **'Select your role'**
   String get selectRole;
 
+  /// Title for role
+  ///
+  /// In en, this message translates to:
+  /// **'Role'**
+  String get role;
+
   /// Driver role option
   ///
   /// In en, this message translates to:
@@ -403,6 +427,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logistics Team'**
   String get logistics;
+
+  /// Admin role option
+  ///
+  /// In en, this message translates to:
+  /// **'Admin'**
+  String get admin;
 
   /// Validation error when role is not selected
   ///
@@ -427,6 +457,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logout'**
   String get logout;
+
+  /// Title for user profile page
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Page'**
+  String get profileTitle;
 
   /// Sort By button text
   ///
@@ -601,6 +637,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Emails do not match'**
   String get emailMismatch;
+
+  /// Message displayed while calculating route
+  ///
+  /// In en, this message translates to:
+  /// **'Calculating route...'**
+  String get calculatingRoute;
+
+  /// Notice text on forgot password screen explaining what will happen
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email address and we\'ll send you a link to reset your password.'**
+  String get resetPasswordNotice;
+
+  /// Success message when password reset email is sent
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset email sent! Check your inbox.'**
+  String get passwordResetSent;
 }
 
 class _AppLocalizationsDelegate

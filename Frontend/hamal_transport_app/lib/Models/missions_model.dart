@@ -15,9 +15,17 @@ class MissionsListsModel {
   static Comparator getSortComperator(SortBy sortBy) {
     switch (sortBy) {
       case SortBy.distanceClosestFirst:
-        return (a, b) => a.location.compareTo(b.location);
+        return (a, b) {
+          final distanceA = a.source.distanceTo(a.destination);
+          final distanceB = b.source.distanceTo(b.destination);
+          return distanceA.compareTo(distanceB);
+        };
       case SortBy.distanceFurthestFirst:
-        return (a, b) => b.location.compareTo(a.location);
+        return (a, b) {
+          final distanceA = a.source.distanceTo(a.destination);
+          final distanceB = b.source.distanceTo(b.destination);
+          return distanceB.compareTo(distanceA);
+        };
       case SortBy.timeOldestFirst:
         return (a, b) => a.time.compareTo(b.time);
       case SortBy.timeNewestFirst:

@@ -57,6 +57,16 @@ class AppLocalizationsHe extends AppLocalizations {
   String get takeMission => 'קח משימה';
 
   @override
+  String get suggestedMissions => 'משימות מוצעות';
+
+  @override
+  String get suggestedMissionsMessage =>
+      'בהתאם למשימה שלך, הנה עוד כמה משימות שאולי תוכל לקחת:';
+
+  @override
+  String get selectMission => 'בחר משימה לצפייה בפרטים';
+
+  @override
   String get selectStatus => 'בחר סטטוס';
 
   @override
@@ -142,7 +152,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get userNotFound => 'לא נמצא משתמש עם האימייל הזה.';
 
   @override
-  String get wrongPassword => 'הסיסמה שגויה.';
+  String get wrongPassword => 'כתובת האימייל או הסיסמה שגויה.';
 
   @override
   String get genericError => 'משהו השתבש.';
@@ -157,10 +167,16 @@ class AppLocalizationsHe extends AppLocalizations {
   String get selectRole => 'בחר תפקיד';
 
   @override
+  String get role => 'תפקיד';
+
+  @override
   String get driver => 'נהג';
 
   @override
   String get logistics => 'צוות לוגיסטיקה';
+
+  @override
+  String get admin => 'מנהל';
 
   @override
   String get roleRequired => 'יש לבחור תפקיד';
@@ -173,6 +189,9 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get logout => 'התנתק';
+
+  @override
+  String get profileTitle => 'פרופיל אישי';
 
   @override
   String get sortBy => 'סדר';
@@ -261,4 +280,15 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get emailMismatch => 'כתובות המייל לא תואמות';
+
+  @override
+  String get calculatingRoute => 'מחשב מסלול...';
+
+  @override
+  String get resetPasswordNotice =>
+      'הזן את כתובת האימייל שלך ונשלח לך קישור לאיפוס הסיסמה.';
+
+  @override
+  String get passwordResetSent =>
+      'נשלח אימייל לאיפוס סיסמה! בדוק את תיבת הדואר שלך.';
 }

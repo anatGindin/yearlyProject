@@ -64,6 +64,18 @@
   "@takeMission": {
     "description": "כפתור לקיחת משימה"
   },
+  "suggestedMissions": "משימות מוצעות",
+  "@suggestedMissions": {
+    "description": "כותרת לדיאלוג משימות מוצעות"
+  },
+  "suggestedMissionsMessage": "בהתאם למשימה שלך, הנה עוד כמה משימות שאולי תוכל לקחת:",
+  "@suggestedMissionsMessage": {
+    "description": "טקסט עזר שמופיע בדיאלוג משימות מוצעות מעל הרשימה"
+  },
+  "selectMission": "בחר משימה לצפייה בפרטים",
+  "@selectMission": {
+    "description": "כותרת משנה לדיאלוג בחירת משימה"
+  },
   "selectStatus": "בחר סטטוס",
   "@selectStatus": {
     "description": "כותרת תפריט בחירת סטטוס"
@@ -176,7 +188,7 @@
   "@userNotFound": {
     "description": "שגיאה כשלא קיים משתמש"
   },
-  "wrongPassword": "הסיסמה שגויה.",
+  "wrongPassword": "כתובת האימייל או הסיסמה שגויה.",
   "@wrongPassword": {
     "description": "שגיאה על סיסמה לא נכונה"
   },
@@ -196,6 +208,10 @@
   "@selectRole": {
     "description": "תווית לבחירת תפקיד"
   },
+  "role":"תפקיד",
+  "@role": {
+  "description": "כותרת לתפקיד"
+  },
   "driver": "נהג",
   "@driver": {
     "description": "אפשרות תפקיד נהג"
@@ -204,6 +220,10 @@
   "@logistics": {
     "description": "אפשרות תפקיד צוות לוגיסטיקה"
   },
+  "admin": "מנהל",
+    "@admin": {
+      "description": "אפשרות תפקיד מנהל"
+      },
   "roleRequired": "יש לבחור תפקיד",
   "@roleRequired": {
     "description": "שגיאת אימות כשלא נבחר תפקיד"
@@ -220,6 +240,10 @@
   "@logout": {
     "description": "כפתור התנתקות"
   },
+  "profileTitle": "פרופיל אישי",
+  "@profileTitle":{
+  "description":"כותרת לעמוד פרופיל משתמש"},
+
   "sortBy": "סדר",
   "@sortBy": {
     "description": "כפתור מיון רשימה"
@@ -335,5 +359,17 @@
   "emailMismatch": "כתובות המייל לא תואמות",
   "@emailMismatch": {
     "description": "הודעת שגיאה כשכתובות המייל לא תואמות"
+  },
+  "calculatingRoute": "מחשב מסלול...",
+  "@calculatingRoute": {
+    "description": "הודעה המוצגת בזמן חישוב מסלול"
+},
+  "resetPasswordNotice": "הזן את כתובת האימייל שלך ונשלח לך קישור לאיפוס הסיסמה.",
+  "@resetPasswordNotice": {
+    "description": "טקסט הסבר בדף שכחתי סיסמה"
+  },
+  "passwordResetSent": "נשלח אימייל לאיפוס סיסמה! בדוק את תיבת הדואר שלך.",
+  "@passwordResetSent": {
+    "description": "הודעת הצלחה כששליחת אימייל לאיפוס סיסמה הצליחה"
   }
 }

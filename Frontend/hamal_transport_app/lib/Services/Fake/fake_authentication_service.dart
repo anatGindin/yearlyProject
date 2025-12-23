@@ -91,4 +91,7 @@ class FakeAuthenticationService extends Mock implements AuthenticationService {
   Future<void> signOut() async {
     mockUserProfile = null;
   }
+
+  @override
+  Future<void> resetPassword(String email) async {}
 }

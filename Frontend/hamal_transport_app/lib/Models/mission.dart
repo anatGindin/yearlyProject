@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:hamal_transport_app/Models/user_profile.dart';
 import '../features/Contact_card/model/contact.dart';
 import '../l10n/app_localizations.dart';
+import 'location.dart';
 
 enum MissionStatus {
   chosen,
@@ -29,7 +30,8 @@ enum MissionStatus {
 
 class Mission {
   final String id;
-  final String location;
+  final Location source;
+  final Location destination;
   final String description;
   final Contact sourceContact;
   final Contact destinationContact;
@@ -41,7 +43,8 @@ class Mission {
 
   Mission({
     required this.id,
-    required this.location,
+    required this.source,
+    required this.destination,
     required this.description,
     required this.sourceContact,
     required this.destinationContact,
@@ -54,7 +57,8 @@ class Mission {
 
   Mission.chosen({
     required this.id,
-    required this.location,
+    required this.source,
+    required this.destination,
     required this.description,
     required this.sourceContact,
     required this.destinationContact,
@@ -98,7 +102,10 @@ class Mission {
 
     return Mission(
       id: json['id'] as String,
-      location: json['location'] as String,
+      source: Location.fromJson(json['source'] as Map<String, dynamic>),
+      destination: Location.fromJson(
+        json['destination'] as Map<String, dynamic>,
+      ),
       description: json['description'] as String,
       sourceContact: Contact.fromJson(
         json['sourceContact'] as Map<String, dynamic>,
@@ -117,7 +124,8 @@ class Mission {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'location': location,
+      'source': source.toJson(),
+      'destination': destination.toJson(),
       'description': description,
       'sourceContact': sourceContact.toJson(),
       'destinationContact': destinationContact.toJson(),
