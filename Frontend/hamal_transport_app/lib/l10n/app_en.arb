@@ -297,11 +297,11 @@
     "description": "Confirm button text"
   },
   "sourceContact": "Source contact",
-  "@comments": {
+  "@sourceContact": {
     "description": "Source contact label"
   },
   "destinationContact": "Destination contact",
-  "@comments": {
+  "@destinationContact": {
     "description": "Destination contact label"
   },
   "comments": "My comments",

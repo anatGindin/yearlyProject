@@ -542,13 +542,13 @@ abstract class AppLocalizations {
   /// **'Confirm'**
   String get confirm;
 
-  /// No description provided for @sourceContact.
+  /// Source contact label
   ///
   /// In en, this message translates to:
   /// **'Source contact'**
   String get sourceContact;
 
-  /// No description provided for @destinationContact.
+  /// Destination contact label
   ///
   /// In en, this message translates to:
   /// **'Destination contact'**

@@ -297,11 +297,11 @@
     "description": "טקסט כפתור אישור"
   },
   "sourceContact": "איש קשר בנקודת האיסוף",
-  "@comments": {
+  "@sourceContact": {
     "description": "תווית איש קשר בנקודת האיסוף"
   },
   "destinationContact": "איש קשר ביעד",
-  "@comments": {
+  "@destinationContact": {
     "description": "תווית איש קשר ביעד"
   },
   "comments": "ההערות שלי",
