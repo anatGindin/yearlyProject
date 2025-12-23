@@ -194,6 +194,18 @@ abstract class AppLocalizations {
   /// **'Take Mission'**
   String get takeMission;
 
+  /// Title for suggested missions dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested Missions'**
+  String get suggestedMissions;
+
+  /// Subtitle for mission selection dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Select a mission to view details'**
+  String get selectMission;
+
   /// Select status menu title
   ///
   /// In en, this message translates to:
@@ -613,6 +625,7 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Calculating route...'**
   String get calculatingRoute;
+
   /// Notice text on forgot password screen explaining what will happen
   ///
   /// In en, this message translates to:

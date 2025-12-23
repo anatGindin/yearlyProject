@@ -64,6 +64,14 @@
   "@takeMission": {
     "description": "Take mission button"
   },
+  "suggestedMissions": "Suggested Missions",
+  "@suggestedMissions": {
+    "description": "Title for suggested missions dialog"
+  },
+  "selectMission": "Select a mission to view details",
+  "@selectMission": {
+    "description": "Subtitle for mission selection dialog"
+  },
   "selectStatus": "Select Status",
   "@selectStatus": {
     "description": "Select status menu title"

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/ViewModels/mission_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/missions_coordinator_view_model.dart';
+import 'package:hamal_transport_app/ViewModels/available_missions_view_model.dart';
 import 'package:hamal_transport_app/Views/Widgets/comments_list_view.dart';
 import 'package:provider/provider.dart';
 import '../Models/mission.dart';
@@ -138,6 +139,7 @@ class _MissionScreenState extends State<MissionScreen> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(l10n.missionTaken)),
                           );
+                          _showSuggestedMissionsDialog();
                         },
                         icon: const Icon(Icons.check),
                         label: Text(
@@ -238,6 +240,67 @@ class _MissionScreenState extends State<MissionScreen> {
                 Navigator.of(context).pop();
               },
               child: Text(l10n.confirm),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showSuggestedMissionsDialog() {
+    final availableMissionsVM = context.read<AvailableMissionsViewModel>();
+    final missions = availableMissionsVM.availableMissions;
+    // TODO: Change to the actual suggested missions.
+
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text(l10n.suggestedMissions),
+          content: SizedBox(
+            width: double.maxFinite,
+            child: missions.isEmpty
+                ? Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(l10n.noMissions, textAlign: TextAlign.center),
+                  )
+                : ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: missions.length,
+                    itemBuilder: (context, index) {
+                      final mission = missions[index];
+                      return Card(
+                        margin: const EdgeInsets.symmetric(vertical: 4),
+                        child: ListTile(
+                          title: Text(
+                            '${mission.source.name} → ${mission.destination.name}',
+                            style: const TextStyle(fontSize: 14),
+                          ),
+                          subtitle: Text(
+                            mission.description,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          trailing: const Icon(Icons.arrow_forward),
+                          onTap: () {
+                            Navigator.of(dialogContext).pop();
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => MissionScreen(mission: mission),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+              child: Text(l10n.close),
             ),
           ],
         );

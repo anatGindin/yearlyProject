@@ -57,6 +57,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get takeMission => 'Take Mission';
 
   @override
+  String get suggestedMissions => 'Suggested Missions';
+
+  @override
+  String get selectMission => 'Select a mission to view details';
+
+  @override
   String get selectStatus => 'Select Status';
 
   @override
@@ -268,6 +274,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get calculatingRoute => 'Calculating route...';
+
+  @override
   String get resetPasswordNotice =>
       'Enter your email address and we\'ll send you a link to reset your password.';
 
