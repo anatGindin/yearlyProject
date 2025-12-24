@@ -36,12 +36,19 @@ class _SelectedMarkerState extends State<SelectedMarker>
   Widget build(BuildContext context) {
     return ScaleTransition(
       scale: _scaleAnimation,
-      child: const Stack(
+      child: Stack(
         alignment: Alignment.center,
         children: [
-          SizedBox(width: 70, height: 70),
-          Icon(Icons.location_on, color: Colors.black, size: 60),
-          Icon(Icons.location_on, color: Colors.red, size: 40),
+          Icon(
+            Icons.location_on,
+            color: Colors.white.withValues(alpha: 0.9),
+            size: 50,
+          ),
+          const Icon(Icons.location_on, color: Colors.red, size: 45),
+          Positioned(
+            top: 22,
+            child: Icon(Icons.circle, color: Colors.red[900], size: 14),
+          ),
         ],
       ),
     );
