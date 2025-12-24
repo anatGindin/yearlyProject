@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-// import 'package:geolocator/geolocator.dart'; // This import is no longer needed in the view, as location logic is in ViewModel.
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 
 import '../Models/mission.dart';
-import '../ViewModels/available_missions_view_model.dart';
-import '../ViewModels/driver_map_view_model.dart'; // New import for the ViewModel
-import '../ViewModels/my_missions_view_model.dart';
+import '../ViewModels/driver_map_view_model.dart';
+import '../ViewModels/missions_coordinator_view_model.dart';
 import '../l10n/app_localizations.dart';
-import 'mission_screen.dart';
+import 'Widgets/map_legend.dart';
+import 'Widgets/mission_map_card.dart';
+import 'Widgets/selected_marker.dart';
 
 class DriverMapView extends StatelessWidget {
   const DriverMapView({super.key});
@@ -38,13 +38,11 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
   @override
   void initState() {
     super.initState();
-    // ViewModel initializes itself in constructor
   }
 
   @override
   void dispose() {
     _mapController.dispose();
-    // The ViewModel's dispose method will handle cancelling the position stream
     super.dispose();
   }
 
@@ -85,7 +83,7 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
               ),
             ],
           ),
-          const Positioned(top: 20, left: 20, child: _MapLegend()),
+          const Positioned(top: 20, left: 20, child: MapLegend()),
           Positioned(
             top: 20,
             right: 20,
@@ -116,14 +114,21 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
                   tooltip: AppLocalizations.of(context)!.center,
                   child: const Icon(Icons.my_location),
                 ),
-                // Add spacer if popup is visible to avoid overlap
                 if (viewModel.selectedMission != null)
                   const SizedBox(height: 180),
               ],
             ),
           ),
           if (viewModel.selectedMission != null)
-            _buildMissionPopup(context, viewModel.selectedMission!, viewModel),
+            Positioned(
+              bottom: 20,
+              left: 20,
+              right: 20,
+              child: MissionMapCard(
+                mission: viewModel.selectedMission!,
+                viewModel: viewModel,
+              ),
+            ),
         ],
       ),
     );
@@ -217,24 +222,22 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
   }
 
   List<Marker> _buildMissionMarkers(BuildContext context) {
-    final availableVM = context.watch<AvailableMissionsViewModel>();
-    final myMissionsVM = context.watch<MyMissionsViewModel>();
-    final viewModel = context
-        .read<DriverMapViewModel>(); // Use read for actions
+    final coordinator = context.watch<MissionsCoordinatorViewModel>();
+    final viewModel = context.read<DriverMapViewModel>();
     final markers = <Marker>[];
 
     // Available Missions (Orange)
     if (viewModel.isStatusVisible(MissionStatus.available)) {
-      for (final mission in availableVM.availableMissions) {
+      for (final mission in coordinator.availableMissionsVM.availableMissions) {
         markers.add(_createMissionMarker(mission, Colors.orange, viewModel));
       }
     }
 
     // My Missions
-    for (final mission in myMissionsVM.myMissions) {
+    for (final mission in coordinator.myMissionsVM.myMissions) {
       if (!viewModel.isStatusVisible(mission.status)) continue;
 
-      Color color;
+      Color color = Colors.orange;
       switch (mission.status) {
         case MissionStatus.chosen:
           color = Colors.blue;
@@ -246,6 +249,21 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
           color = Colors.orange;
       }
       markers.add(_createMissionMarker(mission, color, viewModel));
+    }
+
+    if (viewModel.selectedMission != null) {
+      markers.add(
+        Marker(
+          key: ValueKey('selected_${viewModel.selectedMission!.id}'),
+          point: LatLng(
+            viewModel.selectedMission!.destination.latitude,
+            viewModel.selectedMission!.destination.longitude,
+          ),
+          width: 70,
+          height: 70,
+          child: const SelectedMarker(),
+        ),
+      );
     }
 
     return markers;
@@ -278,182 +296,6 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
             Icon(Icons.location_on, color: color, size: 40),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildMissionPopup(
-    BuildContext context,
-    Mission mission,
-    DriverMapViewModel viewModel,
-  ) {
-    final l10n = AppLocalizations.of(context)!;
-
-    return Positioned(
-      bottom: 20,
-      left: 20,
-      right: 20,
-      child: Card(
-        elevation: 8,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        child: InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MissionScreen(mission: mission),
-              ),
-            );
-          },
-          borderRadius: BorderRadius.circular(16),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        mission.description,
-                        style: Theme.of(context).textTheme.titleMedium
-                            ?.copyWith(fontWeight: FontWeight.bold),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.close),
-                      onPressed: () {
-                        viewModel.selectMission(null);
-                      },
-                      padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.location_on_outlined,
-                      size: 16,
-                      color: Colors.grey,
-                    ),
-                    const SizedBox(width: 4),
-                    Expanded(
-                      child: Text(
-                        mission.destination.name,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    const Icon(Icons.access_time, size: 16, color: Colors.grey),
-                    const SizedBox(width: 4),
-                    Text(
-                      mission.time.toString().substring(0, 16),
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  '${l10n.status}: ${mission.status.displayName(context)}',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _MapLegend extends StatefulWidget {
-  const _MapLegend();
-
-  @override
-  State<_MapLegend> createState() => _MapLegendState();
-}
-
-class _MapLegendState extends State<_MapLegend> {
-  bool _isExpanded = true;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final availableVM = context.watch<AvailableMissionsViewModel>();
-    final myMissionsVM = context.watch<MyMissionsViewModel>();
-
-    final availableCount = availableVM.availableMissions.length;
-    final chosenCount = myMissionsVM.myMissions
-        .where((m) => m.status == MissionStatus.chosen)
-        .length;
-    final pickedUpCount = myMissionsVM.myMissions
-        .where((m) => m.status == MissionStatus.pickedUp)
-        .length;
-
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            InkWell(
-              onTap: () => setState(() => _isExpanded = !_isExpanded),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    l10n.legend,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Icon(_isExpanded ? Icons.expand_less : Icons.expand_more),
-                ],
-              ),
-            ),
-            if (_isExpanded) ...[
-              const SizedBox(height: 8),
-              _buildLegendItem(Colors.orange, l10n.available, availableCount),
-              _buildLegendItem(Colors.blue, l10n.chosen, chosenCount),
-              _buildLegendItem(Colors.green, l10n.pickedUp, pickedUpCount),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLegendItem(Color color, String label, int count) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 12,
-            height: 12,
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.black, width: 1),
-            ),
-          ),
-          const SizedBox(width: 8),
-          Text('$label ($count)'),
-        ],
       ),
     );
   }

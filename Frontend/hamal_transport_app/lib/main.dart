@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               AvailableMissionsViewModel(context.read<MissionsListsModel>()),
         ),
-        Provider(
+        ChangeNotifierProvider(
           create: (context) => MissionsCoordinatorViewModel(
             myMissionsVM: context.read<MyMissionsViewModel>(),
             availableMissionsVM: context.read<AvailableMissionsViewModel>(),
