@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart'; // Keep for Position type if needed, or remove if using only LatLng. But the stream gives Position.
 import 'package:latlong2/latlong.dart';
 import '../Models/mission.dart';
+import '../Services/location_service.dart';
 
 class DriverMapViewModel extends ChangeNotifier {
   // Center of Israel
@@ -24,12 +25,15 @@ class DriverMapViewModel extends ChangeNotifier {
   Set<MissionStatus> get visibleStatuses => _visibleStatuses;
 
   DriverMapViewModel() {
-    checkPermissions();
+    _initLocation();
   }
+
+  Future<void> checkPermissions() => _initLocation();
 
   @override
   void dispose() {
     _positionStreamSubscription?.cancel();
+    LocationService().stopLocationUpdates();
     super.dispose();
   }
 
@@ -51,61 +55,34 @@ class DriverMapViewModel extends ChangeNotifier {
     return _visibleStatuses.contains(status);
   }
 
-  Future<void> checkPermissions() async {
-    bool serviceEnabled;
-    LocationPermission permission;
+  Future<void> _initLocation() async {
+    await _positionStreamSubscription?.cancel();
+    final locationService = LocationService();
+    final hasPermission = await locationService.checkPermissions();
 
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
+    if (!hasPermission) {
       _isLoadingLocation = false;
       notifyListeners();
       return;
     }
 
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        _isLoadingLocation = false;
-        notifyListeners();
-        return;
-      }
+    locationService.startLocationUpdates();
+
+    // Check for existing location
+    if (locationService.currentPosition != null) {
+      _updateLocation(locationService.currentPosition!);
     }
 
-    if (permission == LocationPermission.deniedForever) {
-      _isLoadingLocation = false;
-      notifyListeners();
-      return;
-    }
-
-    _startLocationUpdates();
+    _positionStreamSubscription = locationService.positionStream.listen((
+      Position position,
+    ) {
+      _updateLocation(position);
+    });
   }
 
-  void _startLocationUpdates() {
-    // Get initial location
-    Geolocator.getCurrentPosition()
-        .then((Position position) {
-          _userLocation = LatLng(position.latitude, position.longitude);
-          _isLoadingLocation = false;
-          notifyListeners();
-        })
-        .catchError((e) {
-          _isLoadingLocation = false;
-          notifyListeners();
-        });
-
-    // Listen for updates
-    const LocationSettings locationSettings = LocationSettings(
-      accuracy: LocationAccuracy.high,
-      distanceFilter: 10,
-    );
-
-    _positionStreamSubscription =
-        Geolocator.getPositionStream(locationSettings: locationSettings).listen(
-          (Position position) {
-            _userLocation = LatLng(position.latitude, position.longitude);
-            notifyListeners();
-          },
-        );
+  void _updateLocation(Position position) {
+    _userLocation = LatLng(position.latitude, position.longitude);
+    _isLoadingLocation = false;
+    notifyListeners();
   }
 }
