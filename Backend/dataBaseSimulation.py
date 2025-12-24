@@ -3,8 +3,23 @@ from pydantic import BaseModel
 from typing import List
 import json
 import os
+#FOR CORS: from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+'''
+#code for CORS
+origins = [
+    #frontend URL
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["*"],
+)
+'''
 
 #class definitions
 class Contact(BaseModel):
@@ -81,4 +96,9 @@ def get_missions_by_driver(driver_id: str):
     driver_missions = []
     return driver_missions
 
-
+#get the missions assigned to a specific driver and picked
+@app.get("/Missions/driver/{driver_id}/{status}", response_model=List[Mission])
+def get_picked_missions_by_driver(driver_id: str, status: str):
+    #change when given DB
+    picked_missions = []
+    return picked_missions
