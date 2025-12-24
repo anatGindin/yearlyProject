@@ -595,6 +595,7 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Calculating route...'**
   String get calculatingRoute;
+
   /// Notice text on forgot password screen explaining what will happen
   ///
   /// In en, this message translates to:
@@ -606,6 +607,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Password reset email sent! Check your inbox.'**
   String get passwordResetSent;
+
+  /// Button or title for Map View
+  ///
+  /// In en, this message translates to:
+  /// **'Map View'**
+  String get mapView;
+
+  /// Label for status
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get status;
+
+  /// Title for map legend
+  ///
+  /// In en, this message translates to:
+  /// **'Legend'**
+  String get legend;
+
+  /// Title for map layers/filters
+  ///
+  /// In en, this message translates to:
+  /// **'Layers'**
+  String get layers;
+
+  /// Tooltip for center map button
+  ///
+  /// In en, this message translates to:
+  /// **'My Location'**
+  String get center;
 }
 
 class _AppLocalizationsDelegate

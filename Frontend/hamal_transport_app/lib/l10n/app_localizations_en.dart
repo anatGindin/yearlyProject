@@ -259,10 +259,27 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get calculatingRoute => 'Calculating route...';
+
+  @override
   String get resetPasswordNotice =>
       'Enter your email address and we\'ll send you a link to reset your password.';
 
   @override
   String get passwordResetSent =>
       'Password reset email sent! Check your inbox.';
+
+  @override
+  String get mapView => 'Map View';
+
+  @override
+  String get status => 'Status';
+
+  @override
+  String get legend => 'Legend';
+
+  @override
+  String get layers => 'Layers';
+
+  @override
+  String get center => 'My Location';
 }

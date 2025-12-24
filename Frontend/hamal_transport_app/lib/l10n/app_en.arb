@@ -339,5 +339,25 @@
   "passwordResetSent": "Password reset email sent! Check your inbox.",
   "@passwordResetSent": {
     "description": "Success message when password reset email is sent"
+  },
+  "mapView": "Map View",
+  "@mapView": {
+    "description": "Button or title for Map View"
+  },
+  "status": "Status",
+  "@status": {
+    "description": "Label for status"
+  },
+  "legend": "Legend",
+  "@legend": {
+    "description": "Title for map legend"
+  },
+  "layers": "Layers",
+  "@layers": {
+    "description": "Title for map layers/filters"
+  },
+  "center": "My Location",
+  "@center": {
+    "description": "Tooltip for center map button"
   }
 }

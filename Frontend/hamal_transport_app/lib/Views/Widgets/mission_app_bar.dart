@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../l10n/app_localizations.dart';
+import '../driver_map_view.dart';
 import '../new_mission_page.dart';
 
 /// Reusable AppBar widget for mission screens
@@ -12,6 +13,13 @@ class MissionAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(l10n.appTitle),
       actions: [
+        IconButton(
+          icon: const Icon(Icons.map),
+          tooltip: l10n.mapView,
+          onPressed: () => Navigator.of(
+            context,
+          ).push(MaterialPageRoute(builder: (_) => const DriverMapView())),
+        ),
         IconButton(
           icon: const Icon(Icons.list),
           tooltip: l10n.openTasks,
