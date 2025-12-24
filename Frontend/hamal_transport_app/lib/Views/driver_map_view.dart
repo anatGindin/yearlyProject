@@ -226,6 +226,33 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
     final viewModel = context.read<DriverMapViewModel>();
     final markers = <Marker>[];
 
+    // Hamal Warehouse (Blue)
+    markers.add(
+      Marker(
+        point: DriverMapViewModel.hamalWarehouse,
+        width: 40,
+        height: 40,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Icon(
+              Icons.location_on,
+              color: Colors.white.withValues(alpha: 0.85),
+              size: 40,
+            ),
+            const Positioned(
+              top: 5,
+              child: Icon(
+                Icons.warehouse,
+                color: Color.fromARGB(255, 113, 68, 0),
+                size: 18,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
     // Available Missions (Orange)
     if (viewModel.isStatusVisible(MissionStatus.available)) {
       for (final mission in coordinator.availableMissionsVM.availableMissions) {
@@ -281,8 +308,8 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
 
     return Marker(
       point: point,
-      width: 60,
-      height: 60,
+      width: 40,
+      height: 40,
       child: GestureDetector(
         onTap: () {
           viewModel.selectMission(mission);
@@ -291,9 +318,13 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
           alignment: Alignment.center,
           children: [
             // Black Border (Simulated by larger black icon behind)
-            const Icon(Icons.location_on, color: Colors.black, size: 60),
+            Icon(
+              Icons.location_on,
+              color: Colors.white.withValues(alpha: 0.75),
+              size: 40,
+            ),
             // Colored Inner Icon
-            Icon(Icons.location_on, color: color, size: 40),
+            Icon(Icons.location_on, color: color, size: 30),
           ],
         ),
       ),
