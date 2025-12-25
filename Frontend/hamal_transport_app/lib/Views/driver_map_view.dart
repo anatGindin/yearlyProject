@@ -10,6 +10,7 @@ import '../l10n/app_localizations.dart';
 import 'Widgets/map_legend.dart';
 import 'Widgets/mission_map_card.dart';
 import 'Widgets/selected_marker.dart';
+import 'Widgets/warehouse_map_card.dart';
 
 class DriverMapView extends StatelessWidget {
   const DriverMapView({super.key});
@@ -66,6 +67,9 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
                 if (viewModel.selectedMission != null) {
                   viewModel.selectMission(null);
                 }
+                if (viewModel.isWarehouseSelected) {
+                  viewModel.selectWarehouse(false);
+                }
               },
             ),
             children: [
@@ -96,29 +100,29 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
               child: const Icon(Icons.layers),
             ),
           ),
-          Positioned(
-            bottom: 20,
-            right: 20,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                FloatingActionButton(
-                  heroTag: 'center',
-                  onPressed: () {
-                    viewModel.checkPermissions().then((_) {
-                      if (viewModel.userLocation != null) {
-                        _mapController.move(viewModel.userLocation!, 10.0);
-                      }
-                    });
-                  },
-                  tooltip: AppLocalizations.of(context)!.center,
-                  child: const Icon(Icons.my_location),
-                ),
-                if (viewModel.selectedMission != null)
-                  const SizedBox(height: 180),
-              ],
+          if (viewModel.selectedMission == null &&
+              !viewModel.isWarehouseSelected)
+            Positioned(
+              bottom: 20,
+              right: 20,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  FloatingActionButton(
+                    heroTag: 'center',
+                    onPressed: () {
+                      viewModel.checkPermissions().then((_) {
+                        if (viewModel.userLocation != null) {
+                          _mapController.move(viewModel.userLocation!, 10.0);
+                        }
+                      });
+                    },
+                    tooltip: AppLocalizations.of(context)!.center,
+                    child: const Icon(Icons.my_location),
+                  ),
+                ],
+              ),
             ),
-          ),
           if (viewModel.selectedMission != null)
             Positioned(
               bottom: 20,
@@ -128,6 +132,13 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
                 mission: viewModel.selectedMission!,
                 viewModel: viewModel,
               ),
+            ),
+          if (viewModel.isWarehouseSelected)
+            Positioned(
+              bottom: 20,
+              left: 20,
+              right: 20,
+              child: WarehouseMapCard(viewModel: viewModel),
             ),
         ],
       ),
@@ -230,25 +241,34 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
     markers.add(
       Marker(
         point: DriverMapViewModel.hamalWarehouse,
-        width: 40,
-        height: 40,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Icon(
-              Icons.location_on,
-              color: Colors.white.withValues(alpha: 0.85),
-              size: 40,
-            ),
-            const Positioned(
-              top: 5,
-              child: Icon(
-                Icons.warehouse,
-                color: Color.fromARGB(255, 113, 68, 0),
-                size: 18,
+        width: 60,
+        height: 60,
+        child: GestureDetector(
+          onTap: () => viewModel.selectWarehouse(true),
+          child: Center(
+            child: AnimatedScale(
+              scale: viewModel.isWarehouseSelected ? 1.5 : 1.0,
+              duration: const Duration(milliseconds: 300),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Icon(
+                    Icons.location_on,
+                    color: Colors.white.withValues(alpha: 0.85),
+                    size: 40,
+                  ),
+                  const Positioned(
+                    top: 5,
+                    child: Icon(
+                      Icons.warehouse,
+                      color: Color.fromARGB(255, 113, 68, 0),
+                      size: 18,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );

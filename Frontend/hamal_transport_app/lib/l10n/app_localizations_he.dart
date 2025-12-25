@@ -27,10 +27,10 @@ class AppLocalizationsHe extends AppLocalizations {
   String get availableMissions => 'משימות זמינות';
 
   @override
-  String get callDesk => 'התקשר לדסק המשלוחים';
+  String get callDesk => 'התקשר לחמ\"ל';
 
   @override
-  String get callDeskMessage => 'התקשר לדסק המשלוחים';
+  String get callDeskMessage => 'התקשר לחמ\"ל';
 
   @override
   String get close => 'סגור';
@@ -281,4 +281,7 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get center => 'המיקום שלי';
+
+  @override
+  String get hamalWarehouse => 'מחסן לוגיסטי';
 }

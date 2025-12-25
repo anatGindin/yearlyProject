@@ -24,11 +24,11 @@
   "@availableMissions": {
     "description": "כותרת דף המשימות הזמינות"
   },
-  "callDesk": "התקשר לדסק המשלוחים",
+  "callDesk": "התקשר לחמ\"ל",
   "@callDesk": {
     "description": "כותרת דיאלוג קריאה לדסק"
   },
-  "callDeskMessage": "התקשר לדסק המשלוחים",
+  "callDeskMessage": "התקשר לחמ\"ל",
   "@callDeskMessage": {
     "description": "הודעה בדיאלוג קריאה לדסק"
   },
@@ -359,5 +359,9 @@
   "center": "המיקום שלי",
   "@center": {
     "description": "טקסט עזרה לכפתור מרכוז מפה"
+  },
+  "hamalWarehouse": "מחסן לוגיסטי",
+  "@hamalWarehouse": {
+    "description": "שם המחסן הלוגיסטי"
   }
 }

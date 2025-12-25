@@ -24,11 +24,11 @@
   "@availableMissions": {
     "description": "Title of available missions page"
   },
-  "callDesk": "Call Hamal Desk",
+  "callDesk": "Call Hamal",
   "@callDesk": {
     "description": "Title of call desk dialog"
   },
-  "callDeskMessage": "Call Hamal desk",
+  "callDeskMessage": "Call Hamal",
   "@callDeskMessage": {
     "description": "Message in call desk dialog"
   },
@@ -56,7 +56,7 @@
   "@updateStatus": {
     "description": "Update status button"
   },
-  "navigateWaze": "Navigate in Waze",
+  "navigateWaze": "Navigate",
   "@navigateWaze": {
     "description": "Navigate in Waze button"
   },
@@ -359,5 +359,9 @@
   "center": "My Location",
   "@center": {
     "description": "Tooltip for center map button"
+  },
+  "hamalWarehouse": "Hamal Warehouse",
+  "@hamalWarehouse": {
+    "description": "Name of the Hamal Warehouse"
   }
 }

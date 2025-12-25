@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../Models/mission.dart';
 import '../features/Contact_card/model/contact.dart';
+import '../Utils/launcher_utils.dart';
 
 class MissionViewModel extends ChangeNotifier {
   Mission mission;
@@ -47,25 +47,7 @@ class MissionViewModel extends ChangeNotifier {
       address = mission.destination.name;
     }
 
-    // Try Waze first
-    try {
-      final wazeUri = Uri.parse('waze://?q=${Uri.encodeComponent(address)}');
-      await launchUrl(wazeUri, mode: LaunchMode.externalApplication);
-      return true;
-    } catch (e) {
-      // Ignore and fallback to Google Maps
-    }
-
-    // Fallback to Google Maps
-    try {
-      final googleUri = Uri.parse(
-        'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(address)}',
-      );
-      await launchUrl(googleUri, mode: LaunchMode.externalApplication);
-      return true;
-    } catch (e) {
-      return false; // View will show the error message
-    }
+    return LauncherUtils.launchNavigation(address);
   }
 
   void cancelMission(String cancellationReason) {

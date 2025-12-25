@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
-import 'package:geolocator/geolocator.dart'; // Keep for Position type if needed, or remove if using only LatLng. But the stream gives Position.
+import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import '../Models/mission.dart';
 import '../Services/location_service.dart';
@@ -20,8 +20,11 @@ class DriverMapViewModel extends ChangeNotifier {
     MissionStatus.pickedUp,
   };
 
+  bool _isWarehouseSelected = false;
+
   LatLng? get userLocation => _userLocation;
   Mission? get selectedMission => _selectedMission;
+  bool get isWarehouseSelected => _isWarehouseSelected;
   bool get isLoadingLocation => _isLoadingLocation;
   Set<MissionStatus> get visibleStatuses => _visibleStatuses;
 
@@ -40,6 +43,17 @@ class DriverMapViewModel extends ChangeNotifier {
 
   void selectMission(Mission? mission) {
     _selectedMission = mission;
+    if (mission != null) {
+      _isWarehouseSelected = false;
+    }
+    notifyListeners();
+  }
+
+  void selectWarehouse(bool selected) {
+    _isWarehouseSelected = selected;
+    if (selected) {
+      _selectedMission = null;
+    }
     notifyListeners();
   }
 

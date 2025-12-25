@@ -27,10 +27,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get availableMissions => 'Available Missions';
 
   @override
-  String get callDesk => 'Call Hamal Desk';
+  String get callDesk => 'Call Hamal';
 
   @override
-  String get callDeskMessage => 'Call Hamal desk';
+  String get callDeskMessage => 'Call Hamal';
 
   @override
   String get close => 'Close';
@@ -51,7 +51,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get updateStatus => 'Update Status';
 
   @override
-  String get navigateWaze => 'Navigate in Waze';
+  String get navigateWaze => 'Navigate';
 
   @override
   String get takeMission => 'Take Mission';
@@ -282,4 +282,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get center => 'My Location';
+
+  @override
+  String get hamalWarehouse => 'Hamal Warehouse';
 }

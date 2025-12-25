@@ -137,13 +137,13 @@ abstract class AppLocalizations {
   /// Title of call desk dialog
   ///
   /// In en, this message translates to:
-  /// **'Call Hamal Desk'**
+  /// **'Call Hamal'**
   String get callDesk;
 
   /// Message in call desk dialog
   ///
   /// In en, this message translates to:
-  /// **'Call Hamal desk'**
+  /// **'Call Hamal'**
   String get callDeskMessage;
 
   /// Close button
@@ -185,7 +185,7 @@ abstract class AppLocalizations {
   /// Navigate in Waze button
   ///
   /// In en, this message translates to:
-  /// **'Navigate in Waze'**
+  /// **'Navigate'**
   String get navigateWaze;
 
   /// Take mission button
@@ -637,6 +637,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'My Location'**
   String get center;
+
+  /// Name of the Hamal Warehouse
+  ///
+  /// In en, this message translates to:
+  /// **'Hamal Warehouse'**
+  String get hamalWarehouse;
 }
 
 class _AppLocalizationsDelegate
