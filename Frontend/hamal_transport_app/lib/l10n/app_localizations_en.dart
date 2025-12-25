@@ -57,6 +57,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get takeMission => 'Take Mission';
 
   @override
+  String get suggestedMissions => 'Suggested Missions';
+
+  @override
+  String get suggestedMissionsMessage =>
+      'Based on your mission, here are some other missions you may be able to take:';
+
+  @override
+  String get selectMission => 'Select a mission to view details';
+
+  @override
   String get selectStatus => 'Select Status';
 
   @override
@@ -157,10 +167,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectRole => 'Select your role';
 
   @override
+  String get role => 'Role';
+
+  @override
   String get driver => 'Driver';
 
   @override
   String get logistics => 'Logistics Team';
+
+  @override
+  String get admin => 'Admin';
 
   @override
   String get roleRequired => 'Please select a role';
@@ -173,6 +189,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get logout => 'Logout';
+
+  @override
+  String get profileTitle => 'Profile Page';
 
   @override
   String get sortBy => 'Sort';
@@ -215,7 +234,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get confirm => 'Confirm';
 
   @override
-  String get comments => 'My comment';
+  String get sourceContact => 'Source contact';
+
+  @override
+  String get destinationContact => 'Destination contact';
+
+  @override
+  String get comments => 'My comments';
 
   @override
   String get noComments => 'There are no comments';

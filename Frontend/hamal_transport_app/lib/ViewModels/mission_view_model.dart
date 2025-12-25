@@ -19,8 +19,12 @@ class MissionViewModel extends ChangeNotifier {
     return mission.description;
   }
 
-  Contact contact() {
-    return mission.contact;
+  Contact sourceContact() {
+    return mission.sourceContact;
+  }
+
+  Contact destinationContact() {
+    return mission.destinationContact;
   }
 
   DateTime time() {
@@ -29,6 +33,10 @@ class MissionViewModel extends ChangeNotifier {
 
   List<String> comments() {
     return mission.comments;
+  }
+
+  CarType carType() {
+    return mission.carType;
   }
 
   /// Update the status of the mission

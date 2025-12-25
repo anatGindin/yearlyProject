@@ -64,6 +64,18 @@
   "@takeMission": {
     "description": "Take mission button"
   },
+  "suggestedMissions": "Suggested Missions",
+  "@suggestedMissions": {
+    "description": "Title for suggested missions dialog"
+  },
+  "suggestedMissionsMessage": "Based on your mission, here are some other missions you may be able to take:",
+  "@suggestedMissionsMessage": {
+    "description": "Helper text shown in the suggested missions dialog above the list"
+  },
+  "selectMission": "Select a mission to view details",
+  "@selectMission": {
+    "description": "Subtitle for mission selection dialog"
+  },
   "selectStatus": "Select Status",
   "@selectStatus": {
     "description": "Select status menu title"
@@ -196,6 +208,10 @@
   "@selectRole": {
     "description": "Label for role selection dropdown"
   },
+  "role":"Role",
+    "@role": {
+    "description": "Title for role"
+    },
   "driver": "Driver",
   "@driver": {
     "description": "Driver role option"
@@ -204,6 +220,10 @@
   "@logistics": {
     "description": "Logistics team role option"
   },
+  "admin": "Admin",
+  "@admin": {
+    "description": "Admin role option"
+    },
   "roleRequired": "Please select a role",
   "@roleRequired": {
     "description": "Validation error when role is not selected"
@@ -220,6 +240,10 @@
   "@logout": {
     "description": "Logout button text"
   },
+   "profileTitle": "Profile Page",
+    "@profileTitle":{
+    "description":"Title for user profile page"
+    },
   "sortBy": "Sort",
   "@sortBy": {
     "description": "Sort By button text"
@@ -272,9 +296,17 @@
   "@confirm": {
     "description": "Confirm button text"
   },
-  "comments": "My comment",
+  "sourceContact": "Source contact",
+  "@sourceContact": {
+    "description": "Source contact label"
+  },
+  "destinationContact": "Destination contact",
+  "@destinationContact": {
+    "description": "Destination contact label"
+  },
+  "comments": "My comments",
   "@comments": {
-    "description": "My comment label"
+    "description": "My comments label"
   },
   "noComments": "There are no comments",
   "@noComments": {

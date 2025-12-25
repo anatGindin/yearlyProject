@@ -194,6 +194,24 @@ abstract class AppLocalizations {
   /// **'Take Mission'**
   String get takeMission;
 
+  /// Title for suggested missions dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested Missions'**
+  String get suggestedMissions;
+
+  /// Helper text shown in the suggested missions dialog above the list
+  ///
+  /// In en, this message translates to:
+  /// **'Based on your mission, here are some other missions you may be able to take:'**
+  String get suggestedMissionsMessage;
+
+  /// Subtitle for mission selection dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Select a mission to view details'**
+  String get selectMission;
+
   /// Select status menu title
   ///
   /// In en, this message translates to:
@@ -392,6 +410,12 @@ abstract class AppLocalizations {
   /// **'Select your role'**
   String get selectRole;
 
+  /// Title for role
+  ///
+  /// In en, this message translates to:
+  /// **'Role'**
+  String get role;
+
   /// Driver role option
   ///
   /// In en, this message translates to:
@@ -403,6 +427,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logistics Team'**
   String get logistics;
+
+  /// Admin role option
+  ///
+  /// In en, this message translates to:
+  /// **'Admin'**
+  String get admin;
 
   /// Validation error when role is not selected
   ///
@@ -427,6 +457,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logout'**
   String get logout;
+
+  /// Title for user profile page
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Page'**
+  String get profileTitle;
 
   /// Sort By button text
   ///
@@ -506,10 +542,22 @@ abstract class AppLocalizations {
   /// **'Confirm'**
   String get confirm;
 
-  /// My comment label
+  /// Source contact label
   ///
   /// In en, this message translates to:
-  /// **'My comment'**
+  /// **'Source contact'**
+  String get sourceContact;
+
+  /// Destination contact label
+  ///
+  /// In en, this message translates to:
+  /// **'Destination contact'**
+  String get destinationContact;
+
+  /// My comments label
+  ///
+  /// In en, this message translates to:
+  /// **'My comments'**
   String get comments;
 
   /// Message when there are no comments
