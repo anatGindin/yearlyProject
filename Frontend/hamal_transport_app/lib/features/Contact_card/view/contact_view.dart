@@ -1,6 +1,6 @@
 import '../view_model/contact_vm.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '../../../Utils/launcher_utils.dart';
 
 class ContactCard extends StatelessWidget {
   final ContactViewModel vm;
@@ -29,8 +29,7 @@ class ContactCardActionable extends StatelessWidget {
   const ContactCardActionable({super.key, required this.vm, this.onTap});
 
   Future<void> _defaultTap() async {
-    final uri = Uri(scheme: 'tel', path: vm.phone);
-    await launchUrl(uri);
+    await LauncherUtils.callPhoneNumber(vm.phone);
   }
 
   @override

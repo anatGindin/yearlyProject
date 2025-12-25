@@ -24,11 +24,11 @@
   "@availableMissions": {
     "description": "כותרת דף המשימות הזמינות"
   },
-  "callDesk": "התקשר לדסק המשלוחים",
+  "callDesk": "התקשר לחמ\"ל",
   "@callDesk": {
     "description": "כותרת דיאלוג קריאה לדסק"
   },
-  "callDeskMessage": "התקשר לדסק המשלוחים",
+  "callDeskMessage": "התקשר לחמ\"ל",
   "@callDeskMessage": {
     "description": "הודעה בדיאלוג קריאה לדסק"
   },
@@ -371,5 +371,29 @@
   "passwordResetSent": "נשלח אימייל לאיפוס סיסמה! בדוק את תיבת הדואר שלך.",
   "@passwordResetSent": {
     "description": "הודעת הצלחה כששליחת אימייל לאיפוס סיסמה הצליחה"
+  },
+  "mapView": "מפה",
+  "@mapView": {
+    "description": "כפתור או כותרת לתצוגת מפה"
+  },
+  "status": "סטטוס",
+  "@status": {
+    "description": "תווית לסטטוס"
+  },
+  "legend": "מקרא",
+  "@legend": {
+    "description": "כותרת למקרא מפה"
+  },
+  "layers": "שכבות",
+  "@layers": {
+    "description": "כותרת לשכבות/סינון מפה"
+  },
+  "center": "המיקום שלי",
+  "@center": {
+    "description": "טקסט עזרה לכפתור מרכוז מפה"
+  },
+  "hamalWarehouse": "מחסן לוגיסטי",
+  "@hamalWarehouse": {
+    "description": "שם המחסן הלוגיסטי"
   }
 }

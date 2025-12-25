@@ -24,11 +24,11 @@
   "@availableMissions": {
     "description": "Title of available missions page"
   },
-  "callDesk": "Call Hamal Desk",
+  "callDesk": "Call Hamal",
   "@callDesk": {
     "description": "Title of call desk dialog"
   },
-  "callDeskMessage": "Call Hamal desk",
+  "callDeskMessage": "Call Hamal",
   "@callDeskMessage": {
     "description": "Message in call desk dialog"
   },
@@ -56,7 +56,7 @@
   "@updateStatus": {
     "description": "Update status button"
   },
-  "navigateWaze": "Navigate in Waze",
+  "navigateWaze": "Navigate",
   "@navigateWaze": {
     "description": "Navigate in Waze button"
   },
@@ -371,5 +371,29 @@
   "passwordResetSent": "Password reset email sent! Check your inbox.",
   "@passwordResetSent": {
     "description": "Success message when password reset email is sent"
+  },
+  "mapView": "Map View",
+  "@mapView": {
+    "description": "Button or title for Map View"
+  },
+  "status": "Status",
+  "@status": {
+    "description": "Label for status"
+  },
+  "legend": "Legend",
+  "@legend": {
+    "description": "Title for map legend"
+  },
+  "layers": "Layers",
+  "@layers": {
+    "description": "Title for map layers/filters"
+  },
+  "center": "My Location",
+  "@center": {
+    "description": "Tooltip for center map button"
+  },
+  "hamalWarehouse": "Hamal Warehouse",
+  "@hamalWarehouse": {
+    "description": "Name of the Hamal Warehouse"
   }
 }

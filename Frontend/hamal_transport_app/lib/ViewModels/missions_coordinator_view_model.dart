@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/ViewModels/available_missions_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/mission_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/my_missions_view_model.dart';
 
-class MissionsCoordinatorViewModel {
+class MissionsCoordinatorViewModel extends ChangeNotifier {
   final MyMissionsViewModel myMissionsVM;
   final AvailableMissionsViewModel availableMissionsVM;
   late MissionViewModel missionVM;
@@ -11,7 +12,17 @@ class MissionsCoordinatorViewModel {
   MissionsCoordinatorViewModel({
     required this.myMissionsVM,
     required this.availableMissionsVM,
-  });
+  }) {
+    myMissionsVM.addListener(notifyListeners);
+    availableMissionsVM.addListener(notifyListeners);
+  }
+
+  @override
+  void dispose() {
+    myMissionsVM.removeListener(notifyListeners);
+    availableMissionsVM.removeListener(notifyListeners);
+    super.dispose();
+  }
 
   void setMissionVM(MissionViewModel missionVM) {
     this.missionVM = missionVM;

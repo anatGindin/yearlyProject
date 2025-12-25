@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Views/user_profile_page.dart';
 import '../../l10n/app_localizations.dart';
+import '../driver_map_view.dart';
 import '../new_mission_page.dart';
 import '../../ViewModels/user_profile_view_model.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,13 @@ class MissionAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(l10n.appTitle),
       actions: [
+        IconButton(
+          icon: const Icon(Icons.map),
+          tooltip: l10n.mapView,
+          onPressed: () => Navigator.of(
+            context,
+          ).push(MaterialPageRoute(builder: (_) => const DriverMapView())),
+        ),
         IconButton(
           icon: const Icon(Icons.list),
           tooltip: l10n.openTasks,

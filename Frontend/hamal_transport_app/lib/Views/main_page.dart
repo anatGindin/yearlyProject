@@ -7,8 +7,8 @@ import '../l10n/app_localizations.dart';
 import 'Widgets/mission_app_bar.dart';
 import 'Widgets/mission_list_view.dart';
 import 'Widgets/mission_fabs.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../Constants/official_info.dart';
+import '../Utils/launcher_utils.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -84,8 +84,7 @@ class MainPage extends StatelessWidget {
             child: const Icon(Icons.phone),
             onPressed: () async {
               Navigator.of(context).pop();
-              final uri = Uri(scheme: 'tel', path: hamalPhone);
-              await launchUrl(uri);
+              await LauncherUtils.callPhoneNumber(hamalPhone);
             },
           ),
 
