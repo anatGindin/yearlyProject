@@ -27,10 +27,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get availableMissions => 'Available Missions';
 
   @override
-  String get callDesk => 'Call Hamal Desk';
+  String get callDesk => 'Call Hamal';
 
   @override
-  String get callDeskMessage => 'Call Hamal desk at +1-800-555-1234';
+  String get callDeskMessage => 'Call Hamal';
 
   @override
   String get close => 'Close';
@@ -51,10 +51,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get updateStatus => 'Update Status';
 
   @override
-  String get navigateWaze => 'Navigate in Waze';
+  String get navigateWaze => 'Navigate';
 
   @override
   String get takeMission => 'Take Mission';
+
+  @override
+  String get suggestedMissions => 'Suggested Missions';
+
+  @override
+  String get suggestedMissionsMessage =>
+      'Based on your mission, here are some other missions you may be able to take:';
+
+  @override
+  String get selectMission => 'Select a mission to view details';
 
   @override
   String get selectStatus => 'Select Status';
@@ -142,7 +152,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get userNotFound => 'No user found for that email.';
 
   @override
-  String get wrongPassword => 'Wrong password provided for that user.';
+  String get wrongPassword => 'Email address or password is incorrect';
 
   @override
   String get genericError => 'Something went wrong.';
@@ -157,10 +167,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectRole => 'Select your role';
 
   @override
+  String get role => 'Role';
+
+  @override
   String get driver => 'Driver';
 
   @override
   String get logistics => 'Logistics Team';
+
+  @override
+  String get admin => 'Admin';
 
   @override
   String get roleRequired => 'Please select a role';
@@ -173,4 +189,125 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get logout => 'Logout';
+
+  @override
+  String get profileTitle => 'Profile Page';
+
+  @override
+  String get sortBy => 'Sort';
+
+  @override
+  String get filterBy => 'Filter';
+
+  @override
+  String get closestToFurthest => 'Closest to furthest';
+
+  @override
+  String get furthestToClosest => 'Furthest to closest';
+
+  @override
+  String get newestToOldest => 'Newest to oldest';
+
+  @override
+  String get oldestToNewest => 'Oldest to newest';
+
+  @override
+  String get noFilter => 'All missions';
+
+  @override
+  String get chosenFilter => '\'Chosen\' missions';
+
+  @override
+  String get pickedUpFilter => '\'Picked up\' missions';
+
+  @override
+  String get cancellationReason => 'Cancellation Reason';
+
+  @override
+  String get enterCancellationReason =>
+      'Please enter the reason for cancellation';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get sourceContact => 'Source contact';
+
+  @override
+  String get destinationContact => 'Destination contact';
+
+  @override
+  String get comments => 'My comments';
+
+  @override
+  String get noComments => 'There are no comments';
+
+  @override
+  String get addComment => 'Add comment';
+
+  @override
+  String get enterComment => 'Enter comment';
+
+  @override
+  String get deleteComment => 'Delete comment';
+
+  @override
+  String get deleteCommentConfirmation =>
+      'Are you sure you want to delete this comment?';
+
+  @override
+  String get carType => 'Car Type';
+
+  @override
+  String get carTypeRequired => 'Please select a car type';
+
+  @override
+  String get privateCar => 'Private Car';
+
+  @override
+  String get trailer => 'Trailer';
+
+  @override
+  String get pickupTruck => 'Pickup Truck';
+
+  @override
+  String get truck => 'Truck';
+
+  @override
+  String get confirmEmail => 'Confirm Email';
+
+  @override
+  String get emailMismatch => 'Emails do not match';
+
+  @override
+  String get calculatingRoute => 'Calculating route...';
+
+  @override
+  String get resetPasswordNotice =>
+      'Enter your email address and we\'ll send you a link to reset your password.';
+
+  @override
+  String get passwordResetSent =>
+      'Password reset email sent! Check your inbox.';
+
+  @override
+  String get mapView => 'Map View';
+
+  @override
+  String get status => 'Status';
+
+  @override
+  String get legend => 'Legend';
+
+  @override
+  String get layers => 'Layers';
+
+  @override
+  String get center => 'My Location';
+
+  @override
+  String get hamalWarehouse => 'Hamal Warehouse';
 }
