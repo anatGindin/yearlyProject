@@ -203,7 +203,13 @@ class AppLocalizationsHe extends AppLocalizations {
   String get closestToFurthest => 'קרוב לרחוק';
 
   @override
+  String get closestToFurthestGps => 'קרוב לרחוק (GPS)';
+
+  @override
   String get furthestToClosest => 'רחוק לקרוב';
+
+  @override
+  String get furthestToClosestGps => 'רחוק לקרוב (GPS)';
 
   @override
   String get newestToOldest => 'חדש לישן';

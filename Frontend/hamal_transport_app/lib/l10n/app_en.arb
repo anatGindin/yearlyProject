@@ -256,9 +256,17 @@
   "@closestToFurthest": {
     "description": "Sort option - Distance: closest to furthest"
   },
+  "closestToFurthestGps": "Closest to furthest (GPS)",
+  "@closestToFurthestGps": {
+    "description": "Sort option - Distance from your current GPS location: closest to furthest"
+  },
   "furthestToClosest": "Furthest to closest",
   "@furthestToClosest": {
     "description": "Sort option - Distance: Furthest to closest"
+  },
+  "furthestToClosestGps": "Furthest to closest (GPS)",
+  "@furthestToClosestGps": {
+    "description": "Sort option - Distance from your current GPS location: furthest to closest"
   },
   "newestToOldest": "Newest to oldest",
   "@newestToOldest": {

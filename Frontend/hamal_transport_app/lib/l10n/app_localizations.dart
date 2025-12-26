@@ -482,11 +482,23 @@ abstract class AppLocalizations {
   /// **'Closest to furthest'**
   String get closestToFurthest;
 
+  /// Sort option - Distance from your current GPS location: closest to furthest
+  ///
+  /// In en, this message translates to:
+  /// **'Closest to furthest (GPS)'**
+  String get closestToFurthestGps;
+
   /// Sort option - Distance: Furthest to closest
   ///
   /// In en, this message translates to:
   /// **'Furthest to closest'**
   String get furthestToClosest;
+
+  /// Sort option - Distance from your current GPS location: furthest to closest
+  ///
+  /// In en, this message translates to:
+  /// **'Furthest to closest (GPS)'**
+  String get furthestToClosestGps;
 
   /// Sort option - Time: Newest to oldest
   ///

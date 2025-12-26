@@ -105,6 +105,24 @@ class NewMissionPage extends StatelessWidget {
               Navigator.pop(context);
             },
           ),
+          ListTile(
+            title: Text(l10n.closestToFurthestGps),
+            onTap: () async {
+              await availableMissionsVM.sortByGps(
+                SortBy.distanceGPSClosestFirst,
+              );
+              if (context.mounted) Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: Text(l10n.furthestToClosestGps),
+            onTap: () async {
+              await availableMissionsVM.sortByGps(
+                SortBy.distanceGPSFurthestFirst,
+              );
+              if (context.mounted) Navigator.pop(context);
+            },
+          ),
         ],
       ),
     );

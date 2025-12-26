@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
+import 'package:hamal_transport_app/Models/location.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
 
 class MissionsListsModel {
@@ -12,24 +13,47 @@ class MissionsListsModel {
     required this.availableMissionsList,
   });
 
-  static Comparator getSortComperator(SortBy sortBy) {
+  static Comparator<Mission> getSortComperator(
+    SortBy sortBy, {
+    Location? userLocation,
+  }) {
     switch (sortBy) {
       case SortBy.distanceClosestFirst:
-        return (a, b) {
+        return (Mission a, Mission b) {
           final distanceA = a.source.distanceTo(a.destination);
           final distanceB = b.source.distanceTo(b.destination);
           return distanceA.compareTo(distanceB);
         };
       case SortBy.distanceFurthestFirst:
-        return (a, b) {
+        return (Mission a, Mission b) {
           final distanceA = a.source.distanceTo(a.destination);
           final distanceB = b.source.distanceTo(b.destination);
           return distanceB.compareTo(distanceA);
         };
+      case SortBy.distanceGPSClosestFirst:
+        return (Mission a, Mission b) {
+          final distanceA =
+              userLocation?.distanceTo(a.source) ??
+              a.source.distanceTo(a.destination);
+          final distanceB =
+              userLocation?.distanceTo(b.source) ??
+              b.source.distanceTo(b.destination);
+          return distanceA.compareTo(distanceB);
+        };
+      case SortBy.distanceGPSFurthestFirst:
+        return (Mission a, Mission b) {
+          final distanceA =
+              userLocation?.distanceTo(a.source) ??
+              a.source.distanceTo(a.destination);
+          final distanceB =
+              userLocation?.distanceTo(b.source) ??
+              b.source.distanceTo(b.destination);
+          return distanceB.compareTo(distanceA);
+        };
       case SortBy.timeOldestFirst:
-        return (a, b) => a.time.compareTo(b.time);
+        return (Mission a, Mission b) => a.time.compareTo(b.time);
       case SortBy.timeNewestFirst:
-        return (a, b) => b.time.compareTo(a.time);
+        return (Mission a, Mission b) => b.time.compareTo(a.time);
     }
   }
 
@@ -51,6 +75,10 @@ class MissionsListsModel {
         return l10n.closestToFurthest;
       case SortBy.distanceFurthestFirst:
         return l10n.furthestToClosest;
+      case SortBy.distanceGPSClosestFirst:
+        return l10n.closestToFurthestGps;
+      case SortBy.distanceGPSFurthestFirst:
+        return l10n.furthestToClosestGps;
       case SortBy.timeOldestFirst:
         return l10n.oldestToNewest;
       case SortBy.timeNewestFirst:
@@ -74,6 +102,8 @@ class MissionsListsModel {
 enum SortBy {
   distanceClosestFirst,
   distanceFurthestFirst,
+  distanceGPSClosestFirst,
+  distanceGPSFurthestFirst,
   timeOldestFirst,
   timeNewestFirst,
 }

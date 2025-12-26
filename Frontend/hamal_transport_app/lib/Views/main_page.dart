@@ -133,6 +133,20 @@ class MainPage extends StatelessWidget {
               Navigator.pop(context);
             },
           ),
+          ListTile(
+            title: Text(l10n.closestToFurthestGps),
+            onTap: () async {
+              await myMissionsVM.sortByGps(SortBy.distanceGPSClosestFirst);
+              if (context.mounted) Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: Text(l10n.furthestToClosestGps),
+            onTap: () async {
+              await myMissionsVM.sortByGps(SortBy.distanceGPSFurthestFirst);
+              if (context.mounted) Navigator.pop(context);
+            },
+          ),
         ],
       ),
     );

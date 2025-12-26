@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hamal_transport_app/Constants/mock_data.dart';
+import 'package:hamal_transport_app/Models/location.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Models/missions_model.dart';
 import 'package:hamal_transport_app/ViewModels/available_missions_view_model.dart';
@@ -141,6 +142,48 @@ void main() {
 
       final missions = availVM.availableMissions;
       expect(missions.first.time.isBefore(missions.last.time), true);
+    });
+  });
+
+  group('GPS Sorting Comparator', () {
+    test('distanceGPSClosestFirst sorts by user -> source distance', () {
+      final userLocation = Location(
+        name: 'User',
+        latitude: 32.0853,
+        longitude: 34.7818,
+      );
+
+      final missions = sampleMissions.toList()
+        ..sort(
+          MissionsListsModel.getSortComperator(
+            SortBy.distanceGPSClosestFirst,
+            userLocation: userLocation,
+          ),
+        );
+
+      final firstDistance = userLocation.distanceTo(missions.first.source);
+      final lastDistance = userLocation.distanceTo(missions.last.source);
+      expect(firstDistance <= lastDistance, true);
+    });
+
+    test('distanceGPSFurthestFirst sorts by user -> source distance', () {
+      final userLocation = Location(
+        name: 'User',
+        latitude: 32.0853,
+        longitude: 34.7818,
+      );
+
+      final missions = sampleMissions.toList()
+        ..sort(
+          MissionsListsModel.getSortComperator(
+            SortBy.distanceGPSFurthestFirst,
+            userLocation: userLocation,
+          ),
+        );
+
+      final firstDistance = userLocation.distanceTo(missions.first.source);
+      final lastDistance = userLocation.distanceTo(missions.last.source);
+      expect(firstDistance >= lastDistance, true);
     });
   });
 }

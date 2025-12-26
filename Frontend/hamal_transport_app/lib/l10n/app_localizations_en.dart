@@ -203,7 +203,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get closestToFurthest => 'Closest to furthest';
 
   @override
+  String get closestToFurthestGps => 'Closest to furthest (GPS)';
+
+  @override
   String get furthestToClosest => 'Furthest to closest';
+
+  @override
+  String get furthestToClosestGps => 'Furthest to closest (GPS)';
 
   @override
   String get newestToOldest => 'Newest to oldest';
