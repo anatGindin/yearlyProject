@@ -33,20 +33,20 @@ class MissionsListsModel {
       case SortBy.distanceGPSClosestFirst:
         return (Mission a, Mission b) {
           final distanceA =
-              userLocation?.distanceTo(a.source) ??
+              userLocation?.distanceTo(a.destination) ??
               a.source.distanceTo(a.destination);
           final distanceB =
-              userLocation?.distanceTo(b.source) ??
+              userLocation?.distanceTo(b.destination) ??
               b.source.distanceTo(b.destination);
           return distanceA.compareTo(distanceB);
         };
       case SortBy.distanceGPSFurthestFirst:
         return (Mission a, Mission b) {
           final distanceA =
-              userLocation?.distanceTo(a.source) ??
+              userLocation?.distanceTo(a.destination) ??
               a.source.distanceTo(a.destination);
           final distanceB =
-              userLocation?.distanceTo(b.source) ??
+              userLocation?.distanceTo(b.destination) ??
               b.source.distanceTo(b.destination);
           return distanceB.compareTo(distanceA);
         };
