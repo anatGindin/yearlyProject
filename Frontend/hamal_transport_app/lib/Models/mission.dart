@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:hamal_transport_app/Models/user_profile.dart';
+import 'package:hamal_transport_app/Services/routing_service.dart';
 import '../features/Contact_card/model/contact.dart';
 import '../l10n/app_localizations.dart';
 import 'location.dart';
@@ -41,6 +42,9 @@ class Mission {
   String cancellationReason;
   final List<String> comments;
 
+  bool _routeInfoInitialized = false;
+  late Future<RouteInfo?> _routeInfoFuture;
+
   Mission({
     required this.id,
     required this.source,
@@ -68,6 +72,22 @@ class Mission {
     required this.comments,
     required this.carType,
   });
+
+  /// Calculates route info once per Mission instance and reuses the same Future.
+  Future<RouteInfo?> getRouteInfo({String profile = 'car'}) {
+    if (!_routeInfoInitialized) {
+      _routeInfoInitialized = true;
+      _routeInfoFuture = RoutingService.getRouteInfo(
+        startLat: source.latitude,
+        startLon: source.longitude,
+        endLat: destination.latitude,
+        endLon: destination.longitude,
+        profile: profile,
+      );
+    }
+
+    return _routeInfoFuture;
+  }
 
   // JSON to object constructor
   factory Mission.fromJson(Map<String, dynamic> json) {

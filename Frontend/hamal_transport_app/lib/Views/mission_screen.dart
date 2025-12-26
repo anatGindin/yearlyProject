@@ -373,13 +373,7 @@ class _MissionScreenState extends State<MissionScreen> {
 
   Widget _buildRouteInfo(Mission mission) {
     return FutureBuilder<RouteInfo?>(
-      future: RoutingService.getRouteInfo(
-        startLat: mission.source.latitude,
-        startLon: mission.source.longitude,
-        endLat: mission.destination.latitude,
-        endLon: mission.destination.longitude,
-        profile: 'car',
-      ),
+      future: mission.getRouteInfo(profile: 'car'),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Card(
