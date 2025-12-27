@@ -27,10 +27,10 @@ class AppLocalizationsHe extends AppLocalizations {
   String get availableMissions => 'משימות זמינות';
 
   @override
-  String get callDesk => 'התקשר לדסק המשלוחים';
+  String get callDesk => 'התקשר לחמ\"ל';
 
   @override
-  String get callDeskMessage => 'התקשר לדסק המשלוחים במספר +1-800-555-1234';
+  String get callDeskMessage => 'התקשר לחמ\"ל';
 
   @override
   String get close => 'סגור';
@@ -55,6 +55,16 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get takeMission => 'קח משימה';
+
+  @override
+  String get suggestedMissions => 'משימות מוצעות';
+
+  @override
+  String get suggestedMissionsMessage =>
+      'בהתאם למשימה שלך, הנה עוד כמה משימות שאולי תוכל לקחת:';
+
+  @override
+  String get selectMission => 'בחר משימה לצפייה בפרטים';
 
   @override
   String get selectStatus => 'בחר סטטוס';
@@ -142,7 +152,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get userNotFound => 'לא נמצא משתמש עם האימייל הזה.';
 
   @override
-  String get wrongPassword => 'הסיסמה שגויה.';
+  String get wrongPassword => 'כתובת האימייל או הסיסמה שגויה.';
 
   @override
   String get genericError => 'משהו השתבש.';
@@ -157,10 +167,16 @@ class AppLocalizationsHe extends AppLocalizations {
   String get selectRole => 'בחר תפקיד';
 
   @override
+  String get role => 'תפקיד';
+
+  @override
   String get driver => 'נהג';
 
   @override
   String get logistics => 'צוות לוגיסטיקה';
+
+  @override
+  String get admin => 'מנהל';
 
   @override
   String get roleRequired => 'יש לבחור תפקיד';
@@ -173,4 +189,124 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get logout => 'התנתק';
+
+  @override
+  String get profileTitle => 'פרופיל אישי';
+
+  @override
+  String get sortBy => 'סדר';
+
+  @override
+  String get filterBy => 'סנן';
+
+  @override
+  String get closestToFurthest => 'קרוב לרחוק';
+
+  @override
+  String get furthestToClosest => 'רחוק לקרוב';
+
+  @override
+  String get newestToOldest => 'חדש לישן';
+
+  @override
+  String get oldestToNewest => 'ישן לחדש';
+
+  @override
+  String get noFilter => 'כל המשימות';
+
+  @override
+  String get chosenFilter => 'משימות בסטטוס \'נבחר\'';
+
+  @override
+  String get pickedUpFilter => 'משימות בסטטוס \'נאסף\'';
+
+  @override
+  String get cancellationReason => 'סיבת ביטול';
+
+  @override
+  String get enterCancellationReason => 'אנא הזן את סיבת הביטול';
+
+  @override
+  String get cancel => 'ביטול';
+
+  @override
+  String get confirm => 'אישור';
+
+  @override
+  String get sourceContact => 'איש קשר בנקודת האיסוף';
+
+  @override
+  String get destinationContact => 'איש קשר ביעד';
+
+  @override
+  String get comments => 'ההערות שלי';
+
+  @override
+  String get noComments => 'אין הערות להציג';
+
+  @override
+  String get addComment => 'הוסף הערה';
+
+  @override
+  String get enterComment => 'אנא הזן את ההערה';
+
+  @override
+  String get deleteComment => 'מחק הערה';
+
+  @override
+  String get deleteCommentConfirmation =>
+      'האם אתה בטוח שאתה רוצה למחוק את ההערה?';
+
+  @override
+  String get carType => 'סוג רכב';
+
+  @override
+  String get carTypeRequired => 'אנא בחר סוג רכב';
+
+  @override
+  String get privateCar => 'רכב פרטי';
+
+  @override
+  String get trailer => 'נגרר';
+
+  @override
+  String get pickupTruck => 'טנדר';
+
+  @override
+  String get truck => 'משאית';
+
+  @override
+  String get confirmEmail => 'אישור אימייל';
+
+  @override
+  String get emailMismatch => 'כתובות המייל לא תואמות';
+
+  @override
+  String get calculatingRoute => 'מחשב מסלול...';
+
+  @override
+  String get resetPasswordNotice =>
+      'הזן את כתובת האימייל שלך ונשלח לך קישור לאיפוס הסיסמה.';
+
+  @override
+  String get passwordResetSent =>
+      'נשלח אימייל לאיפוס סיסמה! בדוק את תיבת הדואר שלך.';
+
+  @override
+  String get mapView => 'מפה';
+
+  @override
+  String get status => 'סטטוס';
+
+  @override
+  String get legend => 'מקרא';
+
+  @override
+  String get layers => 'שכבות';
+
+  @override
+  String get center => 'המיקום שלי';
+
+  @override
+  String get hamalWarehouse => 'מחסן לוגיסטי';
 }

@@ -59,6 +59,7 @@ class AuthenticationService {
     required String name,
     required String phone,
     required UserRole role,
+    DriverProfile? driverProfile,
   }) async {
     if (!AuthenticationService.validatePassword(password)) {
       throw AuthenticationError.passwordInvalid;
@@ -71,7 +72,13 @@ class AuthenticationService {
         email: email,
         password: password,
       );
-      return _postUserProfile(_authProvider.currentUser!, name, phone, role);
+      return _postUserProfile(
+        _authProvider.currentUser!,
+        name,
+        phone,
+        role,
+        driverProfile,
+      );
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'invalid-email':
@@ -126,6 +133,7 @@ class AuthenticationService {
     String name,
     String phone,
     UserRole role,
+    DriverProfile? driverProfile,
   ) async {
     try {
       final userProfile = UserProfile(
@@ -134,6 +142,7 @@ class AuthenticationService {
         name: name,
         phone: phone,
         role: role,
+        driverProfile: driverProfile,
       );
       await usersRef.child(user.uid).set(userProfile.userProfileToDictionary());
       return userProfile;
@@ -152,6 +161,17 @@ class AuthenticationService {
       throw AuthenticationError.databaseError;
     } catch (e) {
       throw AuthenticationError.databaseError;
+    }
+  }
+
+  Future<void> resetPassword(String email) async {
+    try {
+      if (!validateEmail(email)) {
+        throw AuthenticationError.emailInvalid;
+      }
+      await _authProvider.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      throw AuthenticationError.unknown;
     }
   }
 
@@ -188,4 +208,5 @@ enum AuthenticationError {
   wrongPassword,
   unknown,
   databaseError,
+  userNotFound,
 }

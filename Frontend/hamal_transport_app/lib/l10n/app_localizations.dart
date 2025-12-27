@@ -137,13 +137,13 @@ abstract class AppLocalizations {
   /// Title of call desk dialog
   ///
   /// In en, this message translates to:
-  /// **'Call Hamal Desk'**
+  /// **'Call Hamal'**
   String get callDesk;
 
   /// Message in call desk dialog
   ///
   /// In en, this message translates to:
-  /// **'Call Hamal desk at +1-800-555-1234'**
+  /// **'Call Hamal'**
   String get callDeskMessage;
 
   /// Close button
@@ -185,7 +185,7 @@ abstract class AppLocalizations {
   /// Navigate in Waze button
   ///
   /// In en, this message translates to:
-  /// **'Navigate in Waze'**
+  /// **'Navigate'**
   String get navigateWaze;
 
   /// Take mission button
@@ -193,6 +193,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Take Mission'**
   String get takeMission;
+
+  /// Title for suggested missions dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested Missions'**
+  String get suggestedMissions;
+
+  /// Helper text shown in the suggested missions dialog above the list
+  ///
+  /// In en, this message translates to:
+  /// **'Based on your mission, here are some other missions you may be able to take:'**
+  String get suggestedMissionsMessage;
+
+  /// Subtitle for mission selection dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Select a mission to view details'**
+  String get selectMission;
 
   /// Select status menu title
   ///
@@ -365,7 +383,7 @@ abstract class AppLocalizations {
   /// Error message for incorrect password
   ///
   /// In en, this message translates to:
-  /// **'Wrong password provided for that user.'**
+  /// **'Email address or password is incorrect'**
   String get wrongPassword;
 
   /// Fallback error message
@@ -392,6 +410,12 @@ abstract class AppLocalizations {
   /// **'Select your role'**
   String get selectRole;
 
+  /// Title for role
+  ///
+  /// In en, this message translates to:
+  /// **'Role'**
+  String get role;
+
   /// Driver role option
   ///
   /// In en, this message translates to:
@@ -403,6 +427,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logistics Team'**
   String get logistics;
+
+  /// Admin role option
+  ///
+  /// In en, this message translates to:
+  /// **'Admin'**
+  String get admin;
 
   /// Validation error when role is not selected
   ///
@@ -427,6 +457,240 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logout'**
   String get logout;
+
+  /// Title for user profile page
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Page'**
+  String get profileTitle;
+
+  /// Sort By button text
+  ///
+  /// In en, this message translates to:
+  /// **'Sort'**
+  String get sortBy;
+
+  /// Filter button text
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get filterBy;
+
+  /// Sort option - Distance: closest to furthest
+  ///
+  /// In en, this message translates to:
+  /// **'Closest to furthest'**
+  String get closestToFurthest;
+
+  /// Sort option - Distance: Furthest to closest
+  ///
+  /// In en, this message translates to:
+  /// **'Furthest to closest'**
+  String get furthestToClosest;
+
+  /// Sort option - Time: Newest to oldest
+  ///
+  /// In en, this message translates to:
+  /// **'Newest to oldest'**
+  String get newestToOldest;
+
+  /// Sort option - Time: Oldest to newest
+  ///
+  /// In en, this message translates to:
+  /// **'Oldest to newest'**
+  String get oldestToNewest;
+
+  /// Filter option - Show all missions
+  ///
+  /// In en, this message translates to:
+  /// **'All missions'**
+  String get noFilter;
+
+  /// Filter option - Show 'Chosen' missions
+  ///
+  /// In en, this message translates to:
+  /// **'\'Chosen\' missions'**
+  String get chosenFilter;
+
+  /// Show 'Picked up' missions
+  ///
+  /// In en, this message translates to:
+  /// **'\'Picked up\' missions'**
+  String get pickedUpFilter;
+
+  /// Title for cancellation reason dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Cancellation Reason'**
+  String get cancellationReason;
+
+  /// Hint text for cancellation reason input
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the reason for cancellation'**
+  String get enterCancellationReason;
+
+  /// Cancel button text
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// Confirm button text
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// Source contact label
+  ///
+  /// In en, this message translates to:
+  /// **'Source contact'**
+  String get sourceContact;
+
+  /// Destination contact label
+  ///
+  /// In en, this message translates to:
+  /// **'Destination contact'**
+  String get destinationContact;
+
+  /// My comments label
+  ///
+  /// In en, this message translates to:
+  /// **'My comments'**
+  String get comments;
+
+  /// Message when there are no comments
+  ///
+  /// In en, this message translates to:
+  /// **'There are no comments'**
+  String get noComments;
+
+  /// Add comment button text
+  ///
+  /// In en, this message translates to:
+  /// **'Add comment'**
+  String get addComment;
+
+  /// Hint text for Add comment input
+  ///
+  /// In en, this message translates to:
+  /// **'Enter comment'**
+  String get enterComment;
+
+  /// Delete comment label
+  ///
+  /// In en, this message translates to:
+  /// **'Delete comment'**
+  String get deleteComment;
+
+  /// Delete comment message
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this comment?'**
+  String get deleteCommentConfirmation;
+
+  /// Label for car type selection
+  ///
+  /// In en, this message translates to:
+  /// **'Car Type'**
+  String get carType;
+
+  /// Validation error for car type
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a car type'**
+  String get carTypeRequired;
+
+  /// Car type - Private
+  ///
+  /// In en, this message translates to:
+  /// **'Private Car'**
+  String get privateCar;
+
+  /// Car type - Trailer
+  ///
+  /// In en, this message translates to:
+  /// **'Trailer'**
+  String get trailer;
+
+  /// Car type - Pickup Truck
+  ///
+  /// In en, this message translates to:
+  /// **'Pickup Truck'**
+  String get pickupTruck;
+
+  /// Car type - Truck
+  ///
+  /// In en, this message translates to:
+  /// **'Truck'**
+  String get truck;
+
+  /// Label for confirm email field
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Email'**
+  String get confirmEmail;
+
+  /// Error message when emails do not match
+  ///
+  /// In en, this message translates to:
+  /// **'Emails do not match'**
+  String get emailMismatch;
+
+  /// Message displayed while calculating route
+  ///
+  /// In en, this message translates to:
+  /// **'Calculating route...'**
+  String get calculatingRoute;
+
+  /// Notice text on forgot password screen explaining what will happen
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email address and we\'ll send you a link to reset your password.'**
+  String get resetPasswordNotice;
+
+  /// Success message when password reset email is sent
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset email sent! Check your inbox.'**
+  String get passwordResetSent;
+
+  /// Button or title for Map View
+  ///
+  /// In en, this message translates to:
+  /// **'Map View'**
+  String get mapView;
+
+  /// Label for status
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get status;
+
+  /// Title for map legend
+  ///
+  /// In en, this message translates to:
+  /// **'Legend'**
+  String get legend;
+
+  /// Title for map layers/filters
+  ///
+  /// In en, this message translates to:
+  /// **'Layers'**
+  String get layers;
+
+  /// Tooltip for center map button
+  ///
+  /// In en, this message translates to:
+  /// **'My Location'**
+  String get center;
+
+  /// Name of the Hamal Warehouse
+  ///
+  /// In en, this message translates to:
+  /// **'Hamal Warehouse'**
+  String get hamalWarehouse;
 }
 
 class _AppLocalizationsDelegate

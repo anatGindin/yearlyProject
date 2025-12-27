@@ -1,0 +1,136 @@
+{
+    "sampleMissions": [
+        {
+            "id": "m1",
+            "source": {
+                "name": "טכניון חיפה",
+                "latitude": 32.7767,
+                "longitude": 35.0231
+            },
+            "destination": {
+                "name": "בסיס חיל הים",
+                "latitude": 32.8274,
+                "longitude": 34.9888
+            },
+            "description": "חבילה שבירה",
+            "sourceContact": {
+                "fullName": "סמי סביב",
+                "phoneNumber": "+972-54-1111111"
+            },
+            "destinationContact": {
+                "fullName": "שימחה ריף",
+                "phoneNumber": "+972-50-333-4444"
+            },
+            "time": "2025-12-15 10:00",
+            "status": "chosen",
+            "carType": "private",
+            "comments": []
+        },
+        {
+            "id": "m2",
+            "source": {
+                "name": "טכניון חיפה",
+                "latitude": 32.7767,
+                "longitude": 35.0231
+            },
+            "destination": {
+                "name": "ירושלים - בן יהודה 12",
+                "latitude": 31.7801,
+                "longitude": 35.2199
+            },
+            "description": "מעטפה דחופה",
+            "sourceContact": {
+                "fullName": "אלי קופטר",
+                "phoneNumber": "+972-54-0000000"
+            },
+            "destinationContact": {
+                "fullName": "אבי רון",
+                "phoneNumber": "+972-52-9876543"
+            },
+            "time": "2025-12-16 14:30",
+            "status": "chosen",
+            "carType": "private",
+            "comments": []
+        },
+        {
+            "id": "m3",
+            "source": {
+                "name": "טכניון חיפה",
+                "latitude": 32.7767,
+                "longitude": 35.0231
+            },
+            "destination": {
+                "name": "חיפה - הנשיא 3",
+                "latitude": 32.8191,
+                "longitude": 34.9983
+            },
+            "description": "ארגז גדול, דורש עגלה",
+            "sourceContact": {
+                "fullName": "ניר דמתי",
+                "phoneNumber": "+972-54-2222222"
+            },
+            "destinationContact": {
+                "fullName": "גרי המבורגרי",
+                "phoneNumber": "+972-54-5555555"
+            },
+            "time": "2025-12-15 15:00",
+            "status": "chosen",
+            "carType": "trailer",
+            "comments": []
+        }
+    ],
+    "availableMissions": [
+        {
+            "id": "a1",
+            "source": {
+                "name": "טכניון חיפה",
+                "latitude": 32.7767,
+                "longitude": 35.0231
+            },
+            "destination": {
+                "name": "רמת גן - ביאליק 5",
+                "latitude": 32.0706,
+                "longitude": 34.8238
+            },
+            "description": "חבילה קטנה",
+            "sourceContact": {
+                "fullName": "מרדכי היהודי",
+                "phoneNumber": "+972-54-9999999"
+            },
+            "destinationContact": {
+                "fullName": "יהודה המכבי",
+                "phoneNumber": "+972-50-1111111"
+            },
+            "time": "2025-12-15 12:00",
+            "status": "available",
+            "carType": "private",
+            "comments": []
+        },
+        {
+            "id": "a2",
+            "source": {
+                "name": "טכניון חיפה",
+                "latitude": 32.7767,
+                "longitude": 35.0231
+            },
+            "destination": {
+                "name": "ראשון לציון - העצמאות 21",
+                "latitude": 31.9730,
+                "longitude": 34.8037
+            },
+            "description": "מסמכים",
+            "sourceContact": {
+                "fullName": "פטריק סטאר",
+                "phoneNumber": "+972-54-7777777"
+            },
+            "destinationContact": {
+                "fullName": "בובספוג מכנסמרובע",
+                "phoneNumber": "+972-50-2222222"
+            },
+            "time": "2025-12-15 14:00",
+            "status": "available",
+            "carType": "private",
+            "comments": []
+        }
+    ]
+}

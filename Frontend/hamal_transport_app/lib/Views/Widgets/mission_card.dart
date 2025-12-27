@@ -18,7 +18,7 @@ class MissionCard extends StatelessWidget {
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         title: Text(
-          mission.location,
+          '${mission.source.name}\r\n${mission.destination.name}',
           style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 20),
           textAlign: TextAlign.right,
         ),
@@ -33,7 +33,7 @@ class MissionCard extends StatelessWidget {
               textAlign: TextAlign.right,
             ),
             const SizedBox(height: 8),
-            ContactCard(vm: ContactViewModel(mission.contact)),
+            ContactCard(vm: ContactViewModel(mission.destinationContact)),
             const SizedBox(height: 8),
             Text(
               '${l10n.time}${_formatDateTime(mission.time)}',

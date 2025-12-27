@@ -2,20 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hamal_transport_app/Constants/mock_data.dart';
 import 'package:hamal_transport_app/Models/missions_model.dart';
+import 'package:hamal_transport_app/Services/authentication_service.dart';
 import 'package:hamal_transport_app/ViewModels/available_missions_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/missions_coordinator_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/my_missions_view_model.dart';
 import 'package:provider/provider.dart';
 import 'l10n/app_localizations.dart';
-import 'Views/main_page.dart';
-import 'Theme/app_theme.dart';
 import 'Views/Authentication/auth_gate.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hamal_transport_app/firebase_options.dart';
+import 'Theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await initializeMockData();
+
   runApp(const MyApp());
 }
 
@@ -41,12 +43,13 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               AvailableMissionsViewModel(context.read<MissionsListsModel>()),
         ),
-        Provider(
+        ChangeNotifierProvider(
           create: (context) => MissionsCoordinatorViewModel(
             myMissionsVM: context.read<MyMissionsViewModel>(),
             availableMissionsVM: context.read<AvailableMissionsViewModel>(),
           ),
         ),
+        Provider<AuthenticationService>(create: (_) => AuthenticationService()),
       ],
       child: MaterialApp(
         onGenerateTitle: (BuildContext context) =>
@@ -60,7 +63,6 @@ class MyApp extends StatelessWidget {
         supportedLocales: AppLocalizations.supportedLocales,
         theme: AppTheme.light,
         darkTheme: AppTheme.dark,
-        themeMode: ThemeMode.system,
         // Use MediaQuery builder to scale all text globally (avoids TextStyle.apply assertion)
         builder: (BuildContext context, Widget? child) {
           final mq = MediaQuery.of(context);
