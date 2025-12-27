@@ -686,6 +686,24 @@ abstract class AppLocalizations {
   /// **'My Location'**
   String get center;
 
+  /// Label of Missions option in the driver navigation bar
+  ///
+  /// In en, this message translates to:
+  /// **'Missions'**
+  String get missions;
+
+  /// Label of Map option in the driver navigation bar
+  ///
+  /// In en, this message translates to:
+  /// **'Map'**
+  String get map;
+
+  /// Label of Profile option in the driver navigation bar
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
+
   /// Name of the Hamal Warehouse
   ///
   /// In en, this message translates to:

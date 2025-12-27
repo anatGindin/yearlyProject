@@ -392,6 +392,18 @@
   "@center": {
     "description": "Tooltip for center map button"
   },
+  "missions": "Missions",
+  "@missions": {
+    "description": "Label of Missions option in the driver navigation bar"
+  },
+  "map": "Map",
+  "@map": {
+    "description": "Label of Map option in the driver navigation bar"
+  },
+  "profile": "Profile",
+  "@profile": {
+    "description": "Label of Profile option in the driver navigation bar"
+  },
   "hamalWarehouse": "Hamal Warehouse",
   "@hamalWarehouse": {
     "description": "Name of the Hamal Warehouse"
