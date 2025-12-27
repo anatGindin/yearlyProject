@@ -21,47 +21,45 @@ class MainPage extends StatelessWidget {
       appBar: const MissionAppBar(),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.only(
+            top: 2.0,
+            bottom: 2.0,
+            left: 2.0,
+            right: 2.0,
+          ),
+
           child: Stack(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const SizedBox(height: 4),
-                  Text(
-                    l10n.activeMissions,
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
+              SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const SizedBox(height: 4),
+                    Text(
+                      l10n.activeMissions,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                      textAlign: TextAlign.right,
                     ),
-                    textAlign: TextAlign.right,
-                  ),
-                  const SizedBox(height: 12),
-                  ListActionButton(
-                    icon: Icons.sort,
-                    label: '${l10n.sortBy}: ${myMissionsVM.getSortBy(context)}',
-                    onPressed: () => _showSortOptions(context),
-                  ),
-                  ListActionButton(
-                    icon: Icons.filter_alt,
-                    label:
-                        '${l10n.filterBy}: ${myMissionsVM.getFilterBy(context)}',
-                    onPressed: () => _showFilterOptions(context),
-                  ),
-                  // Expanded mission list
-                  Expanded(
-                    child: Consumer<MyMissionsViewModel>(
-                      builder: (context, myMissionsVM, _) {
-                        return MissionListView(
-                          missions: myMissionsVM.myMissions,
-                        );
-                      },
+                    const SizedBox(height: 12),
+                    ListActionButton(
+                      icon: Icons.sort,
+                      label:
+                          '${l10n.sortBy}: ${myMissionsVM.getSortBy(context)}',
+                      onPressed: () => _showSortOptions(context),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 72,
-                  ), // spacing to keep list above buttons
-                ],
+                    ListActionButton(
+                      icon: Icons.filter_alt,
+                      label:
+                          '${l10n.filterBy}: ${myMissionsVM.getFilterBy(context)}',
+                      onPressed: () => _showFilterOptions(context),
+                    ),
+                    // Expanded mission list
+                    MissionListView(missions: myMissionsVM.myMissions),
+                    const SizedBox(
+                      height: 72,
+                    ), // spacing to keep list above buttons
+                  ],
+                ),
               ),
               MissionFABs(onCallDesk: () => _callHamalDesk(context)),
             ],

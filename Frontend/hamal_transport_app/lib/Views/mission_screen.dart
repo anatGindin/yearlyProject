@@ -59,9 +59,7 @@ class _MissionScreenState extends State<MissionScreen> {
                             alignment: Alignment.centerRight,
                             child: Text(
                               missionVM.location(),
-                              style: Theme.of(
-                                context,
-                              ).textTheme.titleLarge?.copyWith(fontSize: 24),
+                              style: Theme.of(context).textTheme.titleLarge,
                             ),
                           ),
                           const SizedBox(height: 12),

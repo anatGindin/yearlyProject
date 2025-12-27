@@ -47,7 +47,6 @@ class MissionAppBar extends StatelessWidget implements PreferredSizeWidget {
           },
         ),
       ],
-      backgroundColor: Theme.of(context).colorScheme.primary,
     );
   }
 

@@ -10,13 +10,18 @@ class ContactCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: ListTile(
-        title: Text(vm.name, textAlign: TextAlign.center),
-        subtitle: Text(
-          vm.phone,
-          textAlign: TextAlign.center,
-          textDirection: TextDirection.ltr,
-        ),
+      child: Row(
+        mainAxisAlignment:
+            MainAxisAlignment.spaceEvenly, // Distribute elements evenly
+        children: [
+          const Icon(Icons.person),
+          Text(vm.name, textAlign: TextAlign.center),
+          Text(
+            vm.phone,
+            textAlign: TextAlign.center,
+            textDirection: TextDirection.ltr,
+          ),
+        ],
       ),
     );
   }
