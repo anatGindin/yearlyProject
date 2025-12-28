@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/ViewModels/user_profile_view_model.dart';
-import 'package:hamal_transport_app/Views/Widgets/logout_button.dart';
 import 'package:hamal_transport_app/Views/Widgets/user_avatar.dart';
 import 'package:provider/provider.dart';
 import '../../l10n/app_localizations.dart';
+import 'UserMenu/profile_menu_view.dart';
+import 'UserMenu/account_info_details_view.dart';
+import 'UserMenu/edit_profile_view.dart';
 
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({super.key});
@@ -13,6 +15,20 @@ class UserProfilePage extends StatefulWidget {
 
 class _UserProfilePageState extends State<UserProfilePage> {
   final PageController _pageController = PageController();
+  int _currentPageIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController.addListener(() {
+      int next = _pageController.page?.round() ?? 0;
+      if (next != _currentPageIndex) {
+        setState(() {
+          _currentPageIndex = next;
+        });
+      }
+    });
+  }
 
   @override
   void dispose() {
@@ -27,6 +43,18 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
     return Scaffold(
       backgroundColor: theme.colorScheme.primary,
+      floatingActionButton: _currentPageIndex == 1
+          ? FloatingActionButton(
+              onPressed: () {
+                _pageController.animateToPage(
+                  2,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              },
+              child: const Icon(Icons.edit),
+            )
+          : null,
       body: Consumer<UserProfileViewModel>(
         builder: (context, userProfileVM, _) {
           final topPadding = MediaQuery.of(context).padding.top + 15;
@@ -111,32 +139,24 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
                       // Page 0: Main Menu
-                      ListView(
-                        padding: const EdgeInsets.all(24),
-                        children: [
-                          _buildProfileItem(
-                            icon: Icons.person_outline,
-                            title: l10n.accountInformation,
-                            theme: theme,
-                            onTap: () {
-                              _pageController.animateToPage(
-                                1,
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeInOut,
-                              );
-                            },
-                          ),
-                          const Divider(),
-                          const SizedBox(height: 16),
-                          const LogoutButton(),
-                        ],
+                      ProfileMenuView(
+                        pageController: _pageController,
+                        l10n: l10n,
+                        theme: theme,
                       ),
                       // Page 1: Account Information details
-                      _buildAccountInfoDetails(
-                        context,
-                        userProfileVM,
-                        theme,
-                        l10n,
+                      AccountInfoDetailsView(
+                        vm: userProfileVM,
+                        pageController: _pageController,
+                        l10n: l10n,
+                        theme: theme,
+                      ),
+                      // Page 2: Edit Profile
+                      EditProfileView(
+                        vm: userProfileVM,
+                        pageController: _pageController,
+                        l10n: l10n,
+                        theme: theme,
                       ),
                     ],
                   ),
@@ -146,126 +166,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
           );
         },
       ),
-    );
-  }
-
-  Widget _buildAccountInfoDetails(
-    BuildContext context,
-    UserProfileViewModel vm,
-    ThemeData theme,
-    AppLocalizations l10n,
-  ) {
-    return Column(
-      children: [
-        // Internal Header for the slide-in view
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  _pageController.animateToPage(
-                    0,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeInOut,
-                  );
-                },
-              ),
-              Text(
-                l10n.accountInformation,
-                style: theme.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          child: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            children: [
-              _buildInfoRow(Icons.person, l10n.name, vm.name, theme),
-              const Divider(),
-              _buildInfoRow(Icons.email, l10n.email, vm.email, theme),
-              const Divider(),
-              _buildInfoRow(Icons.phone, l10n.phone, vm.phone, theme),
-              const Divider(),
-              _buildInfoRow(Icons.work, l10n.role, vm.role(l10n), theme),
-              if (vm.isDriver) const Divider(),
-              if (vm.isDriver)
-                _buildInfoRow(
-                  vm.driverProfileExtension!.carTypeIcon(),
-                  l10n.carType,
-                  vm.driverProfileExtension!.carType(l10n),
-                  theme,
-                ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildInfoRow(
-    IconData icon,
-    String label,
-    String value,
-    ThemeData theme,
-  ) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(icon, color: theme.colorScheme.primary, size: 16),
-              const SizedBox(width: 8),
-              Text(
-                label,
-                style: theme.textTheme.labelMedium?.copyWith(
-                  color: theme.colorScheme.outline,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          Padding(
-            padding: const EdgeInsets.only(left: 24),
-            child: Text(
-              value,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildProfileItem({
-    required IconData icon,
-    required String title,
-    required VoidCallback onTap,
-    required ThemeData theme,
-  }) {
-    return ListTile(
-      leading: Icon(icon, color: theme.colorScheme.onSurfaceVariant),
-      title: Text(
-        title,
-        style: theme.textTheme.titleMedium?.copyWith(
-          fontWeight: FontWeight.w500,
-          color: theme.colorScheme.onSurface,
-        ),
-      ),
-      trailing: Icon(
-        Icons.arrow_forward_ios,
-        size: 16,
-        color: theme.colorScheme.outline,
-      ),
-      onTap: onTap,
     );
   }
 }

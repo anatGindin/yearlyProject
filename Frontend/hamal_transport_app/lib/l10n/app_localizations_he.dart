@@ -146,6 +146,9 @@ class AppLocalizationsHe extends AppLocalizations {
   String get requiredField => 'שדה זה חובה';
 
   @override
+  String get invalidPhone => 'אנא הזן מספר טלפון ישראלי תקין.';
+
+  @override
   String get invalidEmail => 'כתובת האימייל אינה תקינה.';
 
   @override
@@ -312,4 +315,10 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get accountInformation => 'פרטי חשבון';
+
+  @override
+  String get edit => 'ערוך את הפרופיל שלך';
+
+  @override
+  String get save => 'שמירה';
 }

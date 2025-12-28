@@ -146,6 +146,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get requiredField => 'This field is required';
 
   @override
+  String get invalidPhone => 'Please enter a valid Israeli phone number.';
+
+  @override
   String get invalidEmail => 'The email address is not valid.';
 
   @override
@@ -313,4 +316,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get accountInformation => 'Account Information';
+
+  @override
+  String get edit => 'Edit Your Profile';
+
+  @override
+  String get save => 'Save';
 }

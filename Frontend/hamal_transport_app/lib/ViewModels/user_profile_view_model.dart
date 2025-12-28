@@ -4,7 +4,7 @@ import '../l10n/app_localizations.dart';
 import '../Services/authentication_service.dart';
 
 class UserProfileViewModel extends ChangeNotifier {
-  final UserProfile userProfile;
+  UserProfile userProfile;
   DriverProfileExtension? driverProfileExtension;
   final AuthenticationService _authService = AuthenticationService();
 
@@ -52,6 +52,47 @@ class UserProfileViewModel extends ChangeNotifier {
         return Icons.support_agent;
       case UserRole.admin:
         return Icons.supervisor_account;
+    }
+  }
+
+  bool _isUpdating = false;
+  bool get isUpdating => _isUpdating;
+
+  Future<void> updateProfile({
+    required String name,
+    required String phone,
+    CarType? carType,
+  }) async {
+    _isUpdating = true;
+    notifyListeners();
+
+    try {
+      final updatedProfile = UserProfile(
+        uid: userProfile.uid,
+        email: userProfile.email,
+        name: name,
+        phone: phone,
+        role: userProfile.role,
+        driverProfile: carType != null
+            ? DriverProfile(carType: carType)
+            : userProfile.driverProfile,
+      );
+
+      await _authService.updateUserProfile(updatedProfile);
+
+      // Update local state by creating a new VM instance or updating this one
+      // For simplicity, let's update this one
+      userProfile.name = name;
+      userProfile.phone = phone;
+      if (carType != null && userProfile.driverProfile != null) {
+        userProfile.driverProfile!.carType = carType;
+        updateDriverProfile(userProfile);
+      }
+
+      notifyListeners();
+    } finally {
+      _isUpdating = false;
+      notifyListeners();
     }
   }
 }

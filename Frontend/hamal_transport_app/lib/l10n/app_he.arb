@@ -180,6 +180,10 @@
   "@requiredField": {
     "description": "הודעה שגיאה לשדות חובה ריקים"
   },
+  "invalidPhone": "אנא הזן מספר טלפון ישראלי תקין.",
+  "@invalidPhone": {
+    "description": "הודעת שגיאה על פורמט מספר טלפון שגוי"
+  },
   "invalidEmail": "כתובת האימייל אינה תקינה.",
   "@invalidEmail": {
     "description": "שגיאה על פורמט אימייל שגוי"
@@ -393,5 +397,13 @@
     "description": "טקסט עזרה לכפתור מרכוז מפה"
   },
   "hamalWarehouse": "מחסן לוגיסטי",
-  "accountInformation": "פרטי חשבון"
+  "accountInformation": "פרטי חשבון",
+  "edit": "ערוך את הפרופיל שלך",
+  "@edit": {
+    "description": "כפתור עריכת פרופיל"
+  },
+  "save": "שמירה",
+  "@save": {
+    "description": "כפתור שמירת פרופיל"
+  }   
 }

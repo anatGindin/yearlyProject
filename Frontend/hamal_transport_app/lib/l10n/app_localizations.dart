@@ -368,6 +368,12 @@ abstract class AppLocalizations {
   /// **'This field is required'**
   String get requiredField;
 
+  /// Error message for invalid phone number format
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid Israeli phone number.'**
+  String get invalidPhone;
+
   /// Error message for invalid email format
   ///
   /// In en, this message translates to:
@@ -697,6 +703,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Account Information'**
   String get accountInformation;
+
+  /// Edit Your Profile
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Your Profile'**
+  String get edit;
+
+  /// Save
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
 }
 
 class _AppLocalizationsDelegate
