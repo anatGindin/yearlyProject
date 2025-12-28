@@ -25,16 +25,12 @@ class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
   late final List<Widget> destinationViews;
 
   int selectedIndex = 0;
-  int previousIndex = 0;
 
   @override
   void initState() {
     super.initState();
 
-    navigatorKeys = List.generate(
-      allDestinations.length,
-      (_) => GlobalKey<NavigatorState>(),
-    );
+    navigatorKeys = List.generate(allDestinations.length, (_) => GlobalKey());
 
     controllers = List.generate(
       allDestinations.length,
@@ -46,9 +42,10 @@ class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
 
     controllers[selectedIndex].value = 1.0;
 
-    destinationViews = List.generate(allDestinations.length, (index) {
-      return _buildTabView(index, Offset.zero);
-    });
+    destinationViews = List.generate(
+      allDestinations.length,
+      (i) => _buildTabView(i, Offset.zero),
+    );
   }
 
   Widget _buildTabView(int index, Offset beginOffset) {
@@ -71,16 +68,16 @@ class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
   }
 
   void _onTabSelected(int newIndex) {
-    if (newIndex == selectedIndex) return;
+    if (newIndex < 0 ||
+        newIndex >= allDestinations.length ||
+        newIndex == selectedIndex) {
+      return;
+    }
 
     final textDirection = Directionality.of(context);
     final isForward = newIndex > selectedIndex;
-
-    // Leading edge depends on text direction
-    final double leading = textDirection == TextDirection.ltr ? 1.0 : -1.0;
-
-    final beginOffset = Offset(isForward ? leading : -leading, 0.0);
-
+    final leading = textDirection == TextDirection.ltr ? 1.0 : -1.0;
+    final beginOffset = Offset(isForward ? leading : -leading, 0);
     final previousIndex = selectedIndex;
     selectedIndex = newIndex;
 
@@ -91,6 +88,21 @@ class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
     destinationViews[selectedIndex] = _buildTabView(selectedIndex, beginOffset);
 
     setState(() {});
+  }
+
+  void _handleSwipe(DragEndDetails details) {
+    final velocity = details.primaryVelocity ?? 0;
+    if (velocity.abs() < 200) return; // ignore weak swipes
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
+
+    // In LTR:
+    // swipe left  -> next tab
+    // swipe right -> previous tab
+    //
+    // In RTL it's reversed
+    final swipeToNext = isRtl ? velocity > 0 : velocity < 0;
+    final newIndex = swipeToNext ? selectedIndex + 1 : selectedIndex - 1;
+    _onTabSelected(newIndex);
   }
 
   @override
@@ -108,17 +120,18 @@ class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
         navigatorKeys[selectedIndex].currentState?.pop();
       },
       child: Scaffold(
-        body: Stack(
-          fit: StackFit.expand,
-          children: List.generate(allDestinations.length, (index) {
-            final isActive = index == selectedIndex;
-
-            if (isActive) {
-              return Offstage(offstage: false, child: destinationViews[index]);
-            } else {
-              return Offstage(offstage: true, child: destinationViews[index]);
-            }
-          }),
+        body: GestureDetector(
+          onHorizontalDragEnd: _handleSwipe,
+          behavior: HitTestBehavior.opaque,
+          child: Stack(
+            fit: StackFit.expand,
+            children: List.generate(allDestinations.length, (index) {
+              return Offstage(
+                offstage: index != selectedIndex,
+                child: destinationViews[index],
+              );
+            }),
+          ),
         ),
         bottomNavigationBar: NavigationBar(
           selectedIndex: selectedIndex,
