@@ -12,104 +12,36 @@ class DriverNavigationBarWrapper extends StatefulWidget {
       _DriverNavigationBarWrapperState();
 }
 
-class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
-    with TickerProviderStateMixin {
+class _DriverNavigationBarWrapperState
+    extends State<DriverNavigationBarWrapper> {
   static const List<DriverDestination> allDestinations = [
     DriverDestination(0, DriverPageType.missions),
     DriverDestination(1, DriverPageType.mapView),
     DriverDestination(2, DriverPageType.profile),
   ];
 
-  late final List<GlobalKey<NavigatorState>> navigatorKeys;
-  late final List<AnimationController> controllers;
-  late final List<Widget> destinationViews;
+  final List<GlobalKey<NavigatorState>> navigatorKeys = List.generate(
+    allDestinations.length,
+    (_) => GlobalKey(),
+  );
+
+  final PageController _pageController = PageController();
 
   int selectedIndex = 0;
 
-  @override
-  void initState() {
-    super.initState();
-
-    navigatorKeys = List.generate(allDestinations.length, (_) => GlobalKey());
-
-    controllers = List.generate(
-      allDestinations.length,
-      (_) => AnimationController(
-        vsync: this,
-        duration: const Duration(milliseconds: 300),
-      ),
+  void _onTabSelected(int index) {
+    if (index == selectedIndex) return;
+    setState(() => selectedIndex = index);
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.fastOutSlowIn,
     );
-
-    controllers[selectedIndex].value = 1.0;
-
-    destinationViews = List.generate(
-      allDestinations.length,
-      (i) => _buildTabView(i, Offset.zero),
-    );
-  }
-
-  Widget _buildTabView(int index, Offset beginOffset) {
-    final animation = controllers[index].drive(
-      Tween<Offset>(
-        begin: beginOffset,
-        end: Offset.zero,
-      ).chain(CurveTween(curve: Curves.fastOutSlowIn)),
-    );
-
-    return SlideTransition(
-      position: animation,
-      child: Navigator(
-        key: navigatorKeys[index],
-        onGenerateRoute: (_) => MaterialPageRoute(
-          builder: (_) => allDestinations[index].driverPageType.getPage(),
-        ),
-      ),
-    );
-  }
-
-  void _onTabSelected(int newIndex) {
-    if (newIndex < 0 ||
-        newIndex >= allDestinations.length ||
-        newIndex == selectedIndex) {
-      return;
-    }
-
-    final textDirection = Directionality.of(context);
-    final isForward = newIndex > selectedIndex;
-    final leading = textDirection == TextDirection.ltr ? 1.0 : -1.0;
-    final beginOffset = Offset(isForward ? leading : -leading, 0);
-    final previousIndex = selectedIndex;
-    selectedIndex = newIndex;
-
-    controllers[previousIndex].reverse();
-    controllers[selectedIndex].reset();
-    controllers[selectedIndex].forward();
-
-    destinationViews[selectedIndex] = _buildTabView(selectedIndex, beginOffset);
-
-    setState(() {});
-  }
-
-  void _handleSwipe(DragEndDetails details) {
-    final velocity = details.primaryVelocity ?? 0;
-    if (velocity.abs() < 200) return; // ignore weak swipes
-    final isRtl = Directionality.of(context) == TextDirection.rtl;
-
-    // In LTR:
-    // swipe left  -> next tab
-    // swipe right -> previous tab
-    //
-    // In RTL it's reversed
-    final swipeToNext = isRtl ? velocity > 0 : velocity < 0;
-    final newIndex = swipeToNext ? selectedIndex + 1 : selectedIndex - 1;
-    _onTabSelected(newIndex);
   }
 
   @override
   void dispose() {
-    for (final c in controllers) {
-      c.dispose();
-    }
+    _pageController.dispose();
     super.dispose();
   }
 
@@ -120,30 +52,62 @@ class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
         navigatorKeys[selectedIndex].currentState?.pop();
       },
       child: Scaffold(
-        body: GestureDetector(
-          onHorizontalDragEnd: _handleSwipe,
-          behavior: HitTestBehavior.opaque,
-          child: Stack(
-            fit: StackFit.expand,
-            children: List.generate(allDestinations.length, (index) {
-              return Offstage(
-                offstage: index != selectedIndex,
-                child: destinationViews[index],
-              );
-            }),
-          ),
+        body: PageView.builder(
+          controller: _pageController,
+          physics: const BouncingScrollPhysics(),
+          onPageChanged: (index) => setState(() => selectedIndex = index),
+          itemCount: allDestinations.length,
+          itemBuilder: (context, index) {
+            return _KeepAliveNavigator(
+              key: ValueKey(index),
+              navigatorKey: navigatorKeys[index],
+              page: allDestinations[index].driverPageType.getPage(),
+            );
+          },
         ),
         bottomNavigationBar: NavigationBar(
           selectedIndex: selectedIndex,
           onDestinationSelected: _onTabSelected,
-          destinations: allDestinations.map((d) {
-            return NavigationDestination(
-              icon: Icon(d.driverPageType.getIcon()),
-              label: d.driverPageType.getLabel(context),
-            );
-          }).toList(),
+          destinations: allDestinations
+              .map(
+                (d) => NavigationDestination(
+                  icon: Icon(d.driverPageType.getIcon()),
+                  label: d.driverPageType.getLabel(context),
+                ),
+              )
+              .toList(),
         ),
       ),
+    );
+  }
+}
+
+// Keeps each Navigator alive to preserve stack
+class _KeepAliveNavigator extends StatefulWidget {
+  const _KeepAliveNavigator({
+    super.key,
+    required this.navigatorKey,
+    required this.page,
+  });
+
+  final GlobalKey<NavigatorState> navigatorKey;
+  final Widget page;
+
+  @override
+  State<_KeepAliveNavigator> createState() => _KeepAliveNavigatorState();
+}
+
+class _KeepAliveNavigatorState extends State<_KeepAliveNavigator>
+    with AutomaticKeepAliveClientMixin<_KeepAliveNavigator> {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return Navigator(
+      key: widget.navigatorKey,
+      onGenerateRoute: (_) => MaterialPageRoute(builder: (_) => widget.page),
     );
   }
 }
