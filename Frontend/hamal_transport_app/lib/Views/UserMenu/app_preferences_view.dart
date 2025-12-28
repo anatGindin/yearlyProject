@@ -47,7 +47,10 @@ class AppPreferencesView extends StatelessWidget {
               // Dark Mode Toggle
               SwitchListTile(
                 title: Text(l10n.darkMode),
-                secondary: const Icon(Icons.dark_mode_outlined),
+                secondary: const Icon(
+                  Icons.dark_mode_outlined,
+                  textDirection: TextDirection.ltr,
+                ),
                 value: settings.themeMode == ThemeMode.dark,
                 onChanged: (bool value) {
                   settings.updateThemeMode(
@@ -58,7 +61,10 @@ class AppPreferencesView extends StatelessWidget {
               const Divider(),
               // Language Selection
               ListTile(
-                leading: const Icon(Icons.language_outlined),
+                leading: const Icon(
+                  Icons.language_outlined,
+                  textDirection: TextDirection.ltr,
+                ),
                 title: Text(l10n.language),
                 trailing: DropdownButton<String>(
                   value: settings.locale.languageCode,

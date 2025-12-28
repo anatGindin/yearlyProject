@@ -336,4 +336,16 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get hebrew => 'עברית';
+
+  @override
+  String get quickActions => 'פעולות מהירות';
+
+  @override
+  String get contactUs => 'צור קשר';
+
+  @override
+  String get aboutUs => 'אודותינו';
+
+  @override
+  String get helpFaq => 'עזרה ומרכז מידע';
 }

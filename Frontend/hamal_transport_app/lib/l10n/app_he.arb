@@ -425,5 +425,9 @@
   "hebrew": "עברית",
   "@hebrew": {
     "description": "אפשרות שפה עברית"
-  }
+  },
+  "quickActions": "פעולות מהירות",
+  "contactUs": "צור קשר",
+  "aboutUs": "אודותינו",
+  "helpFaq": "עזרה ומרכז מידע"
 }

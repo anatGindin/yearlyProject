@@ -23,7 +23,12 @@ class InfoRow extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(icon, color: theme.colorScheme.primary, size: 16),
+              Icon(
+                icon,
+                color: theme.colorScheme.primary,
+                size: 16,
+                textDirection: TextDirection.ltr,
+              ),
               const SizedBox(width: 8),
               Text(
                 label,

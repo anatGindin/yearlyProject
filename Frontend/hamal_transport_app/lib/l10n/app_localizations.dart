@@ -745,6 +745,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hebrew'**
   String get hebrew;
+
+  /// No description provided for @quickActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Actions'**
+  String get quickActions;
+
+  /// No description provided for @contactUs.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Us'**
+  String get contactUs;
+
+  /// No description provided for @aboutUs.
+  ///
+  /// In en, this message translates to:
+  /// **'About Us'**
+  String get aboutUs;
+
+  /// No description provided for @helpFaq.
+  ///
+  /// In en, this message translates to:
+  /// **'Help & FAQ'**
+  String get helpFaq;
 }
 
 class _AppLocalizationsDelegate

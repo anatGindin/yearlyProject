@@ -17,7 +17,11 @@ class MenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(icon, color: theme.colorScheme.onSurfaceVariant),
+      leading: Icon(
+        icon,
+        color: theme.colorScheme.onSurfaceVariant,
+        textDirection: TextDirection.ltr,
+      ),
       title: Text(
         title,
         style: theme.textTheme.titleMedium?.copyWith(

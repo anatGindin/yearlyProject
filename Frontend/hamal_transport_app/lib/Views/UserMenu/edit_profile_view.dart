@@ -117,7 +117,7 @@ class _EditProfileHeader extends StatelessWidget {
           Align(
             alignment: Alignment.centerLeft,
             child: IconButton(
-              icon: const Icon(Icons.close),
+              icon: const Icon(Icons.close, textDirection: TextDirection.ltr),
               onPressed: () {
                 FocusScope.of(context).unfocus();
                 onNavigate(1);
@@ -162,7 +162,10 @@ class _EditProfileForm extends StatelessWidget {
           controller: nameController,
           decoration: InputDecoration(
             labelText: l10n.name,
-            prefixIcon: const Icon(Icons.person_outline),
+            prefixIcon: const Icon(
+              Icons.person_outline,
+              textDirection: TextDirection.ltr,
+            ),
             border: const OutlineInputBorder(),
           ),
           textInputAction: TextInputAction.next,
@@ -174,7 +177,10 @@ class _EditProfileForm extends StatelessWidget {
           controller: phoneController,
           decoration: InputDecoration(
             labelText: l10n.phone,
-            prefixIcon: const Icon(Icons.phone_outlined),
+            prefixIcon: const Icon(
+              Icons.phone_outlined,
+              textDirection: TextDirection.ltr,
+            ),
             border: const OutlineInputBorder(),
           ),
           keyboardType: TextInputType.phone,
@@ -192,7 +198,10 @@ class _EditProfileForm extends StatelessWidget {
             value: selectedCarType,
             decoration: InputDecoration(
               labelText: l10n.carType,
-              prefixIcon: const Icon(Icons.directions_car_outlined),
+              prefixIcon: const Icon(
+                Icons.directions_car_outlined,
+                textDirection: TextDirection.ltr,
+              ),
               border: const OutlineInputBorder(),
             ),
             items: CarType.values.map((CarType type) {

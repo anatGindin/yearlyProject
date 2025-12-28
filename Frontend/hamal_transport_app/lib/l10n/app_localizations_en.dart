@@ -337,4 +337,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get hebrew => 'Hebrew';
+
+  @override
+  String get quickActions => 'Quick Actions';
+
+  @override
+  String get contactUs => 'Contact Us';
+
+  @override
+  String get aboutUs => 'About Us';
+
+  @override
+  String get helpFaq => 'Help & FAQ';
 }

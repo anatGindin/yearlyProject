@@ -425,5 +425,9 @@
   "hebrew": "Hebrew",
   "@hebrew": {
     "description": "Hebrew language option"
-  }
+  },
+  "quickActions": "Quick Actions",
+  "contactUs": "Contact Us",
+  "aboutUs": "About Us",
+  "helpFaq": "Help & FAQ"
 }
