@@ -317,8 +317,23 @@ class AppLocalizationsHe extends AppLocalizations {
   String get accountInformation => 'פרטי חשבון';
 
   @override
-  String get edit => 'ערוך את הפרופיל שלך';
+  String get edit => 'עריכת פרופיל';
 
   @override
   String get save => 'שמירה';
+
+  @override
+  String get appPreferences => 'העדפות אפליקציה';
+
+  @override
+  String get darkMode => 'מצב כהה';
+
+  @override
+  String get language => 'שפה';
+
+  @override
+  String get english => 'אנגלית';
+
+  @override
+  String get hebrew => 'עברית';
 }

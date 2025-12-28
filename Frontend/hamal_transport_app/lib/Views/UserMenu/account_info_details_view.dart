@@ -5,14 +5,14 @@ import '../Widgets/info_row.dart';
 
 class AccountInfoDetailsView extends StatelessWidget {
   final UserProfileViewModel vm;
-  final PageController pageController;
+  final ValueChanged<int> onNavigate;
   final AppLocalizations l10n;
   final ThemeData theme;
 
   const AccountInfoDetailsView({
     super.key,
     required this.vm,
-    required this.pageController,
+    required this.onNavigate,
     required this.l10n,
     required this.theme,
   });
@@ -28,13 +28,7 @@ class AccountInfoDetailsView extends StatelessWidget {
             children: [
               IconButton(
                 icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  pageController.animateToPage(
-                    0,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeInOut,
-                  );
-                },
+                onPressed: () => onNavigate(0),
               ),
               Text(
                 l10n.accountInformation,

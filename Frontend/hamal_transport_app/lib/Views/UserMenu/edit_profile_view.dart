@@ -6,14 +6,14 @@ import '../../Services/authentication_service.dart';
 
 class EditProfileView extends StatefulWidget {
   final UserProfileViewModel vm;
-  final PageController pageController;
+  final ValueChanged<int> onNavigate;
   final AppLocalizations l10n;
   final ThemeData theme;
 
   const EditProfileView({
     super.key,
     required this.vm,
-    required this.pageController,
+    required this.onNavigate,
     required this.l10n,
     required this.theme,
   });
@@ -55,7 +55,7 @@ class _EditProfileViewState extends State<EditProfileView> {
             _EditProfileHeader(
               l10n: widget.l10n,
               theme: widget.theme,
-              pageController: widget.pageController,
+              onNavigate: widget.onNavigate,
             ),
             Expanded(
               child: ListView(
@@ -83,7 +83,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                     nameController: _nameController,
                     phoneController: _phoneController,
                     selectedCarType: _selectedCarType,
-                    pageController: widget.pageController,
+                    onNavigate: widget.onNavigate,
                   ),
                   const SizedBox(height: 32),
                 ],
@@ -99,12 +99,12 @@ class _EditProfileViewState extends State<EditProfileView> {
 class _EditProfileHeader extends StatelessWidget {
   final AppLocalizations l10n;
   final ThemeData theme;
-  final PageController pageController;
+  final ValueChanged<int> onNavigate;
 
   const _EditProfileHeader({
     required this.l10n,
     required this.theme,
-    required this.pageController,
+    required this.onNavigate,
   });
 
   @override
@@ -120,11 +120,7 @@ class _EditProfileHeader extends StatelessWidget {
               icon: const Icon(Icons.close),
               onPressed: () {
                 FocusScope.of(context).unfocus();
-                pageController.animateToPage(
-                  1,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeInOut,
-                );
+                onNavigate(1);
               },
             ),
           ),
@@ -220,7 +216,7 @@ class _SaveButton extends StatelessWidget {
   final TextEditingController nameController;
   final TextEditingController phoneController;
   final CarType? selectedCarType;
-  final PageController pageController;
+  final ValueChanged<int> onNavigate;
 
   const _SaveButton({
     required this.l10n,
@@ -229,7 +225,7 @@ class _SaveButton extends StatelessWidget {
     required this.nameController,
     required this.phoneController,
     required this.selectedCarType,
-    required this.pageController,
+    required this.onNavigate,
   });
 
   @override
@@ -248,11 +244,7 @@ class _SaveButton extends StatelessWidget {
                       phone: phoneController.text,
                       carType: selectedCarType,
                     );
-                    pageController.animateToPage(
-                      1,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
+                    onNavigate(1);
                   }
                 },
                 child: Text(l10n.save),

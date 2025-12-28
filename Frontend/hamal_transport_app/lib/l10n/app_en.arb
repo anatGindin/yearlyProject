@@ -405,5 +405,25 @@
   "save": "Save",
   "@save": {
     "description": "Save"
-  }  
+  },
+  "appPreferences": "App Preferences",
+  "@appPreferences": {
+    "description": "Title for app preferences page"
+  },
+  "darkMode": "Dark Mode",
+  "@darkMode": {
+    "description": "Label for dark mode toggle"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Label for language selection"
+  },
+  "english": "English",
+  "@english": {
+    "description": "English language option"
+  },
+  "hebrew": "Hebrew",
+  "@hebrew": {
+    "description": "Hebrew language option"
+  }
 }

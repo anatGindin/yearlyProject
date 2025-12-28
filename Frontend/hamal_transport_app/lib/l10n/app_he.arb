@@ -398,12 +398,32 @@
   },
   "hamalWarehouse": "מחסן לוגיסטי",
   "accountInformation": "פרטי חשבון",
-  "edit": "ערוך את הפרופיל שלך",
+  "edit": "עריכת פרופיל",
   "@edit": {
     "description": "כפתור עריכת פרופיל"
   },
   "save": "שמירה",
   "@save": {
     "description": "כפתור שמירת פרופיל"
-  }   
+  },
+  "appPreferences": "העדפות אפליקציה",
+  "@appPreferences": {
+    "description": "כותרת דף העדפות אפליקציה"
+  },
+  "darkMode": "מצב כהה",
+  "@darkMode": {
+    "description": "תווית למיתוג מצב כהה"
+  },
+  "language": "שפה",
+  "@language": {
+    "description": "תווית לבחירת שפה"
+  },
+  "english": "אנגלית",
+  "@english": {
+    "description": "אפשרות שפה אנגלית"
+  },
+  "hebrew": "עברית",
+  "@hebrew": {
+    "description": "אפשרות שפה עברית"
+  }
 }

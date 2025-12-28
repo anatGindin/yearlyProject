@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../l10n/app_localizations.dart';
 import 'UserMenu/profile_menu_view.dart';
 import 'UserMenu/account_info_details_view.dart';
+import 'UserMenu/app_preferences_view.dart';
 import 'UserMenu/edit_profile_view.dart';
 
 class UserProfilePage extends StatefulWidget {
@@ -14,26 +15,12 @@ class UserProfilePage extends StatefulWidget {
 }
 
 class _UserProfilePageState extends State<UserProfilePage> {
-  final PageController _pageController = PageController();
   int _currentPageIndex = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    _pageController.addListener(() {
-      int next = _pageController.page?.round() ?? 0;
-      if (next != _currentPageIndex) {
-        setState(() {
-          _currentPageIndex = next;
-        });
-      }
+  void _onNavigate(int index) {
+    setState(() {
+      _currentPageIndex = index;
     });
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
   }
 
   @override
@@ -45,13 +32,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
       backgroundColor: theme.colorScheme.primary,
       floatingActionButton: _currentPageIndex == 1
           ? FloatingActionButton(
-              onPressed: () {
-                _pageController.animateToPage(
-                  2,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeInOut,
-                );
-              },
+              onPressed: () => _onNavigate(2),
               child: const Icon(Icons.edit),
             )
           : null,
@@ -134,31 +115,24 @@ class _UserProfilePageState extends State<UserProfilePage> {
                       topRight: Radius.circular(30),
                     ),
                   ),
-                  child: PageView(
-                    controller: _pageController,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      // Page 0: Main Menu
-                      ProfileMenuView(
-                        pageController: _pageController,
-                        l10n: l10n,
-                        theme: theme,
-                      ),
-                      // Page 1: Account Information details
-                      AccountInfoDetailsView(
-                        vm: userProfileVM,
-                        pageController: _pageController,
-                        l10n: l10n,
-                        theme: theme,
-                      ),
-                      // Page 2: Edit Profile
-                      EditProfileView(
-                        vm: userProfileVM,
-                        pageController: _pageController,
-                        l10n: l10n,
-                        theme: theme,
-                      ),
-                    ],
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    switchInCurve: Curves.easeInOut,
+                    switchOutCurve: Curves.easeInOut,
+                    transitionBuilder:
+                        (Widget child, Animation<double> animation) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: SlideTransition(
+                              position: Tween<Offset>(
+                                begin: const Offset(0.05, 0),
+                                end: Offset.zero,
+                              ).animate(animation),
+                              child: child,
+                            ),
+                          );
+                        },
+                    child: _buildCurrentPage(userProfileVM, l10n, theme),
                   ),
                 ),
               ),
@@ -167,5 +141,46 @@ class _UserProfilePageState extends State<UserProfilePage> {
         },
       ),
     );
+  }
+
+  Widget _buildCurrentPage(
+    UserProfileViewModel userProfileVM,
+    AppLocalizations l10n,
+    ThemeData theme,
+  ) {
+    switch (_currentPageIndex) {
+      case 0:
+        return ProfileMenuView(
+          key: const ValueKey(0),
+          onNavigate: _onNavigate,
+          l10n: l10n,
+          theme: theme,
+        );
+      case 1:
+        return AccountInfoDetailsView(
+          key: const ValueKey(1),
+          vm: userProfileVM,
+          onNavigate: _onNavigate,
+          l10n: l10n,
+          theme: theme,
+        );
+      case 2:
+        return EditProfileView(
+          key: const ValueKey(2),
+          vm: userProfileVM,
+          onNavigate: _onNavigate,
+          l10n: l10n,
+          theme: theme,
+        );
+      case 3:
+        return AppPreferencesView(
+          key: const ValueKey(3),
+          onNavigate: _onNavigate,
+          l10n: l10n,
+          theme: theme,
+        );
+      default:
+        return const SizedBox.shrink();
+    }
   }
 }
