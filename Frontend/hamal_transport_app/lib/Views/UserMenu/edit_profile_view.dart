@@ -195,7 +195,7 @@ class _EditProfileForm extends StatelessWidget {
         if (vm.isDriver) ...[
           const SizedBox(height: 20),
           DropdownButtonFormField<CarType>(
-            value: selectedCarType,
+            initialValue: selectedCarType,
             decoration: InputDecoration(
               labelText: l10n.carType,
               prefixIcon: const Icon(
