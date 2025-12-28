@@ -24,19 +24,35 @@ class _DriverNavigationBarWrapperState
     allDestinations.length,
     (_) => GlobalKey(),
   );
-
   final PageController _pageController = PageController();
 
-  int selectedIndex = 0;
+  int selectedIndex = 0; // actual page index
+  int navBarIndex = 0; // the highlighted option of the nav bar
 
   void _onTabSelected(int index) {
     if (index == selectedIndex) return;
-    setState(() => selectedIndex = index);
+
+    navBarIndex = index; // update nav bar immediately
     _pageController.animateToPage(
       index,
       duration: const Duration(milliseconds: 300),
       curve: Curves.fastOutSlowIn,
     );
+  }
+
+  void _onPageChanged(int index) {
+    if (navBarIndex != selectedIndex) {
+      // change when tapping nav bar option
+      setState(() {
+        selectedIndex = index;
+      });
+    } else {
+      // user swiped manually
+      setState(() {
+        selectedIndex = index;
+        navBarIndex = index;
+      });
+    }
   }
 
   @override
@@ -55,7 +71,7 @@ class _DriverNavigationBarWrapperState
         body: PageView.builder(
           controller: _pageController,
           physics: const BouncingScrollPhysics(),
-          onPageChanged: (index) => setState(() => selectedIndex = index),
+          onPageChanged: _onPageChanged,
           itemCount: allDestinations.length,
           itemBuilder: (context, index) {
             return _KeepAliveNavigator(
@@ -66,7 +82,7 @@ class _DriverNavigationBarWrapperState
           },
         ),
         bottomNavigationBar: NavigationBar(
-          selectedIndex: selectedIndex,
+          selectedIndex: navBarIndex,
           onDestinationSelected: _onTabSelected,
           destinations: allDestinations
               .map(
