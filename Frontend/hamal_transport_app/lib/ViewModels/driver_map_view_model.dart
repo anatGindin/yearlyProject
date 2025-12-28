@@ -29,10 +29,10 @@ class DriverMapViewModel extends ChangeNotifier {
   Set<MissionStatus> get visibleStatuses => _visibleStatuses;
 
   DriverMapViewModel() {
-    _initLocation();
+    initLocation();
   }
 
-  Future<void> checkPermissions() => _initLocation();
+  Future<void> checkPermissions() => initLocation();
 
   @override
   void dispose() {
@@ -70,7 +70,7 @@ class DriverMapViewModel extends ChangeNotifier {
     return _visibleStatuses.contains(status);
   }
 
-  Future<void> _initLocation() async {
+  Future<void> initLocation() async {
     await _positionStreamSubscription?.cancel();
     final locationService = LocationService();
     final hasPermission = await locationService.checkPermissions();
@@ -99,5 +99,10 @@ class DriverMapViewModel extends ChangeNotifier {
     _userLocation = LatLng(position.latitude, position.longitude);
     _isLoadingLocation = false;
     notifyListeners();
+  }
+
+  void stopLocationUpdates() {
+    _positionStreamSubscription?.cancel();
+    LocationService().stopLocationUpdates();
   }
 }

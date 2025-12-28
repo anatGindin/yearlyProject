@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Views/driver_map_view.dart';
+import 'package:provider/provider.dart';
+import 'package:hamal_transport_app/Services/location_service.dart';
+import 'package:hamal_transport_app/ViewModels/driver_map_view_model.dart';
 import 'package:hamal_transport_app/Views/main_page.dart';
 import 'package:hamal_transport_app/Views/user_profile_page.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
 
+// --- Wrapper with navigation bar ---
 class DriverNavigationBarWrapper extends StatefulWidget {
   const DriverNavigationBarWrapper({super.key});
 
@@ -24,11 +28,15 @@ class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
   late final List<AnimationController> controllers;
   late final List<Widget> destinationViews;
 
+  late final DriverMapViewModel _driverMapViewModel;
+
   int selectedIndex = 0;
 
   @override
   void initState() {
     super.initState();
+
+    _driverMapViewModel = DriverMapViewModel(); // single instance
 
     navigatorKeys = List.generate(allDestinations.length, (_) => GlobalKey());
 
@@ -46,6 +54,12 @@ class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
       allDestinations.length,
       (i) => _buildTabView(i, Offset.zero),
     );
+
+    // start location updates if initial page is map
+    if (allDestinations[selectedIndex].driverPageType ==
+        DriverPageType.mapView) {
+      LocationService().startLocationUpdates();
+    }
   }
 
   Widget _buildTabView(int index, Offset beginOffset) {
@@ -55,13 +69,16 @@ class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
         end: Offset.zero,
       ).chain(CurveTween(curve: Curves.fastOutSlowIn)),
     );
+
+    final page = allDestinations[index].driverPageType == DriverPageType.mapView
+        ? DriverMapView(viewModel: _driverMapViewModel)
+        : allDestinations[index].driverPageType.getPage();
+
     return SlideTransition(
       position: animation,
       child: Navigator(
         key: navigatorKeys[index],
-        onGenerateRoute: (_) => MaterialPageRoute(
-          builder: (_) => allDestinations[index].driverPageType.getPage(),
-        ),
+        onGenerateRoute: (_) => MaterialPageRoute(builder: (_) => page),
       ),
     );
   }
@@ -85,6 +102,16 @@ class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
     controllers[selectedIndex].reset();
     controllers[selectedIndex].forward();
 
+    // stop/start location updates
+    if (allDestinations[previousIndex].driverPageType ==
+        DriverPageType.mapView) {
+      _driverMapViewModel.stopLocationUpdates();
+    }
+    if (allDestinations[selectedIndex].driverPageType ==
+        DriverPageType.mapView) {
+      _driverMapViewModel.initLocation();
+    }
+
     destinationViews[selectedIndex] = _buildTabView(selectedIndex, beginOffset);
 
     setState(() {});
@@ -92,14 +119,8 @@ class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
 
   void _handleSwipe(DragEndDetails details) {
     final velocity = details.primaryVelocity ?? 0;
-    if (velocity.abs() < 200) return; // ignore weak swipes
+    if (velocity.abs() < 200) return;
     final isRtl = Directionality.of(context) == TextDirection.rtl;
-
-    // In LTR:
-    // swipe left  -> next tab
-    // swipe right -> previous tab
-    //
-    // In RTL it's reversed
     final swipeToNext = isRtl ? velocity > 0 : velocity < 0;
     final newIndex = swipeToNext ? selectedIndex + 1 : selectedIndex - 1;
     _onTabSelected(newIndex);
@@ -110,6 +131,7 @@ class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
     for (final c in controllers) {
       c.dispose();
     }
+    _driverMapViewModel.dispose(); // clean up
     super.dispose();
   }
 
@@ -158,7 +180,7 @@ enum DriverPageType {
       case DriverPageType.missions:
         return const MainPage();
       case DriverPageType.mapView:
-        return const DriverMapView();
+        return const MainPage();
       case DriverPageType.profile:
         return const UserProfilePage();
     }
