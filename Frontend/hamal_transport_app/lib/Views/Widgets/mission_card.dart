@@ -19,6 +19,7 @@ class MissionCard extends StatelessWidget {
     return Card(
       child: InkWell(
         borderRadius: BorderRadius.circular(10),
+
         onTap: () => Navigator.of(context).push(
           MaterialPageRoute(builder: (_) => MissionScreen(mission: mission)),
         ),

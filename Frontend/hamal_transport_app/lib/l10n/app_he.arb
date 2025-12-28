@@ -272,11 +272,19 @@
   "@noFilter": {
     "description": "אפשרות סינון - הצג את כל המשימות"
   },
-  "chosenFilter": "משימות בסטטוס 'נבחר'",
+  "menuChosenFilter": "נבחרו",
+    "@menuChosenFilter": {
+      "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
+    },
+    "menuPickedUpFilter": "נאספו",
+    "@menuPickedUpFilter": {
+      "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
+    },
+  "chosenFilter": "משימות שנבחרו",
   "@chosenFilter": {
     "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
   },
-  "pickedUpFilter": "משימות בסטטוס 'נאסף'",
+  "pickedUpFilter": "משימות שנאספו",
   "@pickedUpFilter": {
     "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
   },

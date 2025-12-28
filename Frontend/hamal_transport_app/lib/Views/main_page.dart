@@ -41,19 +41,33 @@ class MainPage extends StatelessWidget {
                       textAlign: TextAlign.right,
                     ),
                     const SizedBox(height: 12),
-                    ListActionButton(
-                      icon: Icons.sort,
-                      label:
-                          '${l10n.sortBy}: ${myMissionsVM.getSortBy(context)}',
-                      onPressed: () => _showSortOptions(context),
-                    ),
-                    ListActionButton(
-                      icon: Icons.filter_alt,
-                      label:
-                          '${l10n.filterBy}: ${myMissionsVM.getFilterBy(context)}',
-                      onPressed: () => _showFilterOptions(context),
-                    ),
-                    // Expanded mission list
+                    SizedBox(
+                      height: 60,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.48,
+                              child: ListActionButton(
+                                icon: Icons.sort,
+                                label: '${myMissionsVM.getSortBy(context)}',
+                                onPressed: () => _showSortOptions(context),
+                              ),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.48,
+                              child: ListActionButton(
+                                icon: Icons.filter_alt,
+                                label: '${myMissionsVM.getFilterBy(context)}',
+                                onPressed: () => _showFilterOptions(context),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ), // Expanded mission list
                     MissionListView(missions: myMissionsVM.myMissions),
                     const SizedBox(
                       height: 72,

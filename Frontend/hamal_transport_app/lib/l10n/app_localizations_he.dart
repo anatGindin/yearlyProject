@@ -215,10 +215,16 @@ class AppLocalizationsHe extends AppLocalizations {
   String get noFilter => 'כל המשימות';
 
   @override
-  String get chosenFilter => 'משימות בסטטוס \'נבחר\'';
+  String get menuChosenFilter => 'נבחרו';
 
   @override
-  String get pickedUpFilter => 'משימות בסטטוס \'נאסף\'';
+  String get menuPickedUpFilter => 'נאספו';
+
+  @override
+  String get chosenFilter => 'משימות שנבחרו';
+
+  @override
+  String get pickedUpFilter => 'משימות שנאספו';
 
   @override
   String get cancellationReason => 'סיבת ביטול';

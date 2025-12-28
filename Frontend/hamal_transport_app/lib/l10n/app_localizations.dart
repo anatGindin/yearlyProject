@@ -479,25 +479,25 @@ abstract class AppLocalizations {
   /// Sort option - Distance: closest to furthest
   ///
   /// In en, this message translates to:
-  /// **'Closest to furthest'**
+  /// **'Closest firsts'**
   String get closestToFurthest;
 
   /// Sort option - Distance: Furthest to closest
   ///
   /// In en, this message translates to:
-  /// **'Furthest to closest'**
+  /// **'Furthest first'**
   String get furthestToClosest;
 
   /// Sort option - Time: Newest to oldest
   ///
   /// In en, this message translates to:
-  /// **'Newest to oldest'**
+  /// **'Newest first'**
   String get newestToOldest;
 
   /// Sort option - Time: Oldest to newest
   ///
   /// In en, this message translates to:
-  /// **'Oldest to newest'**
+  /// **'Oldest first'**
   String get oldestToNewest;
 
   /// Filter option - Show all missions
@@ -505,6 +505,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All missions'**
   String get noFilter;
+
+  /// Filter option - Show 'Chosen' missions
+  ///
+  /// In en, this message translates to:
+  /// **'Chosen'**
+  String get menuChosenFilter;
+
+  /// Show 'Picked up' missions
+  ///
+  /// In en, this message translates to:
+  /// **'Picked up'**
+  String get menuPickedUpFilter;
 
   /// Filter option - Show 'Chosen' missions
   ///

@@ -200,19 +200,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get filterBy => 'Filter';
 
   @override
-  String get closestToFurthest => 'Closest to furthest';
+  String get closestToFurthest => 'Closest firsts';
 
   @override
-  String get furthestToClosest => 'Furthest to closest';
+  String get furthestToClosest => 'Furthest first';
 
   @override
-  String get newestToOldest => 'Newest to oldest';
+  String get newestToOldest => 'Newest first';
 
   @override
-  String get oldestToNewest => 'Oldest to newest';
+  String get oldestToNewest => 'Oldest first';
 
   @override
   String get noFilter => 'All missions';
+
+  @override
+  String get menuChosenFilter => 'Chosen';
+
+  @override
+  String get menuPickedUpFilter => 'Picked up';
 
   @override
   String get chosenFilter => '\'Chosen\' missions';
