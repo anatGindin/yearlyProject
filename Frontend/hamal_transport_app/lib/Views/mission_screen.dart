@@ -372,6 +372,9 @@ class _MissionScreenState extends State<MissionScreen> {
   }
 
   Widget _buildRouteInfo(Mission mission) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
     return Align(
       alignment: Alignment.centerRight,
       child: FutureBuilder<RouteInfo?>(
@@ -379,20 +382,28 @@ class _MissionScreenState extends State<MissionScreen> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Card(
-              color: Colors.blue.shade50,
+              color: colorScheme.primaryContainer,
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    const SizedBox(
+                    SizedBox(
                       width: 16,
                       height: 16,
-                      child: CircularProgressIndicator(strokeWidth: 2),
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: colorScheme.onPrimaryContainer,
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    Text(l10n.calculatingRoute),
+                    Text(
+                      l10n.calculatingRoute,
+                      style: textTheme.bodyMedium?.copyWith(
+                        color: colorScheme.onPrimaryContainer,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -402,7 +413,7 @@ class _MissionScreenState extends State<MissionScreen> {
           if (snapshot.hasData && snapshot.data != null) {
             final route = snapshot.data!;
             return Card(
-              color: Colors.blue.shade50,
+              color: colorScheme.primaryContainer,
               elevation: 2,
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -417,9 +428,9 @@ class _MissionScreenState extends State<MissionScreen> {
                           children: [
                             Text(
                               mission.source.name,
-                              style: const TextStyle(
-                                fontSize: 14,
+                              style: textTheme.bodyMedium?.copyWith(
                                 fontWeight: FontWeight.bold,
+                                color: colorScheme.onPrimaryContainer,
                               ),
                             ),
                             const SizedBox(height: 4),
@@ -428,16 +439,15 @@ class _MissionScreenState extends State<MissionScreen> {
                               children: [
                                 Text(
                                   route.formattedDistance,
-                                  style: const TextStyle(
+                                  style: textTheme.titleMedium?.copyWith(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                    color: Colors.blue,
+                                    color: colorScheme.onPrimaryContainer,
                                   ),
                                 ),
                                 const SizedBox(width: 8),
-                                const Icon(
+                                Icon(
                                   Icons.straighten,
-                                  color: Colors.blue,
+                                  color: colorScheme.onPrimaryContainer,
                                   size: 20,
                                 ),
                               ],
@@ -448,16 +458,15 @@ class _MissionScreenState extends State<MissionScreen> {
                               children: [
                                 Text(
                                   route.formattedDuration,
-                                  style: const TextStyle(
+                                  style: textTheme.titleMedium?.copyWith(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                    color: Colors.blue,
+                                    color: colorScheme.onPrimaryContainer,
                                   ),
                                 ),
                                 const SizedBox(width: 8),
-                                const Icon(
+                                Icon(
                                   Icons.access_time,
-                                  color: Colors.blue,
+                                  color: colorScheme.onPrimaryContainer,
                                   size: 20,
                                 ),
                               ],
@@ -465,17 +474,17 @@ class _MissionScreenState extends State<MissionScreen> {
                             const SizedBox(height: 4),
                             Text(
                               mission.destination.name,
-                              style: const TextStyle(
-                                fontSize: 14,
+                              style: textTheme.bodyMedium?.copyWith(
                                 fontWeight: FontWeight.bold,
+                                color: colorScheme.onPrimaryContainer,
                               ),
                             ),
                           ],
                         ),
                         const SizedBox(width: 12),
-                        const Icon(
+                        Icon(
                           Icons.arrow_back,
-                          color: Colors.blue,
+                          color: colorScheme.onPrimaryContainer,
                           size: 24,
                         ),
                       ],
