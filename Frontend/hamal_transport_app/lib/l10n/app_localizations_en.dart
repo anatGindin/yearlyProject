@@ -146,6 +146,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get requiredField => 'This field is required';
 
   @override
+  String get invalidPhone => 'Please enter a valid Israeli phone number.';
+
+  @override
   String get invalidEmail => 'The email address is not valid.';
 
   @override
@@ -316,4 +319,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get hamalWarehouse => 'Hamal Warehouse';
+
+  @override
+  String get accountInformation => 'Account Information';
+
+  @override
+  String get edit => 'Edit Your Profile';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get appPreferences => 'App Preferences';
+
+  @override
+  String get darkMode => 'Dark Mode';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get english => 'English';
+
+  @override
+  String get hebrew => 'Hebrew';
+
+  @override
+  String get quickActions => 'Quick Actions';
+
+  @override
+  String get contactUs => 'Contact Us';
+
+  @override
+  String get aboutUs => 'About Us';
+
+  @override
+  String get helpFaq => 'Help & FAQ';
 }

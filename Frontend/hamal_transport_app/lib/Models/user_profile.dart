@@ -3,10 +3,10 @@ import 'package:hamal_transport_app/l10n/app_localizations.dart';
 class UserProfile {
   final String uid;
   final String email;
-  final String name;
-  final String phone;
+  String name;
+  String phone;
   final UserRole role;
-  final DriverProfile? driverProfile;
+  DriverProfile? driverProfile;
 
   UserProfile({
     required this.uid,
@@ -45,7 +45,7 @@ class UserProfile {
 }
 
 class DriverProfile {
-  final CarType carType;
+  CarType carType;
 
   DriverProfile({required this.carType});
 

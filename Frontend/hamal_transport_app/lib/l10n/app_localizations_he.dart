@@ -146,6 +146,9 @@ class AppLocalizationsHe extends AppLocalizations {
   String get requiredField => 'שדה זה חובה';
 
   @override
+  String get invalidPhone => 'אנא הזן מספר טלפון ישראלי תקין.';
+
+  @override
   String get invalidEmail => 'כתובת האימייל אינה תקינה.';
 
   @override
@@ -315,4 +318,40 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get hamalWarehouse => 'מחסן לוגיסטי';
+
+  @override
+  String get accountInformation => 'פרטי חשבון';
+
+  @override
+  String get edit => 'עריכת פרופיל';
+
+  @override
+  String get save => 'שמירה';
+
+  @override
+  String get appPreferences => 'העדפות אפליקציה';
+
+  @override
+  String get darkMode => 'מצב כהה';
+
+  @override
+  String get language => 'שפה';
+
+  @override
+  String get english => 'אנגלית';
+
+  @override
+  String get hebrew => 'עברית';
+
+  @override
+  String get quickActions => 'פעולות מהירות';
+
+  @override
+  String get contactUs => 'צור קשר';
+
+  @override
+  String get aboutUs => 'אודותינו';
+
+  @override
+  String get helpFaq => 'עזרה ומרכז מידע';
 }
