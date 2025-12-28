@@ -10,8 +10,6 @@ import 'package:provider/provider.dart';
 import 'l10n/app_localizations.dart';
 import 'Views/Authentication/auth_gate.dart';
 import 'Services/location_service.dart';
-import 'package:hamal_transport_app/l10n/app_localizations.dart';
-import 'package:hamal_transport_app/Views/Authentication/auth_gate.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hamal_transport_app/firebase_options.dart';
 import 'package:hamal_transport_app/Theme/app_theme.dart';
