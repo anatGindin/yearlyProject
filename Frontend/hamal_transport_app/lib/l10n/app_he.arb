@@ -393,7 +393,5 @@
     "description": "טקסט עזרה לכפתור מרכוז מפה"
   },
   "hamalWarehouse": "מחסן לוגיסטי",
-  "@hamalWarehouse": {
-    "description": "שם המחסן הלוגיסטי"
-  }
+  "accountInformation": "פרטי חשבון"
 }

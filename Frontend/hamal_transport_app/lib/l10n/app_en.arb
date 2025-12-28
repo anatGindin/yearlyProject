@@ -393,7 +393,5 @@
     "description": "Tooltip for center map button"
   },
   "hamalWarehouse": "Hamal Warehouse",
-  "@hamalWarehouse": {
-    "description": "Name of the Hamal Warehouse"
-  }
+  "accountInformation": "Account Information"
 }

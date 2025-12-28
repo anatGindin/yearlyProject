@@ -686,11 +686,17 @@ abstract class AppLocalizations {
   /// **'My Location'**
   String get center;
 
-  /// Name of the Hamal Warehouse
+  /// No description provided for @hamalWarehouse.
   ///
   /// In en, this message translates to:
   /// **'Hamal Warehouse'**
   String get hamalWarehouse;
+
+  /// No description provided for @accountInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Information'**
+  String get accountInformation;
 }
 
 class _AppLocalizationsDelegate

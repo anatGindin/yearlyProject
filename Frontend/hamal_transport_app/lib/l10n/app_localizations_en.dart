@@ -310,4 +310,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get hamalWarehouse => 'Hamal Warehouse';
+
+  @override
+  String get accountInformation => 'Account Information';
 }
