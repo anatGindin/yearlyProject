@@ -5,6 +5,7 @@ import 'package:hamal_transport_app/ViewModels/available_missions_view_model.dar
 import 'package:hamal_transport_app/Views/Widgets/comments_list_view.dart';
 import 'package:provider/provider.dart';
 import '../Models/mission.dart';
+import '../Models/missions_model.dart';
 import '../l10n/app_localizations.dart';
 import '../features/Contact_card/view/contact_view.dart';
 import '../features/Contact_card/view_model/contact_vm.dart';
@@ -292,12 +293,20 @@ class _MissionScreenState extends State<MissionScreen> {
     );
   }
 
-  void _showSuggestedMissionsDialog() {
+  void _showSuggestedMissionsDialog() async {
     final availableMissionsVM = context.read<AvailableMissionsViewModel>();
-    final missions = availableMissionsVM.availableMissions;
-    // TODO: Change to the actual suggested missions.
+    final allMissions = availableMissionsVM.availableMissions;
 
-    if (missions.isEmpty) return;
+    if (allMissions.isEmpty) return;
+
+    // Get top 3 suggested missions using heuristic scoring
+    final suggestedMissions = await MissionsListsModel.getTopSuggestedMissions(
+      allMissions,
+      maxResults: 3,
+    );
+
+    // Guard context after async operation
+    if (!mounted) return;
 
     showDialog<void>(
       context: context,
@@ -308,7 +317,7 @@ class _MissionScreenState extends State<MissionScreen> {
             constraints: const BoxConstraints(maxHeight: 420),
             child: SizedBox(
               width: double.maxFinite,
-              child: missions.isEmpty
+              child: suggestedMissions.isEmpty
                   ? Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(l10n.noMissions, textAlign: TextAlign.center),
@@ -324,9 +333,9 @@ class _MissionScreenState extends State<MissionScreen> {
                         const SizedBox(height: 12),
                         Expanded(
                           child: ListView.builder(
-                            itemCount: missions.length,
+                            itemCount: suggestedMissions.length,
                             itemBuilder: (context, index) {
-                              final mission = missions[index];
+                              final mission = suggestedMissions[index];
                               return Card(
                                 margin: const EdgeInsets.symmetric(vertical: 4),
                                 child: ListTile(
