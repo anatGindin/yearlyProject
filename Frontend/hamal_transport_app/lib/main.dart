@@ -30,10 +30,15 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider(
-          create: (_) => MissionsListsModel(
-            myMissionsList: sampleMissions,
-            availableMissionsList: availableMissions,
-          ),
+          create: (_) {
+            final model = MissionsListsModel(
+              myMissionsList: sampleMissions,
+              availableMissionsList: availableMissions,
+            );
+            // Pre-fetch route info for all missions so it's instantly available
+            model.prefetchRouteInfo();
+            return model;
+          },
         ),
         ChangeNotifierProvider(
           create: (context) =>

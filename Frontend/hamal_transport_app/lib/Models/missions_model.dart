@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
+import 'package:hamal_transport_app/Services/routing_service.dart';
 
 class MissionsListsModel {
   final List<Mission> myMissionsList;
@@ -11,6 +12,16 @@ class MissionsListsModel {
     required this.myMissionsList,
     required this.availableMissionsList,
   });
+
+  /// Pre-fetches route info for all missions so it's instantly available.
+  /// Call this after missions are loaded.
+  Future<void> prefetchRouteInfo({String profile = 'car'}) async {
+    final allMissions = [...myMissionsList, ...availableMissionsList];
+    // Trigger all route info fetches in parallel (fire-and-forget)
+    for (final mission in allMissions) {
+      mission.getRouteInfo(profile: profile);
+    }
+  }
 
   static Comparator getSortComperator(SortBy sortBy) {
     switch (sortBy) {
