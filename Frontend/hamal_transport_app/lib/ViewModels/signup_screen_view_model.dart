@@ -26,6 +26,8 @@ class SignupScreenViewModel extends ChangeNotifier {
   bool isPasswordValid(String password) =>
       AuthenticationService.validatePassword(password);
   bool isEmailValid(String email) => AuthenticationService.validateEmail(email);
+  bool isPhoneValid(String phone) =>
+      AuthenticationService.validateIsraeliPhone(phone);
 
   void togglePasswordVisibility() {
     _isPasswordVisible = !_isPasswordVisible;

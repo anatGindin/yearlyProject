@@ -180,6 +180,10 @@
   "@requiredField": {
     "description": "Error message for empty required fields"
   },
+  "invalidPhone": "Please enter a valid Israeli phone number.",
+  "@invalidPhone": {
+    "description": "Error message for invalid phone number format"
+  },
   "invalidEmail": "The email address is not valid.",
   "@invalidEmail": {
     "description": "Error message for invalid email format"
@@ -393,7 +397,37 @@
     "description": "Tooltip for center map button"
   },
   "hamalWarehouse": "Hamal Warehouse",
-  "@hamalWarehouse": {
-    "description": "Name of the Hamal Warehouse"
-  }
+  "accountInformation": "Account Information",
+  "edit": "Edit Your Profile",
+  "@edit": {
+    "description": "Edit Your Profile"
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Save"
+  },
+  "appPreferences": "App Preferences",
+  "@appPreferences": {
+    "description": "Title for app preferences page"
+  },
+  "darkMode": "Dark Mode",
+  "@darkMode": {
+    "description": "Label for dark mode toggle"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Label for language selection"
+  },
+  "english": "English",
+  "@english": {
+    "description": "English language option"
+  },
+  "hebrew": "Hebrew",
+  "@hebrew": {
+    "description": "Hebrew language option"
+  },
+  "quickActions": "Quick Actions",
+  "contactUs": "Contact Us",
+  "aboutUs": "About Us",
+  "helpFaq": "Help & FAQ"
 }
