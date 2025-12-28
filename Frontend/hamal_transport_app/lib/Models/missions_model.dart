@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
-import 'package:hamal_transport_app/Services/routing_service.dart';
 
 class MissionsListsModel {
   final List<Mission> myMissionsList;
