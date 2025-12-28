@@ -368,6 +368,12 @@ abstract class AppLocalizations {
   /// **'This field is required'**
   String get requiredField;
 
+  /// Error message for invalid phone number format
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid Israeli phone number.'**
+  String get invalidPhone;
+
   /// Error message for invalid email format
   ///
   /// In en, this message translates to:
@@ -698,11 +704,83 @@ abstract class AppLocalizations {
   /// **'My Location'**
   String get center;
 
-  /// Name of the Hamal Warehouse
+  /// No description provided for @hamalWarehouse.
   ///
   /// In en, this message translates to:
   /// **'Hamal Warehouse'**
   String get hamalWarehouse;
+
+  /// No description provided for @accountInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Information'**
+  String get accountInformation;
+
+  /// Edit Your Profile
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Your Profile'**
+  String get edit;
+
+  /// Save
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// Title for app preferences page
+  ///
+  /// In en, this message translates to:
+  /// **'App Preferences'**
+  String get appPreferences;
+
+  /// Label for dark mode toggle
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Mode'**
+  String get darkMode;
+
+  /// Label for language selection
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// English language option
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get english;
+
+  /// Hebrew language option
+  ///
+  /// In en, this message translates to:
+  /// **'Hebrew'**
+  String get hebrew;
+
+  /// No description provided for @quickActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Actions'**
+  String get quickActions;
+
+  /// No description provided for @contactUs.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Us'**
+  String get contactUs;
+
+  /// No description provided for @aboutUs.
+  ///
+  /// In en, this message translates to:
+  /// **'About Us'**
+  String get aboutUs;
+
+  /// No description provided for @helpFaq.
+  ///
+  /// In en, this message translates to:
+  /// **'Help & FAQ'**
+  String get helpFaq;
 }
 
 class _AppLocalizationsDelegate

@@ -10,41 +10,50 @@ import 'package:provider/provider.dart';
 import 'l10n/app_localizations.dart';
 import 'Views/Authentication/auth_gate.dart';
 import 'Services/location_service.dart';
+import 'package:hamal_transport_app/l10n/app_localizations.dart';
+import 'package:hamal_transport_app/Views/Authentication/auth_gate.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hamal_transport_app/firebase_options.dart';
-import 'Theme/app_theme.dart';
+import 'package:hamal_transport_app/Theme/app_theme.dart';
+import 'package:hamal_transport_app/Services/app_preferences_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await initializeMockData();
 
-  runApp(const MyApp());
+  final prefsService = AppPreferencesService();
+  await prefsService.init();
+
+  runApp(MyApp(prefsService: prefsService));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final AppPreferencesService prefsService;
+  const MyApp({super.key, required this.prefsService});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider(
+        ChangeNotifierProvider<AppPreferencesService>.value(
+          value: prefsService,
+        ),
+        Provider<MissionsListsModel>(
           create: (_) => MissionsListsModel(
             myMissionsList: sampleMissions,
             availableMissionsList: availableMissions,
           ),
         ),
-        ChangeNotifierProvider(
+        ChangeNotifierProvider<MyMissionsViewModel>(
           create: (context) =>
               MyMissionsViewModel(context.read<MissionsListsModel>()),
         ),
-        ChangeNotifierProvider(
+        ChangeNotifierProvider<AvailableMissionsViewModel>(
           create: (context) =>
               AvailableMissionsViewModel(context.read<MissionsListsModel>()),
         ),
-        ChangeNotifierProvider(
+        ChangeNotifierProvider<MissionsCoordinatorViewModel>(
           create: (context) => MissionsCoordinatorViewModel(
             myMissionsVM: context.read<MyMissionsViewModel>(),
             availableMissionsVM: context.read<AvailableMissionsViewModel>(),
@@ -53,27 +62,32 @@ class MyApp extends StatelessWidget {
         Provider<AuthenticationService>(create: (_) => AuthenticationService()),
         Provider<LocationService>(create: (_) => LocationService()),
       ],
-      child: MaterialApp(
-        onGenerateTitle: (BuildContext context) =>
-            AppLocalizations.of(context)!.appTitle,
-        localizationsDelegates: <LocalizationsDelegate<dynamic>>[
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: AppLocalizations.supportedLocales,
-        theme: AppTheme.light,
-        darkTheme: AppTheme.dark,
-        // Use MediaQuery builder to scale all text globally (avoids TextStyle.apply assertion)
-        builder: (BuildContext context, Widget? child) {
-          final mq = MediaQuery.of(context);
-          return MediaQuery(
-            data: mq.copyWith(textScaler: const TextScaler.linear(1.4)),
-            child: child ?? const SizedBox.shrink(),
+      child: Consumer<AppPreferencesService>(
+        builder: (context, settings, _) {
+          return MaterialApp(
+            onGenerateTitle: (BuildContext context) =>
+                AppLocalizations.of(context)!.appTitle,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: settings.locale,
+            theme: AppTheme.light,
+            darkTheme: AppTheme.dark,
+            themeMode: settings.themeMode,
+            builder: (BuildContext context, Widget? child) {
+              final mq = MediaQuery.of(context);
+              return MediaQuery(
+                data: mq.copyWith(textScaler: const TextScaler.linear(1.4)),
+                child: child ?? const SizedBox.shrink(),
+              );
+            },
+            home: const AuthGate(),
           );
         },
-        home: const AuthGate(),
       ),
     );
   }

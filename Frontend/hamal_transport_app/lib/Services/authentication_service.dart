@@ -198,6 +198,22 @@ class AuthenticationService {
       RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'),
     );
   }
+
+  static bool validateIsraeliPhone(String phone) {
+    // Basic regex for Israeli mobile: 05X-XXXXXXX or 05XXXXXXXX
+    // Or international: +972 5X-XXXXXXX or +9725XXXXXXXX
+    return RegExp(r'^(?:05|(?:\+972)?5)\d-?\d{7}$').hasMatch(phone);
+  }
+
+  Future<void> updateUserProfile(UserProfile profile) async {
+    try {
+      await usersRef
+          .child(profile.uid)
+          .update(profile.userProfileToDictionary());
+    } catch (e) {
+      throw AuthenticationError.databaseError;
+    }
+  }
 }
 
 enum AuthenticationError {

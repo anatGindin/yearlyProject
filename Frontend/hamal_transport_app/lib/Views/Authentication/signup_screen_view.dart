@@ -204,8 +204,9 @@ class _SignupContentState extends State<_SignupContent> {
                   controller: _phoneController,
                   labelText: l10n.phone,
                   keyboardType: TextInputType.phone,
-                  validator: (value) => (value == null || value.isEmpty)
-                      ? l10n.requiredField
+                  validator: (value) =>
+                      (value == null || !viewModel.isPhoneValid(value))
+                      ? l10n.invalidPhone
                       : null,
                 ),
                 const SizedBox(height: 16),
