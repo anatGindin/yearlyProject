@@ -13,27 +13,19 @@ class DriverNavigationBarWrapper extends StatefulWidget {
 }
 
 class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
-    with TickerProviderStateMixin<DriverNavigationBarWrapper> {
-  static const List<DriverDestination> allDestinations = <DriverDestination>[
+    with TickerProviderStateMixin {
+  static const List<DriverDestination> allDestinations = [
     DriverDestination(0, DriverPageType.missions),
     DriverDestination(1, DriverPageType.mapView),
     DriverDestination(2, DriverPageType.profile),
   ];
 
   late final List<GlobalKey<NavigatorState>> navigatorKeys;
-  late final List<AnimationController> destinationFaders;
+  late final List<AnimationController> controllers;
   late final List<Widget> destinationViews;
 
   int selectedIndex = 0;
-
-  AnimationController buildFaderController() {
-    return AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    )..addStatusListener((status) {
-      if (status.isDismissed) setState(() {});
-    });
-  }
+  int previousIndex = 0;
 
   @override
   void initState() {
@@ -44,32 +36,66 @@ class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
       (_) => GlobalKey<NavigatorState>(),
     );
 
-    destinationFaders = List.generate(
+    controllers = List.generate(
       allDestinations.length,
-      (_) => buildFaderController(),
+      (_) => AnimationController(
+        vsync: this,
+        duration: const Duration(milliseconds: 300),
+      ),
     );
-    destinationFaders[selectedIndex].value = 1.0;
 
-    final tween = CurveTween(curve: Curves.fastOutSlowIn);
+    controllers[selectedIndex].value = 1.0;
 
-    destinationViews = allDestinations.map((destination) {
-      return FadeTransition(
-        opacity: destinationFaders[destination.index].drive(tween),
-        child: Navigator(
-          key: navigatorKeys[destination.index],
-          onGenerateRoute: (settings) {
-            return MaterialPageRoute(
-              builder: (_) => destination.driverPageType.getPage(),
-            );
-          },
+    destinationViews = List.generate(allDestinations.length, (index) {
+      return _buildTabView(index, Offset.zero);
+    });
+  }
+
+  Widget _buildTabView(int index, Offset beginOffset) {
+    final animation = controllers[index].drive(
+      Tween<Offset>(
+        begin: beginOffset,
+        end: Offset.zero,
+      ).chain(CurveTween(curve: Curves.fastOutSlowIn)),
+    );
+
+    return SlideTransition(
+      position: animation,
+      child: Navigator(
+        key: navigatorKeys[index],
+        onGenerateRoute: (_) => MaterialPageRoute(
+          builder: (_) => allDestinations[index].driverPageType.getPage(),
         ),
-      );
-    }).toList();
+      ),
+    );
+  }
+
+  void _onTabSelected(int newIndex) {
+    if (newIndex == selectedIndex) return;
+
+    final textDirection = Directionality.of(context);
+    final isForward = newIndex > selectedIndex;
+
+    // Leading edge depends on text direction
+    final double leading = textDirection == TextDirection.ltr ? 1.0 : -1.0;
+
+    final beginOffset = Offset(isForward ? leading : -leading, 0.0);
+
+    final previousIndex = selectedIndex;
+    selectedIndex = newIndex;
+
+    controllers[previousIndex].reverse();
+    controllers[selectedIndex].reset();
+    controllers[selectedIndex].forward();
+
+    destinationViews[selectedIndex] = _buildTabView(selectedIndex, beginOffset);
+
+    setState(() {});
   }
 
   @override
   void dispose() {
-    for (final c in destinationFaders) {
+    for (final c in controllers) {
       c.dispose();
     }
     super.dispose();
@@ -78,33 +104,25 @@ class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
   @override
   Widget build(BuildContext context) {
     return NavigatorPopHandler(
-      onPopWithResult: (result) {
-        navigatorKeys[selectedIndex].currentState!.pop();
+      onPopWithResult: (_) {
+        navigatorKeys[selectedIndex].currentState?.pop();
       },
       child: Scaffold(
         body: Stack(
           fit: StackFit.expand,
-          children: allDestinations.map((destination) {
-            final index = destination.index;
-            final view = destinationViews[index];
+          children: List.generate(allDestinations.length, (index) {
+            final isActive = index == selectedIndex;
 
-            if (index == selectedIndex) {
-              destinationFaders[index].forward();
-              return Offstage(offstage: false, child: view);
+            if (isActive) {
+              return Offstage(offstage: false, child: destinationViews[index]);
             } else {
-              destinationFaders[index].reverse();
-              if (destinationFaders[index].isAnimating) {
-                return IgnorePointer(child: view);
-              }
-              return Offstage(child: view);
+              return Offstage(offstage: true, child: destinationViews[index]);
             }
-          }).toList(),
+          }),
         ),
         bottomNavigationBar: NavigationBar(
           selectedIndex: selectedIndex,
-          onDestinationSelected: (index) {
-            setState(() => selectedIndex = index);
-          },
+          onDestinationSelected: _onTabSelected,
           destinations: allDestinations.map((d) {
             return NavigationDestination(
               icon: Icon(d.driverPageType.getIcon()),
