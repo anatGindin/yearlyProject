@@ -21,7 +21,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get openTasks => 'Open Tasks';
 
   @override
-  String get activeMissions => 'Active and Upcoming Missions';
+  String get activeMissions => 'Active Missions';
 
   @override
   String get availableMissions => 'Available Missions';

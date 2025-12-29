@@ -17,10 +17,13 @@ class ContactInfoActionable extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          vm.name,
-          textAlign: TextAlign.center,
-          textScaler: const TextScaler.linear(1.2),
+        Expanded(
+          child: Text(
+            vm.name,
+            textAlign: TextAlign.start,
+            softWrap: true,
+            textScaler: const TextScaler.linear(1.2),
+          ),
         ),
         ElevatedButton.icon(
           onPressed: onPressed ?? () => _defaultTap(),
@@ -31,7 +34,7 @@ class ContactInfoActionable extends StatelessWidget {
               162,
               0.7019607843137254,
             ),
-            elevation: 2r,
+            elevation: 2,
             shadowColor: const Color.fromRGBO(
               209,
               255,
@@ -45,7 +48,7 @@ class ContactInfoActionable extends StatelessWidget {
             vm.phone,
             textAlign: TextAlign.center,
             textDirection: TextDirection.ltr,
-            textScaler: const TextScaler.linear(1.2),
+            textScaler: const TextScaler.linear(1.0),
           ),
         ),
       ],

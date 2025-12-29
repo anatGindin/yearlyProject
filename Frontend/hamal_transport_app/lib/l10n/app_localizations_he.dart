@@ -21,7 +21,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get openTasks => 'משימות פתוחות';
 
   @override
-  String get activeMissions => 'משימות פעילות ומתוכננות';
+  String get activeMissions => 'משימות פעילות';
 
   @override
   String get availableMissions => 'משימות זמינות';

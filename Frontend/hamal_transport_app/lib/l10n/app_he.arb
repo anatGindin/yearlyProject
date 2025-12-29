@@ -16,7 +16,7 @@
   "@openTasks": {
     "description": "כפתור לפתיחת משימות זמינות"
   },
-  "activeMissions": "משימות פעילות ומתוכננות",
+  "activeMissions": "משימות פעילות",
   "@activeMissions": {
     "description": "כותרת רשימת המשימות הפעילות"
   },

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hamal_transport_app/Views/new_mission_page.dart';
+import 'package:hamal_transport_app/Views/new_missions_body.dart';
 
 import '../../l10n/app_localizations.dart';
 import 'mission_card_base.dart';
@@ -15,7 +15,7 @@ class NewMissionCard extends StatelessWidget {
       color: Theme.of(context).colorScheme.tertiary,
       onTap: () => Navigator.of(
         context,
-      ).push(MaterialPageRoute(builder: (_) => const NewMissionPage())),
+      ).push(MaterialPageRoute(builder: (_) => const NewMissionsBody())),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

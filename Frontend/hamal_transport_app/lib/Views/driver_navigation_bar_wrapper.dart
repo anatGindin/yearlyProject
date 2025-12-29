@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/ViewModels/driver_map_view_model.dart';
 import 'package:hamal_transport_app/Views/driver_map_view.dart';
-import 'package:hamal_transport_app/Views/main_page.dart';
+import 'package:hamal_transport_app/Views/active_missions_body.dart';
 import 'package:hamal_transport_app/Views/user_profile_page.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
+
+import 'missions_tabs_page.dart';
 
 class DriverNavigationBarWrapper extends StatefulWidget {
   const DriverNavigationBarWrapper({super.key});
@@ -175,7 +177,7 @@ enum DriverPageType {
   Widget getPage(DriverMapViewModel viewModel) {
     switch (this) {
       case DriverPageType.missions:
-        return const MainPage();
+        return MissionsTabsPage();
       case DriverPageType.mapView:
         return DriverMapView(viewModel: viewModel);
       case DriverPageType.profile:

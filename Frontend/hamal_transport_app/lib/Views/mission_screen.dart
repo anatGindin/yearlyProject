@@ -49,102 +49,61 @@ class _MissionScreenState extends State<MissionScreen> {
         body: Consumer<MissionViewModel>(
           builder: (context, missionVM, _) {
             missionsCoordinator.setMissionVM(missionVM);
-            return Column(
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+            return SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                    const SizedBox(height: 12),
+                    _buildRouteInfo(missionVM),
+                    const SizedBox(height: 16),
+                    InfoRow(
+                      icon: Icons.star_rounded,
+                      label: l10n.status,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.05,
-                          ),
-                          const SizedBox(height: 12),
-                          _buildRouteInfo(missionVM),
-                          const SizedBox(height: 16),
-                          InfoRow(
-                            icon: Icons.car_rental,
-                            label: l10n.carType,
-                            child: Text(
-                              missionVM.carType().displayName(l10n),
-                              style: Theme.of(context).textTheme.bodyMedium
-                                  ?.copyWith(fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          InfoRow(
-                            icon: Icons.person,
-                            label: l10n.sourceContact,
-                            child: ContactInfoActionable(vm: sourceContactVM),
-                          ),
-                          const SizedBox(height: 16),
-                          InfoRow(
-                            icon: Icons.person,
-                            label: l10n.destinationContact,
-                            child: ContactInfoActionable(
-                              vm: destinationContactVM,
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          InfoRow(
-                            icon: Icons.alarm,
-                            label: l10n.time,
-                            child: Text(missionVM.time().toString()),
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            '${l10n.mission}: ${missionVM.status().displayName(context)}',
-                            style: Theme.of(
-                              context,
-                            ).textTheme.titleMedium?.copyWith(fontSize: 18),
-                          ),
-                          if (!missionsCoordinator.isAvailable(mission))
-                            ElevatedButton.icon(
-                              onPressed:
-                                  (missionVM.status() ==
-                                      MissionStatus.delivered)
-                                  ? null
-                                  : () => _showStatusOptions(),
-                              icon: const Icon(Icons.update),
-                              label: Text(
-                                l10n.updateStatus,
-                                style: const TextStyle(fontSize: 16),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          if (missionsCoordinator.isAvailable(mission))
-                            SizedBox(
-                              width: double.infinity,
-                              child: ElevatedButton.icon(
-                                onPressed: () {
-                                  missionsCoordinator.takeMission(mission);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text(l10n.missionTaken)),
-                                  );
-                                  _showSuggestedMissionsDialog();
-                                },
-                                icon: const Icon(Icons.check),
-                                label: Text(
-                                  l10n.takeMission,
-                                  style: const TextStyle(fontSize: 18),
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 14,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          const SizedBox(height: 28),
-                          MissionCommentsTile(missionViewModel: missionVM),
+                          Text(missionVM.status().displayName(context)),
+                          _statusUpdater(missionVM),
                         ],
                       ),
                     ),
-                  ),
+                    const SizedBox(height: 16),
+                    InfoRow(
+                      icon: Icons.person,
+                      label: l10n.sourceContact,
+                      child: ContactInfoActionable(vm: sourceContactVM),
+                    ),
+                    const SizedBox(height: 16),
+                    InfoRow(
+                      icon: Icons.person,
+                      label: l10n.destinationContact,
+                      child: ContactInfoActionable(vm: destinationContactVM),
+                    ),
+                    const SizedBox(height: 16),
+                    InfoRow(
+                      icon: Icons.alarm,
+                      label: l10n.time,
+                      child: Text(missionVM.time().toString()),
+                    ),
+                    const SizedBox(height: 16),
+                    InfoRow(
+                      icon: Icons.car_rental,
+                      label: l10n.carType,
+                      child: Text(
+                        missionVM.carType().displayName(l10n),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 28),
+                    MissionCommentsTile(missionViewModel: missionVM),
+                  ],
                 ),
-              ],
+              ),
             );
           },
         ),
@@ -155,7 +114,7 @@ class _MissionScreenState extends State<MissionScreen> {
   void _showStatusOptions() {
     final mission = widget.mission;
     final currentStatus = mission.status;
-
+    // TODO: move the "next status" list options to the view model (?)
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
@@ -466,5 +425,55 @@ class _MissionScreenState extends State<MissionScreen> {
         },
       ),
     );
+  }
+
+  Widget _statusUpdater(MissionViewModel missionVM) {
+    final mission = missionVM.mission;
+    final missionsCoordinator = context.read<MissionsCoordinatorViewModel>();
+
+    if (!missionsCoordinator.isAvailable(mission)) {
+      return ElevatedButton.icon(
+        onPressed: (missionVM.status() == MissionStatus.delivered)
+            ? null
+            : () => _showStatusOptions(),
+        icon: const Icon(Icons.update),
+        label: Text(
+          l10n.updateStatus,
+          style: const TextStyle(fontSize: 16),
+          textAlign: TextAlign.center,
+        ),
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.all(4),
+          elevation: 3,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+        ),
+      );
+    } else {
+      return SizedBox(
+        child: ElevatedButton(
+          onPressed: () {
+            missionsCoordinator.takeMission(mission);
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(l10n.missionTaken)));
+            _showSuggestedMissionsDialog();
+          },
+          child: Text(
+            l10n.takeMission,
+            style: const TextStyle(fontSize: 16),
+            textAlign: TextAlign.center,
+          ),
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.all(4),
+            elevation: 3,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+          ),
+        ),
+      );
+    }
   }
 }

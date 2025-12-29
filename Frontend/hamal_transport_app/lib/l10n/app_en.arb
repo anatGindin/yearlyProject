@@ -16,7 +16,7 @@
   "@openTasks": {
     "description": "Button to open available tasks"
   },
-  "activeMissions": "Active and Upcoming Missions",
+  "activeMissions": "Active Missions",
   "@activeMissions": {
     "description": "Title of active missions list"
   },

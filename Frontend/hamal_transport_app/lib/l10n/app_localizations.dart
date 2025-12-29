@@ -125,7 +125,7 @@ abstract class AppLocalizations {
   /// Title of active missions list
   ///
   /// In en, this message translates to:
-  /// **'Active and Upcoming Missions'**
+  /// **'Active Missions'**
   String get activeMissions;
 
   /// Title of available missions page
