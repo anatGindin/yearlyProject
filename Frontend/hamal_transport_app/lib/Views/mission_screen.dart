@@ -77,13 +77,13 @@ class _MissionScreenState extends State<MissionScreen> {
                           InfoRow(
                             icon: Icons.person,
                             label: l10n.sourceContact,
-                            child: ContactCardActionable(vm: sourceContactVM),
+                            child: ContactInfoActionable(vm: sourceContactVM),
                           ),
                           const SizedBox(height: 16),
                           InfoRow(
                             icon: Icons.person,
                             label: l10n.destinationContact,
-                            child: ContactCardActionable(
+                            child: ContactInfoActionable(
                               vm: destinationContactVM,
                             ),
                           ),
@@ -100,6 +100,43 @@ class _MissionScreenState extends State<MissionScreen> {
                               context,
                             ).textTheme.titleMedium?.copyWith(fontSize: 18),
                           ),
+                          if (!missionsCoordinator.isAvailable(mission))
+                            ElevatedButton.icon(
+                              onPressed:
+                                  (missionVM.status() ==
+                                      MissionStatus.delivered)
+                                  ? null
+                                  : () => _showStatusOptions(),
+                              icon: const Icon(Icons.update),
+                              label: Text(
+                                l10n.updateStatus,
+                                style: const TextStyle(fontSize: 16),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          if (missionsCoordinator.isAvailable(mission))
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton.icon(
+                                onPressed: () {
+                                  missionsCoordinator.takeMission(mission);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(l10n.missionTaken)),
+                                  );
+                                  _showSuggestedMissionsDialog();
+                                },
+                                icon: const Icon(Icons.check),
+                                label: Text(
+                                  l10n.takeMission,
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 14,
+                                  ),
+                                ),
+                              ),
+                            ),
                           const SizedBox(height: 28),
                           MissionCommentsTile(missionViewModel: missionVM),
                         ],
@@ -107,44 +144,6 @@ class _MissionScreenState extends State<MissionScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 16),
-                // Only show update status button for chosen missions (not available)
-                if (!missionsCoordinator.isAvailable(mission))
-                  ElevatedButton.icon(
-                    onPressed: (missionVM.status() == MissionStatus.delivered)
-                        ? null
-                        : () => _showStatusOptions(),
-                    icon: const Icon(Icons.update),
-                    label: Text(
-                      l10n.updateStatus,
-                      style: const TextStyle(fontSize: 16),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-
-                const SizedBox(height: 12),
-                // Show Take button when this mission is available
-                if (missionsCoordinator.isAvailable(mission))
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        missionsCoordinator.takeMission(mission);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(l10n.missionTaken)),
-                        );
-                        _showSuggestedMissionsDialog();
-                      },
-                      icon: const Icon(Icons.check),
-                      label: Text(
-                        l10n.takeMission,
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                      ),
-                    ),
-                  ),
               ],
             );
           },

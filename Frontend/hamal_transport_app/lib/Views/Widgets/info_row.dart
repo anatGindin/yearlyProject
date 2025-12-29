@@ -32,7 +32,10 @@ class InfoRow extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 4),
-          Padding(padding: const EdgeInsets.only(left: 24), child: child),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: child,
+          ),
         ],
       ),
     );

@@ -2,36 +2,11 @@ import '../view_model/contact_vm.dart';
 import 'package:flutter/material.dart';
 import '../../../Utils/launcher_utils.dart';
 
-class ContactCard extends StatelessWidget {
+class ContactInfoActionable extends StatelessWidget {
   final ContactViewModel vm;
+  final VoidCallback? onPressed;
 
-  const ContactCard({super.key, required this.vm});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Row(
-        mainAxisAlignment:
-            MainAxisAlignment.spaceEvenly, // Distribute elements evenly
-        children: [
-          const Icon(Icons.phone),
-          Text(vm.name, textAlign: TextAlign.center),
-          Text(
-            vm.phone,
-            textAlign: TextAlign.center,
-            textDirection: TextDirection.ltr,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ContactCardActionable extends StatelessWidget {
-  final ContactViewModel vm;
-  final VoidCallback? onTap;
-
-  const ContactCardActionable({super.key, required this.vm, this.onTap});
+  const ContactInfoActionable({super.key, required this.vm, this.onPressed});
 
   Future<void> _defaultTap() async {
     await LauncherUtils.callPhoneNumber(vm.phone);
@@ -39,9 +14,41 @@ class ContactCardActionable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap ?? () => _defaultTap(),
-      child: ContactCard(vm: vm),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          vm.name,
+          textAlign: TextAlign.center,
+          textScaler: const TextScaler.linear(1.2),
+        ),
+        ElevatedButton.icon(
+          onPressed: onPressed ?? () => _defaultTap(),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color.fromRGBO(
+              177,
+              228,
+              162,
+              0.7019607843137254,
+            ),
+            elevation: 2r,
+            shadowColor: const Color.fromRGBO(
+              209,
+              255,
+              194,
+              0.7019607843137254,
+            ),
+          ),
+          icon: const Icon(Icons.phone, size: 28, color: Colors.white),
+          iconAlignment: IconAlignment.end,
+          label: Text(
+            vm.phone,
+            textAlign: TextAlign.center,
+            textDirection: TextDirection.ltr,
+            textScaler: const TextScaler.linear(1.2),
+          ),
+        ),
+      ],
     );
   }
 }
