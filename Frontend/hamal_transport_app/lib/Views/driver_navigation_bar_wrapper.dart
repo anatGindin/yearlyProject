@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Views/driver_map_view.dart';
-import 'package:provider/provider.dart';
 import 'package:hamal_transport_app/Services/location_service.dart';
 import 'package:hamal_transport_app/ViewModels/driver_map_view_model.dart';
 import 'package:hamal_transport_app/Views/main_page.dart';
