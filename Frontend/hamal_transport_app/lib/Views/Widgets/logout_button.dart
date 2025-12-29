@@ -13,7 +13,7 @@ class LogoutButton extends StatelessWidget {
     return FilledButton.icon(
       onPressed: () {
         context.read<UserProfileViewModel>().logOut();
-        Navigator.of(context).pushAndRemoveUntil(
+        Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => const AuthGate()),
           (route) => false, // This predicate removes all previous routes
         );

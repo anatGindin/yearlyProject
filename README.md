@@ -2,6 +2,10 @@
 
 A mobile logistics management application designed to streamline delivery operations for the Hamal organization, replacing the existing WhatsApp-based workflow with a comprehensive mission management system. 
 
+[Download here]
+
+[Download here]:https://idotalk.github.io/Hamal-landing-page/
+
 For further details about this product, the full project's HLD can be found [here]
 
 [here]:https://github.com/anatGindin/yearlyProject/blob/main/HLD.pdf

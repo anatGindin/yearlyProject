@@ -317,6 +317,15 @@ class AppLocalizationsHe extends AppLocalizations {
   String get center => 'המיקום שלי';
 
   @override
+  String get missions => 'משימות';
+
+  @override
+  String get map => 'מפה';
+
+  @override
+  String get profile => 'פרופיל';
+
+  @override
   String get hamalWarehouse => 'מחסן לוגיסטי';
 
   @override

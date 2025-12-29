@@ -63,18 +63,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     children: [
                       Positioned(
                         top: topPadding,
-                        left: 8,
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            textDirection: TextDirection.ltr,
-                          ),
-                          color: theme.colorScheme.onSecondary,
-                          onPressed: () => Navigator.of(context).pop(),
-                        ),
-                      ),
-                      Positioned(
-                        top: topPadding,
                         left: 0,
                         right: 0,
                         child: Column(

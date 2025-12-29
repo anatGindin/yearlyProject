@@ -12,6 +12,16 @@ class MissionsListsModel {
     required this.availableMissionsList,
   });
 
+  /// Pre-fetches route info for all missions so it's instantly available.
+  /// Call this after missions are loaded.
+  Future<void> prefetchRouteInfo({String profile = 'car'}) async {
+    final allMissions = [...myMissionsList, ...availableMissionsList];
+    // Trigger all route info fetches in parallel (fire-and-forget)
+    for (final mission in allMissions) {
+      mission.getRouteInfo(profile: profile);
+    }
+  }
+
   static Comparator getSortComperator(SortBy sortBy) {
     switch (sortBy) {
       case SortBy.distanceClosestFirst:

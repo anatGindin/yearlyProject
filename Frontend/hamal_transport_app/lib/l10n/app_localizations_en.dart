@@ -318,6 +318,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get center => 'My Location';
 
   @override
+  String get missions => 'Missions';
+
+  @override
+  String get map => 'Map';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
   String get hamalWarehouse => 'Hamal Warehouse';
 
   @override
