@@ -5,7 +5,6 @@ import 'package:hamal_transport_app/Views/Widgets/list_action_button.dart';
 import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import 'Widgets/mission_list_view.dart';
-import 'mission_screen.dart';
 
 /// New Mission page now shows the list of available missions (Open Tasks)
 class NewMissionsBody extends StatelessWidget {
@@ -13,7 +12,6 @@ class NewMissionsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       body: Consumer<AvailableMissionsViewModel>(
         builder: (context, availableMissionsVM, _) {

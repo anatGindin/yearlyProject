@@ -5,16 +5,12 @@ import 'package:hamal_transport_app/Views/Widgets/list_action_button.dart';
 import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import 'Widgets/mission_list_view.dart';
-import 'Widgets/mission_fabs.dart';
-import '../Constants/official_info.dart';
-import '../Utils/launcher_utils.dart';
 
 class ActiveMissionsBody extends StatelessWidget {
   const ActiveMissionsBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final myMissionsVM = context.watch<MyMissionsViewModel>();
     return Scaffold(
       body: Container(

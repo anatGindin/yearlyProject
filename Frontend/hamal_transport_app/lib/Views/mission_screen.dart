@@ -11,7 +11,6 @@ import '../features/Contact_card/view/contact_view.dart';
 import '../features/Contact_card/view_model/contact_vm.dart';
 import '../Services/routing_service.dart';
 import '../Views/Widgets/info_row.dart';
-import 'Widgets/mission_card.dart';
 
 class MissionScreen extends StatefulWidget {
   final Mission mission;
@@ -460,17 +459,18 @@ class _MissionScreenState extends State<MissionScreen> {
             ).showSnackBar(SnackBar(content: Text(l10n.missionTaken)));
             _showSuggestedMissionsDialog();
           },
-          child: Text(
-            l10n.takeMission,
-            style: const TextStyle(fontSize: 16),
-            textAlign: TextAlign.center,
-          ),
+
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.all(4),
             elevation: 3,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
+          ),
+          child: Text(
+            l10n.takeMission,
+            style: const TextStyle(fontSize: 16),
+            textAlign: TextAlign.center,
           ),
         ),
       );
