@@ -15,20 +15,20 @@ class ListActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: double.infinity, // 👈 THIS is the missing piece
+      height: MediaQuery.of(context).size.width * 0.3,
+      width: MediaQuery.of(context).size.width * 0.4,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 12),
-          minimumSize: const Size.fromHeight(double.infinity),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(14),
           ),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Icon(icon),
+            Icon(icon, size: 24),
             const SizedBox(width: 8),
             Expanded(child: Text(label, overflow: TextOverflow.ellipsis)),
           ],

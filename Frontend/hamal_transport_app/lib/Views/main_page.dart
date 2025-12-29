@@ -9,6 +9,7 @@ import 'Widgets/mission_list_view.dart';
 import 'Widgets/mission_fabs.dart';
 import '../Constants/official_info.dart';
 import '../Utils/launcher_utils.dart';
+import 'Widgets/new_mission_card.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -32,7 +33,7 @@ class MainPage extends StatelessWidget {
             children: [
               SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(height: 4),
                     Text(
@@ -49,7 +50,7 @@ class MainPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.48,
+                              width: MediaQuery.of(context).size.width * 0.43,
                               child: ListActionButton(
                                 icon: Icons.sort,
                                 label: '${myMissionsVM.getSortBy(context)}',
@@ -57,7 +58,7 @@ class MainPage extends StatelessWidget {
                               ),
                             ),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.48,
+                              width: MediaQuery.of(context).size.width * 0.43,
                               child: ListActionButton(
                                 icon: Icons.filter_alt,
                                 label: '${myMissionsVM.getFilterBy(context)}',
@@ -67,11 +68,14 @@ class MainPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                    ), // Expanded mission list
+                    ),
+                    const SizedBox(height: 30),
+
                     MissionListView(missions: myMissionsVM.myMissions),
-                    const SizedBox(
-                      height: 72,
-                    ), // spacing to keep list above buttons
+                    // const SizedBox(height: 30),
+                    // const NewMissionCard(),
+                    // spacing to keep list above buttons
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.2),
                   ],
                 ),
               ),

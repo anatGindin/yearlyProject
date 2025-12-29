@@ -24,7 +24,11 @@ abstract final class AppTheme {
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppTheme._hamalBlue,
       primary: Colors.black,
+      secondary: AppTheme._hamalBlue,
+      tertiary: const Color.fromRGBO(0, 174, 239, 1.0),
       onPrimary: const Color.fromRGBO(230, 230, 230, 1.0),
+      surface: Colors.white,
+      surfaceContainer: Colors.green,
     ),
     appBarTheme: const AppBarTheme(
       backgroundColor: _hamalBlue,
@@ -34,7 +38,6 @@ abstract final class AppTheme {
     ),
     scaffoldBackgroundColor: const Color.fromRGBO(255, 255, 255, 1.0),
     cardTheme: const CardThemeData(
-      color: Color.fromRGBO(255, 255, 255, 1.0),
       shadowColor: Color.fromRGBO(0, 0, 0, 0.8),
       elevation: 5,
     ),

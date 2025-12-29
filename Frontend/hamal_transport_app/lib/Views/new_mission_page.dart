@@ -18,7 +18,6 @@ class NewMissionPage extends StatelessWidget {
       body: Consumer<AvailableMissionsViewModel>(
         builder: (context, availableMissionsVM, _) {
           return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               ListActionButton(
                 icon: Icons.sort,

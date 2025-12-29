@@ -21,12 +21,7 @@ class MissionListView extends StatelessWidget {
       itemCount: missions.length,
       separatorBuilder: (_, _) => const SizedBox(height: 30),
       itemBuilder: (context, index) {
-        return Center(
-          child: FractionallySizedBox(
-            widthFactor: 0.9, // card takes 80% of available width
-            child: MissionCard(mission: missions[index]),
-          ),
-        );
+        return MissionCard(mission: missions[index]);
       },
     );
   }

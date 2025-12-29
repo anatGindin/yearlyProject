@@ -6,54 +6,46 @@ import '../../Models/mission.dart';
 import '../mission_screen.dart';
 import '../../features/Contact_card/view_model/contact_vm.dart';
 import '../../features/Contact_card/view/contact_view.dart';
+import 'mission_card_base .dart';
 
-/// Reusable mission card widget displaying mission information
 class MissionCard extends StatelessWidget {
   final Mission mission;
 
-  const MissionCard({required this.mission, super.key});
+  const MissionCard({super.key, required this.mission});
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    return Card(
-      child: InkWell(
-        borderRadius: BorderRadius.circular(10),
 
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(builder: (_) => MissionScreen(mission: mission)),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 20,
-            bottom: 20,
-            left: 10,
-            right: 10,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch, // full width
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _SourceDestinationWidget(mission: mission),
-              const SizedBox(height: 8),
-              Text(
-                mission.description,
-                style: Theme.of(
+    return MissionCardBase(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => MissionScreen(mission: mission)),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          _SourceDestinationWidget(mission: mission),
+          const SizedBox(height: 8),
+          Align(
+            alignment: AlignmentDirectional.centerEnd,
+            child: Text(
+              mission.description,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                fontStyle: FontStyle.italic,
+                color: Theme.of(
                   context,
-                ).textTheme.bodyMedium!.copyWith(fontStyle: FontStyle.italic),
-                textAlign: TextAlign.end,
+                ).textTheme.bodyMedium!.color!.withValues(alpha: 0.5),
               ),
-              const SizedBox(height: 8),
-              // ContactCard(vm: ContactViewModel(mission.destinationContact)),
-              const SizedBox(height: 8),
-              Text(
-                '${l10n.time}${_formatDateTime(mission.time)}',
-                style: Theme.of(context).textTheme.bodyMedium,
-                textAlign: TextAlign.center,
-              ),
-            ],
+              textAlign: TextAlign.end,
+            ),
           ),
-        ),
+
+          const SizedBox(height: 8),
+          Text(
+            '${l10n.time}${_formatDateTime(mission.time)}',
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
@@ -65,6 +57,7 @@ class MissionCard extends StatelessWidget {
 
 class _SourceDestinationWidget extends StatelessWidget {
   final Mission mission;
+
   const _SourceDestinationWidget({required this.mission, super.key});
 
   @override
@@ -76,16 +69,25 @@ class _SourceDestinationWidget extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Icon(Icons.location_on),
+              Icon(
+                Icons.location_on,
+                size: 26,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
               Container(
                 height: 45,
                 width: 2,
                 decoration: BoxDecoration(
-                  color: Colors.black,
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.secondary.withValues(alpha: 0.5),
                   borderRadius: BorderRadius.circular(1),
                 ),
               ),
-              const Icon(Icons.location_on),
+              Icon(
+                Icons.location_on,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
             ],
           ),
           const SizedBox(width: 8),
@@ -93,12 +95,13 @@ class _SourceDestinationWidget extends StatelessWidget {
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   mission.source.name,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
+                const SizedBox(height: 24),
                 Text(
                   mission.destination.name,
                   style: Theme.of(context).textTheme.titleMedium,
