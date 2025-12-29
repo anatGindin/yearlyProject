@@ -9,9 +9,11 @@ import '../l10n/app_localizations.dart';
 import '../features/Contact_card/view/contact_view.dart';
 import '../features/Contact_card/view_model/contact_vm.dart';
 import '../Services/routing_service.dart';
+import '../Views/Widgets/info_row.dart';
 
 class MissionScreen extends StatefulWidget {
   final Mission mission;
+
   const MissionScreen({required this.mission, super.key});
 
   @override
@@ -75,12 +77,16 @@ class _MissionScreenState extends State<MissionScreen> {
                             ),
                           ),
                           const SizedBox(height: 12),
-                          Text(
-                            '${l10n.carType}: ${missionVM.carType().displayName(l10n)}',
-                            style: Theme.of(
-                              context,
-                            ).textTheme.bodyLarge?.copyWith(fontSize: 16),
+                          InfoRow(
+                            icon: Icons.car_rental,
+                            label: l10n.carType,
+                            child: Text(
+                              missionVM.carType().displayName(l10n),
+                              style: Theme.of(context).textTheme.bodyMedium
+                                  ?.copyWith(fontWeight: FontWeight.w500),
+                            ),
                           ),
+
                           const SizedBox(height: 16),
                           Text(
                             '${l10n.sourceContact}:',

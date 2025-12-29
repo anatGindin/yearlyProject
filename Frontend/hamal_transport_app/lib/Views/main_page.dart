@@ -9,7 +9,6 @@ import 'Widgets/mission_list_view.dart';
 import 'Widgets/mission_fabs.dart';
 import '../Constants/official_info.dart';
 import '../Utils/launcher_utils.dart';
-import 'Widgets/new_mission_card.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -53,7 +52,7 @@ class MainPage extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * 0.43,
                               child: ListActionButton(
                                 icon: Icons.sort,
-                                label: '${myMissionsVM.getSortBy(context)}',
+                                label: myMissionsVM.getSortBy(context),
                                 onPressed: () => _showSortOptions(context),
                               ),
                             ),
@@ -61,7 +60,7 @@ class MainPage extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * 0.43,
                               child: ListActionButton(
                                 icon: Icons.filter_alt,
-                                label: '${myMissionsVM.getFilterBy(context)}',
+                                label: myMissionsVM.getFilterBy(context),
                                 onPressed: () => _showFilterOptions(context),
                               ),
                             ),

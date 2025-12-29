@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Views/new_mission_page.dart';
 
 import '../../l10n/app_localizations.dart';
-import 'mission_card_base .dart';
+import 'mission_card_base.dart';
 
 class NewMissionCard extends StatelessWidget {
   const NewMissionCard({super.key});

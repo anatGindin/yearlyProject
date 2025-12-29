@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import '../../Theme/app_theme.dart';
+
 import '../../l10n/app_localizations.dart';
 import '../../Models/mission.dart';
 import '../mission_screen.dart';
-import '../../features/Contact_card/view_model/contact_vm.dart';
-import '../../features/Contact_card/view/contact_view.dart';
-import 'mission_card_base .dart';
+import 'mission_card_base.dart';
 
 class MissionCard extends StatelessWidget {
   final Mission mission;
@@ -58,7 +55,7 @@ class MissionCard extends StatelessWidget {
 class _SourceDestinationWidget extends StatelessWidget {
   final Mission mission;
 
-  const _SourceDestinationWidget({required this.mission, super.key});
+  const _SourceDestinationWidget({required this.mission});
 
   @override
   Widget build(BuildContext context) {
