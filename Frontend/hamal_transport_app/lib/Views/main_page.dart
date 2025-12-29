@@ -4,7 +4,6 @@ import 'package:hamal_transport_app/ViewModels/my_missions_view_model.dart';
 import 'package:hamal_transport_app/Views/Widgets/list_action_button.dart';
 import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
-import 'Widgets/mission_app_bar.dart';
 import 'Widgets/mission_list_view.dart';
 import 'Widgets/mission_fabs.dart';
 import '../Constants/official_info.dart';
@@ -18,68 +17,74 @@ class MainPage extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     final myMissionsVM = context.watch<MyMissionsViewModel>();
     return Scaffold(
-      appBar: const MissionAppBar(),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 2.0,
-            bottom: 2.0,
-            left: 2.0,
-            right: 2.0,
-          ),
+      body: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.tertiary,
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(
+              top: 2.0,
+              bottom: 2.0,
+              left: 2.0,
+              right: 2.0,
+            ),
 
-          child: Stack(
-            children: [
-              SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 4),
-                    Text(
-                      l10n.activeMissions,
-                      style: Theme.of(context).textTheme.headlineSmall,
-                      textAlign: TextAlign.right,
-                    ),
-                    const SizedBox(height: 12),
-                    SizedBox(
-                      height: 60,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.43,
-                              child: ListActionButton(
-                                icon: Icons.sort,
-                                label: myMissionsVM.getSortBy(context),
-                                onPressed: () => _showSortOptions(context),
+            child: Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 4),
+                      Text(
+                        l10n.activeMissions,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                        textAlign: TextAlign.right,
+                      ),
+                      const SizedBox(height: 12),
+                      SizedBox(
+                        height: 60,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.43,
+                                child: ListActionButton(
+                                  icon: Icons.sort,
+                                  label: myMissionsVM.getSortBy(context),
+                                  onPressed: () => _showSortOptions(context),
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.43,
-                              child: ListActionButton(
-                                icon: Icons.filter_alt,
-                                label: myMissionsVM.getFilterBy(context),
-                                onPressed: () => _showFilterOptions(context),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.43,
+                                child: ListActionButton(
+                                  icon: Icons.filter_alt,
+                                  label: myMissionsVM.getFilterBy(context),
+                                  onPressed: () => _showFilterOptions(context),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 30),
+                      const SizedBox(height: 30),
 
-                    MissionListView(missions: myMissionsVM.myMissions),
-                    // const SizedBox(height: 30),
-                    // const NewMissionCard(),
-                    // spacing to keep list above buttons
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.2),
-                  ],
+                      MissionListView(missions: myMissionsVM.myMissions),
+                      // const SizedBox(height: 30),
+                      // const NewMissionCard(),
+                      // spacing to keep list above buttons
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.2,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              MissionFABs(onCallDesk: () => _callHamalDesk(context)),
-            ],
+                // MissionFABs(onCallDesk: () => _callHamalDesk(context)),
+              ],
+            ),
           ),
         ),
       ),

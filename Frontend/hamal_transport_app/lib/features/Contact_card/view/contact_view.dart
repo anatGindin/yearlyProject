@@ -14,7 +14,7 @@ class ContactCard extends StatelessWidget {
         mainAxisAlignment:
             MainAxisAlignment.spaceEvenly, // Distribute elements evenly
         children: [
-          const Icon(Icons.person),
+          const Icon(Icons.phone),
           Text(vm.name, textAlign: TextAlign.center),
           Text(
             vm.phone,

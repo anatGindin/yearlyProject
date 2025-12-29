@@ -23,23 +23,26 @@ abstract final class AppTheme {
   static ThemeData light = ThemeData(
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppTheme._hamalBlue,
-      primary: Colors.black,
-      secondary: AppTheme._hamalBlue,
-      tertiary: const Color.fromRGBO(0, 174, 239, 1.0),
-      onPrimary: const Color.fromRGBO(230, 230, 230, 1.0),
-      surface: Colors.white,
-      surfaceContainer: Colors.green,
+      primary: _hamalBlue,
+      secondary: const Color.fromRGBO(102, 176, 250, 1.0),
+      tertiary: const Color.fromRGBO(0xE8, 0xF5, 0xFA, 1.0),
     ),
-    appBarTheme: const AppBarTheme(
-      backgroundColor: _hamalBlue,
-      foregroundColor: Colors.white,
-      elevation: 0,
-      scrolledUnderElevation: 0,
-    ),
-    scaffoldBackgroundColor: const Color.fromRGBO(255, 255, 255, 1.0),
+    // appBarTheme: const AppBarTheme(
+    //   backgroundColor: _hamalBlue,
+    //   foregroundColor: Colors.white,
+    //   elevation: 0,
+    //   scrolledUnderElevation: 0,
+    // ),
+    // scaffoldBackgroundColor: const Color.fromRGBO(255, 255, 255, 1.0),
     cardTheme: const CardThemeData(
       shadowColor: Color.fromRGBO(0, 0, 0, 0.8),
       elevation: 5,
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.white,
+        elevation: 10,
+      ),
     ),
     useMaterial3: true,
     brightness: Brightness.light,

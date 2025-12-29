@@ -3,6 +3,7 @@ import 'package:hamal_transport_app/ViewModels/mission_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/missions_coordinator_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/available_missions_view_model.dart';
 import 'package:hamal_transport_app/Views/Widgets/comments_list_view.dart';
+import 'package:hamal_transport_app/Views/Widgets/source_destination.dart';
 import 'package:provider/provider.dart';
 import '../Models/mission.dart';
 import '../l10n/app_localizations.dart';
@@ -10,6 +11,7 @@ import '../features/Contact_card/view/contact_view.dart';
 import '../features/Contact_card/view_model/contact_vm.dart';
 import '../Services/routing_service.dart';
 import '../Views/Widgets/info_row.dart';
+import 'Widgets/mission_card.dart';
 
 class MissionScreen extends StatefulWidget {
   final Mission mission;
@@ -44,7 +46,6 @@ class _MissionScreenState extends State<MissionScreen> {
     return ChangeNotifierProvider(
       create: (context) => MissionViewModel(mission),
       child: Scaffold(
-        appBar: AppBar(title: Text(l10n.mission)),
         body: Consumer<MissionViewModel>(
           builder: (context, missionVM, _) {
             missionsCoordinator.setMissionVM(missionVM);
@@ -57,26 +58,12 @@ class _MissionScreenState extends State<MissionScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Text(
-                              missionVM.location(),
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.05,
                           ),
                           const SizedBox(height: 12),
-                          _buildRouteInfo(mission),
-                          const SizedBox(height: 12),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Text(
-                              missionVM.description(),
-                              style: Theme.of(
-                                context,
-                              ).textTheme.bodyLarge?.copyWith(fontSize: 18),
-                            ),
-                          ),
-                          const SizedBox(height: 12),
+                          _buildRouteInfo(missionVM),
+                          const SizedBox(height: 16),
                           InfoRow(
                             icon: Icons.car_rental,
                             label: l10n.carType,
@@ -86,39 +73,34 @@ class _MissionScreenState extends State<MissionScreen> {
                                   ?.copyWith(fontWeight: FontWeight.w500),
                             ),
                           ),
-
                           const SizedBox(height: 16),
-                          Text(
-                            '${l10n.sourceContact}:',
-                            style: Theme.of(
-                              context,
-                            ).textTheme.bodyLarge?.copyWith(fontSize: 16),
+                          InfoRow(
+                            icon: Icons.person,
+                            label: l10n.sourceContact,
+                            child: ContactCardActionable(vm: sourceContactVM),
                           ),
-                          ContactCardActionable(vm: sourceContactVM),
                           const SizedBox(height: 16),
-                          Text(
-                            '${l10n.destinationContact}:',
-                            style: Theme.of(
-                              context,
-                            ).textTheme.bodyLarge?.copyWith(fontSize: 16),
+                          InfoRow(
+                            icon: Icons.person,
+                            label: l10n.destinationContact,
+                            child: ContactCardActionable(
+                              vm: destinationContactVM,
+                            ),
                           ),
-                          ContactCardActionable(vm: destinationContactVM),
                           const SizedBox(height: 16),
-                          Text(
-                            '${l10n.time}${missionVM.time()}',
-                            style: Theme.of(
-                              context,
-                            ).textTheme.bodyLarge?.copyWith(fontSize: 16),
+                          InfoRow(
+                            icon: Icons.alarm,
+                            label: l10n.time,
+                            child: Text(missionVM.time().toString()),
                           ),
-                          const SizedBox(height: 12),
+                          const SizedBox(height: 16),
                           Text(
                             '${l10n.mission}: ${missionVM.status().displayName(context)}',
                             style: Theme.of(
                               context,
                             ).textTheme.titleMedium?.copyWith(fontSize: 18),
                           ),
-                          const SizedBox(height: 12),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 28),
                           MissionCommentsTile(missionViewModel: missionVM),
                         ],
                       ),
@@ -126,58 +108,20 @@ class _MissionScreenState extends State<MissionScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Only show update status button for chosen missions (not available)
-                    if (!missionsCoordinator.isAvailable(mission))
-                      Expanded(
-                        child: ElevatedButton.icon(
-                          onPressed:
-                              (missionVM.status() == MissionStatus.delivered)
-                              ? null
-                              : () => _showStatusOptions(),
-                          icon: const Icon(Icons.update),
-                          label: Text(
-                            l10n.updateStatus,
-                            style: const TextStyle(fontSize: 16),
-                            textAlign: TextAlign.center,
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size.fromHeight(64),
-                          ),
-                        ),
-                      ),
-                    // Only show navigate button for chosen and picked up missions
-                    if (missionVM.status() == MissionStatus.chosen ||
-                        missionVM.status() == MissionStatus.pickedUp)
-                      Expanded(
-                        child: ElevatedButton.icon(
-                          onPressed: () async {
-                            final success = await missionVM.launchNavigation();
-                            // Guard the context we are about to use
-                            if (!context.mounted) return;
-                            if (!success) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(l10n.cannotLaunchNavigation),
-                                ),
-                              );
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size.fromHeight(64),
-                          ),
-                          icon: const Icon(Icons.navigation),
-                          label: Text(
-                            l10n.navigateWaze,
-                            style: const TextStyle(fontSize: 16),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
+                // Only show update status button for chosen missions (not available)
+                if (!missionsCoordinator.isAvailable(mission))
+                  ElevatedButton.icon(
+                    onPressed: (missionVM.status() == MissionStatus.delivered)
+                        ? null
+                        : () => _showStatusOptions(),
+                    icon: const Icon(Icons.update),
+                    label: Text(
+                      l10n.updateStatus,
+                      style: const TextStyle(fontSize: 16),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+
                 const SizedBox(height: 12),
                 // Show Take button when this mission is available
                 if (missionsCoordinator.isAvailable(mission))
@@ -375,7 +319,8 @@ class _MissionScreenState extends State<MissionScreen> {
     );
   }
 
-  Widget _buildRouteInfo(Mission mission) {
+  Widget _buildRouteInfo(MissionViewModel missionVM) {
+    final mission = missionVM.mission;
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
@@ -416,84 +361,103 @@ class _MissionScreenState extends State<MissionScreen> {
 
           if (snapshot.hasData && snapshot.data != null) {
             final route = snapshot.data!;
-            return Card(
-              color: colorScheme.primaryContainer,
-              elevation: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
+            return SizedBox(
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        child: SourceDestination(mission: mission),
+                      ),
+                      const SizedBox(height: 16),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: colorScheme.secondary.withAlpha(50),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
                           children: [
-                            Text(
-                              mission.source.name,
-                              style: textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: colorScheme.onPrimaryContainer,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
                             Row(
-                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Text(
-                                  route.formattedDistance,
-                                  style: textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: colorScheme.onPrimaryContainer,
-                                  ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      route.formattedDistance,
+                                      style: textTheme.titleMedium?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: colorScheme.onPrimaryContainer,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Icon(
+                                      Icons.straighten,
+                                      color: colorScheme.onPrimaryContainer,
+                                      size: 20,
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(width: 8),
-                                Icon(
-                                  Icons.straighten,
-                                  color: colorScheme.onPrimaryContainer,
-                                  size: 20,
+                                const SizedBox(height: 10),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      route.formattedDuration,
+                                      style: textTheme.titleMedium?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: colorScheme.onPrimaryContainer,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Icon(
+                                      Icons.access_time,
+                                      color: colorScheme.onPrimaryContainer,
+                                      size: 20,
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 4),
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  route.formattedDuration,
-                                  style: textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: colorScheme.onPrimaryContainer,
-                                  ),
+                            const SizedBox(height: 24),
+                            if (missionVM.status() == MissionStatus.chosen ||
+                                missionVM.status() == MissionStatus.pickedUp)
+                              ElevatedButton.icon(
+                                onPressed: () async {
+                                  final success = await missionVM
+                                      .launchNavigation();
+                                  // Guard the context we are about to use
+                                  if (!context.mounted) return;
+                                  if (!success) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          l10n.cannotLaunchNavigation,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size.fromHeight(64),
                                 ),
-                                const SizedBox(width: 8),
-                                Icon(
-                                  Icons.access_time,
-                                  color: colorScheme.onPrimaryContainer,
-                                  size: 20,
+                                icon: const Icon(Icons.navigation),
+                                label: Text(
+                                  l10n.navigateWaze,
+                                  style: const TextStyle(fontSize: 16),
+                                  textAlign: TextAlign.center,
                                 ),
-                              ],
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              mission.destination.name,
-                              style: textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: colorScheme.onPrimaryContainer,
                               ),
-                            ),
                           ],
                         ),
-                        const SizedBox(width: 12),
-                        Icon(
-                          Icons.arrow_back,
-                          color: colorScheme.onPrimaryContainer,
-                          size: 24,
-                        ),
-                      ],
-                    ),
-                  ],
+                      ),
+                      const SizedBox(width: 12),
+                    ],
+                  ),
                 ),
               ),
             );

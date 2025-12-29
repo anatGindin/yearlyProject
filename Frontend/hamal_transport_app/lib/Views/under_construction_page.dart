@@ -10,12 +10,6 @@ class UnderConstructionPage extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.underConstruction),
-        centerTitle: true,
-        backgroundColor: const Color(0xFF364678),
-        foregroundColor: Colors.white,
-      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(32.0),

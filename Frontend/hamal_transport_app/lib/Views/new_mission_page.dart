@@ -14,7 +14,6 @@ class NewMissionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.availableMissions)),
       body: Consumer<AvailableMissionsViewModel>(
         builder: (context, availableMissionsVM, _) {
           return Column(

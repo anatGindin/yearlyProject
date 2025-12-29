@@ -10,6 +10,7 @@ import 'UserMenu/edit_profile_view.dart';
 
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({super.key});
+
   @override
   createState() => _UserProfilePageState();
 }
@@ -50,11 +51,11 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 child: Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      begin: Alignment.bottomRight,
-                      end: Alignment.topLeft,
+                      begin: Alignment.centerRight,
+                      end: Alignment.centerLeft,
                       colors: [
-                        theme.colorScheme.secondary,
-                        theme.colorScheme.secondaryContainer,
+                        Theme.of(context).colorScheme.tertiary,
+                        Theme.of(context).colorScheme.primary,
                       ],
                     ),
                   ),

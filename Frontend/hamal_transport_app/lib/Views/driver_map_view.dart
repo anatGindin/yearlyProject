@@ -14,6 +14,7 @@ import 'Widgets/warehouse_map_card.dart';
 
 class DriverMapView extends StatelessWidget {
   final DriverMapViewModel viewModel;
+
   const DriverMapView({super.key, required this.viewModel});
 
   @override
@@ -53,7 +54,6 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
     final viewModel = context.watch<DriverMapViewModel>();
 
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.mapView)),
       body: Stack(
         children: [
           FlutterMap(
