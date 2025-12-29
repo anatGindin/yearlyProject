@@ -28,9 +28,7 @@ class DriverMapViewModel extends ChangeNotifier {
   bool get isLoadingLocation => _isLoadingLocation;
   Set<MissionStatus> get visibleStatuses => _visibleStatuses;
 
-  DriverMapViewModel() {
-    initLocation();
-  }
+  DriverMapViewModel() {}
 
   Future<void> checkPermissions() => initLocation();
 
