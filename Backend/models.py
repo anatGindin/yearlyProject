@@ -11,3 +11,7 @@ class Mission(BaseModel):
     contact: Contact
     time: str
     status: str
+    carType: str
+    cancellationReason: str
+    comments: list[str]
+
