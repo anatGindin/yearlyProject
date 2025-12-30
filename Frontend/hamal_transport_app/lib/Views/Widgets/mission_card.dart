@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Views/Widgets/source_destination.dart';
-
+import 'package:intl/intl.dart';
 import '../../l10n/app_localizations.dart';
 import '../../Models/mission.dart';
 import '../mission_screen.dart';
@@ -21,34 +21,29 @@ class MissionCard extends StatelessWidget {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SourceDestination(mission: mission),
           const SizedBox(height: 8),
-          Align(
-            alignment: AlignmentDirectional.centerEnd,
-            child: Text(
-              mission.description,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                fontStyle: FontStyle.italic,
-                color: Theme.of(
-                  context,
-                ).textTheme.bodyMedium!.color!.withValues(alpha: 0.5),
-              ),
-              textAlign: TextAlign.end,
+          Text(
+            mission.description,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              fontStyle: FontStyle.italic,
+              color: Theme.of(
+                context,
+              ).textTheme.bodyMedium!.color!.withValues(alpha: 0.5),
             ),
           ),
-
           const SizedBox(height: 8),
-          Text(
-            '${l10n.time}${_formatDateTime(mission.time)}',
-            textAlign: TextAlign.center,
+          Row(
+            children: [
+              const Icon(Icons.today),
+              const SizedBox(width: 8),
+              Text(DateFormat.yMEd(l10n.localeName).format(mission.time)),
+            ],
           ),
         ],
       ),
     );
-  }
-
-  String _formatDateTime(DateTime dt) {
-    return '${dt.year}-${dt.month.toString().padLeft(2, '0')}-${dt.day.toString().padLeft(2, '0')} ${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}';
   }
 }

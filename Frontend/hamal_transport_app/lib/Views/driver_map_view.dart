@@ -54,94 +54,96 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
     final viewModel = context.watch<DriverMapViewModel>();
 
     return Scaffold(
-      body: Stack(
-        children: [
-          FlutterMap(
-            mapController: _mapController,
-            options: MapOptions(
-              initialCenter: _initialCenter,
-              initialZoom: 8.0,
-              interactionOptions: const InteractionOptions(
-                flags: InteractiveFlag.all & ~InteractiveFlag.rotate,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            FlutterMap(
+              mapController: _mapController,
+              options: MapOptions(
+                initialCenter: _initialCenter,
+                initialZoom: 8.0,
+                interactionOptions: const InteractionOptions(
+                  flags: InteractiveFlag.all & ~InteractiveFlag.rotate,
+                ),
+                onTap: (_, _) {
+                  if (viewModel.selectedMission != null) {
+                    viewModel.selectMission(null);
+                  }
+                  if (viewModel.isWarehouseSelected) {
+                    viewModel.selectWarehouse(false);
+                  }
+                },
               ),
-              onTap: (_, _) {
-                if (viewModel.selectedMission != null) {
-                  viewModel.selectMission(null);
-                }
-                if (viewModel.isWarehouseSelected) {
-                  viewModel.selectWarehouse(false);
-                }
-              },
+              children: [
+                TileLayer(
+                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  userAgentPackageName: 'com.hamal.transport',
+                  retinaMode: RetinaMode.isHighDensity(context),
+                ),
+                MarkerLayer(
+                  markers: [
+                    ..._buildMissionMarkers(context),
+                    if (viewModel.userLocation != null)
+                      _buildUserMarker(viewModel.userLocation!),
+                  ],
+                ),
+              ],
             ),
-            children: [
-              TileLayer(
-                urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                userAgentPackageName: 'com.hamal.transport',
-                retinaMode: RetinaMode.isHighDensity(context),
-              ),
-              MarkerLayer(
-                markers: [
-                  ..._buildMissionMarkers(context),
-                  if (viewModel.userLocation != null)
-                    _buildUserMarker(viewModel.userLocation!),
-                ],
-              ),
-            ],
-          ),
-          const Positioned(top: 20, left: 20, child: MapLegend()),
-          Positioned(
-            top: 20,
-            right: 20,
-            child: FloatingActionButton(
-              heroTag: 'layers',
-              mini: true,
-              shape: const CircleBorder(),
-              onPressed: () => _showLayersDialog(context, viewModel),
-              tooltip: AppLocalizations.of(context)!.layers,
-              child: const Icon(Icons.layers),
-            ),
-          ),
-          if (viewModel.selectedMission == null &&
-              !viewModel.isWarehouseSelected)
+            const Positioned(top: 20, left: 20, child: MapLegend()),
             Positioned(
-              bottom: 20,
+              top: 20,
               right: 20,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  FloatingActionButton(
-                    heroTag: 'center',
-                    onPressed: () {
-                      viewModel.checkPermissions().then((_) {
-                        if (viewModel.userLocation != null) {
-                          _mapController.move(viewModel.userLocation!, 10.0);
-                        }
-                      });
-                    },
-                    tooltip: AppLocalizations.of(context)!.center,
-                    child: const Icon(Icons.my_location),
-                  ),
-                ],
+              child: FloatingActionButton(
+                heroTag: 'layers',
+                mini: true,
+                shape: const CircleBorder(),
+                onPressed: () => _showLayersDialog(context, viewModel),
+                tooltip: AppLocalizations.of(context)!.layers,
+                child: const Icon(Icons.layers),
               ),
             ),
-          if (viewModel.selectedMission != null)
-            Positioned(
-              bottom: 20,
-              left: 20,
-              right: 20,
-              child: MissionMapCard(
-                mission: viewModel.selectedMission!,
-                viewModel: viewModel,
+            if (viewModel.selectedMission == null &&
+                !viewModel.isWarehouseSelected)
+              Positioned(
+                bottom: 20,
+                right: 20,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    FloatingActionButton(
+                      heroTag: 'center',
+                      onPressed: () {
+                        viewModel.checkPermissions().then((_) {
+                          if (viewModel.userLocation != null) {
+                            _mapController.move(viewModel.userLocation!, 10.0);
+                          }
+                        });
+                      },
+                      tooltip: AppLocalizations.of(context)!.center,
+                      child: const Icon(Icons.my_location),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          if (viewModel.isWarehouseSelected)
-            Positioned(
-              bottom: 20,
-              left: 20,
-              right: 20,
-              child: WarehouseMapCard(viewModel: viewModel),
-            ),
-        ],
+            if (viewModel.selectedMission != null)
+              Positioned(
+                bottom: 20,
+                left: 20,
+                right: 20,
+                child: MissionMapCard(
+                  mission: viewModel.selectedMission!,
+                  viewModel: viewModel,
+                ),
+              ),
+            if (viewModel.isWarehouseSelected)
+              Positioned(
+                bottom: 20,
+                left: 20,
+                right: 20,
+                child: WarehouseMapCard(viewModel: viewModel),
+              ),
+          ],
+        ),
       ),
     );
   }

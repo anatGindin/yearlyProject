@@ -4,6 +4,7 @@ import 'package:hamal_transport_app/ViewModels/missions_coordinator_view_model.d
 import 'package:hamal_transport_app/ViewModels/available_missions_view_model.dart';
 import 'package:hamal_transport_app/Views/Widgets/comments_list_view.dart';
 import 'package:hamal_transport_app/Views/Widgets/source_destination.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../Models/mission.dart';
 import '../l10n/app_localizations.dart';
@@ -85,7 +86,11 @@ class _MissionScreenState extends State<MissionScreen> {
                     InfoRow(
                       icon: Icons.alarm,
                       label: l10n.time,
-                      child: Text(missionVM.time().toString()),
+                      child: Text(
+                        DateFormat.yMEd(
+                          l10n.localeName,
+                        ).format(missionVM.time()),
+                      ),
                     ),
                     const SizedBox(height: 16),
                     InfoRow(

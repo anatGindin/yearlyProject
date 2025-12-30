@@ -50,14 +50,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 right: 0,
                 child: Container(
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.centerRight,
-                      end: Alignment.centerLeft,
-                      colors: [
-                        Theme.of(context).colorScheme.tertiary,
-                        Theme.of(context).colorScheme.primary,
-                      ],
-                    ),
+                    color: Theme.of(context).colorScheme.primaryContainer,
                   ),
                   height: 350,
                   child: Stack(
@@ -83,15 +76,12 @@ class _UserProfilePageState extends State<UserProfilePage> {
                             Text(
                               userProfileVM.name,
                               style: theme.textTheme.headlineMedium?.copyWith(
-                                color: theme.colorScheme.onSecondary,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
                               userProfileVM.email,
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                color: theme.colorScheme.onSecondary,
-                              ),
+                              style: theme.textTheme.bodyMedium,
                             ),
                           ],
                         ),

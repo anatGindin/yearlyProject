@@ -15,7 +15,7 @@ class ActiveMissionsBody extends StatelessWidget {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.tertiary,
+          color: Theme.of(context).colorScheme.primaryContainer,
         ),
         child: SafeArea(
           child: Padding(

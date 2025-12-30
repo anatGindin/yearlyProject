@@ -14,7 +14,12 @@ class MissionsTabsPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(l10n.missions),
+          title: Text(
+            l10n.missions,
+            style: Theme.of(
+              context,
+            ).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.bold),
+          ),
           bottom: TabBar(
             tabs: [
               Tab(
