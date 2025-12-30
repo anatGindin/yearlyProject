@@ -30,7 +30,7 @@ class MissionsListsModel {
           final distanceB = b.source.distanceTo(b.destination);
           return distanceB.compareTo(distanceA);
         };
-      case SortBy.distanceGPSClosestFirst:
+      case SortBy.distanceToUserClosestFirst:
         return (Mission a, Mission b) {
           final distanceA =
               userLocation?.distanceTo(a.destination) ??
@@ -40,7 +40,7 @@ class MissionsListsModel {
               b.source.distanceTo(b.destination);
           return distanceA.compareTo(distanceB);
         };
-      case SortBy.distanceGPSFurthestFirst:
+      case SortBy.distanceToUserFurthestFirst:
         return (Mission a, Mission b) {
           final distanceA =
               userLocation?.distanceTo(a.destination) ??
@@ -75,10 +75,10 @@ class MissionsListsModel {
         return l10n.closestToFurthest;
       case SortBy.distanceFurthestFirst:
         return l10n.furthestToClosest;
-      case SortBy.distanceGPSClosestFirst:
-        return l10n.closestToFurthestGps;
-      case SortBy.distanceGPSFurthestFirst:
-        return l10n.furthestToClosestGps;
+      case SortBy.distanceToUserClosestFirst:
+        return l10n.distanceFromYouClosest;
+      case SortBy.distanceToUserFurthestFirst:
+        return l10n.distanceFromYouFurthest;
       case SortBy.timeOldestFirst:
         return l10n.oldestToNewest;
       case SortBy.timeNewestFirst:
@@ -102,8 +102,8 @@ class MissionsListsModel {
 enum SortBy {
   distanceClosestFirst,
   distanceFurthestFirst,
-  distanceGPSClosestFirst,
-  distanceGPSFurthestFirst,
+  distanceToUserClosestFirst,
+  distanceToUserFurthestFirst,
   timeOldestFirst,
   timeNewestFirst,
 }

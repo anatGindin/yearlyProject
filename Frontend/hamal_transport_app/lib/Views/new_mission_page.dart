@@ -106,19 +106,19 @@ class NewMissionPage extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text(l10n.closestToFurthestGps),
+            title: Text(l10n.distanceFromYouClosest),
             onTap: () async {
               await availableMissionsVM.sortByGps(
-                SortBy.distanceGPSClosestFirst,
+                SortBy.distanceToUserClosestFirst,
               );
               if (context.mounted) Navigator.pop(context);
             },
           ),
           ListTile(
-            title: Text(l10n.furthestToClosestGps),
+            title: Text(l10n.distanceFromYouFurthest),
             onTap: () async {
               await availableMissionsVM.sortByGps(
-                SortBy.distanceGPSFurthestFirst,
+                SortBy.distanceToUserFurthestFirst,
               );
               if (context.mounted) Navigator.pop(context);
             },

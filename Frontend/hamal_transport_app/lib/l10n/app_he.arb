@@ -260,17 +260,17 @@
   "@closestToFurthest": {
     "description": "אפשרות מיון - מרחק: קרוב לרחוק"
   },
-  "closestToFurthestGps": "קרוב לרחוק (GPS)",
-  "@closestToFurthestGps": {
-    "description": "אפשרות מיון - מרחק מהמיקום הנוכחי (GPS): קרוב לרחוק"
+  "distanceFromYouClosest": "מרחק ממקומך - קרוב לרחוק",
+  "@distanceFromYouClosest": {
+    "description": "אפשרות מיון - מרחק מהמיקום הנוכחי: קרוב לרחוק"
   },
   "furthestToClosest": "רחוק לקרוב",
   "@furthestToClosest": {
     "description": "אפשרות מיון - מרחק: רחוק לקרוב"
   },
-  "furthestToClosestGps": "רחוק לקרוב (GPS)",
-  "@furthestToClosestGps": {
-    "description": "אפשרות מיון - מרחק מהמיקום הנוכחי (GPS): רחוק לקרוב"
+  "distanceFromYouFurthest": "מרחק ממקומך - רחוק לקרוב",
+  "@distanceFromYouFurthest": {
+    "description": "אפשרות מיון - מרחק מהמיקום הנוכחי: רחוק לקרוב"
   },
   "newestToOldest": "חדש לישן",
   "@newestToOldest": {

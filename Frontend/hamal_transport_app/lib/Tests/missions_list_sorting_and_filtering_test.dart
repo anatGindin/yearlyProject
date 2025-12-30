@@ -146,44 +146,50 @@ void main() {
   });
 
   group('GPS Sorting Comparator', () {
-    test('distanceGPSClosestFirst sorts by user -> source distance', () {
-      final userLocation = Location(
-        name: 'User',
-        latitude: 32.0853,
-        longitude: 34.7818,
-      );
-
-      final missions = sampleMissions.toList()
-        ..sort(
-          MissionsListsModel.getSortComperator(
-            SortBy.distanceGPSClosestFirst,
-            userLocation: userLocation,
-          ),
+    test(
+      'distanceToUserClosestFirst sorts by user -> destination distance',
+      () {
+        final userLocation = Location(
+          name: 'User',
+          latitude: 32.0853,
+          longitude: 34.7818,
         );
 
-      final firstDistance = userLocation.distanceTo(missions.first.source);
-      final lastDistance = userLocation.distanceTo(missions.last.source);
-      expect(firstDistance <= lastDistance, true);
-    });
+        final missions = sampleMissions.toList()
+          ..sort(
+            MissionsListsModel.getSortComperator(
+              SortBy.distanceToUserClosestFirst,
+              userLocation: userLocation,
+            ),
+          );
 
-    test('distanceGPSFurthestFirst sorts by user -> source distance', () {
-      final userLocation = Location(
-        name: 'User',
-        latitude: 32.0853,
-        longitude: 34.7818,
-      );
+        final firstDistance = userLocation.distanceTo(missions.first.source);
+        final lastDistance = userLocation.distanceTo(missions.last.source);
+        expect(firstDistance <= lastDistance, true);
+      },
+    );
 
-      final missions = sampleMissions.toList()
-        ..sort(
-          MissionsListsModel.getSortComperator(
-            SortBy.distanceGPSFurthestFirst,
-            userLocation: userLocation,
-          ),
+    test(
+      'distanceToUserFurthestFirst sorts by user -> destination distance',
+      () {
+        final userLocation = Location(
+          name: 'User',
+          latitude: 32.0853,
+          longitude: 34.7818,
         );
 
-      final firstDistance = userLocation.distanceTo(missions.first.source);
-      final lastDistance = userLocation.distanceTo(missions.last.source);
-      expect(firstDistance >= lastDistance, true);
-    });
+        final missions = sampleMissions.toList()
+          ..sort(
+            MissionsListsModel.getSortComperator(
+              SortBy.distanceToUserFurthestFirst,
+              userLocation: userLocation,
+            ),
+          );
+
+        final firstDistance = userLocation.distanceTo(missions.first.source);
+        final lastDistance = userLocation.distanceTo(missions.last.source);
+        expect(firstDistance >= lastDistance, true);
+      },
+    );
   });
 }

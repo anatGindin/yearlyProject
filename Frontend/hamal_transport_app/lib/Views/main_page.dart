@@ -134,16 +134,16 @@ class MainPage extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text(l10n.closestToFurthestGps),
+            title: Text(l10n.distanceFromYouClosest),
             onTap: () async {
-              await myMissionsVM.sortByGps(SortBy.distanceGPSClosestFirst);
+              await myMissionsVM.sortByGps(SortBy.distanceToUserClosestFirst);
               if (context.mounted) Navigator.pop(context);
             },
           ),
           ListTile(
-            title: Text(l10n.furthestToClosestGps),
+            title: Text(l10n.distanceFromYouFurthest),
             onTap: () async {
-              await myMissionsVM.sortByGps(SortBy.distanceGPSFurthestFirst);
+              await myMissionsVM.sortByGps(SortBy.distanceToUserFurthestFirst);
               if (context.mounted) Navigator.pop(context);
             },
           ),
