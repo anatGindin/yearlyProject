@@ -42,7 +42,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get contact => 'איש קשר: ';
 
   @override
-  String get time => 'מועד: ';
+  String get time => 'מועד';
 
   @override
   String get mission => 'משימה';

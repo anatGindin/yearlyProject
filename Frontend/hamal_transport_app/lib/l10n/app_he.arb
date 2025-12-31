@@ -44,7 +44,7 @@
   "@contact": {
     "description": "תווית איש קשר"
   },
-  "time": "מועד: ",
+  "time": "מועד",
   "@time": {
     "description": "תווית זמן"
   },

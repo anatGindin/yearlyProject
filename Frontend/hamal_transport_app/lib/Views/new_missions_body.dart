@@ -17,7 +17,7 @@ class NewMissionsBody extends StatelessWidget {
         builder: (context, availableMissionsVM, _) {
           return Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.tertiary,
+              color: Theme.of(context).colorScheme.primaryContainer,
             ),
             child: SafeArea(
               child: Padding(

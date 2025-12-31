@@ -55,8 +55,8 @@ class _MissionScreenState extends State<MissionScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 20),
+                    const BackButton(),
                     _buildRouteInfo(missionVM),
                     const SizedBox(height: 16),
                     InfoRow(
@@ -94,7 +94,7 @@ class _MissionScreenState extends State<MissionScreen> {
                     ),
                     const SizedBox(height: 16),
                     InfoRow(
-                      icon: Icons.car_rental,
+                      icon: Icons.directions_car,
                       label: l10n.carType,
                       child: Text(
                         missionVM.carType().displayName(l10n),

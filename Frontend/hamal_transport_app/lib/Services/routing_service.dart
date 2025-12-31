@@ -101,9 +101,9 @@ class RouteInfo {
   /// Format distance as string.
   String get formattedDistance {
     if (distanceKm >= 1) {
-      return '${distanceKm.toStringAsFixed(1)} km';
+      return '${distanceKm.toStringAsFixed(1)}km';
     } else {
-      return '${distanceInMeters.toStringAsFixed(0)} m';
+      return '${distanceInMeters.toStringAsFixed(0)}m';
     }
   }
 

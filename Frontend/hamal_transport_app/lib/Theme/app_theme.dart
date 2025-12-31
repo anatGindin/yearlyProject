@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// The [AppTheme] defines light and dark themes for the app.
 ///
@@ -41,6 +42,11 @@ abstract final class AppTheme {
         elevation: 5,
       ),
     ),
+    appBarTheme: AppBarThemeData(
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: Colors.white.withAlpha(160),
+      ),
+    ),
     useMaterial3: true,
     brightness: Brightness.light,
   );
@@ -72,6 +78,9 @@ abstract final class AppTheme {
     ),
     navigationBarTheme: const NavigationBarThemeData(
       backgroundColor: Color.fromRGBO(19, 37, 55, 1.0),
+    ),
+    appBarTheme: const AppBarThemeData(
+      systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: _hamalBlue),
     ),
     useMaterial3: true,
     brightness: Brightness.dark,
