@@ -262,11 +262,16 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
                   ),
                   const Positioned(
                     top: 5,
-                    child: Icon(
-                      Icons.warehouse,
-                      color: Color.fromARGB(255, 113, 68, 0),
-                      size: 18,
-                    ),
+                    child:
+                        // Image(
+                        //   image: AssetImage('assets/logo.png'),
+                        //   width: 30,
+                        // ),
+                        Icon(
+                          Icons.warehouse,
+                          color: Color.fromARGB(255, 113, 68, 0),
+                          size: 18,
+                        ),
                   ),
                 ],
               ),

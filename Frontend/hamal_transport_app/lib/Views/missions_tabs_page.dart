@@ -20,21 +20,27 @@ class MissionsTabsPage extends StatelessWidget {
               context,
             ).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.bold),
           ),
-          bottom: TabBar(
-            tabs: [
-              Tab(
-                icon: const Icon(Icons.assignment_turned_in),
-                child: Text(l10n.activeMissions, softWrap: true),
-              ),
-              Tab(
-                icon: const Icon(Icons.add_circle_outline),
-                text: l10n.availableMissions,
-              ),
-            ],
-          ),
         ),
-        body: const TabBarView(
-          children: [ActiveMissionsBody(), NewMissionsBody()],
+        body: Column(
+          children: [
+            TabBar(
+              tabs: [
+                Tab(
+                  icon: const Icon(Icons.assignment_turned_in),
+                  child: Text(l10n.activeMissions, softWrap: true),
+                ),
+                Tab(
+                  icon: const Icon(Icons.add_circle_outline),
+                  text: l10n.availableMissions,
+                ),
+              ],
+            ),
+            const Expanded(
+              child: TabBarView(
+                children: [ActiveMissionsBody(), NewMissionsBody()],
+              ),
+            ),
+          ],
         ),
       ),
     );
