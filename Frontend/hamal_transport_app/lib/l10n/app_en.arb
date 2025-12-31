@@ -4,19 +4,7 @@
   "@appTitle": {
     "description": "App title shown in the app bar and for the application title"
   },
-  "counterText": "You have pushed the button this many times:",
-  "@counterText": {
-    "description": "Label above the counter that explains what the number means"
-  },
-  "incrementTooltip": "Increment",
-  "@incrementTooltip": {
-    "description": "Tooltip for the floating action button that increments the counter"
-  },
-  "openTasks": "Open Tasks",
-  "@openTasks": {
-    "description": "Button to open available tasks"
-  },
-  "activeMissions": "Active and Upcoming Missions",
+  "activeMissions": "Active Missions",
   "@activeMissions": {
     "description": "Title of active missions list"
   },
@@ -27,10 +15,6 @@
   "callDesk": "Call Hamal",
   "@callDesk": {
     "description": "Title of call desk dialog"
-  },
-  "callDeskMessage": "Call Hamal",
-  "@callDeskMessage": {
-    "description": "Message in call desk dialog"
   },
   "close": "Close",
   "@close": {
@@ -104,10 +88,6 @@
   "@available": {
     "description": "Mission status - available"
   },
-  "statusUpdated": "Status updated to: ",
-  "@statusUpdated": {
-    "description": "Status update message"
-  },
   "missionTaken": "Mission taken",
   "@missionTaken": {
     "description": "Message when mission is taken"
@@ -140,21 +120,9 @@
   "@resetPassword": {
     "description": "Reset password dialog title"
   },
-  "loginError": "Login failed",
-  "@loginError": {
-    "description": "Generic login error message"
-  },
   "signupError": "Sign up failed",
   "@signupError": {
     "description": "Generic sign up error message"
-  },
-  "dontHaveAccount": "Don't have an account?",
-  "@dontHaveAccount": {
-    "description": "Text prompting user to sign up"
-  },
-  "alreadyHaveAccount": "Already have an account?",
-  "@alreadyHaveAccount": {
-    "description": "Text prompting user to login"
   },
   "name": "Full Name",
   "@name": {
@@ -192,10 +160,6 @@
   "@invalidEmail": {
     "description": "Error message for invalid email format"
   },
-  "userNotFound": "No user found for that email.",
-  "@userNotFound": {
-    "description": "Error message when user does not exist"
-  },
   "wrongPassword": "Email address or password is incorrect",
   "@wrongPassword": {
     "description": "Error message for incorrect password"
@@ -212,14 +176,10 @@
   "@rememberMe": {
     "description": "Label for remember me checkbox"
   },
-  "selectRole": "Select your role",
-  "@selectRole": {
-    "description": "Label for role selection dropdown"
-  },
-  "role":"Role",
-    "@role": {
+  "role": "Role",
+  "@role": {
     "description": "Title for role"
-    },
+  },
   "driver": "Driver",
   "@driver": {
     "description": "Driver role option"
@@ -231,10 +191,6 @@
   "admin": "Admin",
   "@admin": {
     "description": "Admin role option"
-    },
-  "roleRequired": "Please select a role",
-  "@roleRequired": {
-    "description": "Validation error when role is not selected"
   },
   "underConstruction": "Under Construction",
   "@underConstruction": {
@@ -248,10 +204,6 @@
   "@logout": {
     "description": "Logout button text"
   },
-   "profileTitle": "Profile Page",
-    "@profileTitle":{
-    "description":"Title for user profile page"
-    },
   "sortBy": "Sort",
   "@sortBy": {
     "description": "Sort By button text"
@@ -260,25 +212,41 @@
   "@filterBy": {
     "description": "Filter button text"
   },
-  "closestToFurthest": "Closest to furthest",
+  "closestToFurthest": "Closest firsts",
   "@closestToFurthest": {
     "description": "Sort option - Distance: closest to furthest"
   },
-  "furthestToClosest": "Furthest to closest",
+  "distanceFromYouClosest": "Distance from you - closest first",
+  "@distanceFromYouClosest": {
+    "description": "Sort option - Distance from your current location: closest to furthest"
+  },
+  "furthestToClosest": "Furthest first",
   "@furthestToClosest": {
     "description": "Sort option - Distance: Furthest to closest"
   },
-  "newestToOldest": "Newest to oldest",
+  "distanceFromYouFurthest": "Distance from you - furthest first",
+  "@distanceFromYouFurthest": {
+    "description": "Sort option - Distance from your current location: furthest to closest"
+  },
+  "newestToOldest": "Newest first",
   "@newestToOldest": {
     "description": "Sort option - Time: Newest to oldest"
   },
-  "oldestToNewest": "Oldest to newest",
+  "oldestToNewest": "Oldest first",
   "@oldestToNewest": {
     "description": "Sort option - Time: Oldest to newest"
   },
   "noFilter": "All missions",
   "@noFilter": {
     "description": "Filter option - Show all missions"
+  },
+  "menuChosenFilter": "Chosen",
+  "@menuChosenFilter": {
+    "description": "Filter option - Show 'Chosen' missions"
+  },
+  "menuPickedUpFilter": "Picked up",
+  "@menuPickedUpFilter": {
+    "description": "Show 'Picked up' missions"
   },
   "chosenFilter": "'Chosen' missions",
   "@chosenFilter": {
@@ -312,13 +280,9 @@
   "@destinationContact": {
     "description": "Destination contact label"
   },
-  "comments": "My comments",
+  "comments": "Comments",
   "@comments": {
-    "description": "My comments label"
-  },
-  "noComments": "There are no comments",
-  "@noComments": {
-    "description": "Message when there are no comments"
+    "description": "Comments label"
   },
   "addComment": "Add comment",
   "@addComment": {
@@ -335,6 +299,14 @@
   "deleteCommentConfirmation": "Are you sure you want to delete this comment?",
   "@deleteCommentConfirmation": {
     "description": "Delete comment message"
+  },
+  "editComment": "Edit Comment",
+  "@editComment": {
+    "description": "Edit comment label"
+  },
+  "editCommentTitle": "Edit Comment",
+  "@editCommentTitle": {
+    "description": "Title for edit comment dialog"
   },
   "carType": "Car Type",
   "@carType": {
@@ -399,6 +371,18 @@
   "center": "My Location",
   "@center": {
     "description": "Tooltip for center map button"
+  },
+  "missions": "Missions",
+  "@missions": {
+    "description": "Label of Missions option in the driver navigation bar"
+  },
+  "map": "Map",
+  "@map": {
+    "description": "Label of Map option in the driver navigation bar"
+  },
+  "profile": "Profile",
+  "@profile": {
+    "description": "Label of Profile option in the driver navigation bar"
   },
   "hamalWarehouse": "Hamal Warehouse",
   "accountInformation": "Account Information",

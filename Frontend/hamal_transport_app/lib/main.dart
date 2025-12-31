@@ -7,8 +7,9 @@ import 'package:hamal_transport_app/ViewModels/available_missions_view_model.dar
 import 'package:hamal_transport_app/ViewModels/missions_coordinator_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/my_missions_view_model.dart';
 import 'package:provider/provider.dart';
-import 'package:hamal_transport_app/l10n/app_localizations.dart';
-import 'package:hamal_transport_app/Views/Authentication/auth_gate.dart';
+import 'l10n/app_localizations.dart';
+import 'Views/Authentication/auth_gate.dart';
+import 'Services/location_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hamal_transport_app/firebase_options.dart';
 import 'package:hamal_transport_app/Theme/app_theme.dart';
@@ -62,6 +63,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         Provider<AuthenticationService>(create: (_) => AuthenticationService()),
+        Provider<LocationService>(create: (_) => LocationService()),
       ],
       child: Consumer<AppPreferencesService>(
         builder: (context, settings, _) {

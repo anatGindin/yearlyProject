@@ -34,11 +34,11 @@ class ProfileMenuView extends StatelessWidget {
           theme: theme,
           onTap: () => onNavigate(3),
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 3),
         const Divider(),
         _QuickActionsCard(l10n: l10n, theme: theme),
 
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
         const LogoutButton(),
       ],
     );
@@ -67,16 +67,6 @@ class _QuickActionsCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, bottom: 16.0),
-              child: Text(
-                l10n.quickActions,
-                style: theme.textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: theme.colorScheme.secondary,
-                ),
-              ),
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -101,7 +91,7 @@ class _QuickActionsCard extends StatelessWidget {
                     _ActionButton(
                       icon: Icons.info_outline,
                       label: l10n.aboutUs,
-                      onTap: () {}, // Future use
+                      onTap: () => LauncherUtils.launchBrowser(hamalVisionUrl),
                       theme: theme,
                     ),
                     _ActionButton(
@@ -150,6 +140,10 @@ class _ActionButton extends StatelessWidget {
                   alpha: 0.3,
                 ),
                 shape: BoxShape.circle,
+                border: Border.all(
+                  color: theme.colorScheme.primary.withValues(alpha: 0.5),
+                  width: 1.5,
+                ),
               ),
               child: Icon(
                 icon,

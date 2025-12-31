@@ -12,25 +12,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'Hamal Transport';
 
   @override
-  String get counterText => 'You have pushed the button this many times:';
-
-  @override
-  String get incrementTooltip => 'Increment';
-
-  @override
-  String get openTasks => 'Open Tasks';
-
-  @override
-  String get activeMissions => 'Active and Upcoming Missions';
+  String get activeMissions => 'Active Missions';
 
   @override
   String get availableMissions => 'Available Missions';
 
   @override
   String get callDesk => 'Call Hamal';
-
-  @override
-  String get callDeskMessage => 'Call Hamal';
 
   @override
   String get close => 'Close';
@@ -88,9 +76,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get available => 'Available';
 
   @override
-  String get statusUpdated => 'Status updated to: ';
-
-  @override
   String get missionTaken => 'Mission taken';
 
   @override
@@ -115,16 +100,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get resetPassword => 'Reset Password';
 
   @override
-  String get loginError => 'Login failed';
-
-  @override
   String get signupError => 'Sign up failed';
-
-  @override
-  String get dontHaveAccount => 'Don\'t have an account?';
-
-  @override
-  String get alreadyHaveAccount => 'Already have an account?';
 
   @override
   String get name => 'Full Name';
@@ -155,9 +131,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get invalidEmail => 'The email address is not valid.';
 
   @override
-  String get userNotFound => 'No user found for that email.';
-
-  @override
   String get wrongPassword => 'Email address or password is incorrect';
 
   @override
@@ -168,9 +141,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rememberMe => 'Remember me';
-
-  @override
-  String get selectRole => 'Select your role';
 
   @override
   String get role => 'Role';
@@ -185,9 +155,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get admin => 'Admin';
 
   @override
-  String get roleRequired => 'Please select a role';
-
-  @override
   String get underConstruction => 'Under Construction';
 
   @override
@@ -197,28 +164,37 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logout => 'Logout';
 
   @override
-  String get profileTitle => 'Profile Page';
-
-  @override
   String get sortBy => 'Sort';
 
   @override
   String get filterBy => 'Filter';
 
   @override
-  String get closestToFurthest => 'Closest to furthest';
+  String get closestToFurthest => 'Closest firsts';
 
   @override
-  String get furthestToClosest => 'Furthest to closest';
+  String get distanceFromYouClosest => 'Distance from you - closest first';
 
   @override
-  String get newestToOldest => 'Newest to oldest';
+  String get furthestToClosest => 'Furthest first';
 
   @override
-  String get oldestToNewest => 'Oldest to newest';
+  String get distanceFromYouFurthest => 'Distance from you - furthest first';
+
+  @override
+  String get newestToOldest => 'Newest first';
+
+  @override
+  String get oldestToNewest => 'Oldest first';
 
   @override
   String get noFilter => 'All missions';
+
+  @override
+  String get menuChosenFilter => 'Chosen';
+
+  @override
+  String get menuPickedUpFilter => 'Picked up';
 
   @override
   String get chosenFilter => '\'Chosen\' missions';
@@ -246,10 +222,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get destinationContact => 'Destination contact';
 
   @override
-  String get comments => 'My comments';
-
-  @override
-  String get noComments => 'There are no comments';
+  String get comments => 'Comments';
 
   @override
   String get addComment => 'Add comment';
@@ -263,6 +236,12 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get deleteCommentConfirmation =>
       'Are you sure you want to delete this comment?';
+
+  @override
+  String get editComment => 'Edit Comment';
+
+  @override
+  String get editCommentTitle => 'Edit Comment';
 
   @override
   String get carType => 'Car Type';
@@ -313,6 +292,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get center => 'My Location';
+
+  @override
+  String get missions => 'Missions';
+
+  @override
+  String get map => 'Map';
+
+  @override
+  String get profile => 'Profile';
 
   @override
   String get hamalWarehouse => 'Hamal Warehouse';
