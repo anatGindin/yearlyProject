@@ -64,6 +64,9 @@ class AppLocalizationsHe extends AppLocalizations {
       'בהתאם למשימה שלך, הנה עוד כמה משימות שאולי תוכל לקחת:';
 
   @override
+  String get km => 'ק״מ';
+
+  @override
   String get selectMission => 'בחר משימה לצפייה בפרטים';
 
   @override

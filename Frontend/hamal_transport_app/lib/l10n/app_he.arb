@@ -72,6 +72,11 @@
   "@suggestedMissionsMessage": {
     "description": "טקסט עזר שמופיע בדיאלוג משימות מוצעות מעל הרשימה"
   },
+
+  "km": "ק״מ",
+  "@km": {
+    "description": "קיצור קילומטרים לתצוגת מרחק נוסף"
+  },
   "selectMission": "בחר משימה לצפייה בפרטים",
   "@selectMission": {
     "description": "כותרת משנה לדיאלוג בחירת משימה"

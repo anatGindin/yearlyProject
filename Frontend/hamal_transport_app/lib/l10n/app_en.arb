@@ -72,6 +72,10 @@
   "@suggestedMissionsMessage": {
     "description": "Helper text shown in the suggested missions dialog above the list"
   },
+  "km": "km",
+  "@km": {
+    "description": "Kilometers abbreviation for additional distance display"
+  },
   "selectMission": "Select a mission to view details",
   "@selectMission": {
     "description": "Subtitle for mission selection dialog"

@@ -64,6 +64,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Based on your mission, here are some other missions you may be able to take:';
 
   @override
+  String get km => 'km';
+
+  @override
   String get selectMission => 'Select a mission to view details';
 
   @override

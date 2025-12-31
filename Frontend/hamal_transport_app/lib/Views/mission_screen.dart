@@ -293,20 +293,21 @@ class _MissionScreenState extends State<MissionScreen> {
     );
   }
 
-  void _showSuggestedMissionsDialog() async {
+  void _showSuggestedMissionsDialog() {
     final availableMissionsVM = context.read<AvailableMissionsViewModel>();
     final allMissions = availableMissionsVM.availableMissions;
+    final chosenMission = widget.mission;
 
     if (allMissions.isEmpty) return;
 
     // Get top 3 suggested missions using heuristic scoring
-    final suggestedMissions = await MissionsListsModel.getTopSuggestedMissions(
+    // Suggestions are based on how much additional distance each mission
+    // would add relative to the chosen mission's route
+    final suggestedMissions = MissionsListsModel.getTopSuggestedMissions(
       allMissions,
+      chosenMission: chosenMission,
       maxResults: 3,
     );
-
-    // Guard context after async operation
-    if (!mounted) return;
 
     showDialog<void>(
       context: context,
@@ -335,7 +336,11 @@ class _MissionScreenState extends State<MissionScreen> {
                           child: ListView.builder(
                             itemCount: suggestedMissions.length,
                             itemBuilder: (context, index) {
-                              final mission = suggestedMissions[index];
+                              final suggested = suggestedMissions[index];
+                              final mission = suggested.mission;
+                              final additionalKm = suggested
+                                  .additionalDistanceKm
+                                  .toStringAsFixed(1);
                               return Card(
                                 margin: const EdgeInsets.symmetric(vertical: 4),
                                 child: ListTile(
@@ -343,10 +348,26 @@ class _MissionScreenState extends State<MissionScreen> {
                                     '${mission.source.name} → ${mission.destination.name}',
                                     style: const TextStyle(fontSize: 14),
                                   ),
-                                  subtitle: Text(
-                                    mission.description,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
+                                  subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        mission.description,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        '+$additionalKm ${l10n.km}',
+                                        style: TextStyle(
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.primary,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   trailing: const Icon(Icons.arrow_forward),
                                   onTap: () {

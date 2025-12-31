@@ -206,6 +206,12 @@ abstract class AppLocalizations {
   /// **'Based on your mission, here are some other missions you may be able to take:'**
   String get suggestedMissionsMessage;
 
+  /// Kilometers abbreviation for additional distance display
+  ///
+  /// In en, this message translates to:
+  /// **'km'**
+  String get km;
+
   /// Subtitle for mission selection dialog
   ///
   /// In en, this message translates to:
