@@ -166,21 +166,21 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
                       context,
                       viewModel,
                       MissionStatus.available,
-                      Colors.orange,
+                      MissionStatus.available.statusColor,
                       l10n.available,
                     ),
                     _buildLayerCheckbox(
                       context,
                       viewModel,
                       MissionStatus.chosen,
-                      Colors.blue,
+                      MissionStatus.chosen.statusColor,
                       l10n.chosen,
                     ),
                     _buildLayerCheckbox(
                       context,
                       viewModel,
                       MissionStatus.pickedUp,
-                      Colors.green,
+                      MissionStatus.pickedUp.statusColor,
                       l10n.pickedUp,
                     ),
                   ],
@@ -276,29 +276,21 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
       ),
     );
 
-    // Available Missions (Orange)
+    // Available Missions
     if (viewModel.isStatusVisible(MissionStatus.available)) {
       for (final mission in coordinator.availableMissionsVM.availableMissions) {
-        markers.add(_createMissionMarker(mission, Colors.orange, viewModel));
+        markers.add(
+          _createMissionMarker(mission, mission.status.statusColor, viewModel),
+        );
       }
     }
 
     // My Missions
     for (final mission in coordinator.myMissionsVM.myMissions) {
       if (!viewModel.isStatusVisible(mission.status)) continue;
-
-      Color color = Colors.orange;
-      switch (mission.status) {
-        case MissionStatus.chosen:
-          color = Colors.blue;
-        case MissionStatus.pickedUp:
-          color = Colors.green;
-        case MissionStatus.delivered:
-        case MissionStatus.cancelled:
-        case MissionStatus.available:
-          color = Colors.orange;
-      }
-      markers.add(_createMissionMarker(mission, color, viewModel));
+      markers.add(
+        _createMissionMarker(mission, mission.status.statusColor, viewModel),
+      );
     }
 
     if (viewModel.selectedMission != null) {

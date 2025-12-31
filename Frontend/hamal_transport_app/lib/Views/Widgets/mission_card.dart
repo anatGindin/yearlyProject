@@ -16,6 +16,7 @@ class MissionCard extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return MissionCardBase(
+      statusColor: mission.status.statusColor,
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(builder: (_) => MissionScreen(mission: mission)),
       ),
