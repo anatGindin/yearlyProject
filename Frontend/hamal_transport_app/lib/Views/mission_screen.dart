@@ -4,9 +4,10 @@ import 'package:hamal_transport_app/ViewModels/missions_coordinator_view_model.d
 import 'package:hamal_transport_app/ViewModels/available_missions_view_model.dart';
 import 'package:hamal_transport_app/Views/Widgets/comments_list_view.dart';
 import 'package:hamal_transport_app/Views/Widgets/source_destination.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 import 'package:provider/provider.dart';
 import '../Models/mission.dart';
+import '../Models/missions_model.dart';
 import '../l10n/app_localizations.dart';
 import '../features/Contact_card/view/contact_view.dart';
 import '../features/Contact_card/view_model/contact_vm.dart';
@@ -103,7 +104,7 @@ class _MissionScreenState extends State<MissionScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 28),
+                    const SizedBox(height: 16),
                     MissionCommentsTile(missionViewModel: missionVM),
                   ],
                 ),
@@ -204,10 +205,19 @@ class _MissionScreenState extends State<MissionScreen> {
 
   void _showSuggestedMissionsDialog() {
     final availableMissionsVM = context.read<AvailableMissionsViewModel>();
-    final missions = availableMissionsVM.availableMissions;
-    // TODO: Change to the actual suggested missions.
+    final allMissions = availableMissionsVM.availableMissions;
+    final chosenMission = widget.mission;
 
-    if (missions.isEmpty) return;
+    if (allMissions.isEmpty) return;
+
+    // Get top 3 suggested missions using heuristic scoring
+    // Suggestions are based on how much additional distance each mission
+    // would add relative to the chosen mission's route
+    final suggestedMissions = MissionsListsModel.getTopSuggestedMissions(
+      allMissions,
+      chosenMission: chosenMission,
+      maxResults: 3,
+    );
 
     showDialog<void>(
       context: context,
@@ -218,7 +228,7 @@ class _MissionScreenState extends State<MissionScreen> {
             constraints: const BoxConstraints(maxHeight: 420),
             child: SizedBox(
               width: double.maxFinite,
-              child: missions.isEmpty
+              child: suggestedMissions.isEmpty
                   ? Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(l10n.noMissions, textAlign: TextAlign.center),
@@ -234,22 +244,22 @@ class _MissionScreenState extends State<MissionScreen> {
                         const SizedBox(height: 12),
                         Expanded(
                           child: ListView.builder(
-                            itemCount: missions.length,
+                            itemCount: suggestedMissions.length,
                             itemBuilder: (context, index) {
-                              final mission = missions[index];
+                              final suggested = suggestedMissions[index];
+                              final mission = suggested.mission;
+                              final additionalKm = suggested
+                                  .additionalDistanceKm
+                                  .toStringAsFixed(1);
+                              final isRtl = Directionality.of(context);
+                              final arrow = isRtl == TextDirection.rtl
+                                  ? '←'
+                                  : '→';
                               return Card(
-                                margin: const EdgeInsets.symmetric(vertical: 4),
-                                child: ListTile(
-                                  title: Text(
-                                    '${mission.source.name} → ${mission.destination.name}',
-                                    style: const TextStyle(fontSize: 14),
-                                  ),
-                                  subtitle: Text(
-                                    mission.description,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  trailing: const Icon(Icons.arrow_forward),
+                                elevation: 2,
+                                margin: const EdgeInsets.symmetric(vertical: 8),
+                                clipBehavior: Clip.hardEdge,
+                                child: InkWell(
                                   onTap: () {
                                     Navigator.of(dialogContext).pop();
                                     Navigator.of(context).push(
@@ -259,6 +269,48 @@ class _MissionScreenState extends State<MissionScreen> {
                                       ),
                                     );
                                   },
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      ListTile(
+                                        title: Text(
+                                          '${mission.source.name} $arrow ${mission.destination.name}',
+                                          style: const TextStyle(fontSize: 14),
+                                        ),
+                                        subtitle: Text(
+                                          mission.description,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        trailing: const Icon(
+                                          Icons.arrow_forward,
+                                        ),
+                                      ),
+                                      Container(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.secondaryContainer,
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 8,
+                                          horizontal: 16,
+                                        ),
+                                        child: Text(
+                                          l10n.additionOf(
+                                            additionalKm,
+                                            l10n.km,
+                                          ),
+                                          style: TextStyle(
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSurface,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               );
                             },

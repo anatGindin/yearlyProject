@@ -56,6 +56,10 @@
   "@suggestedMissionsMessage": {
     "description": "Helper text shown in the suggested missions dialog above the list"
   },
+  "km": "km",
+  "@km": {
+    "description": "Kilometers abbreviation for additional distance display"
+  },
   "selectMission": "Select a mission to view details",
   "@selectMission": {
     "description": "Subtitle for mission selection dialog"
@@ -276,9 +280,9 @@
   "@destinationContact": {
     "description": "Destination contact label"
   },
-  "comments": "My comments",
+  "comments": "Comments",
   "@comments": {
-    "description": "My comments label"
+    "description": "Comments label"
   },
   "addComment": "Add comment",
   "@addComment": {
@@ -295,6 +299,14 @@
   "deleteCommentConfirmation": "Are you sure you want to delete this comment?",
   "@deleteCommentConfirmation": {
     "description": "Delete comment message"
+  },
+  "editComment": "Edit Comment",
+  "@editComment": {
+    "description": "Edit comment label"
+  },
+  "editCommentTitle": "Edit Comment",
+  "@editCommentTitle": {
+    "description": "Title for edit comment dialog"
   },
   "carType": "Car Type",
   "@carType": {
@@ -405,5 +417,19 @@
   "quickActions": "Quick Actions",
   "contactUs": "Contact Us",
   "aboutUs": "About Us",
-  "helpFaq": "Help & FAQ"
+  "helpFaq": "Help & FAQ",
+  "additionOf": "addition of {distance} {unit}",
+  "@additionOf": {
+    "description": "Text for additional distance on mission card",
+    "placeholders": {
+      "distance": {
+        "type": "String",
+        "example": "5.2"
+      },
+      "unit": {
+        "type": "String",
+        "example": "km"
+      }
+    }
+  }
 }

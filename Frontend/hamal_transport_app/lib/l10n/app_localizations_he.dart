@@ -39,7 +39,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get updateStatus => 'עדכן סטטוס';
 
   @override
-  String get navigateWaze => 'נווט ב-Waze';
+  String get navigateWaze => 'נווט';
 
   @override
   String get takeMission => 'קח משימה';
@@ -50,6 +50,9 @@ class AppLocalizationsHe extends AppLocalizations {
   @override
   String get suggestedMissionsMessage =>
       'בהתאם למשימה שלך, הנה עוד כמה משימות שאולי תוכל לקחת:';
+
+  @override
+  String get km => 'ק״מ';
 
   @override
   String get selectMission => 'בחר משימה לצפייה בפרטים';
@@ -218,7 +221,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get destinationContact => 'איש קשר ביעד';
 
   @override
-  String get comments => 'ההערות שלי';
+  String get comments => 'הערות';
 
   @override
   String get addComment => 'הוסף הערה';
@@ -232,6 +235,12 @@ class AppLocalizationsHe extends AppLocalizations {
   @override
   String get deleteCommentConfirmation =>
       'האם אתה בטוח שאתה רוצה למחוק את ההערה?';
+
+  @override
+  String get editComment => 'ערוך הערה';
+
+  @override
+  String get editCommentTitle => 'עריכת הערה';
 
   @override
   String get carType => 'סוג רכב';
@@ -330,4 +339,9 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get helpFaq => 'עזרה ומרכז מידע';
+
+  @override
+  String additionOf(String distance, String unit) {
+    return 'תוספת של $distance $unit';
+  }
 }

@@ -40,9 +40,9 @@
   "@updateStatus": {
     "description": "כפתור עדכון סטטוס"
   },
-  "navigateWaze": "נווט ב-Waze",
+  "navigateWaze": "נווט",
   "@navigateWaze": {
-    "description": "כפתור ניווט ב-Waze"
+    "description": "כפתור הפניה לניווט"
   },
   "takeMission": "קח משימה",
   "@takeMission": {
@@ -55,6 +55,11 @@
   "suggestedMissionsMessage": "בהתאם למשימה שלך, הנה עוד כמה משימות שאולי תוכל לקחת:",
   "@suggestedMissionsMessage": {
     "description": "טקסט עזר שמופיע בדיאלוג משימות מוצעות מעל הרשימה"
+  },
+
+  "km": "ק״מ",
+  "@km": {
+    "description": "קיצור קילומטרים לתצוגת מרחק נוסף"
   },
   "selectMission": "בחר משימה לצפייה בפרטים",
   "@selectMission": {
@@ -276,9 +281,9 @@
   "@destinationContact": {
     "description": "תווית איש קשר ביעד"
   },
-  "comments": "ההערות שלי",
+  "comments": "הערות",
   "@comments": {
-    "description": "תווית ההערות שלי"
+    "description": "תווית הערות"
   },
   "addComment": "הוסף הערה",
   "@addComment": {
@@ -295,6 +300,14 @@
   "deleteCommentConfirmation": "האם אתה בטוח שאתה רוצה למחוק את ההערה?",
   "@deleteCommentConfirmation": {
     "description": "הודעת מחק הערה"
+  },
+  "editComment": "ערוך הערה",
+  "@editComment": {
+    "description": "תווית ערוך הערה"
+  },
+  "editCommentTitle": "עריכת הערה",
+  "@editCommentTitle": {
+    "description": "כותרת דיאלוג עריכת הערה"
   },
   "carType": "סוג רכב",
   "@carType": {
@@ -405,5 +418,19 @@
   "quickActions": "פעולות מהירות",
   "contactUs": "צור קשר",
   "aboutUs": "אודותינו",
-  "helpFaq": "עזרה ומרכז מידע"
+  "helpFaq": "עזרה ומרכז מידע",
+  "additionOf": "תוספת של {distance} {unit}",
+  "@additionOf": {
+    "description": "טקסט למרחק נוסף בכרטיס משימה",
+    "placeholders": {
+      "distance": {
+        "type": "String",
+        "example": "5.2"
+      },
+      "unit": {
+        "type": "String",
+        "example": "ק״מ"
+    }
+    }
+  }
 }

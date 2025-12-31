@@ -182,6 +182,12 @@ abstract class AppLocalizations {
   /// **'Based on your mission, here are some other missions you may be able to take:'**
   String get suggestedMissionsMessage;
 
+  /// Kilometers abbreviation for additional distance display
+  ///
+  /// In en, this message translates to:
+  /// **'km'**
+  String get km;
+
   /// Subtitle for mission selection dialog
   ///
   /// In en, this message translates to:
@@ -512,10 +518,10 @@ abstract class AppLocalizations {
   /// **'Destination contact'**
   String get destinationContact;
 
-  /// My comments label
+  /// Comments label
   ///
   /// In en, this message translates to:
-  /// **'My comments'**
+  /// **'Comments'**
   String get comments;
 
   /// Add comment button text
@@ -541,6 +547,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to delete this comment?'**
   String get deleteCommentConfirmation;
+
+  /// Edit comment label
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Comment'**
+  String get editComment;
+
+  /// Title for edit comment dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Comment'**
+  String get editCommentTitle;
 
   /// Label for car type selection
   ///
@@ -733,6 +751,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Help & FAQ'**
   String get helpFaq;
+
+  /// Text for additional distance on mission card
+  ///
+  /// In en, this message translates to:
+  /// **'addition of {distance} {unit}'**
+  String additionOf(String distance, String unit);
 }
 
 class _AppLocalizationsDelegate

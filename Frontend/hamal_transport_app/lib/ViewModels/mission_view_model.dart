@@ -75,4 +75,10 @@ class MissionViewModel extends ChangeNotifier {
     mission.comments.removeAt(index);
     notifyListeners();
   }
+
+  void editComment(int index, String newComment) {
+    if (index < 0 || index >= mission.comments.length) return;
+    mission.comments[index] = newComment;
+    notifyListeners();
+  }
 }

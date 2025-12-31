@@ -52,6 +52,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Based on your mission, here are some other missions you may be able to take:';
 
   @override
+  String get km => 'km';
+
+  @override
   String get selectMission => 'Select a mission to view details';
 
   @override
@@ -170,7 +173,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get closestToFurthest => 'Closest firsts';
 
   @override
+  String get distanceFromYouClosest => 'Distance from you - closest first';
+
+  @override
   String get furthestToClosest => 'Furthest first';
+
+  @override
+  String get distanceFromYouFurthest => 'Distance from you - furthest first';
 
   @override
   String get newestToOldest => 'Newest first';
@@ -213,7 +222,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get destinationContact => 'Destination contact';
 
   @override
-  String get comments => 'My comments';
+  String get comments => 'Comments';
 
   @override
   String get addComment => 'Add comment';
@@ -227,6 +236,12 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get deleteCommentConfirmation =>
       'Are you sure you want to delete this comment?';
+
+  @override
+  String get editComment => 'Edit Comment';
+
+  @override
+  String get editCommentTitle => 'Edit Comment';
 
   @override
   String get carType => 'Car Type';
@@ -325,4 +340,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get helpFaq => 'Help & FAQ';
+
+  @override
+  String additionOf(String distance, String unit) {
+    return 'addition of $distance $unit';
+  }
 }

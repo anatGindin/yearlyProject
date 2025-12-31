@@ -23,6 +23,90 @@ class MissionsListsModel {
     }
   }
 
+  /// Returns up to [maxResults] missions with the highest heuristic scores,
+  /// along with the additional distance each mission would add.
+  ///
+  /// The heuristic uses ranking-based scoring:
+  /// - Mission age rank: older missions get higher ranks (higher urgency)
+  /// - Additional distance rank: missions that add less distance to the
+  ///   chosen mission route get higher ranks (more efficient)
+  ///
+  /// Additional distance = distance from mission.source to chosenMission.source
+  ///                     + distance from mission.destination to chosenMission.destination
+  ///
+  /// Final score is weighted average of ranks (1 to n scale).
+  static List<SuggestedMission> getTopSuggestedMissions(
+    List<Mission> missions, {
+    required Mission chosenMission,
+    int maxResults = 3,
+    double ageWeight = 0.3,
+    double additionalDistanceWeight = 0.7,
+  }) {
+    if (missions.isEmpty) return [];
+
+    final n = missions.length;
+
+    // Collect age and additional distance data for all missions
+    final missionData = <_MissionRankData>[];
+    for (final mission in missions) {
+      final ageInDays = DateTime.now().difference(mission.time).inDays.abs();
+
+      // Calculate additional distance using Haversine formula:
+      // Distance from mission source to chosen mission source
+      // + Distance from mission destination to chosen mission destination
+      final sourceToSourceKm =
+          mission.source.distanceTo(chosenMission.source);
+      final destToDestKm =
+          mission.destination.distanceTo(chosenMission.destination);
+      final additionalDistanceKm = sourceToSourceKm + destToDestKm;
+
+      missionData.add(
+        _MissionRankData(
+          mission: mission,
+          ageInDays: ageInDays,
+          additionalDistanceKm: additionalDistanceKm,
+        ),
+      );
+    }
+
+    // Rank by age (oldest first gets highest rank = n)
+    final byAge = List<_MissionRankData>.from(missionData)
+      ..sort((a, b) => b.ageInDays.compareTo(a.ageInDays));
+    for (var i = 0; i < byAge.length; i++) {
+      byAge[i].ageRank = n - i;
+    }
+
+    // Rank by additional distance (shortest first gets highest rank = n)
+    final byAdditionalDistance = List<_MissionRankData>.from(missionData)
+      ..sort(
+        (a, b) => a.additionalDistanceKm.compareTo(b.additionalDistanceKm),
+      );
+    for (var i = 0; i < byAdditionalDistance.length; i++) {
+      byAdditionalDistance[i].additionalDistanceRank = n - i;
+    }
+
+    // Calculate weighted score from ranks
+    for (final data in missionData) {
+      data.score =
+          data.ageRank * ageWeight +
+          data.additionalDistanceRank * additionalDistanceWeight;
+    }
+
+    // Sort by score descending
+    missionData.sort((a, b) => b.score.compareTo(a.score));
+
+    // Return top results with additional distance info
+    return missionData
+        .take(maxResults)
+        .map(
+          (d) => SuggestedMission(
+            mission: d.mission,
+            additionalDistanceKm: d.additionalDistanceKm,
+          ),
+        )
+        .toList();
+  }
+
   static Comparator<Mission> getSortComperator(
     SortBy sortBy, {
     Location? userLocation,
@@ -119,3 +203,30 @@ enum SortBy {
 }
 
 enum FilterBy { noFilter, chosenOnly, pickedUpOnly }
+
+/// Represents a suggested mission with its additional distance.
+class SuggestedMission {
+  final Mission mission;
+  final double additionalDistanceKm;
+
+  SuggestedMission({
+    required this.mission,
+    required this.additionalDistanceKm,
+  });
+}
+
+/// Helper class to store mission data for ranking-based scoring.
+class _MissionRankData {
+  final Mission mission;
+  final int ageInDays;
+  final double additionalDistanceKm;
+  int ageRank = 0;
+  int additionalDistanceRank = 0;
+  double score = 0;
+
+  _MissionRankData({
+    required this.mission,
+    required this.ageInDays,
+    required this.additionalDistanceKm,
+  });
+}
