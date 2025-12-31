@@ -104,24 +104,6 @@ abstract class AppLocalizations {
   /// **'Hamal Transport'**
   String get appTitle;
 
-  /// Label above the counter that explains what the number means
-  ///
-  /// In en, this message translates to:
-  /// **'You have pushed the button this many times:'**
-  String get counterText;
-
-  /// Tooltip for the floating action button that increments the counter
-  ///
-  /// In en, this message translates to:
-  /// **'Increment'**
-  String get incrementTooltip;
-
-  /// Button to open available tasks
-  ///
-  /// In en, this message translates to:
-  /// **'Open Tasks'**
-  String get openTasks;
-
   /// Title of active missions list
   ///
   /// In en, this message translates to:
@@ -139,12 +121,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Call Hamal'**
   String get callDesk;
-
-  /// Message in call desk dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Call Hamal'**
-  String get callDeskMessage;
 
   /// Close button
   ///
@@ -248,12 +224,6 @@ abstract class AppLocalizations {
   /// **'Available'**
   String get available;
 
-  /// Status update message
-  ///
-  /// In en, this message translates to:
-  /// **'Status updated to: '**
-  String get statusUpdated;
-
   /// Message when mission is taken
   ///
   /// In en, this message translates to:
@@ -302,29 +272,11 @@ abstract class AppLocalizations {
   /// **'Reset Password'**
   String get resetPassword;
 
-  /// Generic login error message
-  ///
-  /// In en, this message translates to:
-  /// **'Login failed'**
-  String get loginError;
-
   /// Generic sign up error message
   ///
   /// In en, this message translates to:
   /// **'Sign up failed'**
   String get signupError;
-
-  /// Text prompting user to sign up
-  ///
-  /// In en, this message translates to:
-  /// **'Don\'t have an account?'**
-  String get dontHaveAccount;
-
-  /// Text prompting user to login
-  ///
-  /// In en, this message translates to:
-  /// **'Already have an account?'**
-  String get alreadyHaveAccount;
 
   /// Full Name input label
   ///
@@ -380,12 +332,6 @@ abstract class AppLocalizations {
   /// **'The email address is not valid.'**
   String get invalidEmail;
 
-  /// Error message when user does not exist
-  ///
-  /// In en, this message translates to:
-  /// **'No user found for that email.'**
-  String get userNotFound;
-
   /// Error message for incorrect password
   ///
   /// In en, this message translates to:
@@ -409,12 +355,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Remember me'**
   String get rememberMe;
-
-  /// Label for role selection dropdown
-  ///
-  /// In en, this message translates to:
-  /// **'Select your role'**
-  String get selectRole;
 
   /// Title for role
   ///
@@ -440,12 +380,6 @@ abstract class AppLocalizations {
   /// **'Admin'**
   String get admin;
 
-  /// Validation error when role is not selected
-  ///
-  /// In en, this message translates to:
-  /// **'Please select a role'**
-  String get roleRequired;
-
   /// Title for under construction page
   ///
   /// In en, this message translates to:
@@ -463,12 +397,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logout'**
   String get logout;
-
-  /// Title for user profile page
-  ///
-  /// In en, this message translates to:
-  /// **'Profile Page'**
-  String get profileTitle;
 
   /// Sort By button text
   ///
@@ -577,12 +505,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'My comments'**
   String get comments;
-
-  /// Message when there are no comments
-  ///
-  /// In en, this message translates to:
-  /// **'There are no comments'**
-  String get noComments;
 
   /// Add comment button text
   ///
