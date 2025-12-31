@@ -170,7 +170,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get closestToFurthest => 'Closest firsts';
 
   @override
+  String get distanceFromYouClosest => 'Distance from you - closest first';
+
+  @override
   String get furthestToClosest => 'Furthest first';
+
+  @override
+  String get distanceFromYouFurthest => 'Distance from you - furthest first';
 
   @override
   String get newestToOldest => 'Newest first';
