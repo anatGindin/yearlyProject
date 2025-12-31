@@ -47,37 +47,57 @@ class AccountInfoDetailsView extends StatelessWidget {
               InfoRow(
                 icon: Icons.person,
                 label: l10n.name,
-                value: vm.name,
-                theme: theme,
+                child: Text(
+                  vm.name,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
               const Divider(),
               InfoRow(
                 icon: Icons.email,
                 label: l10n.email,
-                value: vm.email,
-                theme: theme,
+                child: Text(
+                  vm.email,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
               const Divider(),
               InfoRow(
                 icon: Icons.phone,
                 label: l10n.phone,
-                value: vm.phone,
-                theme: theme,
+                child: Text(
+                  vm.phone,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
               const Divider(),
               InfoRow(
                 icon: Icons.work,
                 label: l10n.role,
-                value: vm.role(l10n),
-                theme: theme,
+                child: Text(
+                  vm.role(l10n),
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
               if (vm.isDriver) const Divider(),
               if (vm.isDriver)
                 InfoRow(
                   icon: vm.driverProfileExtension!.carTypeIcon(),
                   label: l10n.carType,
-                  value: vm.driverProfileExtension!.carType(l10n),
-                  theme: theme,
+                  child: Text(
+                    vm.driverProfileExtension!.carType(l10n),
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ),
             ],
           ),

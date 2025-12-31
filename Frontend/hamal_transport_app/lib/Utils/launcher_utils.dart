@@ -46,4 +46,15 @@ class LauncherUtils {
       return false;
     }
   }
+
+  /// Launch the browser with the given URL.
+  /// Returns true if the browser was opened, false otherwise.
+  static Future<bool> launchBrowser(String url) async {
+    final uri = Uri.parse(url);
+    try {
+      return await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } catch (e) {
+      return false;
+    }
+  }
 }

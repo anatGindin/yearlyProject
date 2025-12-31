@@ -60,17 +60,22 @@ class MissionCommentsTile extends StatelessWidget {
                 );
               }),
             ],
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButton.icon(
-                  onPressed: () {
-                    _showAddCommentDialog(context);
-                  },
-                  icon: const Icon(Icons.add_comment),
-                  label: Text(l10n.addComment),
-                ),
-              ],
+
+            GestureDetector(
+              onTap: () {
+                _showAddCommentDialog(context);
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Icon(
+                    Icons.add_comment,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(l10n.addComment),
+                ],
+              ),
             ),
           ],
         ),
