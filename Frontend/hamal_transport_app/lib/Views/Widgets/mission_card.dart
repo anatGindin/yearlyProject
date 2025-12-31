@@ -25,21 +25,46 @@ class MissionCard extends StatelessWidget {
         children: [
           SourceDestination(mission: mission),
           const SizedBox(height: 8),
-          Text(
-            mission.description,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              fontStyle: FontStyle.italic,
-              color: Theme.of(
-                context,
-              ).textTheme.bodyMedium!.color!.withValues(alpha: 0.5),
-            ),
+          Row(
+            children: [
+              Icon(
+                Icons.info,
+                color: Theme.of(
+                  context,
+                ).textTheme.bodyMedium!.color!.withValues(alpha: 0.5),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                mission.description,
+                softWrap: true,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  fontStyle: FontStyle.italic,
+                  color: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium!.color!.withValues(alpha: 0.5),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 8),
           Row(
             children: [
-              const Icon(Icons.today),
+              Icon(
+                Icons.today,
+                color: Theme.of(
+                  context,
+                ).textTheme.bodyMedium!.color!.withValues(alpha: 0.5),
+              ),
               const SizedBox(width: 8),
-              Text(DateFormat.yMEd(l10n.localeName).format(mission.time)),
+              Text(
+                DateFormat.yMEd(l10n.localeName).format(mission.time),
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  fontStyle: FontStyle.italic,
+                  color: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium!.color!.withValues(alpha: 0.5),
+                ),
+              ),
             ],
           ),
         ],
