@@ -751,6 +751,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Help & FAQ'**
   String get helpFaq;
+
+  /// Text for additional distance on mission card
+  ///
+  /// In en, this message translates to:
+  /// **'addition of {distance} {unit}'**
+  String additionOf(String distance, String unit);
 }
 
 class _AppLocalizationsDelegate

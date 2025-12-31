@@ -417,5 +417,19 @@
   "quickActions": "Quick Actions",
   "contactUs": "Contact Us",
   "aboutUs": "About Us",
-  "helpFaq": "Help & FAQ"
+  "helpFaq": "Help & FAQ",
+  "additionOf": "addition of {distance} {unit}",
+  "@additionOf": {
+    "description": "Text for additional distance on mission card",
+    "placeholders": {
+      "distance": {
+        "type": "String",
+        "example": "5.2"
+      },
+      "unit": {
+        "type": "String",
+        "example": "km"
+      }
+    }
+  }
 }

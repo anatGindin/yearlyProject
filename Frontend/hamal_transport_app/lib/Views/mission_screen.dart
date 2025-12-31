@@ -4,7 +4,7 @@ import 'package:hamal_transport_app/ViewModels/missions_coordinator_view_model.d
 import 'package:hamal_transport_app/ViewModels/available_missions_view_model.dart';
 import 'package:hamal_transport_app/Views/Widgets/comments_list_view.dart';
 import 'package:hamal_transport_app/Views/Widgets/source_destination.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 import 'package:provider/provider.dart';
 import '../Models/mission.dart';
 import '../Models/missions_model.dart';
@@ -251,35 +251,15 @@ class _MissionScreenState extends State<MissionScreen> {
                               final additionalKm = suggested
                                   .additionalDistanceKm
                                   .toStringAsFixed(1);
+                              final isRtl = Directionality.of(context);
+                              final arrow = isRtl == TextDirection.rtl
+                                  ? '←'
+                                  : '→';
                               return Card(
-                                margin: const EdgeInsets.symmetric(vertical: 4),
-                                child: ListTile(
-                                  title: Text(
-                                    '${mission.source.name} → ${mission.destination.name}',
-                                    style: const TextStyle(fontSize: 14),
-                                  ),
-                                  subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        mission.description,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        '+$additionalKm ${l10n.km}',
-                                        style: TextStyle(
-                                          color: Theme.of(
-                                            context,
-                                          ).colorScheme.primary,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  trailing: const Icon(Icons.arrow_forward),
+                                elevation: 2,
+                                margin: const EdgeInsets.symmetric(vertical: 8),
+                                clipBehavior: Clip.hardEdge,
+                                child: InkWell(
                                   onTap: () {
                                     Navigator.of(dialogContext).pop();
                                     Navigator.of(context).push(
@@ -289,6 +269,48 @@ class _MissionScreenState extends State<MissionScreen> {
                                       ),
                                     );
                                   },
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      ListTile(
+                                        title: Text(
+                                          '${mission.source.name} $arrow ${mission.destination.name}',
+                                          style: const TextStyle(fontSize: 14),
+                                        ),
+                                        subtitle: Text(
+                                          mission.description,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        trailing: const Icon(
+                                          Icons.arrow_forward,
+                                        ),
+                                      ),
+                                      Container(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.secondaryContainer,
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 8,
+                                          horizontal: 16,
+                                        ),
+                                        child: Text(
+                                          l10n.additionOf(
+                                            additionalKm,
+                                            l10n.km,
+                                          ),
+                                          style: TextStyle(
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSurface,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               );
                             },

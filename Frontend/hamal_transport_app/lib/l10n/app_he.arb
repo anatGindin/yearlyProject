@@ -418,5 +418,19 @@
   "quickActions": "פעולות מהירות",
   "contactUs": "צור קשר",
   "aboutUs": "אודותינו",
-  "helpFaq": "עזרה ומרכז מידע"
+  "helpFaq": "עזרה ומרכז מידע",
+  "additionOf": "תוספת של {distance} {unit}",
+  "@additionOf": {
+    "description": "טקסט למרחק נוסף בכרטיס משימה",
+    "placeholders": {
+      "distance": {
+        "type": "String",
+        "example": "5.2"
+      },
+      "unit": {
+        "type": "String",
+        "example": "ק״מ"
+    }
+    }
+  }
 }

@@ -339,4 +339,9 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get helpFaq => 'עזרה ומרכז מידע';
+
+  @override
+  String additionOf(String distance, String unit) {
+    return 'תוספת של $distance $unit';
+  }
 }
