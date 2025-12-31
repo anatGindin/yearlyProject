@@ -3,15 +3,13 @@ import 'package:flutter/material.dart';
 class InfoRow extends StatelessWidget {
   final IconData icon;
   final String label;
-  final String value;
-  final ThemeData theme;
+  final Widget child;
 
   const InfoRow({
     super.key,
     required this.icon,
     required this.label,
-    required this.value,
-    required this.theme,
+    required this.child,
   });
 
   @override
@@ -23,30 +21,20 @@ class InfoRow extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(
-                icon,
-                color: theme.colorScheme.primary,
-                size: 16,
-                textDirection: TextDirection.ltr,
-              ),
+              Icon(icon, size: 16, textDirection: TextDirection.ltr),
               const SizedBox(width: 8),
               Text(
                 label,
-                style: theme.textTheme.labelMedium?.copyWith(
-                  color: theme.colorScheme.outline,
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.outline,
                 ),
               ),
             ],
           ),
           const SizedBox(height: 4),
           Padding(
-            padding: const EdgeInsets.only(left: 24),
-            child: Text(
-              value,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: child,
           ),
         ],
       ),

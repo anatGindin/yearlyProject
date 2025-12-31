@@ -4,65 +4,72 @@ import 'package:hamal_transport_app/ViewModels/available_missions_view_model.dar
 import 'package:hamal_transport_app/Views/Widgets/list_action_button.dart';
 import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
-import 'mission_screen.dart';
+import 'Widgets/mission_list_view.dart';
 
 /// New Mission page now shows the list of available missions (Open Tasks)
-class NewMissionPage extends StatelessWidget {
-  const NewMissionPage({super.key});
+class NewMissionsBody extends StatelessWidget {
+  const NewMissionsBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.availableMissions)),
       body: Consumer<AvailableMissionsViewModel>(
         builder: (context, availableMissionsVM, _) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              ListActionButton(
-                icon: Icons.sort,
-                label:
-                    '${l10n.sortBy}: ${availableMissionsVM.getSortBy(context)}',
-                onPressed: () => _showSortOptions(context),
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 2.0,
+                bottom: 2.0,
+                left: 2.0,
+                right: 2.0,
               ),
-              ListActionButton(
-                icon: Icons.filter_alt,
-                label:
-                    '${l10n.filterBy}: ${availableMissionsVM.getFilterBy(context)}',
-                onPressed: () => _showFilterOptions(context),
-              ),
-              Expanded(
-                child: ListView.separated(
-                  padding: const EdgeInsets.all(12),
-                  itemCount: availableMissionsVM.availableMissions.length,
-                  separatorBuilder: (_, _) => const SizedBox(height: 8),
-                  itemBuilder: (context, index) {
-                    final m = availableMissionsVM.availableMissions[index];
-                    return Card(
-                      child: ListTile(
-                        title: Text(
-                          '${m.source.name}\r\n${m.destination.name}',
-                          textAlign: TextAlign.right,
+              child: Scrollbar(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 12),
+                      SizedBox(
+                        height: 60,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.43,
+                                child: ListActionButton(
+                                  icon: Icons.sort,
+                                  label: availableMissionsVM.getSortBy(context),
+                                  onPressed: () => _showSortOptions(context),
+                                ),
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.43,
+                                child: ListActionButton(
+                                  icon: Icons.filter_alt,
+                                  label: availableMissionsVM.getFilterBy(
+                                    context,
+                                  ),
+                                  onPressed: () => _showFilterOptions(context),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        subtitle: Text(
-                          m.description,
-                          textAlign: TextAlign.right,
-                        ),
-                        trailing: const Icon(Icons.chevron_right),
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (_) => MissionScreen(mission: m),
-                            ),
-                          );
-                        },
                       ),
-                    );
-                  },
+                      const SizedBox(height: 30),
+                      MissionListView(
+                        missions: availableMissionsVM.availableMissions,
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.2,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ],
+            ),
           );
         },
       ),

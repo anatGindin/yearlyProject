@@ -102,9 +102,9 @@ class MissionsListsModel {
       case FilterBy.noFilter:
         return l10n.noFilter;
       case FilterBy.chosenOnly:
-        return l10n.chosenFilter;
+        return l10n.menuChosenFilter;
       case FilterBy.pickedUpOnly:
-        return l10n.pickedUpFilter;
+        return l10n.menuPickedUpFilter;
     }
   }
 }

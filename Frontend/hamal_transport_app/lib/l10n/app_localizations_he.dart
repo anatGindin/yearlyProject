@@ -12,25 +12,13 @@ class AppLocalizationsHe extends AppLocalizations {
   String get appTitle => 'אפליקציית שינוע';
 
   @override
-  String get counterText => 'לחצת על הכפתור מספר פעמים:';
-
-  @override
-  String get incrementTooltip => 'הגדל';
-
-  @override
-  String get openTasks => 'משימות פתוחות';
-
-  @override
-  String get activeMissions => 'משימות פעילות ומתוכננות';
+  String get activeMissions => 'משימות פעילות';
 
   @override
   String get availableMissions => 'משימות זמינות';
 
   @override
   String get callDesk => 'התקשר לחמ\"ל';
-
-  @override
-  String get callDeskMessage => 'התקשר לחמ\"ל';
 
   @override
   String get close => 'סגור';
@@ -42,7 +30,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get contact => 'איש קשר: ';
 
   @override
-  String get time => 'מועד: ';
+  String get time => 'מועד';
 
   @override
   String get mission => 'משימה';
@@ -85,9 +73,6 @@ class AppLocalizationsHe extends AppLocalizations {
   String get available => 'זמין';
 
   @override
-  String get statusUpdated => 'סטטוס עודכן ל: ';
-
-  @override
   String get missionTaken => 'המשימה נבחרה';
 
   @override
@@ -112,16 +97,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get resetPassword => 'אפס סיסמה';
 
   @override
-  String get loginError => 'התחברות נכשלה';
-
-  @override
   String get signupError => 'הרשמה נכשלה';
-
-  @override
-  String get dontHaveAccount => 'אין לך חשבון?';
-
-  @override
-  String get alreadyHaveAccount => 'יש לך כבר חשבון?';
 
   @override
   String get name => 'שם מלא';
@@ -152,9 +128,6 @@ class AppLocalizationsHe extends AppLocalizations {
   String get invalidEmail => 'כתובת האימייל אינה תקינה.';
 
   @override
-  String get userNotFound => 'לא נמצא משתמש עם האימייל הזה.';
-
-  @override
   String get wrongPassword => 'כתובת האימייל או הסיסמה שגויה.';
 
   @override
@@ -165,9 +138,6 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get rememberMe => 'זכור אותי';
-
-  @override
-  String get selectRole => 'בחר תפקיד';
 
   @override
   String get role => 'תפקיד';
@@ -182,9 +152,6 @@ class AppLocalizationsHe extends AppLocalizations {
   String get admin => 'מנהל';
 
   @override
-  String get roleRequired => 'יש לבחור תפקיד';
-
-  @override
   String get underConstruction => 'בבנייה';
 
   @override
@@ -192,9 +159,6 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get logout => 'התנתק';
-
-  @override
-  String get profileTitle => 'פרופיל אישי';
 
   @override
   String get sortBy => 'סדר';
@@ -224,10 +188,16 @@ class AppLocalizationsHe extends AppLocalizations {
   String get noFilter => 'כל המשימות';
 
   @override
-  String get chosenFilter => 'משימות בסטטוס \'נבחר\'';
+  String get menuChosenFilter => 'נבחרו';
 
   @override
-  String get pickedUpFilter => 'משימות בסטטוס \'נאסף\'';
+  String get menuPickedUpFilter => 'נאספו';
+
+  @override
+  String get chosenFilter => 'משימות שנבחרו';
+
+  @override
+  String get pickedUpFilter => 'משימות שנאספו';
 
   @override
   String get cancellationReason => 'סיבת ביטול';
@@ -249,9 +219,6 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get comments => 'ההערות שלי';
-
-  @override
-  String get noComments => 'אין הערות להציג';
 
   @override
   String get addComment => 'הוסף הערה';

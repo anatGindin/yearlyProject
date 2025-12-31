@@ -16,9 +16,13 @@ class MissionListView extends StatelessWidget {
       return Center(child: Text(l10n.noMissions));
     }
     return ListView.separated(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
       itemCount: missions.length,
-      separatorBuilder: (_, _) => const SizedBox(height: 8),
-      itemBuilder: (context, index) => MissionCard(mission: missions[index]),
+      separatorBuilder: (_, _) => const SizedBox(height: 30),
+      itemBuilder: (context, index) {
+        return MissionCard(mission: missions[index]);
+      },
     );
   }
 }

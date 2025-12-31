@@ -4,19 +4,7 @@
   "@appTitle": {
     "description": "כותרת האפליקציה שמופיעה בסרגל העליון"
   },
-  "counterText": "לחצת על הכפתור מספר פעמים:",
-  "@counterText": {
-    "description": "תווית מעל המונה שמסבירה מה המספר מייצג"
-  },
-  "incrementTooltip": "הגדל",
-  "@incrementTooltip": {
-    "description": "טקסט עזרה עבור כפתור הפעולה שמעלה את המונה"
-  },
-  "openTasks": "משימות פתוחות",
-  "@openTasks": {
-    "description": "כפתור לפתיחת משימות זמינות"
-  },
-  "activeMissions": "משימות פעילות ומתוכננות",
+  "activeMissions": "משימות פעילות",
   "@activeMissions": {
     "description": "כותרת רשימת המשימות הפעילות"
   },
@@ -27,10 +15,6 @@
   "callDesk": "התקשר לחמ\"ל",
   "@callDesk": {
     "description": "כותרת דיאלוג קריאה לדסק"
-  },
-  "callDeskMessage": "התקשר לחמ\"ל",
-  "@callDeskMessage": {
-    "description": "הודעה בדיאלוג קריאה לדסק"
   },
   "close": "סגור",
   "@close": {
@@ -44,7 +28,7 @@
   "@contact": {
     "description": "תווית איש קשר"
   },
-  "time": "מועד: ",
+  "time": "מועד",
   "@time": {
     "description": "תווית זמן"
   },
@@ -100,10 +84,6 @@
   "@available": {
     "description": "סטטוס משימה - זמין"
   },
-  "statusUpdated": "סטטוס עודכן ל: ",
-  "@statusUpdated": {
-    "description": "הודעת עדכון סטטוס"
-  },
   "missionTaken": "המשימה נבחרה",
   "@missionTaken": {
     "description": "הודעה כשמשימה נבחרה"
@@ -136,21 +116,9 @@
   "@resetPassword": {
     "description": "כותרת דיאלוג איפוס סיסמה"
   },
-  "loginError": "התחברות נכשלה",
-  "@loginError": {
-    "description": "שגיאת התחברות כללית"
-  },
   "signupError": "הרשמה נכשלה",
   "@signupError": {
     "description": "שגיאת הרשמה כללית"
-  },
-  "dontHaveAccount": "אין לך חשבון?",
-  "@dontHaveAccount": {
-    "description": "טקסט המציע למשתמש להירשם"
-  },
-  "alreadyHaveAccount": "יש לך כבר חשבון?",
-  "@alreadyHaveAccount": {
-    "description": "טקסט המציע למשתמש להתחבר"
   },
   "name": "שם מלא",
   "@name": {
@@ -188,10 +156,6 @@
   "@invalidEmail": {
     "description": "שגיאה על פורמט אימייל שגוי"
   },
-  "userNotFound": "לא נמצא משתמש עם האימייל הזה.",
-  "@userNotFound": {
-    "description": "שגיאה כשלא קיים משתמש"
-  },
   "wrongPassword": "כתובת האימייל או הסיסמה שגויה.",
   "@wrongPassword": {
     "description": "שגיאה על סיסמה לא נכונה"
@@ -208,13 +172,9 @@
   "@rememberMe": {
     "description": "תווית לתיבת סימון זכור אותי"
   },
-  "selectRole": "בחר תפקיד",
-  "@selectRole": {
-    "description": "תווית לבחירת תפקיד"
-  },
-  "role":"תפקיד",
+  "role": "תפקיד",
   "@role": {
-  "description": "כותרת לתפקיד"
+    "description": "כותרת לתפקיד"
   },
   "driver": "נהג",
   "@driver": {
@@ -225,12 +185,8 @@
     "description": "אפשרות תפקיד צוות לוגיסטיקה"
   },
   "admin": "מנהל",
-    "@admin": {
-      "description": "אפשרות תפקיד מנהל"
-      },
-  "roleRequired": "יש לבחור תפקיד",
-  "@roleRequired": {
-    "description": "שגיאת אימות כשלא נבחר תפקיד"
+  "@admin": {
+    "description": "אפשרות תפקיד מנהל"
   },
   "underConstruction": "בבנייה",
   "@underConstruction": {
@@ -244,10 +200,6 @@
   "@logout": {
     "description": "כפתור התנתקות"
   },
-  "profileTitle": "פרופיל אישי",
-  "@profileTitle":{
-  "description":"כותרת לעמוד פרופיל משתמש"},
-
   "sortBy": "סדר",
   "@sortBy": {
     "description": "כפתור מיון רשימה"
@@ -284,11 +236,19 @@
   "@noFilter": {
     "description": "אפשרות סינון - הצג את כל המשימות"
   },
-  "chosenFilter": "משימות בסטטוס 'נבחר'",
+  "menuChosenFilter": "נבחרו",
+  "@menuChosenFilter": {
+    "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
+  },
+  "menuPickedUpFilter": "נאספו",
+  "@menuPickedUpFilter": {
+    "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
+  },
+  "chosenFilter": "משימות שנבחרו",
   "@chosenFilter": {
     "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
   },
-  "pickedUpFilter": "משימות בסטטוס 'נאסף'",
+  "pickedUpFilter": "משימות שנאספו",
   "@pickedUpFilter": {
     "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
   },
@@ -319,10 +279,6 @@
   "comments": "ההערות שלי",
   "@comments": {
     "description": "תווית ההערות שלי"
-  },
-  "noComments": "אין הערות להציג",
-  "@noComments": {
-    "description": "הודעה כשאין הערות"
   },
   "addComment": "הוסף הערה",
   "@addComment": {
@@ -375,7 +331,7 @@
   "calculatingRoute": "מחשב מסלול...",
   "@calculatingRoute": {
     "description": "הודעה המוצגת בזמן חישוב מסלול"
-},
+  },
   "resetPasswordNotice": "הזן את כתובת האימייל שלך ונשלח לך קישור לאיפוס הסיסמה.",
   "@resetPasswordNotice": {
     "description": "טקסט הסבר בדף שכחתי סיסמה"

@@ -10,6 +10,7 @@ import 'UserMenu/edit_profile_view.dart';
 
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({super.key});
+
   @override
   createState() => _UserProfilePageState();
 }
@@ -49,14 +50,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 right: 0,
                 child: Container(
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomRight,
-                      end: Alignment.topLeft,
-                      colors: [
-                        theme.colorScheme.secondary,
-                        theme.colorScheme.secondaryContainer,
-                      ],
-                    ),
+                    color: Theme.of(context).colorScheme.primaryContainer,
                   ),
                   height: 350,
                   child: Stack(
@@ -82,15 +76,12 @@ class _UserProfilePageState extends State<UserProfilePage> {
                             Text(
                               userProfileVM.name,
                               style: theme.textTheme.headlineMedium?.copyWith(
-                                color: theme.colorScheme.onSecondary,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
                               userProfileVM.email,
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                color: theme.colorScheme.onSecondary,
-                              ),
+                              style: theme.textTheme.bodyMedium,
                             ),
                           ],
                         ),
