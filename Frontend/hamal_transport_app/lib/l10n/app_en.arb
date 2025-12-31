@@ -260,9 +260,17 @@
   "@closestToFurthest": {
     "description": "Sort option - Distance: closest to furthest"
   },
+  "distanceFromYouClosest": "Distance from you - closest first",
+  "@distanceFromYouClosest": {
+    "description": "Sort option - Distance from your current location: closest to furthest"
+  },
   "furthestToClosest": "Furthest to closest",
   "@furthestToClosest": {
     "description": "Sort option - Distance: Furthest to closest"
+  },
+  "distanceFromYouFurthest": "Distance from you - furthest first",
+  "@distanceFromYouFurthest": {
+    "description": "Sort option - Distance from your current location: furthest to closest"
   },
   "newestToOldest": "Newest to oldest",
   "@newestToOldest": {

@@ -1,28 +1,16 @@
-import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Models/missions_model.dart';
+import 'base/missions_view_model_base.dart';
 
-class MyMissionsViewModel extends ChangeNotifier {
+class MyMissionsViewModel extends MissionsViewModelBase {
   final MissionsListsModel _model;
-  SortBy _sortBy = SortBy.timeNewestFirst;
-  FilterBy _filterBy = FilterBy.noFilter;
 
   MyMissionsViewModel(this._model);
 
-  List<Mission> get myMissions {
-    return _model.myMissionsList
-        .where(MissionsListsModel.getFilterFunction(_filterBy))
-        .toList()
-      ..sort(MissionsListsModel.getSortComperator(_sortBy));
-  }
+  @override
+  List<Mission> get sourceList => _model.myMissionsList;
 
-  String getSortBy(BuildContext context) {
-    return MissionsListsModel.getSortBy(context, _sortBy);
-  }
-
-  String getFilterBy(BuildContext context) {
-    return MissionsListsModel.getFilterBy(context, _filterBy);
-  }
+  List<Mission> get myMissions => missions;
 
   void add(Mission mission) {
     _model.myMissionsList.add(mission);
@@ -31,16 +19,6 @@ class MyMissionsViewModel extends ChangeNotifier {
 
   void remove(Mission mission) {
     _model.myMissionsList.remove(mission);
-    notifyListeners();
-  }
-
-  void sortBy(SortBy sortByOption) {
-    _sortBy = sortByOption;
-    notifyListeners();
-  }
-
-  void filterBy(FilterBy filterByOption) {
-    _filterBy = filterByOption;
     notifyListeners();
   }
 
