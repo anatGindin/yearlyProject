@@ -512,10 +512,10 @@ abstract class AppLocalizations {
   /// **'Destination contact'**
   String get destinationContact;
 
-  /// My comments label
+  /// Comments label
   ///
   /// In en, this message translates to:
-  /// **'My comments'**
+  /// **'Comments'**
   String get comments;
 
   /// Add comment button text
@@ -541,6 +541,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to delete this comment?'**
   String get deleteCommentConfirmation;
+
+  /// Edit comment label
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Comment'**
+  String get editComment;
+
+  /// Title for edit comment dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Comment'**
+  String get editCommentTitle;
 
   /// Label for car type selection
   ///

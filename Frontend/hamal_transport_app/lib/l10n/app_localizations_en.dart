@@ -219,7 +219,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get destinationContact => 'Destination contact';
 
   @override
-  String get comments => 'My comments';
+  String get comments => 'Comments';
 
   @override
   String get addComment => 'Add comment';
@@ -233,6 +233,12 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get deleteCommentConfirmation =>
       'Are you sure you want to delete this comment?';
+
+  @override
+  String get editComment => 'Edit Comment';
+
+  @override
+  String get editCommentTitle => 'Edit Comment';
 
   @override
   String get carType => 'Car Type';

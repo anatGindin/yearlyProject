@@ -40,9 +40,9 @@
   "@updateStatus": {
     "description": "כפתור עדכון סטטוס"
   },
-  "navigateWaze": "נווט ב-Waze",
+  "navigateWaze": "נווט",
   "@navigateWaze": {
-    "description": "כפתור ניווט ב-Waze"
+    "description": "כפתור הפניה לניווט"
   },
   "takeMission": "קח משימה",
   "@takeMission": {
@@ -276,9 +276,9 @@
   "@destinationContact": {
     "description": "תווית איש קשר ביעד"
   },
-  "comments": "ההערות שלי",
+  "comments": "הערות",
   "@comments": {
-    "description": "תווית ההערות שלי"
+    "description": "תווית הערות"
   },
   "addComment": "הוסף הערה",
   "@addComment": {
@@ -295,6 +295,14 @@
   "deleteCommentConfirmation": "האם אתה בטוח שאתה רוצה למחוק את ההערה?",
   "@deleteCommentConfirmation": {
     "description": "הודעת מחק הערה"
+  },
+  "editComment": "ערוך הערה",
+  "@editComment": {
+    "description": "תווית ערוך הערה"
+  },
+  "editCommentTitle": "עריכת הערה",
+  "@editCommentTitle": {
+    "description": "כותרת דיאלוג עריכת הערה"
   },
   "carType": "סוג רכב",
   "@carType": {

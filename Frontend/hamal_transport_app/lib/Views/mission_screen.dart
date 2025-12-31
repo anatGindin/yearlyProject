@@ -104,7 +104,7 @@ class _MissionScreenState extends State<MissionScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 28),
+                    const SizedBox(height: 16),
                     MissionCommentsTile(missionViewModel: missionVM),
                   ],
                 ),
