@@ -13,59 +13,54 @@ class ActiveMissionsBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final myMissionsVM = context.watch<MyMissionsViewModel>();
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primaryContainer,
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.only(
-              top: 2.0,
-              bottom: 2.0,
-              left: 2.0,
-              right: 2.0,
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 12),
-                  SizedBox(
-                    height: 60,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.43,
-                            child: ListActionButton(
-                              icon: Icons.sort,
-                              label: myMissionsVM.getSortBy(context),
-                              onPressed: () => _showSortOptions(context),
-                            ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            top: 2.0,
+            bottom: 2.0,
+            left: 2.0,
+            right: 2.0,
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 12),
+                SizedBox(
+                  height: 60,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.43,
+                          child: ListActionButton(
+                            icon: Icons.sort,
+                            label: myMissionsVM.getSortBy(context),
+                            onPressed: () => _showSortOptions(context),
                           ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.43,
-                            child: ListActionButton(
-                              icon: Icons.filter_alt,
-                              label: myMissionsVM.getFilterBy(context),
-                              onPressed: () => _showFilterOptions(context),
-                            ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.43,
+                          child: ListActionButton(
+                            icon: Icons.filter_alt,
+                            label: myMissionsVM.getFilterBy(context),
+                            onPressed: () => _showFilterOptions(context),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 30),
+                ),
+                const SizedBox(height: 30),
 
-                  MissionListView(missions: myMissionsVM.myMissions),
-                  // const SizedBox(height: 30),
-                  // const NewMissionCard(),
-                  // spacing to keep list above buttons
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.2),
-                ],
-              ),
+                MissionListView(missions: myMissionsVM.myMissions),
+                // const SizedBox(height: 30),
+                // const NewMissionCard(),
+                // spacing to keep list above buttons
+                SizedBox(height: MediaQuery.of(context).size.height * 0.2),
+              ],
             ),
           ),
         ),

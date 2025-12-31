@@ -24,7 +24,6 @@ abstract final class AppTheme {
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppTheme._hamalBlue,
       primary: _hamalBlue,
-      surfaceContainer: Colors.white,
       primaryContainer: const Color.fromRGBO(221, 239, 255, 1.0),
       secondary: _happyBlue,
       tertiary: const Color.fromRGBO(0xE8, 0xF5, 0xFA, 1.0),

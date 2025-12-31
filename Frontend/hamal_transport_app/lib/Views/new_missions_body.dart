@@ -15,24 +15,20 @@ class NewMissionsBody extends StatelessWidget {
     return Scaffold(
       body: Consumer<AvailableMissionsViewModel>(
         builder: (context, availableMissionsVM, _) {
-          return Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer,
-            ),
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  top: 2.0,
-                  bottom: 2.0,
-                  left: 2.0,
-                  right: 2.0,
-                ),
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 2.0,
+                bottom: 2.0,
+                left: 2.0,
+                right: 2.0,
+              ),
+              child: Scrollbar(
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const SizedBox(height: 12),
-
                       SizedBox(
                         height: 60,
                         child: Padding(
@@ -66,7 +62,6 @@ class NewMissionsBody extends StatelessWidget {
                       MissionListView(
                         missions: availableMissionsVM.availableMissions,
                       ),
-
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.2,
                       ),
