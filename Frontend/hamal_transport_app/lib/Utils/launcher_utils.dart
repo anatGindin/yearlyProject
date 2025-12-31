@@ -35,4 +35,26 @@ class LauncherUtils {
       return false;
     }
   }
+
+  /// Launch email client with the given email address.
+  /// Returns true if the email client was opened, false otherwise.
+  static Future<bool> launchEmail(String email) async {
+    final uri = Uri(scheme: 'mailto', path: email);
+    try {
+      return await launchUrl(uri);
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /// Launch the browser with the given URL.
+  /// Returns true if the browser was opened, false otherwise.
+  static Future<bool> launchBrowser(String url) async {
+    final uri = Uri.parse(url);
+    try {
+      return await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } catch (e) {
+      return false;
+    }
+  }
 }

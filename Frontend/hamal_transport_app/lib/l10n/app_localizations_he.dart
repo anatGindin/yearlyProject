@@ -12,25 +12,13 @@ class AppLocalizationsHe extends AppLocalizations {
   String get appTitle => 'אפליקציית שינוע';
 
   @override
-  String get counterText => 'לחצת על הכפתור מספר פעמים:';
-
-  @override
-  String get incrementTooltip => 'הגדל';
-
-  @override
-  String get openTasks => 'משימות פתוחות';
-
-  @override
-  String get activeMissions => 'משימות פעילות ומתוכננות';
+  String get activeMissions => 'משימות פעילות';
 
   @override
   String get availableMissions => 'משימות זמינות';
 
   @override
   String get callDesk => 'התקשר לחמ\"ל';
-
-  @override
-  String get callDeskMessage => 'התקשר לחמ\"ל';
 
   @override
   String get close => 'סגור';
@@ -42,7 +30,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get contact => 'איש קשר: ';
 
   @override
-  String get time => 'מועד: ';
+  String get time => 'מועד';
 
   @override
   String get mission => 'משימה';
@@ -51,7 +39,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get updateStatus => 'עדכן סטטוס';
 
   @override
-  String get navigateWaze => 'נווט ב-Waze';
+  String get navigateWaze => 'נווט';
 
   @override
   String get takeMission => 'קח משימה';
@@ -62,6 +50,9 @@ class AppLocalizationsHe extends AppLocalizations {
   @override
   String get suggestedMissionsMessage =>
       'בהתאם למשימה שלך, הנה עוד כמה משימות שאולי תוכל לקחת:';
+
+  @override
+  String get km => 'ק״מ';
 
   @override
   String get selectMission => 'בחר משימה לצפייה בפרטים';
@@ -83,9 +74,6 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get available => 'זמין';
-
-  @override
-  String get statusUpdated => 'סטטוס עודכן ל: ';
 
   @override
   String get missionTaken => 'המשימה נבחרה';
@@ -112,16 +100,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get resetPassword => 'אפס סיסמה';
 
   @override
-  String get loginError => 'התחברות נכשלה';
-
-  @override
   String get signupError => 'הרשמה נכשלה';
-
-  @override
-  String get dontHaveAccount => 'אין לך חשבון?';
-
-  @override
-  String get alreadyHaveAccount => 'יש לך כבר חשבון?';
 
   @override
   String get name => 'שם מלא';
@@ -146,10 +125,10 @@ class AppLocalizationsHe extends AppLocalizations {
   String get requiredField => 'שדה זה חובה';
 
   @override
-  String get invalidEmail => 'כתובת האימייל אינה תקינה.';
+  String get invalidPhone => 'אנא הזן מספר טלפון ישראלי תקין.';
 
   @override
-  String get userNotFound => 'לא נמצא משתמש עם האימייל הזה.';
+  String get invalidEmail => 'כתובת האימייל אינה תקינה.';
 
   @override
   String get wrongPassword => 'כתובת האימייל או הסיסמה שגויה.';
@@ -164,9 +143,6 @@ class AppLocalizationsHe extends AppLocalizations {
   String get rememberMe => 'זכור אותי';
 
   @override
-  String get selectRole => 'בחר תפקיד';
-
-  @override
   String get role => 'תפקיד';
 
   @override
@@ -179,9 +155,6 @@ class AppLocalizationsHe extends AppLocalizations {
   String get admin => 'מנהל';
 
   @override
-  String get roleRequired => 'יש לבחור תפקיד';
-
-  @override
   String get underConstruction => 'בבנייה';
 
   @override
@@ -189,9 +162,6 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get logout => 'התנתק';
-
-  @override
-  String get profileTitle => 'פרופיל אישי';
 
   @override
   String get sortBy => 'סדר';
@@ -203,7 +173,13 @@ class AppLocalizationsHe extends AppLocalizations {
   String get closestToFurthest => 'קרוב לרחוק';
 
   @override
+  String get distanceFromYouClosest => 'מרחק ממקומך - קרוב לרחוק';
+
+  @override
   String get furthestToClosest => 'רחוק לקרוב';
+
+  @override
+  String get distanceFromYouFurthest => 'מרחק ממקומך - רחוק לקרוב';
 
   @override
   String get newestToOldest => 'חדש לישן';
@@ -215,10 +191,16 @@ class AppLocalizationsHe extends AppLocalizations {
   String get noFilter => 'כל המשימות';
 
   @override
-  String get chosenFilter => 'משימות בסטטוס \'נבחר\'';
+  String get menuChosenFilter => 'נבחרו';
 
   @override
-  String get pickedUpFilter => 'משימות בסטטוס \'נאסף\'';
+  String get menuPickedUpFilter => 'נאספו';
+
+  @override
+  String get chosenFilter => 'משימות שנבחרו';
+
+  @override
+  String get pickedUpFilter => 'משימות שנאספו';
 
   @override
   String get cancellationReason => 'סיבת ביטול';
@@ -239,10 +221,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get destinationContact => 'איש קשר ביעד';
 
   @override
-  String get comments => 'ההערות שלי';
-
-  @override
-  String get noComments => 'אין הערות להציג';
+  String get comments => 'הערות';
 
   @override
   String get addComment => 'הוסף הערה';
@@ -256,6 +235,12 @@ class AppLocalizationsHe extends AppLocalizations {
   @override
   String get deleteCommentConfirmation =>
       'האם אתה בטוח שאתה רוצה למחוק את ההערה?';
+
+  @override
+  String get editComment => 'ערוך הערה';
+
+  @override
+  String get editCommentTitle => 'עריכת הערה';
 
   @override
   String get carType => 'סוג רכב';
@@ -308,5 +293,55 @@ class AppLocalizationsHe extends AppLocalizations {
   String get center => 'המיקום שלי';
 
   @override
+  String get missions => 'משימות';
+
+  @override
+  String get map => 'מפה';
+
+  @override
+  String get profile => 'פרופיל';
+
+  @override
   String get hamalWarehouse => 'מחסן לוגיסטי';
+
+  @override
+  String get accountInformation => 'פרטי חשבון';
+
+  @override
+  String get edit => 'עריכת פרופיל';
+
+  @override
+  String get save => 'שמירה';
+
+  @override
+  String get appPreferences => 'העדפות אפליקציה';
+
+  @override
+  String get darkMode => 'מצב כהה';
+
+  @override
+  String get language => 'שפה';
+
+  @override
+  String get english => 'אנגלית';
+
+  @override
+  String get hebrew => 'עברית';
+
+  @override
+  String get quickActions => 'פעולות מהירות';
+
+  @override
+  String get contactUs => 'צור קשר';
+
+  @override
+  String get aboutUs => 'אודותינו';
+
+  @override
+  String get helpFaq => 'עזרה ומרכז מידע';
+
+  @override
+  String additionOf(String distance, String unit) {
+    return 'תוספת של $distance $unit';
+  }
 }

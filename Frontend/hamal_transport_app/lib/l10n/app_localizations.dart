@@ -104,28 +104,10 @@ abstract class AppLocalizations {
   /// **'Hamal Transport'**
   String get appTitle;
 
-  /// Label above the counter that explains what the number means
-  ///
-  /// In en, this message translates to:
-  /// **'You have pushed the button this many times:'**
-  String get counterText;
-
-  /// Tooltip for the floating action button that increments the counter
-  ///
-  /// In en, this message translates to:
-  /// **'Increment'**
-  String get incrementTooltip;
-
-  /// Button to open available tasks
-  ///
-  /// In en, this message translates to:
-  /// **'Open Tasks'**
-  String get openTasks;
-
   /// Title of active missions list
   ///
   /// In en, this message translates to:
-  /// **'Active and Upcoming Missions'**
+  /// **'Active Missions'**
   String get activeMissions;
 
   /// Title of available missions page
@@ -139,12 +121,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Call Hamal'**
   String get callDesk;
-
-  /// Message in call desk dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Call Hamal'**
-  String get callDeskMessage;
 
   /// Close button
   ///
@@ -206,6 +182,12 @@ abstract class AppLocalizations {
   /// **'Based on your mission, here are some other missions you may be able to take:'**
   String get suggestedMissionsMessage;
 
+  /// Kilometers abbreviation for additional distance display
+  ///
+  /// In en, this message translates to:
+  /// **'km'**
+  String get km;
+
   /// Subtitle for mission selection dialog
   ///
   /// In en, this message translates to:
@@ -247,12 +229,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Available'**
   String get available;
-
-  /// Status update message
-  ///
-  /// In en, this message translates to:
-  /// **'Status updated to: '**
-  String get statusUpdated;
 
   /// Message when mission is taken
   ///
@@ -302,29 +278,11 @@ abstract class AppLocalizations {
   /// **'Reset Password'**
   String get resetPassword;
 
-  /// Generic login error message
-  ///
-  /// In en, this message translates to:
-  /// **'Login failed'**
-  String get loginError;
-
   /// Generic sign up error message
   ///
   /// In en, this message translates to:
   /// **'Sign up failed'**
   String get signupError;
-
-  /// Text prompting user to sign up
-  ///
-  /// In en, this message translates to:
-  /// **'Don\'t have an account?'**
-  String get dontHaveAccount;
-
-  /// Text prompting user to login
-  ///
-  /// In en, this message translates to:
-  /// **'Already have an account?'**
-  String get alreadyHaveAccount;
 
   /// Full Name input label
   ///
@@ -368,17 +326,17 @@ abstract class AppLocalizations {
   /// **'This field is required'**
   String get requiredField;
 
+  /// Error message for invalid phone number format
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid Israeli phone number.'**
+  String get invalidPhone;
+
   /// Error message for invalid email format
   ///
   /// In en, this message translates to:
   /// **'The email address is not valid.'**
   String get invalidEmail;
-
-  /// Error message when user does not exist
-  ///
-  /// In en, this message translates to:
-  /// **'No user found for that email.'**
-  String get userNotFound;
 
   /// Error message for incorrect password
   ///
@@ -404,12 +362,6 @@ abstract class AppLocalizations {
   /// **'Remember me'**
   String get rememberMe;
 
-  /// Label for role selection dropdown
-  ///
-  /// In en, this message translates to:
-  /// **'Select your role'**
-  String get selectRole;
-
   /// Title for role
   ///
   /// In en, this message translates to:
@@ -434,12 +386,6 @@ abstract class AppLocalizations {
   /// **'Admin'**
   String get admin;
 
-  /// Validation error when role is not selected
-  ///
-  /// In en, this message translates to:
-  /// **'Please select a role'**
-  String get roleRequired;
-
   /// Title for under construction page
   ///
   /// In en, this message translates to:
@@ -458,12 +404,6 @@ abstract class AppLocalizations {
   /// **'Logout'**
   String get logout;
 
-  /// Title for user profile page
-  ///
-  /// In en, this message translates to:
-  /// **'Profile Page'**
-  String get profileTitle;
-
   /// Sort By button text
   ///
   /// In en, this message translates to:
@@ -479,25 +419,37 @@ abstract class AppLocalizations {
   /// Sort option - Distance: closest to furthest
   ///
   /// In en, this message translates to:
-  /// **'Closest to furthest'**
+  /// **'Closest firsts'**
   String get closestToFurthest;
+
+  /// Sort option - Distance from your current location: closest to furthest
+  ///
+  /// In en, this message translates to:
+  /// **'Distance from you - closest first'**
+  String get distanceFromYouClosest;
 
   /// Sort option - Distance: Furthest to closest
   ///
   /// In en, this message translates to:
-  /// **'Furthest to closest'**
+  /// **'Furthest first'**
   String get furthestToClosest;
+
+  /// Sort option - Distance from your current location: furthest to closest
+  ///
+  /// In en, this message translates to:
+  /// **'Distance from you - furthest first'**
+  String get distanceFromYouFurthest;
 
   /// Sort option - Time: Newest to oldest
   ///
   /// In en, this message translates to:
-  /// **'Newest to oldest'**
+  /// **'Newest first'**
   String get newestToOldest;
 
   /// Sort option - Time: Oldest to newest
   ///
   /// In en, this message translates to:
-  /// **'Oldest to newest'**
+  /// **'Oldest first'**
   String get oldestToNewest;
 
   /// Filter option - Show all missions
@@ -505,6 +457,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All missions'**
   String get noFilter;
+
+  /// Filter option - Show 'Chosen' missions
+  ///
+  /// In en, this message translates to:
+  /// **'Chosen'**
+  String get menuChosenFilter;
+
+  /// Show 'Picked up' missions
+  ///
+  /// In en, this message translates to:
+  /// **'Picked up'**
+  String get menuPickedUpFilter;
 
   /// Filter option - Show 'Chosen' missions
   ///
@@ -554,17 +518,11 @@ abstract class AppLocalizations {
   /// **'Destination contact'**
   String get destinationContact;
 
-  /// My comments label
+  /// Comments label
   ///
   /// In en, this message translates to:
-  /// **'My comments'**
+  /// **'Comments'**
   String get comments;
-
-  /// Message when there are no comments
-  ///
-  /// In en, this message translates to:
-  /// **'There are no comments'**
-  String get noComments;
 
   /// Add comment button text
   ///
@@ -589,6 +547,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to delete this comment?'**
   String get deleteCommentConfirmation;
+
+  /// Edit comment label
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Comment'**
+  String get editComment;
+
+  /// Title for edit comment dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Comment'**
+  String get editCommentTitle;
 
   /// Label for car type selection
   ///
@@ -686,11 +656,107 @@ abstract class AppLocalizations {
   /// **'My Location'**
   String get center;
 
-  /// Name of the Hamal Warehouse
+  /// Label of Missions option in the driver navigation bar
+  ///
+  /// In en, this message translates to:
+  /// **'Missions'**
+  String get missions;
+
+  /// Label of Map option in the driver navigation bar
+  ///
+  /// In en, this message translates to:
+  /// **'Map'**
+  String get map;
+
+  /// Label of Profile option in the driver navigation bar
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
+
+  /// No description provided for @hamalWarehouse.
   ///
   /// In en, this message translates to:
   /// **'Hamal Warehouse'**
   String get hamalWarehouse;
+
+  /// No description provided for @accountInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Information'**
+  String get accountInformation;
+
+  /// Edit Your Profile
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Your Profile'**
+  String get edit;
+
+  /// Save
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// Title for app preferences page
+  ///
+  /// In en, this message translates to:
+  /// **'App Preferences'**
+  String get appPreferences;
+
+  /// Label for dark mode toggle
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Mode'**
+  String get darkMode;
+
+  /// Label for language selection
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// English language option
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get english;
+
+  /// Hebrew language option
+  ///
+  /// In en, this message translates to:
+  /// **'Hebrew'**
+  String get hebrew;
+
+  /// No description provided for @quickActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Actions'**
+  String get quickActions;
+
+  /// No description provided for @contactUs.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Us'**
+  String get contactUs;
+
+  /// No description provided for @aboutUs.
+  ///
+  /// In en, this message translates to:
+  /// **'About Us'**
+  String get aboutUs;
+
+  /// No description provided for @helpFaq.
+  ///
+  /// In en, this message translates to:
+  /// **'Help & FAQ'**
+  String get helpFaq;
+
+  /// Text for additional distance on mission card
+  ///
+  /// In en, this message translates to:
+  /// **'addition of {distance} {unit}'**
+  String additionOf(String distance, String unit);
 }
 
 class _AppLocalizationsDelegate

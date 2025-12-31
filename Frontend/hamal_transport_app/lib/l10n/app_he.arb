@@ -4,19 +4,7 @@
   "@appTitle": {
     "description": "כותרת האפליקציה שמופיעה בסרגל העליון"
   },
-  "counterText": "לחצת על הכפתור מספר פעמים:",
-  "@counterText": {
-    "description": "תווית מעל המונה שמסבירה מה המספר מייצג"
-  },
-  "incrementTooltip": "הגדל",
-  "@incrementTooltip": {
-    "description": "טקסט עזרה עבור כפתור הפעולה שמעלה את המונה"
-  },
-  "openTasks": "משימות פתוחות",
-  "@openTasks": {
-    "description": "כפתור לפתיחת משימות זמינות"
-  },
-  "activeMissions": "משימות פעילות ומתוכננות",
+  "activeMissions": "משימות פעילות",
   "@activeMissions": {
     "description": "כותרת רשימת המשימות הפעילות"
   },
@@ -27,10 +15,6 @@
   "callDesk": "התקשר לחמ\"ל",
   "@callDesk": {
     "description": "כותרת דיאלוג קריאה לדסק"
-  },
-  "callDeskMessage": "התקשר לחמ\"ל",
-  "@callDeskMessage": {
-    "description": "הודעה בדיאלוג קריאה לדסק"
   },
   "close": "סגור",
   "@close": {
@@ -44,7 +28,7 @@
   "@contact": {
     "description": "תווית איש קשר"
   },
-  "time": "מועד: ",
+  "time": "מועד",
   "@time": {
     "description": "תווית זמן"
   },
@@ -56,9 +40,9 @@
   "@updateStatus": {
     "description": "כפתור עדכון סטטוס"
   },
-  "navigateWaze": "נווט ב-Waze",
+  "navigateWaze": "נווט",
   "@navigateWaze": {
-    "description": "כפתור ניווט ב-Waze"
+    "description": "כפתור הפניה לניווט"
   },
   "takeMission": "קח משימה",
   "@takeMission": {
@@ -71,6 +55,11 @@
   "suggestedMissionsMessage": "בהתאם למשימה שלך, הנה עוד כמה משימות שאולי תוכל לקחת:",
   "@suggestedMissionsMessage": {
     "description": "טקסט עזר שמופיע בדיאלוג משימות מוצעות מעל הרשימה"
+  },
+
+  "km": "ק״מ",
+  "@km": {
+    "description": "קיצור קילומטרים לתצוגת מרחק נוסף"
   },
   "selectMission": "בחר משימה לצפייה בפרטים",
   "@selectMission": {
@@ -99,10 +88,6 @@
   "available": "זמין",
   "@available": {
     "description": "סטטוס משימה - זמין"
-  },
-  "statusUpdated": "סטטוס עודכן ל: ",
-  "@statusUpdated": {
-    "description": "הודעת עדכון סטטוס"
   },
   "missionTaken": "המשימה נבחרה",
   "@missionTaken": {
@@ -136,21 +121,9 @@
   "@resetPassword": {
     "description": "כותרת דיאלוג איפוס סיסמה"
   },
-  "loginError": "התחברות נכשלה",
-  "@loginError": {
-    "description": "שגיאת התחברות כללית"
-  },
   "signupError": "הרשמה נכשלה",
   "@signupError": {
     "description": "שגיאת הרשמה כללית"
-  },
-  "dontHaveAccount": "אין לך חשבון?",
-  "@dontHaveAccount": {
-    "description": "טקסט המציע למשתמש להירשם"
-  },
-  "alreadyHaveAccount": "יש לך כבר חשבון?",
-  "@alreadyHaveAccount": {
-    "description": "טקסט המציע למשתמש להתחבר"
   },
   "name": "שם מלא",
   "@name": {
@@ -180,13 +153,13 @@
   "@requiredField": {
     "description": "הודעה שגיאה לשדות חובה ריקים"
   },
+  "invalidPhone": "אנא הזן מספר טלפון ישראלי תקין.",
+  "@invalidPhone": {
+    "description": "הודעת שגיאה על פורמט מספר טלפון שגוי"
+  },
   "invalidEmail": "כתובת האימייל אינה תקינה.",
   "@invalidEmail": {
     "description": "שגיאה על פורמט אימייל שגוי"
-  },
-  "userNotFound": "לא נמצא משתמש עם האימייל הזה.",
-  "@userNotFound": {
-    "description": "שגיאה כשלא קיים משתמש"
   },
   "wrongPassword": "כתובת האימייל או הסיסמה שגויה.",
   "@wrongPassword": {
@@ -204,13 +177,9 @@
   "@rememberMe": {
     "description": "תווית לתיבת סימון זכור אותי"
   },
-  "selectRole": "בחר תפקיד",
-  "@selectRole": {
-    "description": "תווית לבחירת תפקיד"
-  },
-  "role":"תפקיד",
+  "role": "תפקיד",
   "@role": {
-  "description": "כותרת לתפקיד"
+    "description": "כותרת לתפקיד"
   },
   "driver": "נהג",
   "@driver": {
@@ -221,12 +190,8 @@
     "description": "אפשרות תפקיד צוות לוגיסטיקה"
   },
   "admin": "מנהל",
-    "@admin": {
-      "description": "אפשרות תפקיד מנהל"
-      },
-  "roleRequired": "יש לבחור תפקיד",
-  "@roleRequired": {
-    "description": "שגיאת אימות כשלא נבחר תפקיד"
+  "@admin": {
+    "description": "אפשרות תפקיד מנהל"
   },
   "underConstruction": "בבנייה",
   "@underConstruction": {
@@ -240,10 +205,6 @@
   "@logout": {
     "description": "כפתור התנתקות"
   },
-  "profileTitle": "פרופיל אישי",
-  "@profileTitle":{
-  "description":"כותרת לעמוד פרופיל משתמש"},
-
   "sortBy": "סדר",
   "@sortBy": {
     "description": "כפתור מיון רשימה"
@@ -256,9 +217,17 @@
   "@closestToFurthest": {
     "description": "אפשרות מיון - מרחק: קרוב לרחוק"
   },
+  "distanceFromYouClosest": "מרחק ממקומך - קרוב לרחוק",
+  "@distanceFromYouClosest": {
+    "description": "אפשרות מיון - מרחק מהמיקום הנוכחי: קרוב לרחוק"
+  },
   "furthestToClosest": "רחוק לקרוב",
   "@furthestToClosest": {
     "description": "אפשרות מיון - מרחק: רחוק לקרוב"
+  },
+  "distanceFromYouFurthest": "מרחק ממקומך - רחוק לקרוב",
+  "@distanceFromYouFurthest": {
+    "description": "אפשרות מיון - מרחק מהמיקום הנוכחי: רחוק לקרוב"
   },
   "newestToOldest": "חדש לישן",
   "@newestToOldest": {
@@ -272,11 +241,19 @@
   "@noFilter": {
     "description": "אפשרות סינון - הצג את כל המשימות"
   },
-  "chosenFilter": "משימות בסטטוס 'נבחר'",
+  "menuChosenFilter": "נבחרו",
+  "@menuChosenFilter": {
+    "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
+  },
+  "menuPickedUpFilter": "נאספו",
+  "@menuPickedUpFilter": {
+    "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
+  },
+  "chosenFilter": "משימות שנבחרו",
   "@chosenFilter": {
     "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
   },
-  "pickedUpFilter": "משימות בסטטוס 'נאסף'",
+  "pickedUpFilter": "משימות שנאספו",
   "@pickedUpFilter": {
     "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
   },
@@ -304,13 +281,9 @@
   "@destinationContact": {
     "description": "תווית איש קשר ביעד"
   },
-  "comments": "ההערות שלי",
+  "comments": "הערות",
   "@comments": {
-    "description": "תווית ההערות שלי"
-  },
-  "noComments": "אין הערות להציג",
-  "@noComments": {
-    "description": "הודעה כשאין הערות"
+    "description": "תווית הערות"
   },
   "addComment": "הוסף הערה",
   "@addComment": {
@@ -327,6 +300,14 @@
   "deleteCommentConfirmation": "האם אתה בטוח שאתה רוצה למחוק את ההערה?",
   "@deleteCommentConfirmation": {
     "description": "הודעת מחק הערה"
+  },
+  "editComment": "ערוך הערה",
+  "@editComment": {
+    "description": "תווית ערוך הערה"
+  },
+  "editCommentTitle": "עריכת הערה",
+  "@editCommentTitle": {
+    "description": "כותרת דיאלוג עריכת הערה"
   },
   "carType": "סוג רכב",
   "@carType": {
@@ -363,7 +344,7 @@
   "calculatingRoute": "מחשב מסלול...",
   "@calculatingRoute": {
     "description": "הודעה המוצגת בזמן חישוב מסלול"
-},
+  },
   "resetPasswordNotice": "הזן את כתובת האימייל שלך ונשלח לך קישור לאיפוס הסיסמה.",
   "@resetPasswordNotice": {
     "description": "טקסט הסבר בדף שכחתי סיסמה"
@@ -392,8 +373,64 @@
   "@center": {
     "description": "טקסט עזרה לכפתור מרכוז מפה"
   },
+  "missions": "משימות",
+  "@missions": {
+    "description": "תווית של האופיצה משימות בסרגל הניווט של נהג"
+  },
+  "map": "מפה",
+  "@map": {
+    "description": "תווית של האופיצה מפה בסרגל הניווט של נהג"
+  },
+  "profile": "פרופיל",
+  "@profile": {
+    "description": "תווית של האופיצה פרופיל בסרגל הניווט של נהג"
+  },
   "hamalWarehouse": "מחסן לוגיסטי",
-  "@hamalWarehouse": {
-    "description": "שם המחסן הלוגיסטי"
+  "accountInformation": "פרטי חשבון",
+  "edit": "עריכת פרופיל",
+  "@edit": {
+    "description": "כפתור עריכת פרופיל"
+  },
+  "save": "שמירה",
+  "@save": {
+    "description": "כפתור שמירת פרופיל"
+  },
+  "appPreferences": "העדפות אפליקציה",
+  "@appPreferences": {
+    "description": "כותרת דף העדפות אפליקציה"
+  },
+  "darkMode": "מצב כהה",
+  "@darkMode": {
+    "description": "תווית למיתוג מצב כהה"
+  },
+  "language": "שפה",
+  "@language": {
+    "description": "תווית לבחירת שפה"
+  },
+  "english": "אנגלית",
+  "@english": {
+    "description": "אפשרות שפה אנגלית"
+  },
+  "hebrew": "עברית",
+  "@hebrew": {
+    "description": "אפשרות שפה עברית"
+  },
+  "quickActions": "פעולות מהירות",
+  "contactUs": "צור קשר",
+  "aboutUs": "אודותינו",
+  "helpFaq": "עזרה ומרכז מידע",
+  "additionOf": "תוספת של {distance} {unit}",
+  "@additionOf": {
+    "description": "טקסט למרחק נוסף בכרטיס משימה",
+    "placeholders": {
+      "distance": {
+        "type": "String",
+        "example": "5.2"
+      },
+      "unit": {
+        "type": "String",
+        "example": "ק״מ"
+    }
+    }
   }
 }

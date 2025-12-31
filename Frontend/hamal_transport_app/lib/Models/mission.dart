@@ -1,5 +1,6 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Models/user_profile.dart';
+import 'package:hamal_transport_app/Services/routing_service.dart';
 import '../features/Contact_card/model/contact.dart';
 import '../l10n/app_localizations.dart';
 import 'location.dart';
@@ -26,6 +27,20 @@ enum MissionStatus {
         return l10n.available;
     }
   }
+
+  Color get statusColor {
+    switch (this) {
+      case MissionStatus.available:
+        return Colors.orange;
+      case MissionStatus.chosen:
+        return Colors.blue;
+      case MissionStatus.pickedUp:
+        return Colors.green;
+      case MissionStatus.delivered:
+      case MissionStatus.cancelled:
+        return Colors.orange;
+    }
+  }
 }
 
 class Mission {
@@ -40,6 +55,8 @@ class Mission {
   final CarType carType;
   String cancellationReason;
   final List<String> comments;
+
+  Future<RouteInfo?>? _routeInfoFuture;
 
   Mission({
     required this.id,
@@ -68,6 +85,19 @@ class Mission {
     required this.comments,
     required this.carType,
   });
+
+  /// Calculates route info once per Mission instance and reuses the same Future.
+  Future<RouteInfo?> getRouteInfo({String profile = 'car'}) {
+    _routeInfoFuture ??= RoutingService.getRouteInfo(
+      startLat: source.latitude,
+      startLon: source.longitude,
+      endLat: destination.latitude,
+      endLon: destination.longitude,
+      profile: profile,
+    );
+
+    return _routeInfoFuture!;
+  }
 
   // JSON to object constructor
   factory Mission.fromJson(Map<String, dynamic> json) {

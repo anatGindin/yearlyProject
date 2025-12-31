@@ -14,18 +14,25 @@ class ListActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      onPressed: onPressed,
-      icon: Icon(icon),
-      style: ElevatedButton.styleFrom(
-        alignment: Directionality.of(context) == TextDirection.rtl
-            ? Alignment.centerRight
-            : Alignment.centerLeft,
-      ),
-      label: Text(
-        label,
-        style: const TextStyle(fontSize: 16),
-        textAlign: TextAlign.start,
+    return SizedBox(
+      height: MediaQuery.of(context).size.width * 0.3,
+      width: MediaQuery.of(context).size.width * 0.4,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Icon(icon, size: 24),
+            const SizedBox(width: 8),
+            Expanded(child: Text(label, overflow: TextOverflow.ellipsis)),
+          ],
+        ),
       ),
     );
   }
