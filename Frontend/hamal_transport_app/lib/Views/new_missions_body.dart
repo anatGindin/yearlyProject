@@ -112,6 +112,24 @@ class NewMissionsBody extends StatelessWidget {
               Navigator.pop(context);
             },
           ),
+          ListTile(
+            title: Text(l10n.distanceFromYouClosest),
+            onTap: () async {
+              await availableMissionsVM.sortByGps(
+                SortBy.distanceToUserClosestFirst,
+              );
+              if (context.mounted) Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: Text(l10n.distanceFromYouFurthest),
+            onTap: () async {
+              await availableMissionsVM.sortByGps(
+                SortBy.distanceToUserFurthestFirst,
+              );
+              if (context.mounted) Navigator.pop(context);
+            },
+          ),
         ],
       ),
     );

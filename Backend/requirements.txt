@@ -1,0 +1,10 @@
+# Backend Python dependencies for the FastAPI app
+# Minimum recommended Python version: 3.9+
+
+fastapi>=0.95.0
+pydantic>=1.10
+uvicorn[standard]>=0.20.0
+
+# Optional (install if you plan to load .env files or use caching)
+# python-dotenv
+# cachetools

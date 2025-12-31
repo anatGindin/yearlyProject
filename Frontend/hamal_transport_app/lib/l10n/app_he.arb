@@ -212,9 +212,17 @@
   "@closestToFurthest": {
     "description": "אפשרות מיון - מרחק: קרוב לרחוק"
   },
+  "distanceFromYouClosest": "מרחק ממקומך - קרוב לרחוק",
+  "@distanceFromYouClosest": {
+    "description": "אפשרות מיון - מרחק מהמיקום הנוכחי: קרוב לרחוק"
+  },
   "furthestToClosest": "רחוק לקרוב",
   "@furthestToClosest": {
     "description": "אפשרות מיון - מרחק: רחוק לקרוב"
+  },
+  "distanceFromYouFurthest": "מרחק ממקומך - רחוק לקרוב",
+  "@distanceFromYouFurthest": {
+    "description": "אפשרות מיון - מרחק מהמיקום הנוכחי: רחוק לקרוב"
   },
   "newestToOldest": "חדש לישן",
   "@newestToOldest": {
