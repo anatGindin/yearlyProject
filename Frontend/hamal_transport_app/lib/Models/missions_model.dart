@@ -24,76 +24,61 @@ class MissionsListsModel {
 
   /// Returns up to [maxResults] missions with the highest heuristic scores.
   ///
-  /// The heuristic considers:
-  /// - Mission age: older missions are prioritized (higher urgency)
-  /// - Route distance: shorter distances score higher (more efficient)
-  /// - Route duration: shorter durations score higher (quicker to complete)
+  /// The heuristic uses ranking-based scoring:
+  /// - Mission age rank: older missions get higher ranks (higher urgency)
+  /// - Route efficiency rank: shorter duration gets higher ranks
+  /// Final score is weighted average of ranks (1 to n scale).
   static Future<List<Mission>> getTopSuggestedMissions(
     List<Mission> missions, {
     int maxResults = 3,
-    double ageWeight = 0.4,
-    double distanceWeight = 0.3,
-    double durationWeight = 0.3,
+    double ageWeight = 0.7,
+    double routeEfficiencyWeight = 0.3,
   }) async {
     if (missions.isEmpty) return [];
 
-    // Calculate scores for all missions
-    final scoredMissions = <_ScoredMission>[];
+    final n = missions.length;
 
+    // Collect age and duration data for all missions
+    final missionData = <_MissionRankData>[];
     for (final mission in missions) {
-      final score = await _calculateHeuristicScore(
-        mission,
-        ageWeight: ageWeight,
-        distanceWeight: distanceWeight,
-        durationWeight: durationWeight,
+      final ageInDays = DateTime.now().difference(mission.time).inDays.abs();
+      final routeInfo = await mission.getRouteInfo(profile: 'car');
+      final durationMinutes = routeInfo?.durationMinutes ?? double.maxFinite;
+      missionData.add(
+        _MissionRankData(
+          mission: mission,
+          ageInDays: ageInDays,
+          durationMinutes: durationMinutes,
+        ),
       );
-      scoredMissions.add(_ScoredMission(mission: mission, score: score));
     }
 
-    scoredMissions.sort((a, b) => b.score.compareTo(a.score));
+    // Rank by age (oldest first gets highest rank = n)
+    final byAge = List<_MissionRankData>.from(missionData)
+      ..sort((a, b) => b.ageInDays.compareTo(a.ageInDays));
+    for (var i = 0; i < byAge.length; i++) {
+      byAge[i].ageRank = n - i; // oldest gets rank n, newest gets rank 1
+    }
+
+    // Rank by duration (shortest first gets highest rank = n)
+    final byDuration = List<_MissionRankData>.from(missionData)
+      ..sort((a, b) => a.durationMinutes.compareTo(b.durationMinutes));
+    for (var i = 0; i < byDuration.length; i++) {
+      byDuration[i].durationRank =
+          n - i; // shortest gets rank n, longest gets rank 1
+    }
+
+    // Calculate weighted score from ranks
+    for (final data in missionData) {
+      data.score =
+          data.ageRank * ageWeight + data.durationRank * routeEfficiencyWeight;
+    }
+
+    // Sort by score descending
+    missionData.sort((a, b) => b.score.compareTo(a.score));
 
     // Return top results
-    return scoredMissions.take(maxResults).map((sm) => sm.mission).toList();
-  }
-
-  /// Calculates a heuristic score for a single mission.
-  static Future<double> _calculateHeuristicScore(
-    Mission mission, {
-    required double ageWeight,
-    required double distanceWeight,
-    required double durationWeight,
-  }) async {
-    double score = 0.0;
-
-    // Age score: days since mission was created (older = higher score)
-    final now = DateTime.now();
-    final ageInDays = now.difference(mission.time).inDays.abs();
-    // Normalize: cap at 30 days, scale 0-100
-    final normalizedAge = (ageInDays.clamp(0, 30) / 30) * 100;
-    score += normalizedAge * ageWeight;
-
-    // Route info score (distance & duration)
-    final routeInfo = await mission.getRouteInfo(profile: 'car');
-
-    if (routeInfo != null) {
-      // Distance score: shorter = higher score
-      // Normalize: assume max distance ~100km, invert so shorter = higher
-      final distanceKm = routeInfo.distanceKm;
-      final normalizedDistance = ((100 - distanceKm.clamp(0, 100)) / 100) * 100;
-      score += normalizedDistance * distanceWeight;
-
-      // Duration score: shorter = higher score
-      // Normalize: assume max duration ~120 minutes, invert so shorter = higher
-      final durationMinutes = routeInfo.durationMinutes;
-      final normalizedDuration =
-          ((120 - durationMinutes.clamp(0, 120)) / 120) * 100;
-      score += normalizedDuration * durationWeight;
-    } else {
-      score += 50 * distanceWeight;
-      score += 50 * durationWeight;
-    }
-
-    return score;
+    return missionData.take(maxResults).map((d) => d.mission).toList();
   }
 
   static Comparator getSortComperator(SortBy sortBy) {
@@ -164,10 +149,18 @@ enum SortBy {
 
 enum FilterBy { noFilter, chosenOnly, pickedUpOnly }
 
-/// Helper class to pair a mission with its heuristic score.
-class _ScoredMission {
+/// Helper class to store mission data for ranking-based scoring.
+class _MissionRankData {
   final Mission mission;
-  final double score;
+  final int ageInDays;
+  final double durationMinutes;
+  int ageRank = 0;
+  int durationRank = 0;
+  double score = 0;
 
-  _ScoredMission({required this.mission, required this.score});
+  _MissionRankData({
+    required this.mission,
+    required this.ageInDays,
+    required this.durationMinutes,
+  });
 }
