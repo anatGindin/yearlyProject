@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../Models/mission.dart';
-import '../../ViewModels/missions_coordinator_view_model.dart';
+import '../../Models/mission_list_type.dart';
+import '../../Services/missions_repository.dart';
 import '../../l10n/app_localizations.dart';
 
 class MapLegend extends StatefulWidget {
@@ -18,15 +18,23 @@ class _MapLegendState extends State<MapLegend> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final coordinator = context.watch<MissionsCoordinatorViewModel>();
+    final repository = context.watch<MissionsRepository>();
+    final allMissions = repository.getMissions(MissionListType.allMissions);
 
-    final availableCount =
-        coordinator.availableMissionsVM.availableMissions.length;
-    final chosenCount = coordinator.myMissionsVM.myMissions
+    final availableCount = allMissions
+        .where((m) => m.status == MissionStatus.available)
+        .length;
+    final chosenCount = allMissions
         .where((m) => m.status == MissionStatus.chosen)
         .length;
-    final pickedUpCount = coordinator.myMissionsVM.myMissions
+    final pickedUpCount = allMissions
         .where((m) => m.status == MissionStatus.pickedUp)
+        .length;
+    final deliveredCount = allMissions
+        .where((m) => m.status == MissionStatus.delivered)
+        .length;
+    final cancelledCount = allMissions
+        .where((m) => m.status == MissionStatus.cancelled)
         .length;
 
     return Card(
@@ -50,9 +58,16 @@ class _MapLegendState extends State<MapLegend> {
             ),
             if (_isExpanded) ...[
               const SizedBox(height: 8),
-              _buildLegendItem(Colors.orange, l10n.available, availableCount),
-              _buildLegendItem(Colors.blue, l10n.chosen, chosenCount),
-              _buildLegendItem(Colors.green, l10n.pickedUp, pickedUpCount),
+              if (availableCount > 0)
+                _buildLegendItem(Colors.orange, l10n.available, availableCount),
+              if (chosenCount > 0)
+                _buildLegendItem(Colors.blue, l10n.chosen, chosenCount),
+              if (pickedUpCount > 0)
+                _buildLegendItem(Colors.green, l10n.pickedUp, pickedUpCount),
+              if (deliveredCount > 0)
+                _buildLegendItem(Colors.yellow, l10n.delivered, deliveredCount),
+              if (cancelledCount > 0)
+                _buildLegendItem(Colors.red, l10n.cancelled, cancelledCount),
             ],
           ],
         ),

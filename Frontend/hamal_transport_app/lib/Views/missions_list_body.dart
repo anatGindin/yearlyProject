@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:hamal_transport_app/Models/missions_model.dart';
-import 'package:hamal_transport_app/ViewModels/my_missions_view_model.dart';
+import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
 import 'package:hamal_transport_app/Views/Widgets/list_action_button.dart';
+import 'package:hamal_transport_app/Models/missions_model.dart';
 import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import 'Widgets/mission_list_view.dart';
 
-class ActiveMissionsBody extends StatelessWidget {
-  const ActiveMissionsBody({super.key});
+class MissionsListBody extends StatelessWidget {
+  const MissionsListBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final myMissionsVM = context.watch<MyMissionsViewModel>();
+    // We expect the MissionsListViewModel to be provided by the parent
+    final viewModel = context.watch<MissionsListViewModel>();
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -21,46 +23,44 @@ class ActiveMissionsBody extends StatelessWidget {
             left: 2.0,
             right: 2.0,
           ),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 12),
-                SizedBox(
-                  height: 60,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.43,
-                          child: ListActionButton(
-                            icon: Icons.sort,
-                            label: myMissionsVM.getSortBy(context),
-                            onPressed: () => _showSortOptions(context),
+          child: Scrollbar(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 12),
+                  SizedBox(
+                    height: 60,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.43,
+                            child: ListActionButton(
+                              icon: Icons.sort,
+                              label: viewModel.getSortBy(context),
+                              onPressed: () => _showSortOptions(context),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.43,
-                          child: ListActionButton(
-                            icon: Icons.filter_alt,
-                            label: myMissionsVM.getFilterBy(context),
-                            onPressed: () => _showFilterOptions(context),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.43,
+                            child: ListActionButton(
+                              icon: Icons.filter_alt,
+                              label: viewModel.getFilterBy(context),
+                              onPressed: () => _showFilterOptions(context),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 30),
-
-                MissionListView(missions: myMissionsVM.myMissions),
-                // const SizedBox(height: 30),
-                // const NewMissionCard(),
-                // spacing to keep list above buttons
-                SizedBox(height: MediaQuery.of(context).size.height * 0.2),
-              ],
+                  const SizedBox(height: 30),
+                  MissionListView(missions: viewModel.missions),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.2),
+                ],
+              ),
             ),
           ),
         ),
@@ -70,7 +70,7 @@ class ActiveMissionsBody extends StatelessWidget {
 
   void _showSortOptions(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final myMissionsVM = context.read<MyMissionsViewModel>();
+    final viewModel = context.read<MissionsListViewModel>();
     showModalBottomSheet(
       context: context,
       builder: (_) => Column(
@@ -79,42 +79,42 @@ class ActiveMissionsBody extends StatelessWidget {
           ListTile(
             title: Text(l10n.newestToOldest),
             onTap: () {
-              myMissionsVM.sortBy(SortBy.timeNewestFirst);
+              viewModel.sortBy(SortBy.timeNewestFirst);
               Navigator.pop(context);
             },
           ),
           ListTile(
             title: Text(l10n.oldestToNewest),
             onTap: () {
-              myMissionsVM.sortBy(SortBy.timeOldestFirst);
+              viewModel.sortBy(SortBy.timeOldestFirst);
               Navigator.pop(context);
             },
           ),
           ListTile(
             title: Text(l10n.closestToFurthest),
             onTap: () {
-              myMissionsVM.sortBy(SortBy.distanceClosestFirst);
+              viewModel.sortBy(SortBy.distanceClosestFirst);
               Navigator.pop(context);
             },
           ),
           ListTile(
             title: Text(l10n.furthestToClosest),
             onTap: () {
-              myMissionsVM.sortBy(SortBy.distanceFurthestFirst);
+              viewModel.sortBy(SortBy.distanceFurthestFirst);
               Navigator.pop(context);
             },
           ),
           ListTile(
             title: Text(l10n.distanceFromYouClosest),
             onTap: () async {
-              await myMissionsVM.sortByGps(SortBy.distanceToUserClosestFirst);
+              await viewModel.sortByGps(SortBy.distanceToUserClosestFirst);
               if (context.mounted) Navigator.pop(context);
             },
           ),
           ListTile(
             title: Text(l10n.distanceFromYouFurthest),
             onTap: () async {
-              await myMissionsVM.sortByGps(SortBy.distanceToUserFurthestFirst);
+              await viewModel.sortByGps(SortBy.distanceToUserFurthestFirst);
               if (context.mounted) Navigator.pop(context);
             },
           ),
@@ -125,7 +125,7 @@ class ActiveMissionsBody extends StatelessWidget {
 
   void _showFilterOptions(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final myMissionsVM = context.read<MyMissionsViewModel>();
+    final viewModel = context.read<MissionsListViewModel>();
     showModalBottomSheet(
       context: context,
       builder: (_) => Column(
@@ -134,21 +134,21 @@ class ActiveMissionsBody extends StatelessWidget {
           ListTile(
             title: Text(l10n.noFilter),
             onTap: () {
-              myMissionsVM.filterBy(FilterBy.noFilter);
+              viewModel.filterBy(FilterBy.noFilter);
               Navigator.pop(context);
             },
           ),
           ListTile(
             title: Text(l10n.chosenFilter),
             onTap: () {
-              myMissionsVM.filterBy(FilterBy.chosenOnly);
+              viewModel.filterBy(FilterBy.chosenOnly);
               Navigator.pop(context);
             },
           ),
           ListTile(
             title: Text(l10n.pickedUpFilter),
             onTap: () {
-              myMissionsVM.filterBy(FilterBy.pickedUpOnly);
+              viewModel.filterBy(FilterBy.pickedUpOnly);
               Navigator.pop(context);
             },
           ),

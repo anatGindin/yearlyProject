@@ -3,14 +3,33 @@ import 'package:geolocator/geolocator.dart';
 import 'package:hamal_transport_app/Models/location.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Models/missions_model.dart';
+import 'package:hamal_transport_app/Models/mission_list_type.dart';
 import 'package:hamal_transport_app/Services/location_service.dart';
+import 'package:hamal_transport_app/Services/missions_repository.dart';
 
-abstract class MissionsViewModelBase extends ChangeNotifier {
+class MissionsListViewModel extends ChangeNotifier {
+  final MissionsRepository _repository;
+  final MissionListType _type;
+
   SortBy _sortBy = SortBy.timeNewestFirst;
   FilterBy _filterBy = FilterBy.noFilter;
   Location? _userLocation;
 
-  List<Mission> get sourceList;
+  MissionsListViewModel({
+    required MissionsRepository repository,
+    required MissionListType type,
+  }) : _repository = repository,
+       _type = type {
+    _repository.addListener(notifyListeners);
+  }
+
+  @override
+  void dispose() {
+    _repository.removeListener(notifyListeners);
+    super.dispose();
+  }
+
+  List<Mission> get sourceList => _repository.getMissions(_type);
 
   List<Mission> get missions {
     return sourceList
@@ -67,6 +86,18 @@ abstract class MissionsViewModelBase extends ChangeNotifier {
 
   void filterBy(FilterBy filterByOption) {
     _filterBy = filterByOption;
+    notifyListeners();
+  }
+
+  void add(Mission mission) {
+    _repository.addMission(_type, mission);
+  }
+
+  void remove(Mission mission) {
+    _repository.removeMission(_type, mission);
+  }
+
+  void updateStatusChanged() {
     notifyListeners();
   }
 }

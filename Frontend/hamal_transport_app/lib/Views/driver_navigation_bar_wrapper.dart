@@ -3,6 +3,10 @@ import 'package:hamal_transport_app/ViewModels/driver_map_view_model.dart';
 import 'package:hamal_transport_app/Views/driver_map_view.dart';
 import 'package:hamal_transport_app/Views/user_profile_page.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
+import 'package:hamal_transport_app/Models/mission_list_type.dart';
+import 'package:hamal_transport_app/Services/missions_repository.dart';
+import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
+import 'package:provider/provider.dart';
 import 'missions_tabs_page.dart';
 
 class DriverNavigationBarWrapper extends StatefulWidget {
@@ -116,6 +120,7 @@ class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
               key: ValueKey(index),
               navigatorKey: navigatorKeys[index],
               page: allDestinations[index].driverPageType.getPage(
+                context,
                 _driverMapViewModel,
               ),
             ),
@@ -172,10 +177,31 @@ enum DriverPageType {
   mapView,
   profile;
 
-  Widget getPage(DriverMapViewModel viewModel) {
+  Widget getPage(BuildContext context, DriverMapViewModel viewModel) {
     switch (this) {
       case DriverPageType.missions:
-        return const MissionsTabsPage();
+        final l10n = AppLocalizations.of(context)!;
+        final repository = context.read<MissionsRepository>();
+        return MissionsTabsPage(
+          tabs: [
+            MissionTabConfig(
+              title: l10n.activeMissions,
+              icon: Icons.assignment_turned_in,
+              viewModel: MissionsListViewModel(
+                repository: repository,
+                type: MissionListType.myMissions,
+              ),
+            ),
+            MissionTabConfig(
+              title: l10n.availableMissions,
+              icon: Icons.add_circle_outline,
+              viewModel: MissionsListViewModel(
+                repository: repository,
+                type: MissionListType.availableMissions,
+              ),
+            ),
+          ],
+        );
       case DriverPageType.mapView:
         return DriverMapView(viewModel: viewModel);
       case DriverPageType.profile:

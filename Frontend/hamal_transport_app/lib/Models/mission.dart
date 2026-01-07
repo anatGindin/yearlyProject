@@ -37,8 +37,9 @@ enum MissionStatus {
       case MissionStatus.pickedUp:
         return Colors.green;
       case MissionStatus.delivered:
+        return Colors.yellow;
       case MissionStatus.cancelled:
-        return Colors.orange;
+        return Colors.red;
     }
   }
 }

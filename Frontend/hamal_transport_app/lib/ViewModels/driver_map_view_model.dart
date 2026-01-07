@@ -18,6 +18,7 @@ class DriverMapViewModel extends ChangeNotifier {
     MissionStatus.available,
     MissionStatus.chosen,
     MissionStatus.pickedUp,
+    MissionStatus.delivered,
   };
 
   bool _isWarehouseSelected = false;
