@@ -9,8 +9,8 @@ import 'package:provider/provider.dart';
 import '../Models/mission.dart';
 import '../Models/missions_model.dart';
 import '../l10n/app_localizations.dart';
-import '../features/Contact_card/view/contact_view.dart';
-import '../features/Contact_card/view_model/contact_vm.dart';
+import 'contact_view.dart';
+import '../ViewModels/contact_vm.dart';
 import '../Services/routing_service.dart';
 import '../Views/Widgets/info_row.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import '../model/contact.dart';
+import '../Models/contact.dart';
 
 class ContactViewModel extends ChangeNotifier {
   final Contact contact;
