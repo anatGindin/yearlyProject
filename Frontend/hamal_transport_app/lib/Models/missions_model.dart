@@ -4,24 +4,8 @@ import 'package:hamal_transport_app/Models/location.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
 
 class MissionsListsModel {
-  final List<Mission> myMissionsList;
-  final List<Mission> availableMissionsList;
-
-  // for now we use the mock data
-  MissionsListsModel({
-    required this.myMissionsList,
-    required this.availableMissionsList,
-  });
-
-  /// Pre-fetches route info for all missions so it's instantly available.
-  /// Call this after missions are loaded.
-  Future<void> prefetchRouteInfo({String profile = 'car'}) async {
-    final allMissions = [...myMissionsList, ...availableMissionsList];
-    // Trigger all route info fetches in parallel (fire-and-forget)
-    for (final mission in allMissions) {
-      mission.getRouteInfo(profile: profile);
-    }
-  }
+  // Private constructor to prevent instantiation
+  MissionsListsModel._();
 
   /// Returns up to [maxResults] missions with the highest heuristic scores,
   /// along with the additional distance each mission would add.
@@ -54,10 +38,10 @@ class MissionsListsModel {
       // Calculate additional distance using Haversine formula:
       // Distance from mission source to chosen mission source
       // + Distance from mission destination to chosen mission destination
-      final sourceToSourceKm =
-          mission.source.distanceTo(chosenMission.source);
-      final destToDestKm =
-          mission.destination.distanceTo(chosenMission.destination);
+      final sourceToSourceKm = mission.source.distanceTo(chosenMission.source);
+      final destToDestKm = mission.destination.distanceTo(
+        chosenMission.destination,
+      );
       final additionalDistanceKm = sourceToSourceKm + destToDestKm;
 
       missionData.add(
@@ -77,10 +61,9 @@ class MissionsListsModel {
     }
 
     // Rank by additional distance (shortest first gets highest rank = n)
-    final byAdditionalDistance = List<_MissionRankData>.from(missionData)
-      ..sort(
-        (a, b) => a.additionalDistanceKm.compareTo(b.additionalDistanceKm),
-      );
+    final byAdditionalDistance = List<_MissionRankData>.from(
+      missionData,
+    )..sort((a, b) => a.additionalDistanceKm.compareTo(b.additionalDistanceKm));
     for (var i = 0; i < byAdditionalDistance.length; i++) {
       byAdditionalDistance[i].additionalDistanceRank = n - i;
     }
@@ -161,10 +144,19 @@ class MissionsListsModel {
         return (a) => a.status == MissionStatus.pickedUp;
     }
   }
+}
 
-  static String getSortBy(BuildContext context, SortBy sortby) {
+enum SortBy {
+  distanceClosestFirst,
+  distanceFurthestFirst,
+  distanceToUserClosestFirst,
+  distanceToUserFurthestFirst,
+  timeOldestFirst,
+  timeNewestFirst;
+
+  String getLabel(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    switch (sortby) {
+    switch (this) {
       case SortBy.distanceClosestFirst:
         return l10n.closestToFurthest;
       case SortBy.distanceFurthestFirst:
@@ -179,10 +171,16 @@ class MissionsListsModel {
         return l10n.newestToOldest;
     }
   }
+}
 
-  static String getFilterBy(BuildContext context, FilterBy filterBy) {
+enum FilterBy {
+  noFilter,
+  chosenOnly,
+  pickedUpOnly;
+
+  String getLabel(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    switch (filterBy) {
+    switch (this) {
       case FilterBy.noFilter:
         return l10n.noFilter;
       case FilterBy.chosenOnly:
@@ -193,26 +191,12 @@ class MissionsListsModel {
   }
 }
 
-enum SortBy {
-  distanceClosestFirst,
-  distanceFurthestFirst,
-  distanceToUserClosestFirst,
-  distanceToUserFurthestFirst,
-  timeOldestFirst,
-  timeNewestFirst,
-}
-
-enum FilterBy { noFilter, chosenOnly, pickedUpOnly }
-
 /// Represents a suggested mission with its additional distance.
 class SuggestedMission {
   final Mission mission;
   final double additionalDistanceKm;
 
-  SuggestedMission({
-    required this.mission,
-    required this.additionalDistanceKm,
-  });
+  SuggestedMission({required this.mission, required this.additionalDistanceKm});
 }
 
 /// Helper class to store mission data for ranking-based scoring.

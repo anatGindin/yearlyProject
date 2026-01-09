@@ -4,8 +4,10 @@ import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 
 import '../Models/mission.dart';
+import '../Models/mission_list_type.dart';
+import '../Services/missions_repository.dart';
 import '../ViewModels/driver_map_view_model.dart';
-import '../ViewModels/missions_coordinator_view_model.dart';
+
 import '../l10n/app_localizations.dart';
 import 'Widgets/map_legend.dart';
 import 'Widgets/mission_map_card.dart';
@@ -231,7 +233,7 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
   }
 
   List<Marker> _buildMissionMarkers(BuildContext context) {
-    final coordinator = context.watch<MissionsCoordinatorViewModel>();
+    final repository = context.watch<MissionsRepository>();
     final viewModel = context.read<DriverMapViewModel>();
     final markers = <Marker>[];
 
@@ -278,7 +280,9 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
 
     // Available Missions
     if (viewModel.isStatusVisible(MissionStatus.available)) {
-      for (final mission in coordinator.availableMissionsVM.availableMissions) {
+      for (final mission in repository.getMissions(
+        MissionListType.availableMissions,
+      )) {
         markers.add(
           _createMissionMarker(mission, mission.status.statusColor, viewModel),
         );
@@ -286,7 +290,7 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
     }
 
     // My Missions
-    for (final mission in coordinator.myMissionsVM.myMissions) {
+    for (final mission in repository.getMissions(MissionListType.myMissions)) {
       if (!viewModel.isStatusVisible(mission.status)) continue;
       markers.add(
         _createMissionMarker(mission, mission.status.statusColor, viewModel),

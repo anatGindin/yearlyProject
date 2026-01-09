@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/ViewModels/mission_view_model.dart';
-import 'package:hamal_transport_app/ViewModels/missions_coordinator_view_model.dart';
-import 'package:hamal_transport_app/ViewModels/available_missions_view_model.dart';
+
+import 'package:hamal_transport_app/Models/mission_list_type.dart';
+import 'package:hamal_transport_app/Services/missions_repository.dart';
 import 'package:hamal_transport_app/Views/Widgets/comments_list_view.dart';
 import 'package:hamal_transport_app/Views/Widgets/source_destination.dart';
 import 'package:intl/intl.dart' hide TextDirection;
@@ -9,8 +10,8 @@ import 'package:provider/provider.dart';
 import '../Models/mission.dart';
 import '../Models/missions_model.dart';
 import '../l10n/app_localizations.dart';
-import '../features/Contact_card/view/contact_view.dart';
-import '../features/Contact_card/view_model/contact_vm.dart';
+import 'contact_view.dart';
+import '../ViewModels/contact_vm.dart';
 import '../Services/routing_service.dart';
 import '../Views/Widgets/info_row.dart';
 
@@ -33,15 +34,15 @@ class _MissionScreenState extends State<MissionScreen> {
 
   void _updateStatus(MissionStatus newStatus) {
     final mission = widget.mission;
-    final missionCoordinator = context.read<MissionsCoordinatorViewModel>();
-    missionCoordinator.updateStatus(mission, newStatus);
+    final repository = context.read<MissionsRepository>();
+    repository.updateStatus(mission, newStatus);
   }
 
   @override
   Widget build(BuildContext context) {
     l10n = AppLocalizations.of(context)!;
     final mission = widget.mission;
-    final missionsCoordinator = context.read<MissionsCoordinatorViewModel>();
+    // final missionsCoordinator = context.read<MissionsCoordinatorViewModel>(); // Not needed?
     final sourceContactVM = ContactViewModel(mission.sourceContact);
     final destinationContactVM = ContactViewModel(mission.destinationContact);
     return ChangeNotifierProvider(
@@ -49,7 +50,7 @@ class _MissionScreenState extends State<MissionScreen> {
       child: Scaffold(
         body: Consumer<MissionViewModel>(
           builder: (context, missionVM, _) {
-            missionsCoordinator.setMissionVM(missionVM);
+            // missionsCoordinator.setMissionVM(missionVM); // logic moved to repo
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -165,7 +166,9 @@ class _MissionScreenState extends State<MissionScreen> {
 
   void _showCancellationReasonDialog() {
     String cancellationReason = '';
-    final missionCoordinator = context.read<MissionsCoordinatorViewModel>();
+    // final missionCoordinator = context.read<MissionsCoordinatorViewModel>();
+    final repository = context.read<MissionsRepository>();
+    final mission = widget.mission;
     showDialog<void>(
       context: context,
       builder: (BuildContext dialogContext) {
@@ -191,7 +194,7 @@ class _MissionScreenState extends State<MissionScreen> {
             TextButton(
               onPressed: () {
                 Navigator.of(dialogContext).pop();
-                missionCoordinator.cancelMission(cancellationReason);
+                repository.cancelMission(mission, cancellationReason);
                 // Navigate back to main page after cancellation
                 Navigator.of(context).pop();
               },
@@ -204,8 +207,10 @@ class _MissionScreenState extends State<MissionScreen> {
   }
 
   void _showSuggestedMissionsDialog() {
-    final availableMissionsVM = context.read<AvailableMissionsViewModel>();
-    final allMissions = availableMissionsVM.availableMissions;
+    final repository = context.read<MissionsRepository>();
+    final allMissions = repository.getMissions(
+      MissionListType.availableMissions,
+    );
     final chosenMission = widget.mission;
 
     if (allMissions.isEmpty) return;
@@ -485,9 +490,9 @@ class _MissionScreenState extends State<MissionScreen> {
 
   Widget _statusUpdater(MissionViewModel missionVM) {
     final mission = missionVM.mission;
-    final missionsCoordinator = context.read<MissionsCoordinatorViewModel>();
+    final repository = context.read<MissionsRepository>();
 
-    if (!missionsCoordinator.isAvailable(mission)) {
+    if (!repository.isAvailable(mission)) {
       return ElevatedButton.icon(
         onPressed: (missionVM.status() == MissionStatus.delivered)
             ? null
@@ -510,7 +515,7 @@ class _MissionScreenState extends State<MissionScreen> {
       return SizedBox(
         child: ElevatedButton(
           onPressed: () {
-            missionsCoordinator.takeMission(mission);
+            repository.takeMission(mission);
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(SnackBar(content: Text(l10n.missionTaken)));

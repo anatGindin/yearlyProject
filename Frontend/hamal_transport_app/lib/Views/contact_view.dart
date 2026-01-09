@@ -1,6 +1,6 @@
-import '../view_model/contact_vm.dart';
+import '../ViewModels/contact_vm.dart';
 import 'package:flutter/material.dart';
-import '../../../Utils/launcher_utils.dart';
+import '../Utils/launcher_utils.dart';
 
 class ContactInfoActionable extends StatelessWidget {
   final ContactViewModel vm;

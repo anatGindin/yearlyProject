@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Models/user_profile.dart';
 import 'package:hamal_transport_app/Services/routing_service.dart';
-import '../features/Contact_card/model/contact.dart';
+import 'contact.dart';
 import '../l10n/app_localizations.dart';
 import 'location.dart';
 
@@ -37,8 +37,9 @@ enum MissionStatus {
       case MissionStatus.pickedUp:
         return Colors.green;
       case MissionStatus.delivered:
+        return Colors.yellow;
       case MissionStatus.cancelled:
-        return Colors.orange;
+        return Colors.red;
     }
   }
 }
