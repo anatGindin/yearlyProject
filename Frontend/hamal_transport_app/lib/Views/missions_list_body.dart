@@ -3,7 +3,6 @@ import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
 import 'package:hamal_transport_app/Views/Widgets/list_action_button.dart';
 import 'package:hamal_transport_app/Models/missions_model.dart';
 import 'package:provider/provider.dart';
-import '../l10n/app_localizations.dart';
 import 'Widgets/mission_list_view.dart';
 
 class MissionsListBody extends StatelessWidget {
@@ -69,90 +68,50 @@ class MissionsListBody extends StatelessWidget {
   }
 
   void _showSortOptions(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final viewModel = context.read<MissionsListViewModel>();
+
     showModalBottomSheet(
       context: context,
       builder: (_) => Column(
         mainAxisSize: MainAxisSize.min,
-        children: [
-          ListTile(
-            title: Text(l10n.newestToOldest),
-            onTap: () {
-              viewModel.sortBy(SortBy.timeNewestFirst);
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            title: Text(l10n.oldestToNewest),
-            onTap: () {
-              viewModel.sortBy(SortBy.timeOldestFirst);
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            title: Text(l10n.closestToFurthest),
-            onTap: () {
-              viewModel.sortBy(SortBy.distanceClosestFirst);
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            title: Text(l10n.furthestToClosest),
-            onTap: () {
-              viewModel.sortBy(SortBy.distanceFurthestFirst);
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            title: Text(l10n.distanceFromYouClosest),
-            onTap: () async {
-              await viewModel.sortByGps(SortBy.distanceToUserClosestFirst);
-              if (context.mounted) Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            title: Text(l10n.distanceFromYouFurthest),
-            onTap: () async {
-              await viewModel.sortByGps(SortBy.distanceToUserFurthestFirst);
-              if (context.mounted) Navigator.pop(context);
-            },
-          ),
-        ],
+        children: viewModel.allowedSortOptions
+            .map(
+              (option) => ListTile(
+                title: Text(option.getLabel(context)),
+                onTap: () async {
+                  if (option == SortBy.distanceToUserClosestFirst ||
+                      option == SortBy.distanceToUserFurthestFirst) {
+                    await viewModel.sortByGps(option);
+                  } else {
+                    viewModel.sortBy(option);
+                  }
+                  if (context.mounted) Navigator.pop(context);
+                },
+              ),
+            )
+            .toList(),
       ),
     );
   }
 
   void _showFilterOptions(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final viewModel = context.read<MissionsListViewModel>();
+
     showModalBottomSheet(
       context: context,
       builder: (_) => Column(
         mainAxisSize: MainAxisSize.min,
-        children: [
-          ListTile(
-            title: Text(l10n.noFilter),
-            onTap: () {
-              viewModel.filterBy(FilterBy.noFilter);
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            title: Text(l10n.chosenFilter),
-            onTap: () {
-              viewModel.filterBy(FilterBy.chosenOnly);
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            title: Text(l10n.pickedUpFilter),
-            onTap: () {
-              viewModel.filterBy(FilterBy.pickedUpOnly);
-              Navigator.pop(context);
-            },
-          ),
-        ],
+        children: viewModel.allowedFilterOptions
+            .map(
+              (option) => ListTile(
+                title: Text(option.getLabel(context)),
+                onTap: () {
+                  viewModel.filterBy(option);
+                  Navigator.pop(context);
+                },
+              ),
+            )
+            .toList(),
       ),
     );
   }

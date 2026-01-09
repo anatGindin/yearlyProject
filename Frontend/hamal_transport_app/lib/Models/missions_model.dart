@@ -144,10 +144,19 @@ class MissionsListsModel {
         return (a) => a.status == MissionStatus.pickedUp;
     }
   }
+}
 
-  static String getSortBy(BuildContext context, SortBy sortby) {
+enum SortBy {
+  distanceClosestFirst,
+  distanceFurthestFirst,
+  distanceToUserClosestFirst,
+  distanceToUserFurthestFirst,
+  timeOldestFirst,
+  timeNewestFirst;
+
+  String getLabel(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    switch (sortby) {
+    switch (this) {
       case SortBy.distanceClosestFirst:
         return l10n.closestToFurthest;
       case SortBy.distanceFurthestFirst:
@@ -162,10 +171,16 @@ class MissionsListsModel {
         return l10n.newestToOldest;
     }
   }
+}
 
-  static String getFilterBy(BuildContext context, FilterBy filterBy) {
+enum FilterBy {
+  noFilter,
+  chosenOnly,
+  pickedUpOnly;
+
+  String getLabel(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    switch (filterBy) {
+    switch (this) {
       case FilterBy.noFilter:
         return l10n.noFilter;
       case FilterBy.chosenOnly:
@@ -175,17 +190,6 @@ class MissionsListsModel {
     }
   }
 }
-
-enum SortBy {
-  distanceClosestFirst,
-  distanceFurthestFirst,
-  distanceToUserClosestFirst,
-  distanceToUserFurthestFirst,
-  timeOldestFirst,
-  timeNewestFirst,
-}
-
-enum FilterBy { noFilter, chosenOnly, pickedUpOnly }
 
 /// Represents a suggested mission with its additional distance.
 class SuggestedMission {

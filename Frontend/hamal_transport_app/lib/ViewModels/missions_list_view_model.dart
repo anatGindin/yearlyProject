@@ -10,6 +10,8 @@ import 'package:hamal_transport_app/Services/missions_repository.dart';
 class MissionsListViewModel extends ChangeNotifier {
   final MissionsRepository _repository;
   final MissionListType _type;
+  final List<SortBy> allowedSortOptions;
+  final List<FilterBy> allowedFilterOptions;
 
   SortBy _sortBy = SortBy.timeNewestFirst;
   FilterBy _filterBy = FilterBy.noFilter;
@@ -18,9 +20,21 @@ class MissionsListViewModel extends ChangeNotifier {
   MissionsListViewModel({
     required MissionsRepository repository,
     required MissionListType type,
+    this.allowedSortOptions = SortBy.values,
+    this.allowedFilterOptions = FilterBy.values,
   }) : _repository = repository,
        _type = type {
     _repository.addListener(notifyListeners);
+
+    // Ensure default sort/filter are allowed
+    if (!allowedSortOptions.contains(_sortBy) &&
+        allowedSortOptions.isNotEmpty) {
+      _sortBy = allowedSortOptions.first;
+    }
+    if (!allowedFilterOptions.contains(_filterBy) &&
+        allowedFilterOptions.isNotEmpty) {
+      _filterBy = allowedFilterOptions.first;
+    }
   }
 
   @override
@@ -44,11 +58,11 @@ class MissionsListViewModel extends ChangeNotifier {
   }
 
   String getSortBy(BuildContext context) {
-    return MissionsListsModel.getSortBy(context, _sortBy);
+    return _sortBy.getLabel(context);
   }
 
   String getFilterBy(BuildContext context) {
-    return MissionsListsModel.getFilterBy(context, _filterBy);
+    return _filterBy.getLabel(context);
   }
 
   void sortBy(SortBy sortByOption) {
