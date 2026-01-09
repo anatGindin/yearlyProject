@@ -3,7 +3,7 @@ import 'package:hamal_transport_app/l10n/app_localizations.dart';
 
 class DriverNavigationBarWrapper extends StatefulWidget {
   const DriverNavigationBarWrapper({super.key, required this.allDestinations});
-  final List<DriverDestination> allDestinations;
+  final List<NavBarDestination> allDestinations;
 
   @override
   State<DriverNavigationBarWrapper> createState() =>
@@ -112,8 +112,8 @@ class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
           destinations: widget.allDestinations
               .map(
                 (d) => NavigationDestination(
-                  icon: Icon(d.driverPageType.getIcon()),
-                  label: d.driverPageType.getLabel(context),
+                  icon: Icon(d.pageType.getIcon()),
+                  label: d.pageType.getLabel(context),
                 ),
               )
               .toList(),
@@ -152,7 +152,7 @@ class _KeepAliveNavigatorState extends State<_KeepAliveNavigator>
   }
 }
 
-enum DriverPageType {
+enum NavBarPageType {
   missions,
   mapView,
   profile;
@@ -160,36 +160,36 @@ enum DriverPageType {
   String getLabel(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     switch (this) {
-      case DriverPageType.missions:
+      case NavBarPageType.missions:
         return l10n.missions;
-      case DriverPageType.mapView:
+      case NavBarPageType.mapView:
         return l10n.map;
-      case DriverPageType.profile:
+      case NavBarPageType.profile:
         return l10n.profile;
     }
   }
 
   IconData getIcon() {
     switch (this) {
-      case DriverPageType.missions:
+      case NavBarPageType.missions:
         return Icons.list;
-      case DriverPageType.mapView:
+      case NavBarPageType.mapView:
         return Icons.map;
-      case DriverPageType.profile:
+      case NavBarPageType.profile:
         return Icons.person;
     }
   }
 }
 
-class DriverDestination {
-  const DriverDestination({
-    required this.driverPageType,
+class NavBarDestination {
+  const NavBarDestination({
+    required this.pageType,
     required this.page,
     this.onEnter,
     this.onExit,
   });
 
-  final DriverPageType driverPageType;
+  final NavBarPageType pageType;
   final Widget page;
   final VoidCallback? onEnter;
   final VoidCallback? onExit;

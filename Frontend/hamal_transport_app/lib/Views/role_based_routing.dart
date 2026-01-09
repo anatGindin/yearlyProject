@@ -27,8 +27,8 @@ Widget getDestinationForRole(UserRole role) {
             final repository = context.read<MissionsRepository>();
             return DriverNavigationBarWrapper(
               allDestinations: [
-                DriverDestination(
-                  driverPageType: DriverPageType.missions,
+                NavBarDestination(
+                  pageType: NavBarPageType.missions,
                   page: MissionsTabsPage(
                     tabs: [
                       MissionTabConfig(
@@ -51,16 +51,16 @@ Widget getDestinationForRole(UserRole role) {
                     ],
                   ),
                 ),
-                DriverDestination(
-                  driverPageType: DriverPageType.mapView,
+                NavBarDestination(
+                  pageType: NavBarPageType.mapView,
                   page: const DriverMapView(),
                   onEnter: () =>
                       context.read<DriverMapViewModel>().initLocation(),
                   onExit: () =>
                       context.read<DriverMapViewModel>().stopLocationUpdates(),
                 ),
-                const DriverDestination(
-                  driverPageType: DriverPageType.profile,
+                const NavBarDestination(
+                  pageType: NavBarPageType.profile,
                   page: UserProfilePage(),
                 ),
               ],
@@ -73,8 +73,8 @@ Widget getDestinationForRole(UserRole role) {
       return const DriverNavigationBarWrapper(
         allDestinations: [
           //TODO: add more pages for logistics
-          DriverDestination(
-            driverPageType: DriverPageType.profile,
+          NavBarDestination(
+            pageType: NavBarPageType.profile,
             page: UserProfilePage(),
           ),
         ],
