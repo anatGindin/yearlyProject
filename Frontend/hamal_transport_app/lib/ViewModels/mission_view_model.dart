@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Models/mission.dart';
-import '../features/Contact_card/model/contact.dart';
+import '../Models/contact.dart';
 import '../Models/user_profile.dart';
 import '../Utils/launcher_utils.dart';
 

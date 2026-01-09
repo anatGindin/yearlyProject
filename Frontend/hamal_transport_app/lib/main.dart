@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hamal_transport_app/Constants/mock_data.dart';
-import 'package:hamal_transport_app/Models/missions_model.dart';
+
 import 'package:hamal_transport_app/Services/authentication_service.dart';
-import 'package:hamal_transport_app/ViewModels/available_missions_view_model.dart';
-import 'package:hamal_transport_app/ViewModels/missions_coordinator_view_model.dart';
-import 'package:hamal_transport_app/ViewModels/my_missions_view_model.dart';
+import 'package:hamal_transport_app/Services/missions_repository.dart';
+
 import 'package:provider/provider.dart';
 import 'l10n/app_localizations.dart';
 import 'Views/Authentication/auth_gate.dart';
@@ -37,31 +36,18 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<AppPreferencesService>.value(
           value: prefsService,
         ),
-        Provider<MissionsListsModel>(
+        ChangeNotifierProvider<MissionsRepository>(
           create: (_) {
-            final model = MissionsListsModel(
+            final repo = MissionsRepository(
               myMissionsList: sampleMissions,
               availableMissionsList: availableMissions,
             );
             // Pre-fetch route info for all missions so it's instantly available
-            model.prefetchRouteInfo();
-            return model;
+            repo.prefetchRouteInfo();
+            return repo;
           },
         ),
-        ChangeNotifierProvider<MyMissionsViewModel>(
-          create: (context) =>
-              MyMissionsViewModel(context.read<MissionsListsModel>()),
-        ),
-        ChangeNotifierProvider<AvailableMissionsViewModel>(
-          create: (context) =>
-              AvailableMissionsViewModel(context.read<MissionsListsModel>()),
-        ),
-        ChangeNotifierProvider<MissionsCoordinatorViewModel>(
-          create: (context) => MissionsCoordinatorViewModel(
-            myMissionsVM: context.read<MyMissionsViewModel>(),
-            availableMissionsVM: context.read<AvailableMissionsViewModel>(),
-          ),
-        ),
+
         Provider<AuthenticationService>(create: (_) => AuthenticationService()),
         Provider<LocationService>(create: (_) => LocationService()),
       ],
