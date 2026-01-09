@@ -81,4 +81,8 @@ class MissionViewModel extends ChangeNotifier {
     mission.comments[index] = newComment;
     notifyListeners();
   }
+
+  void updateView() {
+    notifyListeners();
+  }
 }

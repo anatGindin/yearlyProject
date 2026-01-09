@@ -32,10 +32,11 @@ class _MissionScreenState extends State<MissionScreen> {
     super.initState();
   }
 
-  void _updateStatus(MissionStatus newStatus) {
+  void _updateStatus(MissionStatus newStatus, MissionViewModel missionVM) {
     final mission = widget.mission;
     final repository = context.read<MissionsRepository>();
     repository.updateStatus(mission, newStatus);
+    missionVM.updateView();
   }
 
   @override
@@ -117,7 +118,7 @@ class _MissionScreenState extends State<MissionScreen> {
     );
   }
 
-  void _showStatusOptions() {
+  void _showStatusOptions(MissionViewModel missionVM) {
     final mission = widget.mission;
     final currentStatus = mission.status;
     // TODO: move the "next status" list options to the view model (?)
@@ -134,7 +135,7 @@ class _MissionScreenState extends State<MissionScreen> {
                 title: Text(l10n.pickedUp),
                 onTap: () {
                   Navigator.of(context).pop();
-                  _updateStatus(MissionStatus.pickedUp);
+                  _updateStatus(MissionStatus.pickedUp, missionVM);
                 },
               ),
             // Show "Delivered" option only for picked up missions
@@ -143,7 +144,7 @@ class _MissionScreenState extends State<MissionScreen> {
                 title: Text(l10n.delivered),
                 onTap: () {
                   Navigator.of(context).pop();
-                  _updateStatus(MissionStatus.delivered);
+                  _updateStatus(MissionStatus.delivered, missionVM);
                   // Navigate back to main page after delivery
                   Navigator.of(context).pop();
                 },
@@ -496,7 +497,7 @@ class _MissionScreenState extends State<MissionScreen> {
       return ElevatedButton.icon(
         onPressed: (missionVM.status() == MissionStatus.delivered)
             ? null
-            : () => _showStatusOptions(),
+            : () => _showStatusOptions(missionVM),
         icon: const Icon(Icons.update),
         label: Text(
           l10n.updateStatus,
@@ -520,6 +521,7 @@ class _MissionScreenState extends State<MissionScreen> {
               context,
             ).showSnackBar(SnackBar(content: Text(l10n.missionTaken)));
             _showSuggestedMissionsDialog();
+            missionVM.updateView();
           },
 
           style: ElevatedButton.styleFrom(
