@@ -13,16 +13,11 @@ import 'Widgets/selected_marker.dart';
 import 'Widgets/warehouse_map_card.dart';
 
 class DriverMapView extends StatelessWidget {
-  final DriverMapViewModel viewModel;
-
-  const DriverMapView({super.key, required this.viewModel});
+  const DriverMapView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: viewModel,
-      child: const DriverMapViewContent(),
-    );
+    return const DriverMapViewContent();
   }
 }
 

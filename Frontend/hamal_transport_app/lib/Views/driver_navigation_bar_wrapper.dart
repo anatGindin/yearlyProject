@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hamal_transport_app/ViewModels/driver_map_view_model.dart';
-import 'package:hamal_transport_app/Views/driver_map_view.dart';
-import 'package:hamal_transport_app/Views/user_profile_page.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
-import 'missions_tabs_page.dart';
 
 class DriverNavigationBarWrapper extends StatefulWidget {
-  const DriverNavigationBarWrapper({super.key});
+  const DriverNavigationBarWrapper({super.key, required this.allDestinations});
+  final List<DriverDestination> allDestinations;
 
   @override
   State<DriverNavigationBarWrapper> createState() =>
@@ -15,19 +12,9 @@ class DriverNavigationBarWrapper extends StatefulWidget {
 
 class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
     with SingleTickerProviderStateMixin {
-  static const List<DriverDestination> allDestinations = [
-    DriverDestination(0, DriverPageType.missions),
-    DriverDestination(1, DriverPageType.mapView),
-    DriverDestination(2, DriverPageType.profile),
-  ];
-
   late final TabController _tabController;
-  late final DriverMapViewModel _driverMapViewModel;
 
-  final List<GlobalKey<NavigatorState>> navigatorKeys = List.generate(
-    allDestinations.length,
-    (_) => GlobalKey<NavigatorState>(),
-  );
+  late final List<GlobalKey<NavigatorState>> navigatorKeys;
 
   int navBarIndex = 0; // the nav bar option that is highlighted
   int targetIndex = 0; // the nav bar option we tap on
@@ -37,9 +24,15 @@ class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
   void initState() {
     super.initState();
 
-    _driverMapViewModel = DriverMapViewModel();
+    navigatorKeys = List.generate(
+      widget.allDestinations.length,
+      (_) => GlobalKey<NavigatorState>(),
+    );
 
-    _tabController = TabController(length: allDestinations.length, vsync: this);
+    _tabController = TabController(
+      length: widget.allDestinations.length,
+      vsync: this,
+    );
     _lastActiveIndex = _tabController.index;
 
     // handle nav bar highlighted option on swipe
@@ -61,20 +54,15 @@ class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
       }
     });
 
-    // handle start/stop location stream on move to/from map view
+    // handle start/stop location stream on move to/from map view, only if there is a mapView
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) return;
 
       final newIndex = _tabController.index;
       if (newIndex == _lastActiveIndex) return;
 
-      if (allDestinations[_lastActiveIndex].driverPageType ==
-          DriverPageType.mapView) {
-        _driverMapViewModel.stopLocationUpdates();
-      }
-      if (allDestinations[newIndex].driverPageType == DriverPageType.mapView) {
-        _driverMapViewModel.initLocation();
-      }
+      widget.allDestinations[_lastActiveIndex].onExit?.call();
+      widget.allDestinations[newIndex].onEnter?.call();
 
       _lastActiveIndex = newIndex;
     });
@@ -96,7 +84,6 @@ class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
   @override
   void dispose() {
     _tabController.dispose();
-    _driverMapViewModel.dispose();
     super.dispose();
   }
 
@@ -111,20 +98,18 @@ class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
           controller: _tabController,
           physics: const BouncingScrollPhysics(),
           children: List.generate(
-            allDestinations.length,
+            widget.allDestinations.length,
             (index) => _KeepAliveNavigator(
               key: ValueKey(index),
               navigatorKey: navigatorKeys[index],
-              page: allDestinations[index].driverPageType.getPage(
-                _driverMapViewModel,
-              ),
+              page: widget.allDestinations[index].page,
             ),
           ),
         ),
         bottomNavigationBar: NavigationBar(
           selectedIndex: navBarIndex,
           onDestinationSelected: _onTabSelected,
-          destinations: allDestinations
+          destinations: widget.allDestinations
               .map(
                 (d) => NavigationDestination(
                   icon: Icon(d.driverPageType.getIcon()),
@@ -172,17 +157,6 @@ enum DriverPageType {
   mapView,
   profile;
 
-  Widget getPage(DriverMapViewModel viewModel) {
-    switch (this) {
-      case DriverPageType.missions:
-        return const MissionsTabsPage();
-      case DriverPageType.mapView:
-        return DriverMapView(viewModel: viewModel);
-      case DriverPageType.profile:
-        return const UserProfilePage();
-    }
-  }
-
   String getLabel(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     switch (this) {
@@ -208,8 +182,15 @@ enum DriverPageType {
 }
 
 class DriverDestination {
-  const DriverDestination(this.index, this.driverPageType);
+  const DriverDestination({
+    required this.driverPageType,
+    required this.page,
+    this.onEnter,
+    this.onExit,
+  });
 
-  final int index;
   final DriverPageType driverPageType;
+  final Widget page;
+  final VoidCallback? onEnter;
+  final VoidCallback? onExit;
 }
