@@ -56,6 +56,7 @@ class Mission {
   final CarType carType;
   String cancellationReason;
   final List<String> comments;
+  String? driverUid; // UID of the driver assigned to this mission
 
   Future<RouteInfo?>? _routeInfoFuture;
 
@@ -71,6 +72,7 @@ class Mission {
     this.cancellationReason = '',
     required this.comments,
     required this.carType,
+    this.driverUid,
   });
 
   Mission.chosen({
@@ -85,6 +87,7 @@ class Mission {
     this.cancellationReason = '',
     required this.comments,
     required this.carType,
+    this.driverUid,
   });
 
   /// Calculates route info once per Mission instance and reuses the same Future.
@@ -148,6 +151,7 @@ class Mission {
       status: status,
       comments: comments,
       carType: carType,
+      driverUid: json['driverUid'] as String?,
     );
   }
 
@@ -164,6 +168,7 @@ class Mission {
       'status': status.name,
       'carType': carType.name,
       'comments': comments,
+      'driverUid': driverUid,
     };
   }
 
