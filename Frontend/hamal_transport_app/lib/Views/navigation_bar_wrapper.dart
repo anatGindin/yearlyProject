@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
 
-class DriverNavigationBarWrapper extends StatefulWidget {
-  const DriverNavigationBarWrapper({super.key, required this.allDestinations});
+class NavigationBarWrapper extends StatefulWidget {
+  const NavigationBarWrapper({super.key, required this.allDestinations});
   final List<NavBarDestination> allDestinations;
 
   @override
-  State<DriverNavigationBarWrapper> createState() =>
-      _DriverNavigationBarWrapperState();
+  State<NavigationBarWrapper> createState() => _NavigationBarWrapperState();
 }
 
-class _DriverNavigationBarWrapperState extends State<DriverNavigationBarWrapper>
+class _NavigationBarWrapperState extends State<NavigationBarWrapper>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
 

@@ -5,7 +5,7 @@ import 'package:hamal_transport_app/Services/missions_repository.dart';
 import 'package:hamal_transport_app/ViewModels/driver_map_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
 import 'package:hamal_transport_app/Views/driver_map_view.dart';
-import 'package:hamal_transport_app/Views/driver_navigation_bar_wrapper.dart';
+import 'package:hamal_transport_app/Views/navigation_bar_wrapper.dart';
 import 'package:hamal_transport_app/Views/missions_tabs_page.dart';
 import 'package:hamal_transport_app/Views/user_profile_page.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
@@ -25,7 +25,7 @@ Widget getDestinationForRole(UserRole role) {
           builder: (context) {
             final l10n = AppLocalizations.of(context)!;
             final repository = context.read<MissionsRepository>();
-            return DriverNavigationBarWrapper(
+            return NavigationBarWrapper(
               allDestinations: [
                 NavBarDestination(
                   pageType: NavBarPageType.missions,
@@ -70,7 +70,7 @@ Widget getDestinationForRole(UserRole role) {
       );
     case UserRole.logistics:
     case UserRole.admin:
-      return const DriverNavigationBarWrapper(
+      return const NavigationBarWrapper(
         allDestinations: [
           //TODO: add more pages for logistics
           NavBarDestination(
