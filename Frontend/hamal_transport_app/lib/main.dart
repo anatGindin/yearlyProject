@@ -36,19 +36,28 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<AppPreferencesService>.value(
           value: prefsService,
         ),
-        ChangeNotifierProvider<MissionsRepository>(
-          create: (_) {
-            final repo = MissionsRepository(
-              myMissionsList: sampleMissions,
-              availableMissionsList: availableMissions,
-            );
-            // Pre-fetch route info for all missions so it's instantly available
-            repo.prefetchRouteInfo();
-            return repo;
+        Provider<AuthenticationService>(create: (_) => AuthenticationService()),
+        ChangeNotifierProxyProvider<AuthenticationService, MissionsRepository>(
+          create: (context) => MissionsRepository(
+            myMissionsList: sampleMissions,
+            availableMissionsList: availableMissions,
+            authService: context.read<AuthenticationService>(),
+          ),
+          update: (context, authService, previous) {
+            if (previous == null) {
+              final repo = MissionsRepository(
+                myMissionsList: sampleMissions,
+                availableMissionsList: availableMissions,
+                authService: authService,
+              );
+              // Pre-fetch route info for all missions so it's instantly available
+              repo.prefetchRouteInfo();
+              return repo;
+            }
+            return previous;
           },
         ),
 
-        Provider<AuthenticationService>(create: (_) => AuthenticationService()),
         Provider<LocationService>(create: (_) => LocationService()),
       ],
       child: Consumer<AppPreferencesService>(

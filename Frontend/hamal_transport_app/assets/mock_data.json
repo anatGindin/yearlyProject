@@ -24,7 +24,8 @@
             "time": "2025-12-15 10:00",
             "status": "chosen",
             "carType": "private",
-            "comments": []
+            "comments": [],
+            "driverUid": "I9ivZ6H8pYWoDkeb2wybbKXgxWE2"
         },
         {
             "id": "m2",
@@ -50,7 +51,8 @@
             "time": "2025-12-16 14:30",
             "status": "chosen",
             "carType": "private",
-            "comments": []
+            "comments": [],
+            "driverUid": "I9ivZ6H8pYWoDkeb2wybbKXgxWE2"
         },
         {
             "id": "m3",
@@ -76,7 +78,8 @@
             "time": "2025-12-15 15:00",
             "status": "chosen",
             "carType": "trailer",
-            "comments": []
+            "comments": [],
+            "driverUid": "I9ivZ6H8pYWoDkeb2wybbKXgxWE2"
         }
     ],
     "availableMissions": [

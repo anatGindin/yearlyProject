@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
+import 'package:hamal_transport_app/Services/authentication_service.dart';
 
 class MissionsRepository extends ChangeNotifier {
   final List<Mission> _myMissionsList;
   final List<Mission> _availableMissionsList;
+  final AuthenticationService authService;
 
   MissionsRepository({
     required List<Mission> myMissionsList,
     required List<Mission> availableMissionsList,
+    required this.authService,
   }) : _myMissionsList = myMissionsList,
        _availableMissionsList = availableMissionsList;
 
@@ -48,6 +51,7 @@ class MissionsRepository extends ChangeNotifier {
   }
 
   void takeMission(Mission mission) {
+    mission.driverUid = authService.currentUser?.uid;
     mission.status = MissionStatus.chosen;
     moveMission(
       mission,
@@ -57,6 +61,7 @@ class MissionsRepository extends ChangeNotifier {
   }
 
   void abandonMission(Mission mission) {
+    mission.driverUid = null;
     mission.status = MissionStatus.available;
     moveMission(
       mission,
