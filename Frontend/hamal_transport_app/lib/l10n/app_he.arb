@@ -419,6 +419,18 @@
   "contactUs": "צור קשר",
   "aboutUs": "אודותינו",
   "helpFaq": "עזרה ומרכז מידע",
+  "driverPage": "עמוד נהג",
+  "@driverPage": {
+    "description": "כותרת עבור עמוד הנהג"
+  },
+  "source": "מקור",
+  "@source": {
+    "description": "תווית מיקום מקור"
+  },
+  "destination": "יעד",
+  "@destination": {
+    "description": "תווית מיקום יעד"
+  },
   "additionOf": "תוספת של {distance} {unit}",
   "@additionOf": {
     "description": "טקסט למרחק נוסף בכרטיס משימה",

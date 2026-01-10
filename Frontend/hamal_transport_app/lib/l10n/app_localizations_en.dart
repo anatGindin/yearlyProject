@@ -342,6 +342,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get helpFaq => 'Help & FAQ';
 
   @override
+  String get driverPage => 'Driver Page';
+
+  @override
+  String get source => 'Source';
+
+  @override
+  String get destination => 'Destination';
+
+  @override
   String additionOf(String distance, String unit) {
     return 'addition of $distance $unit';
   }
