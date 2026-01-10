@@ -32,26 +32,18 @@ class _MissionScreenState extends State<MissionScreen> {
     super.initState();
   }
 
-  void _updateStatus(MissionStatus newStatus, MissionViewModel missionVM) {
-    final mission = widget.mission;
-    final repository = context.read<MissionsRepository>();
-    repository.updateStatus(mission, newStatus);
-    missionVM.updateView();
-  }
-
   @override
   Widget build(BuildContext context) {
     l10n = AppLocalizations.of(context)!;
     final mission = widget.mission;
-    // final missionsCoordinator = context.read<MissionsCoordinatorViewModel>(); // Not needed?
+    final repository = context.read<MissionsRepository>();
     final sourceContactVM = ContactViewModel(mission.sourceContact);
     final destinationContactVM = ContactViewModel(mission.destinationContact);
     return ChangeNotifierProvider(
-      create: (context) => MissionViewModel(mission),
+      create: (context) => MissionViewModel(mission, repository),
       child: Scaffold(
         body: Consumer<MissionViewModel>(
           builder: (context, missionVM, _) {
-            // missionsCoordinator.setMissionVM(missionVM); // logic moved to repo
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -135,7 +127,7 @@ class _MissionScreenState extends State<MissionScreen> {
                 title: Text(l10n.pickedUp),
                 onTap: () {
                   Navigator.of(context).pop();
-                  _updateStatus(MissionStatus.pickedUp, missionVM);
+                  missionVM.updateStatus(MissionStatus.pickedUp);
                 },
               ),
             // Show "Delivered" option only for picked up missions
@@ -144,7 +136,7 @@ class _MissionScreenState extends State<MissionScreen> {
                 title: Text(l10n.delivered),
                 onTap: () {
                   Navigator.of(context).pop();
-                  _updateStatus(MissionStatus.delivered, missionVM);
+                  missionVM.updateStatus(MissionStatus.delivered);
                   // Navigate back to main page after delivery
                   Navigator.of(context).pop();
                 },
@@ -156,7 +148,7 @@ class _MissionScreenState extends State<MissionScreen> {
                 title: Text(l10n.cancelled),
                 onTap: () {
                   Navigator.of(context).pop();
-                  _showCancellationReasonDialog();
+                  _showCancellationReasonDialog(missionVM);
                 },
               ),
           ],
@@ -165,11 +157,8 @@ class _MissionScreenState extends State<MissionScreen> {
     );
   }
 
-  void _showCancellationReasonDialog() {
+  void _showCancellationReasonDialog(MissionViewModel missionVM) {
     String cancellationReason = '';
-    // final missionCoordinator = context.read<MissionsCoordinatorViewModel>();
-    final repository = context.read<MissionsRepository>();
-    final mission = widget.mission;
     showDialog<void>(
       context: context,
       builder: (BuildContext dialogContext) {
@@ -195,7 +184,7 @@ class _MissionScreenState extends State<MissionScreen> {
             TextButton(
               onPressed: () {
                 Navigator.of(dialogContext).pop();
-                repository.cancelMission(mission, cancellationReason);
+                missionVM.cancelMission(cancellationReason);
                 // Navigate back to main page after cancellation
                 Navigator.of(context).pop();
               },
@@ -516,12 +505,11 @@ class _MissionScreenState extends State<MissionScreen> {
       return SizedBox(
         child: ElevatedButton(
           onPressed: () {
-            repository.takeMission(mission);
+            missionVM.updateStatus(MissionStatus.chosen);
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(SnackBar(content: Text(l10n.missionTaken)));
             _showSuggestedMissionsDialog();
-            missionVM.updateView();
           },
 
           style: ElevatedButton.styleFrom(
