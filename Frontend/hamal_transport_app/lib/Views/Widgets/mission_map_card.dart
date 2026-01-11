@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-
 import '../../Models/mission.dart';
-import '../../ViewModels/driver_map_view_model.dart';
+import '../../ViewModels/map_view_model.dart';
 import '../../l10n/app_localizations.dart';
 import '../mission_screen.dart';
 
 class MissionMapCard extends StatelessWidget {
   final Mission mission;
-  final DriverMapViewModel viewModel;
+  final MapViewModel viewModel;
 
   const MissionMapCard({
     super.key,

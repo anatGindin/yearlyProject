@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
 import 'package:hamal_transport_app/Models/missions_model.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
-import 'package:hamal_transport_app/ViewModels/driver_map_view_model.dart';
+import 'package:hamal_transport_app/ViewModels/map_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
-import 'package:hamal_transport_app/Views/driver_map_view.dart';
+import 'package:hamal_transport_app/Views/map_view.dart';
 import 'package:hamal_transport_app/Views/navigation_bar_wrapper.dart';
 import 'package:hamal_transport_app/Views/missions_tabs_page.dart';
 import 'package:hamal_transport_app/Views/user_profile_page.dart';
@@ -20,7 +20,7 @@ Widget getDestinationForRole(UserRole role) {
   switch (role) {
     case UserRole.driver:
       return ChangeNotifierProvider(
-        create: (_) => DriverMapViewModel(),
+        create: (_) => MapViewModel(),
         child: Builder(
           builder: (context) {
             final l10n = AppLocalizations.of(context)!;
@@ -53,11 +53,10 @@ Widget getDestinationForRole(UserRole role) {
                 ),
                 NavBarDestination(
                   pageType: NavBarPageType.mapView,
-                  page: const DriverMapView(),
-                  onEnter: () =>
-                      context.read<DriverMapViewModel>().initLocation(),
+                  page: const MapView(),
+                  onEnter: () => context.read<MapViewModel>().initLocation(),
                   onExit: () =>
-                      context.read<DriverMapViewModel>().stopLocationUpdates(),
+                      context.read<MapViewModel>().stopLocationUpdates(),
                 ),
                 const NavBarDestination(
                   pageType: NavBarPageType.profile,
@@ -70,14 +69,30 @@ Widget getDestinationForRole(UserRole role) {
       );
     case UserRole.logistics:
     case UserRole.admin:
-      return const NavigationBarWrapper(
-        allDestinations: [
-          //TODO: add more pages for logistics
-          NavBarDestination(
-            pageType: NavBarPageType.profile,
-            page: UserProfilePage(),
-          ),
-        ],
+      return ChangeNotifierProvider(
+        create: (_) => MapViewModel(),
+        child: Builder(
+          builder: (context) {
+            return NavigationBarWrapper(
+              allDestinations: [
+                //TODO: add more pages for logistics
+                NavBarDestination(
+                  pageType: NavBarPageType.mapView,
+                  page: const MapView(),
+                  // MARK: if we introduce location services on the map page for logisticians, uncomment the onEnter and onExit methods
+                  onEnter: () =>
+                      {}, // context.read<MapViewModel>().initLocation(),
+                  onExit: () =>
+                      {}, // context.read<MapViewModel>().stopLocationUpdates(),
+                ),
+                const NavBarDestination(
+                  pageType: NavBarPageType.profile,
+                  page: UserProfilePage(),
+                ),
+              ],
+            );
+          },
+        ),
       );
   }
 }

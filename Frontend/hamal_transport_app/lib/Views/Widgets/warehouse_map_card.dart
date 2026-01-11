@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../Constants/official_info.dart';
-import '../../ViewModels/driver_map_view_model.dart';
+import '../../ViewModels/map_view_model.dart';
 import '../../l10n/app_localizations.dart';
 import '../../Utils/launcher_utils.dart';
 
 class WarehouseMapCard extends StatelessWidget {
-  final DriverMapViewModel viewModel;
+  final MapViewModel viewModel;
 
   const WarehouseMapCard({super.key, required this.viewModel});
 
