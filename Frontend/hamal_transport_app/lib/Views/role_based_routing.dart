@@ -79,9 +79,11 @@ Widget getDestinationForRole(UserRole role) {
                 NavBarDestination(
                   pageType: NavBarPageType.mapView,
                   page: const MapView(),
-                  onEnter: () => context.read<MapViewModel>().initLocation(),
+                  // MARK: if we introduce location services on the map page for logisticians, uncomment the onEnter and onExit methods
+                  onEnter: () =>
+                      {}, // context.read<MapViewModel>().initLocation(),
                   onExit: () =>
-                      context.read<MapViewModel>().stopLocationUpdates(),
+                      {}, // context.read<MapViewModel>().stopLocationUpdates(),
                 ),
                 const NavBarDestination(
                   pageType: NavBarPageType.profile,
