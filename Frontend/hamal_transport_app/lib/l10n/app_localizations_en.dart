@@ -18,6 +18,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get availableMissions => 'Available Missions';
 
   @override
+  String get pickedUpMissions => 'Picked Up Missions';
+
+  @override
+  String get readyForPickUpMissions => 'Ready For Pick Up Missions';
+
+  @override
+  String get deliveredMissions => 'Delivered Missions';
+
+  @override
+  String get cancelledMissions => 'Cancelled Missions';
+
+  @override
   String get callDesk => 'Call Hamal';
 
   @override
@@ -68,6 +80,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get delivered => 'Delivered';
+
+  @override
+  String get readyForPickUp => 'Ready for pick up';
 
   @override
   String get cancelled => 'Cancelled';
@@ -301,6 +316,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profile => 'Profile';
+
+  @override
+  String get driverList => 'Driver List';
 
   @override
   String get hamalWarehouse => 'Hamal Warehouse';

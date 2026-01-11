@@ -7,6 +7,7 @@ import 'location.dart';
 
 enum MissionStatus {
   chosen,
+  readyForPickUp,
   pickedUp,
   delivered,
   cancelled,
@@ -19,6 +20,8 @@ enum MissionStatus {
         return l10n.chosen;
       case MissionStatus.pickedUp:
         return l10n.pickedUp;
+      case MissionStatus.readyForPickUp:
+        return l10n.readyForPickUpMissions;
       case MissionStatus.delivered:
         return l10n.delivered;
       case MissionStatus.cancelled:
@@ -40,6 +43,8 @@ enum MissionStatus {
         return Colors.yellow;
       case MissionStatus.cancelled:
         return Colors.red;
+      case MissionStatus.readyForPickUp:
+        return Colors.purpleAccent;
     }
   }
 }

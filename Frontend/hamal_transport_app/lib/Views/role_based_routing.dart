@@ -7,6 +7,7 @@ import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
 import 'package:hamal_transport_app/Views/driver_map_view.dart';
 import 'package:hamal_transport_app/Views/navigation_bar_wrapper.dart';
 import 'package:hamal_transport_app/Views/missions_tabs_page.dart';
+import 'package:hamal_transport_app/Views/under_construction_page.dart';
 import 'package:hamal_transport_app/Views/user_profile_page.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -70,14 +71,83 @@ Widget getDestinationForRole(UserRole role) {
       );
     case UserRole.logistics:
     case UserRole.admin:
-      return const NavigationBarWrapper(
-        allDestinations: [
-          //TODO: add more pages for logistics
-          NavBarDestination(
-            pageType: NavBarPageType.profile,
-            page: UserProfilePage(),
-          ),
-        ],
+      return Builder(
+        builder: (context) {
+          final l10n = AppLocalizations.of(context)!;
+          final repository = context.read<MissionsRepository>();
+          return NavigationBarWrapper(
+            allDestinations: [
+              NavBarDestination(
+                pageType: NavBarPageType.missions,
+                page: MissionsTabsPage(
+                  tabs: [
+                    MissionTabConfig(
+                      title: l10n.activeMissions,
+                      icon: Icons.assignment_turned_in,
+                      viewModel: MissionsListViewModel(
+                        repository: repository,
+                        type: MissionListType.allMissions,
+                        allowedFilterOptions: const [FilterBy.noFilter],
+                      ),
+                    ),
+                    MissionTabConfig(
+                      title: l10n.readyForPickUpMissions,
+                      icon: Icons.heart_broken,
+                      viewModel: MissionsListViewModel(
+                        repository: repository,
+                        type: MissionListType.availableMissions,
+                        allowedFilterOptions: const [FilterBy.noFilter],
+                      ),
+                    ),
+                    MissionTabConfig(
+                      title: l10n.pickedUpMissions,
+                      icon: Icons.favorite,
+                      viewModel: MissionsListViewModel(
+                        repository: repository,
+                        type: MissionListType.availableMissions,
+                        allowedFilterOptions: const [FilterBy.noFilter],
+                      ),
+                    ),
+                    MissionTabConfig(
+                      title: l10n.cancelledMissions,
+                      icon: Icons.sentiment_very_dissatisfied,
+                      viewModel: MissionsListViewModel(
+                        repository: repository,
+                        type: MissionListType.availableMissions,
+                        allowedFilterOptions: const [FilterBy.noFilter],
+                      ),
+                    ),
+                    MissionTabConfig(
+                      title: l10n.deliveredMissions,
+                      icon: Icons.check_circle,
+                      viewModel: MissionsListViewModel(
+                        repository: repository,
+                        type: MissionListType.availableMissions,
+                        allowedFilterOptions: const [FilterBy.noFilter],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const NavBarDestination(
+                pageType: NavBarPageType.driverList,
+                page: UnderConstructionPage(),
+              ),
+              NavBarDestination(
+                pageType: NavBarPageType.mapView,
+                page: const DriverMapView(),
+                onEnter: () =>
+                    context.read<DriverMapViewModel>().initLocation(),
+                onExit: () =>
+                    context.read<DriverMapViewModel>().stopLocationUpdates(),
+              ),
+              const NavBarDestination(
+                pageType: NavBarPageType.profile,
+                page: UserProfilePage(),
+              ),
+            ],
+          );
+        },
       );
   }
 }

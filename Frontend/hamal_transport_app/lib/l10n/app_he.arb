@@ -12,6 +12,22 @@
   "@availableMissions": {
     "description": "כותרת דף המשימות הזמינות"
   },
+  "pickedUpMissions": "נאספו",
+  "@pickedUpMissions": {
+    "description": "כותרת דף המשימות שנאספו"
+  },
+  "readyForPickUpMissions": "מוכנות לאיסוף",
+  "@readyForPickUpMissions": {
+    "description": "כותרת דף המשימות שמוכנות לאיסוף"
+  },
+  "deliveredMissions": "נמסרו",
+  "@deliveredMissions": {
+    "description": "כותרת דף המשימות שנמסרו"
+  },
+  "cancelledMissions": "בוטלו",
+  "@cancelledMissions": {
+    "description": "כותרת דף המשימות שבוטלו"
+  },
   "callDesk": "התקשר לחמ\"ל",
   "@callDesk": {
     "description": "כותרת דיאלוג קריאה לדסק"
@@ -56,7 +72,6 @@
   "@suggestedMissionsMessage": {
     "description": "טקסט עזר שמופיע בדיאלוג משימות מוצעות מעל הרשימה"
   },
-
   "km": "ק״מ",
   "@km": {
     "description": "קיצור קילומטרים לתצוגת מרחק נוסף"
@@ -80,6 +95,10 @@
   "delivered": "נמסר",
   "@delivered": {
     "description": "סטטוס משימה - נמסר"
+  },
+  "readyForPickUp": "מוכן לאיסוף",
+  "@readyForPickUp": {
+    "description": "סטטוס משימה - מוכן לאיסוף"
   },
   "cancelled": "בוטל",
   "@cancelled": {
@@ -385,6 +404,10 @@
   "@profile": {
     "description": "תווית של האופיצה פרופיל בסרגל הניווט של נהג"
   },
+  "driverList": "רשימת נהגים",
+  "@driverList": {
+    "description": "תווית של האופציה ספר נהגים בסרגל הניווט של צוות לוגיסטי"
+  },
   "hamalWarehouse": "מחסן לוגיסטי",
   "accountInformation": "פרטי חשבון",
   "edit": "עריכת פרופיל",
@@ -430,7 +453,7 @@
       "unit": {
         "type": "String",
         "example": "ק״מ"
-    }
+      }
     }
   }
 }

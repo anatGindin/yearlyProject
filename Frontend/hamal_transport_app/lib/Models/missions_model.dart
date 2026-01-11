@@ -142,6 +142,12 @@ class MissionsListsModel {
         return (a) => a.status == MissionStatus.chosen;
       case FilterBy.pickedUpOnly:
         return (a) => a.status == MissionStatus.pickedUp;
+      case FilterBy.readyForPickUp:
+        return (a) => a.status == MissionStatus.readyForPickUp;
+      case FilterBy.delivered:
+        return (a) => a.status == MissionStatus.delivered;
+      case FilterBy.cancelled:
+        return (a) => a.status == MissionStatus.cancelled;
     }
   }
 }
@@ -176,7 +182,10 @@ enum SortBy {
 enum FilterBy {
   noFilter,
   chosenOnly,
-  pickedUpOnly;
+  pickedUpOnly,
+  readyForPickUp,
+  delivered,
+  cancelled;
 
   String getLabel(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -187,6 +196,12 @@ enum FilterBy {
         return l10n.menuChosenFilter;
       case FilterBy.pickedUpOnly:
         return l10n.menuPickedUpFilter;
+      case FilterBy.readyForPickUp:
+        return l10n.readyForPickUpMissions;
+      case FilterBy.delivered:
+        return l10n.deliveredMissions;
+      case FilterBy.cancelled:
+        return l10n.cancelledMissions;
     }
   }
 }

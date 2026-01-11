@@ -12,6 +12,22 @@
   "@availableMissions": {
     "description": "Title of available missions page"
   },
+  "pickedUpMissions": "Picked Up Missions",
+  "@pickedUpMissions": {
+    "description": "Title of picked up missions page"
+  },
+  "readyForPickUpMissions": "Ready For Pick Up Missions",
+  "@readyForPickUpMissions": {
+    "description": "Title of ready for pick up missions page"
+  },
+  "deliveredMissions": "Delivered Missions",
+  "@deliveredMissions": {
+    "description": "Title of delivered missions page"
+  },
+  "cancelledMissions": "Cancelled Missions",
+  "@cancelledMissions": {
+    "description": "Title of cancelled missions page"
+  },
   "callDesk": "Call Hamal",
   "@callDesk": {
     "description": "Title of call desk dialog"
@@ -79,6 +95,10 @@
   "delivered": "Delivered",
   "@delivered": {
     "description": "Mission status - delivered"
+  },
+  "readyForPickUp": "Ready for pick up",
+  "@readyForPickUp": {
+    "description": "Mission status - Ready for pickup"
   },
   "cancelled": "Cancelled",
   "@cancelled": {
@@ -383,6 +403,10 @@
   "profile": "Profile",
   "@profile": {
     "description": "Label of Profile option in the driver navigation bar"
+  },
+  "driverList": "Driver List",
+  "@driverList": {
+    "description": "Label of Driver List option in the navigation bar"
   },
   "hamalWarehouse": "Hamal Warehouse",
   "accountInformation": "Account Information",

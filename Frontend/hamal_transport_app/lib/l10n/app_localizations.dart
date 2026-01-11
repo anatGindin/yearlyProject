@@ -116,6 +116,30 @@ abstract class AppLocalizations {
   /// **'Available Missions'**
   String get availableMissions;
 
+  /// Title of picked up missions page
+  ///
+  /// In en, this message translates to:
+  /// **'Picked Up Missions'**
+  String get pickedUpMissions;
+
+  /// Title of ready for pick up missions page
+  ///
+  /// In en, this message translates to:
+  /// **'Ready For Pick Up Missions'**
+  String get readyForPickUpMissions;
+
+  /// Title of delivered missions page
+  ///
+  /// In en, this message translates to:
+  /// **'Delivered Missions'**
+  String get deliveredMissions;
+
+  /// Title of cancelled missions page
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled Missions'**
+  String get cancelledMissions;
+
   /// Title of call desk dialog
   ///
   /// In en, this message translates to:
@@ -217,6 +241,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delivered'**
   String get delivered;
+
+  /// Mission status - Ready for pickup
+  ///
+  /// In en, this message translates to:
+  /// **'Ready for pick up'**
+  String get readyForPickUp;
 
   /// Mission status - cancelled
   ///
@@ -673,6 +703,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profile'**
   String get profile;
+
+  /// Label of Driver List option in the navigation bar
+  ///
+  /// In en, this message translates to:
+  /// **'Driver List'**
+  String get driverList;
 
   /// No description provided for @hamalWarehouse.
   ///

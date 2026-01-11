@@ -42,8 +42,25 @@ class MissionsTabsPage extends StatelessWidget {
               tabs: tabs
                   .map(
                     (tab) => Tab(
-                      icon: Icon(tab.icon),
-                      child: Text(tab.title, softWrap: true),
+                      height: 54,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(tab.icon, size: 20),
+                          const SizedBox(height: 2),
+                          SizedBox(
+                            height: 30, // enough for 2 lines at fontSize 8
+                            child: Text(
+                              tab.title,
+                              textAlign: TextAlign.center,
+                              softWrap: true,
+                              style: Theme.of(
+                                context,
+                              ).textTheme.labelSmall!.copyWith(fontSize: 8),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   )
                   .toList(),

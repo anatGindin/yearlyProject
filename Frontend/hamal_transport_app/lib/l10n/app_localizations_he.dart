@@ -18,6 +18,18 @@ class AppLocalizationsHe extends AppLocalizations {
   String get availableMissions => 'משימות זמינות';
 
   @override
+  String get pickedUpMissions => 'נאספו';
+
+  @override
+  String get readyForPickUpMissions => 'מוכנות לאיסוף';
+
+  @override
+  String get deliveredMissions => 'נמסרו';
+
+  @override
+  String get cancelledMissions => 'בוטלו';
+
+  @override
   String get callDesk => 'התקשר לחמ\"ל';
 
   @override
@@ -68,6 +80,9 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get delivered => 'נמסר';
+
+  @override
+  String get readyForPickUp => 'מוכן לאיסוף';
 
   @override
   String get cancelled => 'בוטל';
@@ -300,6 +315,9 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get profile => 'פרופיל';
+
+  @override
+  String get driverList => 'רשימת נהגים';
 
   @override
   String get hamalWarehouse => 'מחסן לוגיסטי';
