@@ -236,6 +236,12 @@ class AppLocalizationsHe extends AppLocalizations {
   String get destinationContact => 'איש קשר ביעד';
 
   @override
+  String get sourceLocation => 'נקודת האיסוף';
+
+  @override
+  String get destinationLocation => 'נקודת היעד';
+
+  @override
   String get comments => 'הערות';
 
   @override
@@ -256,6 +262,9 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get editCommentTitle => 'עריכת הערה';
+
+  @override
+  String get editMission => 'עריכת משימה';
 
   @override
   String get carType => 'סוג רכב';

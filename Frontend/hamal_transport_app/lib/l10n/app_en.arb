@@ -300,6 +300,14 @@
   "@destinationContact": {
     "description": "Destination contact label"
   },
+  "sourceLocation": "Source location",
+  "@sourceLocation": {
+    "description": "Source location label"
+  },
+  "destinationLocation": "Destination location",
+  "@destinationLocation": {
+    "description": "Destination location label"
+  },
   "comments": "Comments",
   "@comments": {
     "description": "Comments label"
@@ -327,6 +335,10 @@
   "editCommentTitle": "Edit Comment",
   "@editCommentTitle": {
     "description": "Title for edit comment dialog"
+  },
+  "editMission": "Edit mission",
+  "@editMission": {
+    "description": "Title for edit mission dialog"
   },
   "carType": "Car Type",
   "@carType": {

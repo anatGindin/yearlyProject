@@ -300,6 +300,14 @@
   "@destinationContact": {
     "description": "תווית איש קשר ביעד"
   },
+  "sourceLocation": "נקודת האיסוף",
+  "@sourceLocation": {
+    "description": "תווית נקודת האיסוף"
+  },
+  "destinationLocation": "נקודת היעד",
+  "@destinationLocation": {
+    "description": "תווית נקודת היעד"
+  },
   "comments": "הערות",
   "@comments": {
     "description": "תווית הערות"
@@ -327,6 +335,10 @@
   "editCommentTitle": "עריכת הערה",
   "@editCommentTitle": {
     "description": "כותרת דיאלוג עריכת הערה"
+  },
+  "editMission": "עריכת משימה",
+  "@editMission": {
+    "description": "כותרת דיאלוג עריכת משימה"
   },
   "carType": "סוג רכב",
   "@carType": {

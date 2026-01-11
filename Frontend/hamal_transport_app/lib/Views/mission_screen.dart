@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/ViewModels/mission_view_model.dart';
-
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
+import 'package:hamal_transport_app/ViewModels/user_profile_view_model.dart';
 import 'package:hamal_transport_app/Views/Widgets/comments_list_view.dart';
 import 'package:hamal_transport_app/Views/Widgets/source_destination.dart';
+import 'package:hamal_transport_app/Views/under_construction_page.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:provider/provider.dart';
 import '../Models/mission.dart';
@@ -39,6 +40,8 @@ class _MissionScreenState extends State<MissionScreen> {
     final repository = context.read<MissionsRepository>();
     final sourceContactVM = ContactViewModel(mission.sourceContact);
     final destinationContactVM = ContactViewModel(mission.destinationContact);
+    final userVM = context.read<UserProfileViewModel>();
+
     return ChangeNotifierProvider(
       create: (context) => MissionViewModel(mission, repository),
       child: Scaffold(
@@ -52,7 +55,7 @@ class _MissionScreenState extends State<MissionScreen> {
                   children: [
                     const SizedBox(height: 20),
                     const BackButton(),
-                    _buildRouteInfo(missionVM),
+                    _buildRouteInfo(missionVM, userVM.isDriver),
                     const SizedBox(height: 16),
                     InfoRow(
                       icon: Icons.star_rounded,
@@ -100,6 +103,20 @@ class _MissionScreenState extends State<MissionScreen> {
                     ),
                     const SizedBox(height: 16),
                     MissionCommentsTile(missionViewModel: missionVM),
+                    const SizedBox(height: 16),
+                    if (!userVM.isDriver)
+                      ElevatedButton.icon(
+                        icon: const Icon(Icons.edit),
+                        label: Text(l10n.editMission),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => UnderConstructionPage(),
+                            ),
+                          );
+                        },
+                      ),
+                    const SizedBox(height: 16),
                   ],
                 ),
               ),
@@ -328,7 +345,7 @@ class _MissionScreenState extends State<MissionScreen> {
     );
   }
 
-  Widget _buildRouteInfo(MissionViewModel missionVM) {
+  Widget _buildRouteInfo(MissionViewModel missionVM, bool isDriver) {
     final mission = missionVM.mission;
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
@@ -432,34 +449,43 @@ class _MissionScreenState extends State<MissionScreen> {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 24),
-                            if (missionVM.status() == MissionStatus.chosen ||
-                                missionVM.status() == MissionStatus.pickedUp)
-                              ElevatedButton.icon(
-                                onPressed: () async {
-                                  final success = await missionVM
-                                      .launchNavigation();
-                                  // Guard the context we are about to use
-                                  if (!context.mounted) return;
-                                  if (!success) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          l10n.cannotLaunchNavigation,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  minimumSize: const Size.fromHeight(64),
-                                ),
-                                icon: const Icon(Icons.navigation),
-                                label: Text(
-                                  l10n.navigateWaze,
-                                  style: const TextStyle(fontSize: 16),
-                                  textAlign: TextAlign.center,
-                                ),
+
+                            if (isDriver &&
+                                (missionVM.status() == MissionStatus.chosen ||
+                                    missionVM.status() ==
+                                        MissionStatus.pickedUp))
+                              Column(
+                                children: [
+                                  const SizedBox(height: 24),
+                                  ElevatedButton.icon(
+                                    onPressed: () async {
+                                      final success = await missionVM
+                                          .launchNavigation();
+                                      // Guard the context we are about to use
+                                      if (!context.mounted) return;
+                                      if (!success) {
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              l10n.cannotLaunchNavigation,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      minimumSize: const Size.fromHeight(64),
+                                    ),
+                                    icon: const Icon(Icons.navigation),
+                                    label: Text(
+                                      l10n.navigateWaze,
+                                      style: const TextStyle(fontSize: 16),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
                               ),
                           ],
                         ),

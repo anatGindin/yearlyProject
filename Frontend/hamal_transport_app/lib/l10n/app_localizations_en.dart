@@ -237,6 +237,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get destinationContact => 'Destination contact';
 
   @override
+  String get sourceLocation => 'Source location';
+
+  @override
+  String get destinationLocation => 'Destination location';
+
+  @override
   String get comments => 'Comments';
 
   @override
@@ -257,6 +263,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get editCommentTitle => 'Edit Comment';
+
+  @override
+  String get editMission => 'Edit mission';
 
   @override
   String get carType => 'Car Type';

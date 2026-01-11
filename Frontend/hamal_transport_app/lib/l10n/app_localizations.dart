@@ -548,6 +548,18 @@ abstract class AppLocalizations {
   /// **'Destination contact'**
   String get destinationContact;
 
+  /// Source location label
+  ///
+  /// In en, this message translates to:
+  /// **'Source location'**
+  String get sourceLocation;
+
+  /// Destination location label
+  ///
+  /// In en, this message translates to:
+  /// **'Destination location'**
+  String get destinationLocation;
+
   /// Comments label
   ///
   /// In en, this message translates to:
@@ -589,6 +601,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Edit Comment'**
   String get editCommentTitle;
+
+  /// Title for edit mission dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Edit mission'**
+  String get editMission;
 
   /// Label for car type selection
   ///
