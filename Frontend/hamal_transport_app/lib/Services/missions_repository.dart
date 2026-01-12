@@ -18,22 +18,18 @@ class MissionsRepository extends ChangeNotifier {
     required List<Mission> adminMissionsList,
     required List<UserProfile> driverUsers,
     required this.authService,
-  }) : _myMissionsList = myMissionsList,
-       _availableMissionsList = availableMissionsList,
-       _adminMissionsList = adminMissionsList,
-       _driverUsers = driverUsers;
+  })
+      : _myMissionsList = myMissionsList,
+        _availableMissionsList = availableMissionsList,
+        _adminMissionsList = adminMissionsList,
+        _driverUsers = driverUsers;
 
   List<Mission> getMissions(MissionListType type) {
     switch (type) {
       case MissionListType.myMissions:
         return _myMissionsList;
       case MissionListType.availableMissions:
-        return [
-          ..._availableMissionsList,
-          ..._adminMissionsList.where(
-            (mission) => mission.status == MissionStatus.available,
-          ),
-        ];
+        return _availableMissionsList;
       case MissionListType.allMissions:
         return [..._myMissionsList, ..._availableMissionsList];
       case MissionListType.assignedMissions:
