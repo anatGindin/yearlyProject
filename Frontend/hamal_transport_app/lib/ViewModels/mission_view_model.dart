@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hamal_transport_app/Services/missions_repository.dart';
 import '../Models/mission.dart';
 import '../Models/contact.dart';
 import '../Models/user_profile.dart';
@@ -6,7 +7,8 @@ import '../Utils/launcher_utils.dart';
 
 class MissionViewModel extends ChangeNotifier {
   Mission mission;
-  MissionViewModel(this.mission);
+  final MissionsRepository _repository;
+  MissionViewModel(this.mission, this._repository);
 
   MissionStatus status() {
     return mission.status;
@@ -42,8 +44,12 @@ class MissionViewModel extends ChangeNotifier {
 
   /// Update the status of the mission
   void updateStatus(MissionStatus newStatus) {
-    // mission is passed by reference so it is updeted in the list
-    mission.status = newStatus;
+    if (mission.status == MissionStatus.available &&
+        newStatus == MissionStatus.chosen) {
+      _repository.takeMission(mission);
+    } else {
+      _repository.updateStatus(mission, newStatus);
+    }
     notifyListeners();
   }
 
@@ -62,7 +68,7 @@ class MissionViewModel extends ChangeNotifier {
   void cancelMission(String cancellationReason) {
     // for now we just save the reason, in the future we will send it to the server
     // so the server can notify the logistics supervisor
-    mission.cancellationReason = cancellationReason;
+    _repository.cancelMission(mission, cancellationReason);
   }
 
   void addComment(String comment) {
