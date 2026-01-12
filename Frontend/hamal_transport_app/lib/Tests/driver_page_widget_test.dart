@@ -18,51 +18,6 @@ void main() {
     await initializeMockData();
   });
 
-  group('DriverPage - Loading State', () {
-    testWidgets(
-      'Shows CircularProgressIndicator when loading',
-      (tester) async {
-        // Note: This test is challenging because the async loading completes very quickly
-        // in the test environment. In real usage, the loading indicator works correctly.
-        final authService = FakeAuthenticationService();
-        final repository = MissionsRepository(
-          myMissionsList: [...sampleMissions],
-          availableMissionsList: [...availableMissions],
-          authService: authService,
-        );
-
-        final viewModel = DriverViewModel(
-          driverUid: 'test-uid',
-          authService: authService,
-          missionsRepository: repository,
-        );
-
-        await tester.pumpWidget(
-          MaterialApp(
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [Locale('en'), Locale('he')],
-            home: ChangeNotifierProvider<DriverViewModel>.value(
-              value: viewModel,
-              child: const DriverPage(),
-            ),
-          ),
-        );
-
-        // Wait for initial build and state updates
-        await tester.pumpAndSettle();
-
-        // Verify that after loading, the page displays content
-        expect(find.byType(DriverPage), findsOneWidget);
-      },
-      skip: true, // Loading state completes too quickly in test environment
-    );
-  });
-
   group('DriverPage - Error State', () {
     testWidgets('Displays error icon when errorMessage is set', (tester) async {
       final authService = FakeAuthenticationService();
@@ -453,17 +408,20 @@ void main() {
       );
 
       await tester.pumpWidget(
-        MaterialApp(
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<DriverViewModel>.value(value: viewModel),
+            ChangeNotifierProvider<MissionsRepository>.value(value: repository),
           ],
-          supportedLocales: const [Locale('en'), Locale('he')],
-          home: ChangeNotifierProvider<DriverViewModel>.value(
-            value: viewModel,
-            child: const DriverPage(),
+          child: const MaterialApp(
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: [Locale('en'), Locale('he')],
+            home: DriverPage(),
           ),
         ),
       );
