@@ -8,6 +8,7 @@ import '../../l10n/app_localizations.dart';
 
 class MapLegend extends StatefulWidget {
   final MapViewModel viewModel;
+
   const MapLegend({super.key, required this.viewModel});
 
   @override
@@ -30,8 +31,8 @@ class _MapLegendState extends State<MapLegend> {
     final availableCount = visibleMissions
         .where((m) => m.status == MissionStatus.available)
         .length;
-    final chosenCount = visibleMissions
-        .where((m) => m.status == MissionStatus.chosen)
+    final assignedCount = visibleMissions
+        .where((m) => m.status == MissionStatus.assigned)
         .length;
     final pickedUpCount = visibleMissions
         .where((m) => m.status == MissionStatus.pickedUp)
@@ -66,8 +67,8 @@ class _MapLegendState extends State<MapLegend> {
               const SizedBox(height: 8),
               if (availableCount > 0)
                 _buildLegendItem(Colors.orange, l10n.available, availableCount),
-              if (chosenCount > 0)
-                _buildLegendItem(Colors.blue, l10n.chosen, chosenCount),
+              if (assignedCount > 0)
+                _buildLegendItem(Colors.blue, l10n.chosen, assignedCount),
               if (pickedUpCount > 0)
                 _buildLegendItem(Colors.green, l10n.pickedUp, pickedUpCount),
               if (deliveredCount > 0)
