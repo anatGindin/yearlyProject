@@ -169,8 +169,8 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
                     _buildLayerCheckbox(
                       context,
                       viewModel,
-                      MissionStatus.chosen,
-                      MissionStatus.chosen.statusColor,
+                      MissionStatus.assigned,
+                      MissionStatus.assigned.statusColor,
                       l10n.chosen,
                     ),
                     _buildLayerCheckbox(

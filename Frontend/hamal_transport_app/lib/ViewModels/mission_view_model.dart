@@ -8,6 +8,7 @@ import '../Utils/launcher_utils.dart';
 class MissionViewModel extends ChangeNotifier {
   Mission mission;
   final MissionsRepository _repository;
+
   MissionViewModel(this.mission, this._repository);
 
   MissionStatus status() {
@@ -45,7 +46,7 @@ class MissionViewModel extends ChangeNotifier {
   /// Update the status of the mission
   void updateStatus(MissionStatus newStatus) {
     if (mission.status == MissionStatus.available &&
-        newStatus == MissionStatus.chosen) {
+        newStatus == MissionStatus.assigned) {
       _repository.takeMission(mission);
     } else {
       _repository.updateStatus(mission, newStatus);

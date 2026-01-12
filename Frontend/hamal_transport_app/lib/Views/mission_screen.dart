@@ -139,7 +139,7 @@ class _MissionScreenState extends State<MissionScreen> {
           children: <Widget>[
             ListTile(title: Text(l10n.selectStatus)),
             // Show "Picked Up" option only for chosen missions
-            if (currentStatus == MissionStatus.chosen)
+            if (currentStatus == MissionStatus.assigned)
               ListTile(
                 title: Text(l10n.pickedUp),
                 onTap: () {
@@ -158,8 +158,8 @@ class _MissionScreenState extends State<MissionScreen> {
                   Navigator.of(context).pop();
                 },
               ),
-            // Show "Cancelled" option for both chosen and picked up missions
-            if (currentStatus == MissionStatus.chosen ||
+            // Show "Cancelled" option for both assigned and picked up missions
+            if (currentStatus == MissionStatus.assigned ||
                 currentStatus == MissionStatus.pickedUp)
               ListTile(
                 title: Text(l10n.cancelled),
@@ -218,16 +218,16 @@ class _MissionScreenState extends State<MissionScreen> {
     final allMissions = repository.getMissions(
       MissionListType.availableMissions,
     );
-    final chosenMission = widget.mission;
+    final assignedMission = widget.mission;
 
     if (allMissions.isEmpty) return;
 
     // Get top 3 suggested missions using heuristic scoring
     // Suggestions are based on how much additional distance each mission
-    // would add relative to the chosen mission's route
+    // would add relative to the assigned mission's route
     final suggestedMissions = MissionsListsModel.getTopSuggestedMissions(
       allMissions,
-      chosenMission: chosenMission,
+      assignedMission: assignedMission,
       maxResults: 3,
     );
 
@@ -451,7 +451,7 @@ class _MissionScreenState extends State<MissionScreen> {
                             ),
 
                             if (isDriver &&
-                                (missionVM.status() == MissionStatus.chosen ||
+                                (missionVM.status() == MissionStatus.assigned ||
                                     missionVM.status() ==
                                         MissionStatus.pickedUp))
                               Column(
@@ -531,7 +531,7 @@ class _MissionScreenState extends State<MissionScreen> {
       return SizedBox(
         child: ElevatedButton(
           onPressed: () {
-            missionVM.updateStatus(MissionStatus.chosen);
+            missionVM.updateStatus(MissionStatus.assigned);
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(SnackBar(content: Text(l10n.missionTaken)));

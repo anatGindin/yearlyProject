@@ -16,7 +16,7 @@ class DriverMapViewModel extends ChangeNotifier {
   bool _isLoadingLocation = true;
   final Set<MissionStatus> _visibleStatuses = {
     MissionStatus.available,
-    MissionStatus.chosen,
+    MissionStatus.assigned,
     MissionStatus.pickedUp,
     MissionStatus.delivered,
   };
@@ -24,9 +24,13 @@ class DriverMapViewModel extends ChangeNotifier {
   bool _isWarehouseSelected = false;
 
   LatLng? get userLocation => _userLocation;
+
   Mission? get selectedMission => _selectedMission;
+
   bool get isWarehouseSelected => _isWarehouseSelected;
+
   bool get isLoadingLocation => _isLoadingLocation;
+
   Set<MissionStatus> get visibleStatuses => _visibleStatuses;
 
   DriverMapViewModel();

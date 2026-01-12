@@ -6,8 +6,7 @@ import '../l10n/app_localizations.dart';
 import 'location.dart';
 
 enum MissionStatus {
-  chosen,
-  readyForPickUp,
+  assigned,
   pickedUp,
   delivered,
   cancelled,
@@ -16,12 +15,10 @@ enum MissionStatus {
   String displayName(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     switch (this) {
-      case MissionStatus.chosen:
+      case MissionStatus.assigned:
         return l10n.chosen;
       case MissionStatus.pickedUp:
         return l10n.pickedUp;
-      case MissionStatus.readyForPickUp:
-        return l10n.readyForPickUpMissions;
       case MissionStatus.delivered:
         return l10n.delivered;
       case MissionStatus.cancelled:
@@ -35,7 +32,7 @@ enum MissionStatus {
     switch (this) {
       case MissionStatus.available:
         return Colors.orange;
-      case MissionStatus.chosen:
+      case MissionStatus.assigned:
         return Colors.blue;
       case MissionStatus.pickedUp:
         return Colors.green;
@@ -43,8 +40,6 @@ enum MissionStatus {
         return Colors.yellow;
       case MissionStatus.cancelled:
         return Colors.red;
-      case MissionStatus.readyForPickUp:
-        return Colors.purpleAccent;
     }
   }
 }
@@ -80,7 +75,7 @@ class Mission {
     this.driverUid,
   });
 
-  Mission.chosen({
+  Mission.assigned({
     required this.id,
     required this.source,
     required this.destination,
@@ -88,7 +83,7 @@ class Mission {
     required this.sourceContact,
     required this.destinationContact,
     required this.time,
-    this.status = MissionStatus.chosen,
+    this.status = MissionStatus.assigned,
     this.cancellationReason = '',
     required this.comments,
     required this.carType,

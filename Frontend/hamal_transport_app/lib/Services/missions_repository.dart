@@ -52,7 +52,7 @@ class MissionsRepository extends ChangeNotifier {
 
   void takeMission(Mission mission) {
     mission.driverUid = authService.currentUser?.uid;
-    mission.status = MissionStatus.chosen;
+    mission.status = MissionStatus.assigned;
     moveMission(
       mission,
       MissionListType.availableMissions,

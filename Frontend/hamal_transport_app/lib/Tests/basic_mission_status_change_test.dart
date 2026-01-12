@@ -73,7 +73,7 @@ void main() {
       expect(myVM.sourceList.contains(testMission), true);
 
       // Verify status updated
-      expect(testMission.status, MissionStatus.chosen);
+      expect(testMission.status, MissionStatus.assigned);
     });
 
     test('updateStatus to delivered removes mission from my missions', () {
@@ -84,8 +84,8 @@ void main() {
       }
       testMission = repository.getMissions(MissionListType.myMissions).first;
 
-      // Ensure it is 'chosen' or 'pickedUp' initially
-      testMission.status = MissionStatus.chosen;
+      // Ensure it is 'assigned' or 'pickedUp' initially
+      testMission.status = MissionStatus.assigned;
 
       int initialMyLength = repository
           .getMissions(MissionListType.myMissions)
@@ -108,7 +108,7 @@ void main() {
     test('cancelMission returns mission to available', () {
       // Setup: use a mission from my missions
       testMission = repository.getMissions(MissionListType.myMissions).first;
-      testMission.status = MissionStatus.chosen;
+      testMission.status = MissionStatus.assigned;
 
       int initialAvailableLength = repository
           .getMissions(MissionListType.availableMissions)
@@ -134,7 +134,7 @@ void main() {
     test('abandonMission moves mission from my missions -> available', () {
       // Setup: use a mission from my missions
       testMission = repository.getMissions(MissionListType.myMissions).first;
-      testMission.status = MissionStatus.chosen;
+      testMission.status = MissionStatus.assigned;
 
       int initialAvailableLength = repository
           .getMissions(MissionListType.availableMissions)
