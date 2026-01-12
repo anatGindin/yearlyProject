@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
 import 'package:hamal_transport_app/Views/missions_list_body.dart';
 import 'package:provider/provider.dart';
-import '../l10n/app_localizations.dart';
 
 class MissionTabConfig {
   final String title;
@@ -48,10 +47,12 @@ class _MissionsTabsPageState extends State<MissionsTabsPage>
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
+    final scheme = Theme
+        .of(context)
+        .colorScheme;
 
     return Scaffold(
-      appBar: AppBar(title: Text('Missions')),
+      appBar: AppBar(title: const Text('Missions')),
       body: Column(
         children: [
           TabBar(
@@ -80,9 +81,13 @@ class _MissionsTabsPageState extends State<MissionsTabsPage>
                         Text(
                           tab.title,
                           textAlign: TextAlign.center,
-                          style: Theme.of(
+                          style: Theme
+                              .of(
                             context,
-                          ).textTheme.labelSmall!.copyWith(fontSize: 8),
+                          )
+                              .textTheme
+                              .labelSmall!
+                              .copyWith(fontSize: 8),
                         ),
                       ],
                     ),
@@ -97,11 +102,12 @@ class _MissionsTabsPageState extends State<MissionsTabsPage>
               controller: _controller, // ⭐ same controller
               children: widget.tabs
                   .map(
-                    (tab) => ChangeNotifierProvider.value(
+                    (tab) =>
+                    ChangeNotifierProvider.value(
                       value: tab.viewModel,
                       child: const MissionsListBody(),
                     ),
-                  )
+              )
                   .toList(),
             ),
           ),

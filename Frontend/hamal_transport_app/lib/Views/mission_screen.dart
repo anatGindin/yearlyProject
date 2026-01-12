@@ -45,7 +45,7 @@ class _MissionScreenState extends State<MissionScreen> {
         ? repository.getDriverById(mission.driverUid!)
         : null;
     final ContactViewModel? driverContactVM =
-        (!userVM.isDriver && driverProfile != null)
+    (!userVM.isDriver && driverProfile != null)
         ? ContactViewModel(driverProfile.toContact())
         : null;
     return ChangeNotifierProvider(
@@ -111,7 +111,11 @@ class _MissionScreenState extends State<MissionScreen> {
                       label: l10n.carType,
                       child: Text(
                         missionVM.carType().displayName(l10n),
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -122,9 +126,12 @@ class _MissionScreenState extends State<MissionScreen> {
                     if (!userVM.isDriver)
                       InkWell(
                         child: Card(
-                          color: Theme.of(
+                          color: Theme
+                              .of(
                             context,
-                          ).colorScheme.secondaryContainer,
+                          )
+                              .colorScheme
+                              .secondaryContainer,
                           child: Column(
                             children: [
                               const SizedBox(height: 6),
@@ -145,7 +152,7 @@ class _MissionScreenState extends State<MissionScreen> {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               //TODO: add edit mission page
-                              builder: (_) => UnderConstructionPage(),
+                              builder: (_) => const UnderConstructionPage(),
                             ),
                           );
                         },
@@ -276,94 +283,104 @@ class _MissionScreenState extends State<MissionScreen> {
               width: double.maxFinite,
               child: suggestedMissions.isEmpty
                   ? Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(l10n.noMissions, textAlign: TextAlign.center),
-                    )
+                padding: const EdgeInsets.all(16.0),
+                child: Text(l10n.noMissions, textAlign: TextAlign.center),
+              )
                   : Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          l10n.suggestedMissionsMessage,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                        const SizedBox(height: 12),
-                        Expanded(
-                          child: ListView.builder(
-                            itemCount: suggestedMissions.length,
-                            itemBuilder: (context, index) {
-                              final suggested = suggestedMissions[index];
-                              final mission = suggested.mission;
-                              final additionalKm = suggested
-                                  .additionalDistanceKm
-                                  .toStringAsFixed(1);
-                              final isRtl = Directionality.of(context);
-                              final arrow = isRtl == TextDirection.rtl
-                                  ? '←'
-                                  : '→';
-                              return Card(
-                                elevation: 2,
-                                margin: const EdgeInsets.symmetric(vertical: 8),
-                                clipBehavior: Clip.hardEdge,
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.of(dialogContext).pop();
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (_) =>
-                                            MissionScreen(mission: mission),
-                                      ),
-                                    );
-                                  },
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      ListTile(
-                                        title: Text(
-                                          '${mission.source.name} $arrow ${mission.destination.name}',
-                                          style: const TextStyle(fontSize: 14),
-                                        ),
-                                        subtitle: Text(
-                                          mission.description,
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        trailing: const Icon(
-                                          Icons.arrow_forward,
-                                        ),
-                                      ),
-                                      Container(
-                                        color: Theme.of(
-                                          context,
-                                        ).colorScheme.secondaryContainer,
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 8,
-                                          horizontal: 16,
-                                        ),
-                                        child: Text(
-                                          l10n.additionOf(
-                                            additionalKm,
-                                            l10n.km,
-                                          ),
-                                          style: TextStyle(
-                                            color: Theme.of(
-                                              context,
-                                            ).colorScheme.onSurface,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.suggestedMissionsMessage,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .bodyMedium,
+                  ),
+                  const SizedBox(height: 12),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: suggestedMissions.length,
+                      itemBuilder: (context, index) {
+                        final suggested = suggestedMissions[index];
+                        final mission = suggested.mission;
+                        final additionalKm = suggested
+                            .additionalDistanceKm
+                            .toStringAsFixed(1);
+                        final isRtl = Directionality.of(context);
+                        final arrow = isRtl == TextDirection.rtl
+                            ? '←'
+                            : '→';
+                        return Card(
+                          elevation: 2,
+                          margin: const EdgeInsets.symmetric(vertical: 8),
+                          clipBehavior: Clip.hardEdge,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(dialogContext).pop();
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      MissionScreen(mission: mission),
                                 ),
                               );
                             },
+                            child: Column(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.stretch,
+                              children: [
+                                ListTile(
+                                  title: Text(
+                                    '${mission.source.name} $arrow ${mission
+                                        .destination.name}',
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
+                                  subtitle: Text(
+                                    mission.description,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  trailing: const Icon(
+                                    Icons.arrow_forward,
+                                  ),
+                                ),
+                                Container(
+                                  color: Theme
+                                      .of(
+                                    context,
+                                  )
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 16,
+                                  ),
+                                  child: Text(
+                                    l10n.additionOf(
+                                      additionalKm,
+                                      l10n.km,
+                                    ),
+                                    style: TextStyle(
+                                      color: Theme
+                                          .of(
+                                        context,
+                                      )
+                                          .colorScheme
+                                          .onSurface,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    textAlign: TextAlign.start,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        );
+                      },
                     ),
+                  ),
+                ],
+              ),
             ),
           ),
           actions: [
@@ -381,8 +398,12 @@ class _MissionScreenState extends State<MissionScreen> {
 
   Widget _buildRouteInfo(MissionViewModel missionVM, bool isDriver) {
     final mission = missionVM.mission;
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme
+        .of(context)
+        .colorScheme;
+    final textTheme = Theme
+        .of(context)
+        .textTheme;
 
     return Align(
       alignment: Alignment.centerRight,
@@ -422,7 +443,10 @@ class _MissionScreenState extends State<MissionScreen> {
           if (snapshot.hasData && snapshot.data != null) {
             final route = snapshot.data!;
             return SizedBox(
-              width: MediaQuery.of(context).size.width * 0.9,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width * 0.9,
               child: Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
