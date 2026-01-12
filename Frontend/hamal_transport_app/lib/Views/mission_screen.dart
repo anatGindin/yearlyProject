@@ -17,8 +17,13 @@ import '../Views/Widgets/info_row.dart';
 
 class MissionScreen extends StatefulWidget {
   final Mission mission;
+  final bool isReadOnly;
 
-  const MissionScreen({required this.mission, super.key});
+  const MissionScreen({
+    required this.mission,
+    this.isReadOnly = false,
+    super.key,
+  });
 
   @override
   State<MissionScreen> createState() => _MissionScreenState();
@@ -68,7 +73,7 @@ class _MissionScreenState extends State<MissionScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(missionVM.status().displayName(context)),
-                          _statusUpdater(missionVM),
+                          if (!widget.isReadOnly) _statusUpdater(missionVM),
                         ],
                       ),
                     ),
