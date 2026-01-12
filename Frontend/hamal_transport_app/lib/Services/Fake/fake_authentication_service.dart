@@ -18,6 +18,9 @@ class FakeAuthenticationService extends Mock implements AuthenticationService {
   // Mock user profile for testing
   UserProfile? mockUserProfile;
 
+  // Mock user profiles by UID for testing getUserProfileByUid
+  Map<String, UserProfile> mockUserProfileByUid = {};
+
   @override
   Future<UserProfile> signIn({
     required String email,
@@ -90,6 +93,11 @@ class FakeAuthenticationService extends Mock implements AuthenticationService {
   @override
   Future<void> signOut() async {
     mockUserProfile = null;
+  }
+
+  @override
+  Future<UserProfile?> getUserProfileByUid(String uid) async {
+    return mockUserProfileByUid[uid];
   }
 
   @override
