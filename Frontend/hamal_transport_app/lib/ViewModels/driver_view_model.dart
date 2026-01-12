@@ -54,30 +54,8 @@ class DriverViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      // Fetch driver profile from database
-      final snapshot = await _authService.usersRef.child(driverUid).get();
-
-      if (snapshot.value == null) {
-        // Driver not found - we'll just show missions without profile
-        _driverProfile = null;
-        _isLoading = false;
-        notifyListeners();
-        return;
-      }
-
-      // Check if the value is actually a Map
-      if (snapshot.value is! Map) {
-        // Invalid data format - we'll just show missions without profile
-        _driverProfile = null;
-        _isLoading = false;
-        notifyListeners();
-        return;
-      }
-
-      final data = Map<String, dynamic>.from(snapshot.value as Map);
-      _driverProfile = UserProfile.fromDictionary(data);
+      _driverProfile = await _authService.getUserProfileByUid(driverUid);
     } catch (e) {
-      // If we can't load the profile, just continue without it
       _driverProfile = null;
     } finally {
       _isLoading = false;

@@ -164,6 +164,24 @@ class AuthenticationService {
     }
   }
 
+  Future<UserProfile?> getUserProfileByUid(String uid) async {
+    try {
+      final snapshot = await usersRef.child(uid).get();
+
+      if (snapshot.value == null) {
+        return null;
+      }
+      if (snapshot.value is! Map) {
+        return null;
+      }
+      final data = Map<String, dynamic>.from(snapshot.value as Map);
+      final profile = UserProfile.fromDictionary(data);
+      return profile;
+    } catch (e) {
+      return null;
+    }
+  }
+
   Future<void> resetPassword(String email) async {
     try {
       if (!validateEmail(email)) {
