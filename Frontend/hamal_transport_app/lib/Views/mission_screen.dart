@@ -41,7 +41,13 @@ class _MissionScreenState extends State<MissionScreen> {
     final sourceContactVM = ContactViewModel(mission.sourceContact);
     final destinationContactVM = ContactViewModel(mission.destinationContact);
     final userVM = context.read<UserProfileViewModel>();
-
+    final driverProfile = mission.driverUid != null
+        ? repository.getDriverById(mission.driverUid!)
+        : null;
+    final ContactViewModel? driverContactVM =
+        (!userVM.isDriver && driverProfile != null)
+        ? ContactViewModel(driverProfile.toContact())
+        : null;
     return ChangeNotifierProvider(
       create: (context) => MissionViewModel(mission, repository),
       child: Scaffold(
@@ -64,10 +70,19 @@ class _MissionScreenState extends State<MissionScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(missionVM.status().displayName(context)),
-                          _statusUpdater(missionVM),
+                          if (userVM.isDriver) _statusUpdater(missionVM),
                         ],
                       ),
                     ),
+                    const SizedBox(height: 16),
+                    if (!userVM.isDriver)
+                      InfoRow(
+                        icon: Icons.person,
+                        label: l10n.driver,
+                        child: driverContactVM != null
+                            ? ContactInfoActionable(vm: driverContactVM)
+                            : Text(l10n.noDriverAssigned),
+                      ),
                     const SizedBox(height: 16),
                     InfoRow(
                       icon: Icons.person,
@@ -105,12 +120,31 @@ class _MissionScreenState extends State<MissionScreen> {
                     MissionCommentsTile(missionViewModel: missionVM),
                     const SizedBox(height: 16),
                     if (!userVM.isDriver)
-                      ElevatedButton.icon(
-                        icon: const Icon(Icons.edit),
-                        label: Text(l10n.editMission),
-                        onPressed: () {
+                      InkWell(
+                        child: Card(
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.secondaryContainer,
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 6),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(Icons.edit),
+                                  const SizedBox(width: 16),
+                                  Text(l10n.editMission),
+                                ],
+                              ),
+                              const SizedBox(height: 6),
+                            ],
+                          ),
+                        ),
+
+                        onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
+                              //TODO: add edit mission page
                               builder: (_) => UnderConstructionPage(),
                             ),
                           );

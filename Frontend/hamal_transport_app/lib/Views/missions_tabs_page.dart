@@ -8,78 +8,104 @@ class MissionTabConfig {
   final String title;
   final IconData icon;
   final MissionsListViewModel viewModel;
+  final Color color;
 
   MissionTabConfig({
     required this.title,
     required this.icon,
     required this.viewModel,
+    this.color = Colors.transparent,
   });
 }
 
-class MissionsTabsPage extends StatelessWidget {
+class MissionsTabsPage extends StatefulWidget {
   final List<MissionTabConfig> tabs;
 
   const MissionsTabsPage({super.key, required this.tabs});
 
   @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+  State<MissionsTabsPage> createState() => _MissionsTabsPageState();
+}
 
-    return DefaultTabController(
-      length: tabs.length,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            l10n.missions,
-            style: Theme.of(
-              context,
-            ).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.bold),
+class _MissionsTabsPageState extends State<MissionsTabsPage>
+    with SingleTickerProviderStateMixin {
+  late final TabController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TabController(length: widget.tabs.length, vsync: this);
+    _controller.addListener(() {
+      if (mounted) setState(() {}); // rebuild on tab change
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+
+    return Scaffold(
+      appBar: AppBar(title: Text('Missions')),
+      body: Column(
+        children: [
+          TabBar(
+            controller: _controller,
+            // ⭐ explicit
+            isScrollable: false,
+            padding: EdgeInsets.zero,
+            labelPadding: EdgeInsets.zero,
+            indicator: const BoxDecoration(),
+            tabs: List.generate(widget.tabs.length, (index) {
+              final tab = widget.tabs[index];
+              final selected = _controller.index == index;
+              final Color base = tab.color != Colors.transparent
+                  ? tab.color
+                  : scheme.surfaceContainerHighest;
+              return SizedBox(
+                height: 54,
+                child: Container(
+                  color: selected ? base.withAlpha(180) : base.withAlpha(20),
+                  child: SizedBox.expand(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(tab.icon, size: 20),
+                        const SizedBox(height: 2),
+                        Text(
+                          tab.title,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(
+                            context,
+                          ).textTheme.labelSmall!.copyWith(fontSize: 8),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }),
           ),
-        ),
-        body: Column(
-          children: [
-            TabBar(
-              tabs: tabs
+
+          Expanded(
+            child: TabBarView(
+              controller: _controller, // ⭐ same controller
+              children: widget.tabs
                   .map(
-                    (tab) => Tab(
-                      height: 54,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(tab.icon, size: 20),
-                          const SizedBox(height: 2),
-                          SizedBox(
-                            height: 30, // enough for 2 lines at fontSize 8
-                            child: Text(
-                              tab.title,
-                              textAlign: TextAlign.center,
-                              softWrap: true,
-                              style: Theme.of(
-                                context,
-                              ).textTheme.labelSmall!.copyWith(fontSize: 8),
-                            ),
-                          ),
-                        ],
-                      ),
+                    (tab) => ChangeNotifierProvider.value(
+                      value: tab.viewModel,
+                      child: const MissionsListBody(),
                     ),
                   )
                   .toList(),
             ),
-            Expanded(
-              child: TabBarView(
-                children: tabs
-                    .map(
-                      (tab) =>
-                          ChangeNotifierProvider<MissionsListViewModel>.value(
-                            value: tab.viewModel,
-                            child: const MissionsListBody(),
-                          ),
-                    )
-                    .toList(),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

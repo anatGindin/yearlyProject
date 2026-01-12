@@ -29,10 +29,11 @@ void main() {
     setUp(() {
       // create data model
       repository = MissionsRepository(
-        myMissionsList: [
-          ...sampleMissions,
-        ], // Use copy to avoid polluting global mock data if it persists
+        myMissionsList: [...sampleMissions],
+        // Use copy to avoid polluting global mock data if it persists
         availableMissionsList: [...availableMissions],
+        adminMissionsList: [...adminMissions],
+        driverUsers: [...driverUsers],
         authService: FakeAuthenticationService(),
       );
 

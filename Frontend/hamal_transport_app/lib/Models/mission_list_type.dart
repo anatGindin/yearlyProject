@@ -1,1 +1,10 @@
-enum MissionListType { myMissions, availableMissions, allMissions }
+enum MissionListType {
+  myMissions,
+  availableMissions,
+  allMissions,
+  adminAllMissions,
+  assignedMissions,
+  pickedUpMissions,
+  deliveredMissions,
+  cancelledMissions,
+}

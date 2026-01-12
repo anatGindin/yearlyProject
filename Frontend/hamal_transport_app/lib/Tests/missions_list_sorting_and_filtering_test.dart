@@ -23,6 +23,8 @@ void main() {
       repository = MissionsRepository(
         myMissionsList: sampleMissions,
         availableMissionsList: availableMissions,
+        adminMissionsList: adminMissions,
+        driverUsers: driverUsers,
         authService: FakeAuthenticationService(),
       );
       myVM = MissionsListViewModel(
@@ -119,6 +121,8 @@ void main() {
       repository = MissionsRepository(
         myMissionsList: sampleMissions,
         availableMissionsList: availableMissions,
+        adminMissionsList: adminMissions,
+        driverUsers: driverUsers,
         authService: FakeAuthenticationService(),
       );
       availVM = MissionsListViewModel(

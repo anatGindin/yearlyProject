@@ -36,21 +36,24 @@ class MissionsListBody extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.43,
+                            width: viewModel.allowedFilterOptions.isNotEmpty
+                                ? MediaQuery.of(context).size.width * 0.43
+                                : MediaQuery.of(context).size.width * 0.8,
                             child: ListActionButton(
                               icon: Icons.sort,
                               label: viewModel.getSortBy(context),
                               onPressed: () => _showSortOptions(context),
                             ),
                           ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.43,
-                            child: ListActionButton(
-                              icon: Icons.filter_alt,
-                              label: viewModel.getFilterBy(context),
-                              onPressed: () => _showFilterOptions(context),
+                          if (viewModel.allowedFilterOptions.isNotEmpty)
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.43,
+                              child: ListActionButton(
+                                icon: Icons.filter_alt,
+                                label: viewModel.getFilterBy(context),
+                                onPressed: () => _showFilterOptions(context),
+                              ),
                             ),
-                          ),
                         ],
                       ),
                     ),

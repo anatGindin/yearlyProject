@@ -439,14 +439,20 @@
       "email": "haim@email.com",
       "name": "חיים חג'בי",
       "phone": "+972-50-9998888",
-      "UserRole": "driver"
+      "role": "driver",
+      "driverProfile": {
+        "carType": "trailer"
+      }
     },
     {
       "uid": "dulapip_uid",
       "email": "dula@email.com",
       "name": "דואה ליפה",
       "phone": "+972-50-1118888",
-      "UserRole": "driver"
+      "role": "driver",
+      "driverProfile": {
+        "carType": "truck"
+      }
     }
   ]
 }

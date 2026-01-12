@@ -340,6 +340,10 @@
   "@editMission": {
     "description": "Title for edit mission dialog"
   },
+  "noDriverAssigned": "Driver not assigned",
+  "@noDriverAssigned": {
+    "description": "Driver not assigned label"
+  },
   "carType": "Car Type",
   "@carType": {
     "description": "Label for car type selection"

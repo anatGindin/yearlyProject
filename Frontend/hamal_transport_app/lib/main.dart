@@ -27,6 +27,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final AppPreferencesService prefsService;
+
   const MyApp({super.key, required this.prefsService});
 
   @override
@@ -41,6 +42,8 @@ class MyApp extends StatelessWidget {
           create: (context) => MissionsRepository(
             myMissionsList: sampleMissions,
             availableMissionsList: availableMissions,
+            adminMissionsList: adminMissions,
+            driverUsers: driverUsers,
             authService: context.read<AuthenticationService>(),
           ),
           update: (context, authService, previous) {
@@ -48,6 +51,8 @@ class MyApp extends StatelessWidget {
               final repo = MissionsRepository(
                 myMissionsList: sampleMissions,
                 availableMissionsList: availableMissions,
+                adminMissionsList: adminMissions,
+                driverUsers: driverUsers,
                 authService: authService,
               );
               // Pre-fetch route info for all missions so it's instantly available

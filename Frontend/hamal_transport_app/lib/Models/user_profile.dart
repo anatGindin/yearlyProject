@@ -1,5 +1,7 @@
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
 
+import 'contact.dart';
+
 class UserProfile {
   final String uid;
   final String email;
@@ -41,6 +43,10 @@ class UserProfile {
             )
           : null,
     );
+  }
+
+  Contact toContact() {
+    return Contact(fullName: name, phoneNumber: phone);
   }
 }
 

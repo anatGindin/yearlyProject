@@ -267,6 +267,9 @@ class AppLocalizationsHe extends AppLocalizations {
   String get editMission => 'עריכת משימה';
 
   @override
+  String get noDriverAssigned => 'לא שובץ נהג';
+
+  @override
   String get carType => 'סוג רכב';
 
   @override
