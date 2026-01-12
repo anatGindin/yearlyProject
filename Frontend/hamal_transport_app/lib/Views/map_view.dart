@@ -2,37 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
-
 import '../Models/mission.dart';
 import '../Models/mission_list_type.dart';
 import '../Services/missions_repository.dart';
-import '../ViewModels/driver_map_view_model.dart';
-
+import '../ViewModels/map_view_model.dart';
+import '../Models/user_profile.dart';
 import '../l10n/app_localizations.dart';
 import 'Widgets/map_legend.dart';
 import 'Widgets/mission_map_card.dart';
 import 'Widgets/selected_marker.dart';
 import 'Widgets/warehouse_map_card.dart';
 
-class DriverMapView extends StatelessWidget {
-  const DriverMapView({super.key});
+class MapView extends StatelessWidget {
+  const MapView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const DriverMapViewContent();
+    return const MapViewContent();
   }
 }
 
-class DriverMapViewContent extends StatefulWidget {
-  const DriverMapViewContent({super.key});
+class MapViewContent extends StatefulWidget {
+  const MapViewContent({super.key});
 
   @override
-  State<DriverMapViewContent> createState() => _DriverMapViewContentState();
+  State<MapViewContent> createState() => _MapViewContentState();
 }
 
-class _DriverMapViewContentState extends State<DriverMapViewContent> {
+class _MapViewContentState extends State<MapViewContent> {
   // Center of Israel
-  static const LatLng _initialCenter = DriverMapViewModel.initialCenter;
+  static const LatLng _initialCenter = MapViewModel.initialCenter;
   final MapController _mapController = MapController();
 
   @override
@@ -48,7 +47,7 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<DriverMapViewModel>();
+    final viewModel = context.watch<MapViewModel>();
 
     return Scaffold(
       body: SafeArea(
@@ -80,13 +79,18 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
                 MarkerLayer(
                   markers: [
                     ..._buildMissionMarkers(context),
-                    if (viewModel.userLocation != null)
+                    if (viewModel.userLocation != null &&
+                        viewModel.userRole == UserRole.driver)
                       _buildUserMarker(viewModel.userLocation!),
                   ],
                 ),
               ],
             ),
-            const Positioned(top: 20, left: 20, child: MapLegend()),
+            Positioned(
+              top: 20,
+              left: 20,
+              child: MapLegend(viewModel: viewModel),
+            ),
             Positioned(
               top: 20,
               right: 20,
@@ -100,7 +104,8 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
               ),
             ),
             if (viewModel.selectedMission == null &&
-                !viewModel.isWarehouseSelected)
+                !viewModel.isWarehouseSelected &&
+                viewModel.userRole == UserRole.driver)
               Positioned(
                 bottom: 20,
                 right: 20,
@@ -145,14 +150,14 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
     );
   }
 
-  void _showLayersDialog(BuildContext context, DriverMapViewModel viewModel) {
+  void _showLayersDialog(BuildContext context, MapViewModel viewModel) {
     final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) {
         return ChangeNotifierProvider.value(
           value: viewModel,
-          child: Consumer<DriverMapViewModel>(
+          child: Consumer<MapViewModel>(
             builder: (context, viewModel, child) {
               return AlertDialog(
                 title: Text(l10n.layers),
@@ -198,7 +203,7 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
 
   Widget _buildLayerCheckbox(
     BuildContext context,
-    DriverMapViewModel viewModel,
+    MapViewModel viewModel,
     MissionStatus status,
     Color color,
     String label,
@@ -234,13 +239,13 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
 
   List<Marker> _buildMissionMarkers(BuildContext context) {
     final repository = context.watch<MissionsRepository>();
-    final viewModel = context.read<DriverMapViewModel>();
+    final viewModel = context.read<MapViewModel>();
     final markers = <Marker>[];
 
-    // Hamal Warehouse (Blue)
+    // Hamal Warehouse Marker
     markers.add(
       Marker(
-        point: DriverMapViewModel.hamalWarehouse,
+        point: MapViewModel.hamalWarehouse,
         width: 60,
         height: 60,
         child: GestureDetector(
@@ -259,16 +264,11 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
                   ),
                   const Positioned(
                     top: 5,
-                    child:
-                        // Image(
-                        //   image: AssetImage('assets/logo.png'),
-                        //   width: 30,
-                        // ),
-                        Icon(
-                          Icons.warehouse,
-                          color: Color.fromARGB(255, 113, 68, 0),
-                          size: 18,
-                        ),
+                    child: Icon(
+                      Icons.warehouse,
+                      color: Color.fromARGB(255, 113, 68, 0),
+                      size: 18,
+                    ),
                   ),
                 ],
               ),
@@ -278,19 +278,7 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
       ),
     );
 
-    // Available Missions
-    if (viewModel.isStatusVisible(MissionStatus.available)) {
-      for (final mission in repository.getMissions(
-        MissionListType.availableMissions,
-      )) {
-        markers.add(
-          _createMissionMarker(mission, mission.status.statusColor, viewModel),
-        );
-      }
-    }
-
-    // My Missions
-    for (final mission in repository.getMissions(MissionListType.myMissions)) {
+    for (final mission in repository.getMissions(MissionListType.allMissions)) {
       if (!viewModel.isStatusVisible(mission.status)) continue;
       markers.add(
         _createMissionMarker(mission, mission.status.statusColor, viewModel),
@@ -318,7 +306,7 @@ class _DriverMapViewContentState extends State<DriverMapViewContent> {
   Marker _createMissionMarker(
     Mission mission,
     Color color,
-    DriverMapViewModel viewModel,
+    MapViewModel viewModel,
   ) {
     final point = LatLng(
       mission.destination.latitude,

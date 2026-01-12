@@ -3,10 +3,12 @@ import 'package:provider/provider.dart';
 import '../../Models/mission.dart';
 import '../../Models/mission_list_type.dart';
 import '../../Services/missions_repository.dart';
+import '../../ViewModels/map_view_model.dart';
 import '../../l10n/app_localizations.dart';
 
 class MapLegend extends StatefulWidget {
-  const MapLegend({super.key});
+  final MapViewModel viewModel;
+  const MapLegend({super.key, required this.viewModel});
 
   @override
   State<MapLegend> createState() => _MapLegendState();
@@ -21,19 +23,23 @@ class _MapLegendState extends State<MapLegend> {
     final repository = context.watch<MissionsRepository>();
     final allMissions = repository.getMissions(MissionListType.allMissions);
 
-    final availableCount = allMissions
+    final visibleMissions = allMissions
+        .where((m) => widget.viewModel.isStatusVisible(m.status))
+        .toList();
+
+    final availableCount = visibleMissions
         .where((m) => m.status == MissionStatus.available)
         .length;
-    final assignedCount = allMissions
-        .where((m) => m.status == MissionStatus.assigned)
+    final chosenCount = visibleMissions
+        .where((m) => m.status == MissionStatus.chosen)
         .length;
-    final pickedUpCount = allMissions
+    final pickedUpCount = visibleMissions
         .where((m) => m.status == MissionStatus.pickedUp)
         .length;
-    final deliveredCount = allMissions
+    final deliveredCount = visibleMissions
         .where((m) => m.status == MissionStatus.delivered)
         .length;
-    final cancelledCount = allMissions
+    final cancelledCount = visibleMissions
         .where((m) => m.status == MissionStatus.cancelled)
         .length;
 
@@ -60,8 +66,8 @@ class _MapLegendState extends State<MapLegend> {
               const SizedBox(height: 8),
               if (availableCount > 0)
                 _buildLegendItem(Colors.orange, l10n.available, availableCount),
-              if (assignedCount > 0)
-                _buildLegendItem(Colors.blue, l10n.chosen, assignedCount),
+              if (chosenCount > 0)
+                _buildLegendItem(Colors.blue, l10n.chosen, chosenCount),
               if (pickedUpCount > 0)
                 _buildLegendItem(Colors.green, l10n.pickedUp, pickedUpCount),
               if (deliveredCount > 0)

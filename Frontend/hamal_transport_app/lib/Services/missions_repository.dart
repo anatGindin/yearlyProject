@@ -107,6 +107,7 @@ class MissionsRepository extends ChangeNotifier {
 
   void updateStatus(Mission mission, MissionStatus newStatus) {
     if (newStatus == MissionStatus.delivered) {
+      // TODO: Update remote database + store in dedicated container if needed
       removeMission(MissionListType.myMissions, mission);
     }
     mission.status = newStatus;

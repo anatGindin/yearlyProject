@@ -4,8 +4,10 @@ import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import '../Models/mission.dart';
 import '../Services/location_service.dart';
+import '../Models/user_profile.dart';
+import '../Services/authentication_service.dart';
 
-class DriverMapViewModel extends ChangeNotifier {
+class MapViewModel extends ChangeNotifier {
   // Center of Israel
   static const LatLng initialCenter = LatLng(31.4117, 35.0818);
   static const LatLng hamalWarehouse = LatLng(32.8115, 35.0678);
@@ -21,6 +23,8 @@ class DriverMapViewModel extends ChangeNotifier {
     MissionStatus.delivered,
   };
 
+  UserRole? _userRole;
+
   bool _isWarehouseSelected = false;
 
   LatLng? get userLocation => _userLocation;
@@ -32,8 +36,9 @@ class DriverMapViewModel extends ChangeNotifier {
   bool get isLoadingLocation => _isLoadingLocation;
 
   Set<MissionStatus> get visibleStatuses => _visibleStatuses;
+  UserRole? get userRole => _userRole;
 
-  DriverMapViewModel();
+  MapViewModel();
 
   Future<void> checkPermissions() => initLocation();
 
@@ -70,11 +75,29 @@ class DriverMapViewModel extends ChangeNotifier {
   }
 
   bool isStatusVisible(MissionStatus status) {
+    if (userRole == UserRole.driver && status == MissionStatus.delivered) {
+      return false;
+    }
     return _visibleStatuses.contains(status);
   }
 
   Future<void> initLocation() async {
     await _positionStreamSubscription?.cancel();
+
+    // Fetch User Role
+    try {
+      final authService = AuthenticationService();
+      if (authService.currentUser != null) {
+        final profile = await authService.getUserProfile(
+          authService.currentUser!,
+        );
+        _userRole = profile.role;
+        notifyListeners();
+      }
+    } catch (e) {
+      // Handle error or ignore
+    }
+
     final locationService = LocationService();
     final hasPermission = await locationService.checkPermissions();
 
