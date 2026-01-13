@@ -189,7 +189,7 @@ void main() {
       authService.mockUserProfileByUid = {testDriverUid: updatedProfile};
 
       // Refresh
-      await viewModel.refresh();
+      await viewModel.refreshDriverPage();
 
       expect(viewModel.driverProfile?.name, 'Updated Driver');
       expect(viewModel.driverProfile?.phone, '+972-54-7654321');

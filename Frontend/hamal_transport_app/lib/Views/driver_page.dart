@@ -24,7 +24,7 @@ class DriverPage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () {
-              context.read<DriverViewModel>().refresh();
+              context.read<DriverViewModel>().refreshDriverPage();
             },
           ),
         ],
@@ -53,7 +53,7 @@ class DriverPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
-                    onPressed: () => viewModel.refresh(),
+                    onPressed: () => viewModel.refreshDriverPage(),
                     child: const Text('Retry'),
                   ),
                 ],
@@ -63,7 +63,7 @@ class DriverPage extends StatelessWidget {
 
           // Show page even if driver profile is null (just show missions)
           return RefreshIndicator(
-            onRefresh: () => viewModel.refresh(),
+            onRefresh: () => viewModel.refreshDriverPage(),
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
               padding: const EdgeInsets.all(16),
