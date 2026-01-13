@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
+import 'package:hamal_transport_app/Models/contact.dart';
 import 'package:hamal_transport_app/ViewModels/driver_view_model.dart';
+import 'package:hamal_transport_app/ViewModels/contact_vm.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
 import 'package:hamal_transport_app/Views/mission_screen.dart';
+import 'package:hamal_transport_app/Views/contact_view.dart';
 import 'package:provider/provider.dart';
 
 class DriverPage extends StatelessWidget {
@@ -139,12 +142,7 @@ class DriverPage extends StatelessWidget {
               theme,
             ),
             const SizedBox(height: 12),
-            _buildInfoRow(
-              Icons.phone,
-              l10n.phone,
-              viewModel.driverPhone,
-              theme,
-            ),
+            _buildPhoneRow(viewModel, theme, l10n),
             if (viewModel.carType != null) ...[
               const SizedBox(height: 12),
               _buildInfoRow(
@@ -186,6 +184,50 @@ class DriverPage extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPhoneRow(
+    DriverViewModel viewModel,
+    ThemeData theme,
+    AppLocalizations l10n,
+  ) {
+    // Only show actionable phone if phone is available and not N/A
+    if (viewModel.driverPhone == 'N/A' || viewModel.driverProfile == null) {
+      return _buildInfoRow(
+        Icons.phone,
+        l10n.phone,
+        viewModel.driverPhone,
+        theme,
+      );
+    }
+
+    // Create a contact with driver info for ContactInfoActionable
+    final driverContact = Contact(
+      fullName: viewModel.driverName,
+      phoneNumber: viewModel.driverPhone,
+    );
+    final contactVM = ContactViewModel(driverContact);
+
+    return Row(
+      children: [
+        Icon(Icons.phone, size: 20, color: theme.colorScheme.primary),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                l10n.phone,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                ),
+              ),
+              ContactInfoActionable(vm: contactVM),
             ],
           ),
         ),
