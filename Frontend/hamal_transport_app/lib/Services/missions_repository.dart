@@ -26,6 +26,15 @@ class MissionsRepository extends ChangeNotifier {
     }
   }
 
+  /// Get missions assigned to a specific driver by their UID
+  /// TODO: Replace with API endpoint call to query backend for driver-specific missions
+  List<Mission> getMissionsByDriver(String driverUid) {
+    final allMissions = getMissions(MissionListType.allMissions);
+    return allMissions
+        .where((mission) => mission.driverUid == driverUid)
+        .toList();
+  }
+
   void addMission(MissionListType type, Mission mission) {
     getMissions(type).add(mission);
     notifyListeners();

@@ -35,12 +35,7 @@ class DriverViewModel extends ChangeNotifier {
 
   // Get missions assigned to this driver
   List<Mission> get driverMissions {
-    final allMissions = _missionsRepository.getMissions(
-      MissionListType.allMissions,
-    );
-    return allMissions
-        .where((mission) => mission.driverUid == driverUid)
-        .toList();
+    return _missionsRepository.getMissionsByDriver(driverUid);
   }
 
   // Get missions by status
