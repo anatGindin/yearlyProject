@@ -1,9 +1,10 @@
-from fastapi import APIRouter, HTTPException
-from typing import List
+from fastapi import APIRouter, HTTPException, Query
+from typing import List, Optional
 import json
 import os
 
-from app.models import Mission
+from models import Mission, CarType
+
 
 router = APIRouter(prefix="/missions", tags=["missions"])
 
@@ -18,7 +19,7 @@ else:
 
 def save_missions():
     with open(file_path, "w") as f:
-        json.dump([m.dict() for m in missions], f)
+        json.dump([m.model_dump() for m in missions], f)
 
 
 @router.post("/", response_model=Mission, status_code=201)
@@ -28,7 +29,8 @@ def create_mission(new_mission: Mission):
     return new_mission
 
 @router.put("/{mission_id}/{status}", response_model=Mission)
-def update_mission_status(mission_id: str, status: str):
+def update_mission_status(mission_id: str, status: str, 
+                          explanation: Optional[str] = Query(None, description="Filter by mission status")):
     for mission in missions:
         if mission.id == mission_id:
             # check if status is valid
@@ -40,7 +42,11 @@ def update_mission_status(mission_id: str, status: str):
                 raise HTTPException(status_code=400, detail="Invalid status transition from chosen")
             if(mission.status == "pickedUp" and status not in ["delivered", "cancelled"]):
                 raise HTTPException(status_code=400, detail="Invalid status transition from pickedUp")
+            if status == "cancelled" and explanation is None:
+                raise HTTPException(status_code=400, detail="Cancellation reason required")
             mission.status = status
+            if status == "cancelled":
+                mission.cancellationReason = explanation
             save_missions()
             return mission
     raise HTTPException(status_code=404, detail="Mission not found")
@@ -59,6 +65,7 @@ def delete_mission(mission_id: str):
 def list_missions(
     status: Optional[str] = Query(None, description="Filter by mission status"),
     driver_id: Optional[str] = Query(None, description="Filter by driver"),
+    car_type: Optional[str] = Query(None, description="Filter by car type")
 ):
     result = missions
     #TODO: change when given DB
@@ -67,6 +74,8 @@ def list_missions(
 
     if driver_id:
         result = [m for m in result if getattr(m, "driver_id", None) == driver_id]
+    if car_type:
+        result = [m for m in result if m.carType <= CarType[car_type] ]
 
     return result
 
