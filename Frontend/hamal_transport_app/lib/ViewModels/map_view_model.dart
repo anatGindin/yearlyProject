@@ -28,10 +28,15 @@ class MapViewModel extends ChangeNotifier {
   bool _isWarehouseSelected = false;
 
   LatLng? get userLocation => _userLocation;
+
   Mission? get selectedMission => _selectedMission;
+
   bool get isWarehouseSelected => _isWarehouseSelected;
+
   bool get isLoadingLocation => _isLoadingLocation;
+
   Set<MissionStatus> get visibleStatuses => _visibleStatuses;
+
   UserRole? get userRole => _userRole;
 
   MapViewModel();
@@ -84,10 +89,9 @@ class MapViewModel extends ChangeNotifier {
     try {
       final authService = AuthenticationService();
       if (authService.currentUser != null) {
-        final profile = await authService.getUserProfile(
-          authService.currentUser!,
-        );
-        _userRole = profile.role;
+        final profile = authService.currentUserProfile;
+        _userRole = profile!.role;
+
         notifyListeners();
       }
     } catch (e) {
