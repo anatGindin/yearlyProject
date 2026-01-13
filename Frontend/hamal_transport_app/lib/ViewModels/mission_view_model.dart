@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hamal_transport_app/Services/authentication_service.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
 import 'package:hamal_transport_app/ViewModels/contact_vm.dart';
-import 'package:hamal_transport_app/ViewModels/user_profile_view_model.dart';
 import '../Models/mission.dart';
 import '../Models/contact.dart';
 import '../Models/user_profile.dart';
@@ -93,12 +93,29 @@ class MissionViewModel extends ChangeNotifier {
 }
 
 class MissionDetailsViewModel extends ChangeNotifier {
-  final UserProfileViewModel userVM;
   late final ContactViewModel sourceContact;
   late final ContactViewModel destinationContact;
 
-  MissionDetailsViewModel({required Mission mission, required this.userVM}) {
+  UserRole? _userRole;
+  UserRole? get userRole => _userRole;
+
+  MissionDetailsViewModel({required Mission mission}) {
     sourceContact = ContactViewModel(mission.sourceContact);
     destinationContact = ContactViewModel(mission.destinationContact);
   }
+
+  // fetch role async, notify UI when done
+  Future<void> fetchUserRole() async {
+    try {
+      final authService = AuthenticationService();
+      final user = authService.currentUser;
+      if (user != null) {
+        final profile = await authService.getUserProfile(user);
+        _userRole = profile.role;
+        notifyListeners(); // MVVM: tells UI to rebuild
+      }
+    } catch (_) {}
+  }
+
+  bool get isDriver => _userRole == UserRole.driver;
 }
