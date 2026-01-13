@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
 import 'package:hamal_transport_app/Models/location.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Models/missions_model.dart';
@@ -18,11 +19,12 @@ class MissionsListViewModel extends ChangeNotifier {
   Location? _userLocation;
 
   MissionsListViewModel({
-    required MissionsRepository repository,
+    BuildContext? context,
+    MissionsRepository? repository,
     required MissionListType type,
     this.allowedSortOptions = SortBy.values,
     this.allowedFilterOptions = FilterBy.values,
-  }) : _repository = repository,
+  }) : _repository = repository ?? context!.read<MissionsRepository>(),
        _type = type {
     _repository.addListener(notifyListeners);
 

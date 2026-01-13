@@ -27,7 +27,6 @@ Widget getDestinationForRole(UserRole role, BuildContext context) {
         child: Builder(
           builder: (context) {
             final l10n = AppLocalizations.of(context)!;
-            final repository = context.read<MissionsRepository>();
             return NavigationBarWrapper(
               allDestinations: [
                 NavBarDestination(
@@ -38,7 +37,7 @@ Widget getDestinationForRole(UserRole role, BuildContext context) {
                         title: l10n.activeMissions,
                         icon: Icons.assignment_turned_in,
                         viewModel: MissionsListViewModel(
-                          repository: repository,
+                          context: context,
                           type: MissionListType.myMissions,
                         ),
                       ),
@@ -46,7 +45,7 @@ Widget getDestinationForRole(UserRole role, BuildContext context) {
                         title: l10n.availableMissions,
                         icon: Icons.add_circle_outline,
                         viewModel: MissionsListViewModel(
-                          repository: repository,
+                          context: context,
                           type: MissionListType.availableMissions,
                           allowedFilterOptions: const [FilterBy.noFilter],
                         ),
@@ -85,7 +84,8 @@ Widget getDestinationForRole(UserRole role, BuildContext context) {
           missionWithDriver.driverUid ?? 'I9ivZ6H8pYWoDkeb2wybbKXgxWE2';
 
       return ChangeNotifierProvider(
-        create: (_) => DriverViewModel(driverUid: driverUid, context: context),
+        create: (context) =>
+            DriverViewModel(driverUid: driverUid, context: context),
         child: const DriverPage(),
       );
     case UserRole.admin:
