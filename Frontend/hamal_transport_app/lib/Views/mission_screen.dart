@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/ViewModels/mission_view_model.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
-import 'package:hamal_transport_app/ViewModels/user_profile_view_model.dart';
 import 'package:hamal_transport_app/Views/Widgets/comments_list_view.dart';
 import 'package:hamal_transport_app/Views/Widgets/source_destination.dart';
 import 'package:hamal_transport_app/Views/under_construction_page.dart';
@@ -12,7 +11,6 @@ import '../Models/mission.dart';
 import '../Models/missions_model.dart';
 import '../l10n/app_localizations.dart';
 import 'contact_view.dart';
-import '../ViewModels/contact_vm.dart';
 import '../Services/routing_service.dart';
 import '../Views/Widgets/info_row.dart';
 
@@ -37,17 +35,9 @@ class _MissionScreenState extends State<MissionScreen> {
   Widget build(BuildContext context) {
     l10n = AppLocalizations.of(context)!;
     final mission = widget.mission;
+    final detailVM = context.watch<MissionDetailsViewModel>();
     final repository = context.read<MissionsRepository>();
-    final sourceContactVM = ContactViewModel(mission.sourceContact);
-    final destinationContactVM = ContactViewModel(mission.destinationContact);
-    final userVM = context.read<UserProfileViewModel>();
-    final driverProfile = mission.driverUid != null
-        ? repository.getDriverById(mission.driverUid!)
-        : null;
-    final ContactViewModel? driverContactVM =
-    (!userVM.isDriver && driverProfile != null)
-        ? ContactViewModel(driverProfile.toContact())
-        : null;
+
     return ChangeNotifierProvider(
       create: (context) => MissionViewModel(mission, repository),
       child: Scaffold(
@@ -61,7 +51,7 @@ class _MissionScreenState extends State<MissionScreen> {
                   children: [
                     const SizedBox(height: 20),
                     const BackButton(),
-                    _buildRouteInfo(missionVM, userVM.isDriver),
+                    _buildRouteInfo(missionVM, detailVM.userVM.isDriver),
                     const SizedBox(height: 16),
                     InfoRow(
                       icon: Icons.star_rounded,
@@ -70,30 +60,26 @@ class _MissionScreenState extends State<MissionScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(missionVM.status().displayName(context)),
-                          if (userVM.isDriver) _statusUpdater(missionVM),
+                          if (detailVM.userVM.isDriver)
+                            _statusUpdater(missionVM),
                         ],
                       ),
                     ),
                     const SizedBox(height: 16),
-                    if (!userVM.isDriver)
-                      InfoRow(
-                        icon: Icons.person,
-                        label: l10n.driver,
-                        child: driverContactVM != null
-                            ? ContactInfoActionable(vm: driverContactVM)
-                            : Text(l10n.noDriverAssigned),
-                      ),
+
                     const SizedBox(height: 16),
                     InfoRow(
                       icon: Icons.person,
                       label: l10n.sourceContact,
-                      child: ContactInfoActionable(vm: sourceContactVM),
+                      child: ContactInfoActionable(vm: detailVM.sourceContact),
                     ),
                     const SizedBox(height: 16),
                     InfoRow(
                       icon: Icons.person,
                       label: l10n.destinationContact,
-                      child: ContactInfoActionable(vm: destinationContactVM),
+                      child: ContactInfoActionable(
+                        vm: detailVM.destinationContact,
+                      ),
                     ),
                     const SizedBox(height: 16),
                     InfoRow(
@@ -111,11 +97,7 @@ class _MissionScreenState extends State<MissionScreen> {
                       label: l10n.carType,
                       child: Text(
                         missionVM.carType().displayName(l10n),
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -123,15 +105,12 @@ class _MissionScreenState extends State<MissionScreen> {
                     const SizedBox(height: 16),
                     MissionCommentsTile(missionViewModel: missionVM),
                     const SizedBox(height: 16),
-                    if (!userVM.isDriver)
+                    if (detailVM.userVM.isDriver)
                       InkWell(
                         child: Card(
-                          color: Theme
-                              .of(
+                          color: Theme.of(
                             context,
-                          )
-                              .colorScheme
-                              .secondaryContainer,
+                          ).colorScheme.secondaryContainer,
                           child: Column(
                             children: [
                               const SizedBox(height: 6),
@@ -283,104 +262,94 @@ class _MissionScreenState extends State<MissionScreen> {
               width: double.maxFinite,
               child: suggestedMissions.isEmpty
                   ? Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(l10n.noMissions, textAlign: TextAlign.center),
-              )
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(l10n.noMissions, textAlign: TextAlign.center),
+                    )
                   : Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    l10n.suggestedMissionsMessage,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .bodyMedium,
-                  ),
-                  const SizedBox(height: 12),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: suggestedMissions.length,
-                      itemBuilder: (context, index) {
-                        final suggested = suggestedMissions[index];
-                        final mission = suggested.mission;
-                        final additionalKm = suggested
-                            .additionalDistanceKm
-                            .toStringAsFixed(1);
-                        final isRtl = Directionality.of(context);
-                        final arrow = isRtl == TextDirection.rtl
-                            ? '←'
-                            : '→';
-                        return Card(
-                          elevation: 2,
-                          margin: const EdgeInsets.symmetric(vertical: 8),
-                          clipBehavior: Clip.hardEdge,
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.of(dialogContext).pop();
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (_) =>
-                                      MissionScreen(mission: mission),
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          l10n.suggestedMissionsMessage,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        const SizedBox(height: 12),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: suggestedMissions.length,
+                            itemBuilder: (context, index) {
+                              final suggested = suggestedMissions[index];
+                              final mission = suggested.mission;
+                              final additionalKm = suggested
+                                  .additionalDistanceKm
+                                  .toStringAsFixed(1);
+                              final isRtl = Directionality.of(context);
+                              final arrow = isRtl == TextDirection.rtl
+                                  ? '←'
+                                  : '→';
+                              return Card(
+                                elevation: 2,
+                                margin: const EdgeInsets.symmetric(vertical: 8),
+                                clipBehavior: Clip.hardEdge,
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.of(dialogContext).pop();
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (_) =>
+                                            MissionScreen(mission: mission),
+                                      ),
+                                    );
+                                  },
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      ListTile(
+                                        title: Text(
+                                          '${mission.source.name} $arrow ${mission.destination.name}',
+                                          style: const TextStyle(fontSize: 14),
+                                        ),
+                                        subtitle: Text(
+                                          mission.description,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        trailing: const Icon(
+                                          Icons.arrow_forward,
+                                        ),
+                                      ),
+                                      Container(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.secondaryContainer,
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 8,
+                                          horizontal: 16,
+                                        ),
+                                        child: Text(
+                                          l10n.additionOf(
+                                            additionalKm,
+                                            l10n.km,
+                                          ),
+                                          style: TextStyle(
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSurface,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               );
                             },
-                            child: Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.stretch,
-                              children: [
-                                ListTile(
-                                  title: Text(
-                                    '${mission.source.name} $arrow ${mission
-                                        .destination.name}',
-                                    style: const TextStyle(fontSize: 14),
-                                  ),
-                                  subtitle: Text(
-                                    mission.description,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  trailing: const Icon(
-                                    Icons.arrow_forward,
-                                  ),
-                                ),
-                                Container(
-                                  color: Theme
-                                      .of(
-                                    context,
-                                  )
-                                      .colorScheme
-                                      .secondaryContainer,
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 8,
-                                    horizontal: 16,
-                                  ),
-                                  child: Text(
-                                    l10n.additionOf(
-                                      additionalKm,
-                                      l10n.km,
-                                    ),
-                                    style: TextStyle(
-                                      color: Theme
-                                          .of(
-                                        context,
-                                      )
-                                          .colorScheme
-                                          .onSurface,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    textAlign: TextAlign.start,
-                                  ),
-                                ),
-                              ],
-                            ),
                           ),
-                        );
-                      },
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
             ),
           ),
           actions: [
@@ -398,12 +367,8 @@ class _MissionScreenState extends State<MissionScreen> {
 
   Widget _buildRouteInfo(MissionViewModel missionVM, bool isDriver) {
     final mission = missionVM.mission;
-    final colorScheme = Theme
-        .of(context)
-        .colorScheme;
-    final textTheme = Theme
-        .of(context)
-        .textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     return Align(
       alignment: Alignment.centerRight,
@@ -443,10 +408,7 @@ class _MissionScreenState extends State<MissionScreen> {
           if (snapshot.hasData && snapshot.data != null) {
             final route = snapshot.data!;
             return SizedBox(
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width * 0.9,
+              width: MediaQuery.of(context).size.width * 0.9,
               child: Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),

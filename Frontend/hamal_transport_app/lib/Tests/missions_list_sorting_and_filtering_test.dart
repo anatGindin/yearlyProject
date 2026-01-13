@@ -24,7 +24,6 @@ void main() {
         myMissionsList: sampleMissions,
         availableMissionsList: availableMissions,
         adminMissionsList: adminMissions,
-        driverUsers: driverUsers,
         authService: FakeAuthenticationService(),
       );
       myVM = MissionsListViewModel(
@@ -122,7 +121,6 @@ void main() {
         myMissionsList: sampleMissions,
         availableMissionsList: availableMissions,
         adminMissionsList: adminMissions,
-        driverUsers: driverUsers,
         authService: FakeAuthenticationService(),
       );
       availVM = MissionsListViewModel(

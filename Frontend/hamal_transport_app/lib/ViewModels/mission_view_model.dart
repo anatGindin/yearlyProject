@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
+import 'package:hamal_transport_app/ViewModels/contact_vm.dart';
+import 'package:hamal_transport_app/ViewModels/user_profile_view_model.dart';
 import '../Models/mission.dart';
 import '../Models/contact.dart';
 import '../Models/user_profile.dart';
@@ -87,5 +89,16 @@ class MissionViewModel extends ChangeNotifier {
     if (index < 0 || index >= mission.comments.length) return;
     mission.comments[index] = newComment;
     notifyListeners();
+  }
+}
+
+class MissionDetailsViewModel extends ChangeNotifier {
+  final UserProfileViewModel userVM;
+  late final ContactViewModel sourceContact;
+  late final ContactViewModel destinationContact;
+
+  MissionDetailsViewModel({required Mission mission, required this.userVM}) {
+    sourceContact = ContactViewModel(mission.sourceContact);
+    destinationContact = ContactViewModel(mission.destinationContact);
   }
 }

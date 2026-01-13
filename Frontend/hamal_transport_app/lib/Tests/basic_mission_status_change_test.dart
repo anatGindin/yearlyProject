@@ -33,7 +33,6 @@ void main() {
         // Use copy to avoid polluting global mock data if it persists
         availableMissionsList: [...availableMissions],
         adminMissionsList: [...adminMissions],
-        driverUsers: [...driverUsers],
         authService: FakeAuthenticationService(),
       );
 

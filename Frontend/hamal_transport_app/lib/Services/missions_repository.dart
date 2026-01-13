@@ -3,26 +3,20 @@ import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
 import 'package:hamal_transport_app/Services/authentication_service.dart';
 
-import '../Models/user_profile.dart';
-
 class MissionsRepository extends ChangeNotifier {
   final List<Mission> _myMissionsList;
   final List<Mission> _availableMissionsList;
   final List<Mission> _adminMissionsList;
-  final List<UserProfile> _driverUsers;
   final AuthenticationService authService;
 
   MissionsRepository({
     required List<Mission> myMissionsList,
     required List<Mission> availableMissionsList,
     required List<Mission> adminMissionsList,
-    required List<UserProfile> driverUsers,
     required this.authService,
-  })
-      : _myMissionsList = myMissionsList,
-        _availableMissionsList = availableMissionsList,
-        _adminMissionsList = adminMissionsList,
-        _driverUsers = driverUsers;
+  }) : _myMissionsList = myMissionsList,
+       _availableMissionsList = availableMissionsList,
+       _adminMissionsList = adminMissionsList;
 
   List<Mission> getMissions(MissionListType type) {
     switch (type) {
@@ -118,13 +112,5 @@ class MissionsRepository extends ChangeNotifier {
   bool isAvailable(Mission mission) {
     return _availableMissionsList.contains(mission) &&
         mission.status == MissionStatus.available;
-  }
-
-  UserProfile? getDriverById(String uid) {
-    try {
-      return _driverUsers.firstWhere((user) => user.uid == uid);
-    } catch (e) {
-      return null;
-    }
   }
 }
