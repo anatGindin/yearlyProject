@@ -114,7 +114,6 @@ class AuthenticationService {
       final profile = await getUserProfile(_authProvider.currentUser!);
       _currentUserProfile = profile;
       return profile;
-      return getUserProfile(_authProvider.currentUser!);
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'invalid-email':
