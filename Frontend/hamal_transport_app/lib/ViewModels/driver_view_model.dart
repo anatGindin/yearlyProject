@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Models/user_profile.dart';
 import 'package:hamal_transport_app/Services/authentication_service.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
-import 'package:hamal_transport_app/Models/mission_list_type.dart';
 
 class DriverViewModel extends ChangeNotifier {
   final AuthenticationService _authService;
@@ -16,10 +16,12 @@ class DriverViewModel extends ChangeNotifier {
 
   DriverViewModel({
     required this.driverUid,
-    required AuthenticationService authService,
-    required MissionsRepository missionsRepository,
-  }) : _authService = authService,
-       _missionsRepository = missionsRepository {
+    BuildContext? context,
+    AuthenticationService? authService,
+    MissionsRepository? missionsRepository,
+  }) : _authService = authService ?? context!.read<AuthenticationService>(),
+       _missionsRepository =
+           missionsRepository ?? context!.read<MissionsRepository>() {
     _loadDriverProfile();
   }
 

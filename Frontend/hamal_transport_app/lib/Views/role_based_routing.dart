@@ -10,7 +10,6 @@ import 'package:hamal_transport_app/Views/missions_tabs_page.dart';
 import 'package:hamal_transport_app/Views/user_profile_page.dart';
 import 'package:hamal_transport_app/Views/driver_page.dart';
 import 'package:hamal_transport_app/ViewModels/driver_view_model.dart';
-import 'package:hamal_transport_app/Services/authentication_service.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../Models/user_profile.dart';
@@ -86,11 +85,7 @@ Widget getDestinationForRole(UserRole role, BuildContext context) {
           missionWithDriver.driverUid ?? 'I9ivZ6H8pYWoDkeb2wybbKXgxWE2';
 
       return ChangeNotifierProvider(
-        create: (_) => DriverViewModel(
-          driverUid: driverUid,
-          authService: context.read<AuthenticationService>(),
-          missionsRepository: context.read<MissionsRepository>(),
-        ),
+        create: (_) => DriverViewModel(driverUid: driverUid, context: context),
         child: const DriverPage(),
       );
     case UserRole.admin:
