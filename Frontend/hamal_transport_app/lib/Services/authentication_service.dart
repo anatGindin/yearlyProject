@@ -18,8 +18,13 @@ class AuthenticationService {
 
   // Current session information
   final _authProvider = FirebaseAuth.instance;
+
   User? get currentUser => _authProvider.currentUser;
+
   Stream<User?> get authStateChanges => _authProvider.authStateChanges();
+  UserProfile? _currentUserProfile;
+
+  UserProfile? get currentUserProfile => _currentUserProfile;
 
   // Database
   final DatabaseReference usersRef = FirebaseDatabase.instance.ref('users');
@@ -106,7 +111,7 @@ class AuthenticationService {
         password: password,
       );
       await setRememberMe(rememberMe);
-      return getUserProfile(_authProvider.currentUser!);
+      return await getUserProfile(_authProvider.currentUser!);
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'invalid-email':
@@ -156,7 +161,9 @@ class AuthenticationService {
       final snapshot = await usersRef.child(user.uid).get();
       if (snapshot.value != null) {
         final data = Map<String, dynamic>.from(snapshot.value as Map);
-        return UserProfile.fromDictionary(data);
+        final profile = UserProfile.fromDictionary(data);
+        _currentUserProfile = profile;
+        return profile;
       }
       throw AuthenticationError.databaseError;
     } catch (e) {

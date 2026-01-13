@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hamal_transport_app/ViewModels/contact_vm.dart';
 import 'package:hamal_transport_app/ViewModels/mission_view_model.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
@@ -9,7 +10,6 @@ import 'package:intl/intl.dart' hide TextDirection;
 import 'package:provider/provider.dart';
 import '../Models/mission.dart';
 import '../Models/missions_model.dart';
-import '../Services/authentication_service.dart';
 import '../l10n/app_localizations.dart';
 import 'contact_view.dart';
 import '../Services/routing_service.dart';
@@ -30,16 +30,14 @@ class _MissionScreenState extends State<MissionScreen> {
   @override
   void initState() {
     super.initState();
-    final vm = context.read<MissionDetailsViewModel>();
-    vm.fetchUserRole(); // async, UI rebuilds automatically when done
   }
 
   @override
   Widget build(BuildContext context) {
     l10n = AppLocalizations.of(context)!;
     final mission = widget.mission;
-    final detailVM = context.watch<MissionDetailsViewModel>();
     final repository = context.read<MissionsRepository>();
+
     return ChangeNotifierProvider(
       create: (context) => MissionViewModel(mission, repository),
       child: Scaffold(
@@ -53,7 +51,7 @@ class _MissionScreenState extends State<MissionScreen> {
                   children: [
                     const SizedBox(height: 20),
                     const BackButton(),
-                    _buildRouteInfo(missionVM, detailVM.isDriver),
+                    _buildRouteInfo(missionVM, missionVM.isDriver),
                     const SizedBox(height: 16),
                     InfoRow(
                       icon: Icons.star_rounded,
@@ -62,7 +60,7 @@ class _MissionScreenState extends State<MissionScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(missionVM.status().displayName(context)),
-                          if (detailVM.isDriver) _statusUpdater(missionVM),
+                          if (missionVM.isDriver) _statusUpdater(missionVM),
                         ],
                       ),
                     ),
@@ -72,14 +70,16 @@ class _MissionScreenState extends State<MissionScreen> {
                     InfoRow(
                       icon: Icons.person,
                       label: l10n.sourceContact,
-                      child: ContactInfoActionable(vm: detailVM.sourceContact),
+                      child: ContactInfoActionable(
+                        vm: ContactViewModel(missionVM.sourceContact()),
+                      ),
                     ),
                     const SizedBox(height: 16),
                     InfoRow(
                       icon: Icons.person,
                       label: l10n.destinationContact,
                       child: ContactInfoActionable(
-                        vm: detailVM.destinationContact,
+                        vm: ContactViewModel(missionVM.destinationContact()),
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -106,7 +106,7 @@ class _MissionScreenState extends State<MissionScreen> {
                     const SizedBox(height: 16),
                     MissionCommentsTile(missionViewModel: missionVM),
                     const SizedBox(height: 16),
-                    if (!detailVM.isDriver)
+                    if (!missionVM.isDriver)
                       InkWell(
                         child: Card(
                           color: Theme.of(

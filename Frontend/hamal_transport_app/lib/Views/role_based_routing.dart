@@ -68,6 +68,85 @@ Widget getDestinationForRole(UserRole role) {
         ),
       );
     case UserRole.logistics:
+      return ChangeNotifierProvider(
+        create: (_) => MapViewModel(),
+        child: Builder(
+          builder: (context) {
+            final l10n = AppLocalizations.of(context)!;
+            final repository = context.read<MissionsRepository>();
+            return NavigationBarWrapper(
+              allDestinations: [
+                NavBarDestination(
+                  pageType: NavBarPageType.missions,
+                  page: MissionsTabsPage(
+                    tabs: [
+                      MissionTabConfig(
+                        title: l10n.readyForPickUp,
+                        icon: Icons.assignment_turned_in,
+                        viewModel: MissionsListViewModel(
+                          repository: repository,
+                          type: MissionListType.availableMissions,
+                          allowedFilterOptions: const [],
+                        ),
+                      ),
+                      MissionTabConfig(
+                        title: l10n.readyForPickUpMissions,
+                        icon: Icons.heart_broken,
+                        viewModel: MissionsListViewModel(
+                          repository: repository,
+                          type: MissionListType.assignedMissions,
+                          allowedFilterOptions: const [],
+                        ),
+                      ),
+                      MissionTabConfig(
+                        title: l10n.pickedUpMissions,
+                        icon: Icons.favorite,
+                        viewModel: MissionsListViewModel(
+                          repository: repository,
+                          type: MissionListType.pickedUpMissions,
+                          allowedFilterOptions: const [],
+                        ),
+                      ),
+                      MissionTabConfig(
+                        title: l10n.cancelledMissions,
+                        icon: Icons.sentiment_very_dissatisfied,
+                        viewModel: MissionsListViewModel(
+                          repository: repository,
+                          type: MissionListType.cancelledMissions,
+                          allowedFilterOptions: const [],
+                        ),
+                      ),
+                      MissionTabConfig(
+                        title: l10n.deliveredMissions,
+                        icon: Icons.check_circle,
+                        viewModel: MissionsListViewModel(
+                          repository: repository,
+                          type: MissionListType.deliveredMissions,
+                          allowedFilterOptions: const [],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                //TODO: add driver contact list
+                NavBarDestination(
+                  pageType: NavBarPageType.mapView,
+                  page: const MapView(),
+                  // MARK: if we introduce location services on the map page for logisticians, uncomment the onEnter and onExit methods
+                  onEnter: () => {},
+                  // context.read<MapViewModel>().initLocation(),
+                  onExit: () =>
+                  {}, // context.read<MapViewModel>().stopLocationUpdates(),
+                ),
+                const NavBarDestination(
+                  pageType: NavBarPageType.profile,
+                  page: UserProfilePage(),
+                ),
+              ],
+            );
+          },
+        ),
+      );
     case UserRole.admin:
       return ChangeNotifierProvider(
         create: (_) => MapViewModel(),
@@ -80,10 +159,10 @@ Widget getDestinationForRole(UserRole role) {
                   pageType: NavBarPageType.mapView,
                   page: const MapView(),
                   // MARK: if we introduce location services on the map page for logisticians, uncomment the onEnter and onExit methods
-                  onEnter: () =>
-                      {}, // context.read<MapViewModel>().initLocation(),
+                  onEnter: () => {},
+                  // context.read<MapViewModel>().initLocation(),
                   onExit: () =>
-                      {}, // context.read<MapViewModel>().stopLocationUpdates(),
+                  {}, // context.read<MapViewModel>().stopLocationUpdates(),
                 ),
                 const NavBarDestination(
                   pageType: NavBarPageType.profile,

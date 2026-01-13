@@ -36,6 +36,7 @@ class MapViewModel extends ChangeNotifier {
   bool get isLoadingLocation => _isLoadingLocation;
 
   Set<MissionStatus> get visibleStatuses => _visibleStatuses;
+
   UserRole? get userRole => _userRole;
 
   MapViewModel();
@@ -87,11 +88,8 @@ class MapViewModel extends ChangeNotifier {
     // Fetch User Role
     try {
       final authService = AuthenticationService();
-      if (authService.currentUser != null) {
-        final profile = await authService.getUserProfile(
-          authService.currentUser!,
-        );
-        _userRole = profile.role;
+      if (authService.currentUserProfile != null) {
+        _userRole = authService.currentUserProfile!.role;
         notifyListeners();
       }
     } catch (e) {
