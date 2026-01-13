@@ -43,7 +43,6 @@ class MyApp extends StatelessWidget {
             myMissionsList: sampleMissions,
             availableMissionsList: availableMissions,
             adminMissionsList: adminMissions,
-            driverUsers: driverUsers,
             authService: context.read<AuthenticationService>(),
           ),
           update: (context, authService, previous) {
@@ -52,7 +51,6 @@ class MyApp extends StatelessWidget {
                 myMissionsList: sampleMissions,
                 availableMissionsList: availableMissions,
                 adminMissionsList: adminMissions,
-                driverUsers: driverUsers,
                 authService: authService,
               );
               // Pre-fetch route info for all missions so it's instantly available
