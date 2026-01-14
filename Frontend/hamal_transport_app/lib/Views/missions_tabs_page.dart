@@ -36,11 +36,6 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
     final l10n = AppLocalizations.of(context)!;
     final textDirection = Directionality.of(context);
 
-    // Define gradients based on direction
-    // For Start hint: Gradient should be Opaque (Edge) -> Transparent (Inwards)
-    // For End hint: Gradient should be Transparent (Inwards) -> Opaque (Edge)
-    // Note: LinearGradient colors are Start -> End by default.
-
     return DefaultTabController(
       length: widget.tabs.length,
       child: Scaffold(
