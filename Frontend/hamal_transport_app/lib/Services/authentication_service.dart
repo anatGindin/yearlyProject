@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:hamal_transport_app/Models/user_profile.dart';
@@ -179,6 +180,40 @@ class AuthenticationService {
       return profile;
     } catch (e) {
       return null;
+    }
+  }
+
+  Future<List<UserProfile>> getDrivers() async {
+    try {
+      List<UserProfile> drivers = List.empty(growable: true);
+      debugPrint("snapshot: ");
+      final snapshot = await FirebaseDatabase.instance
+          .ref('users')
+          .orderByChild("role")
+          .equalTo("driver")
+          .get();
+      debugPrint("snapshot.value = ${snapshot.value}");
+      debugPrint("snapshot.value type = ${snapshot.value.runtimeType}");
+      debugPrint("children count = ${snapshot.children.length}");
+      if (!snapshot.exists || snapshot.value == null) {
+        return [];
+      }
+      for (final child in snapshot.children) {
+        final uid = child.key; // Get the UID for this specific user
+        final userData = child.value;
+
+        if (uid != null && userData is Map<dynamic, dynamic>) {
+          final data = Map<String, dynamic>.from(userData);
+          drivers.add(UserProfile.fromDictionary(data));
+        } else {
+          debugPrint("Skipping invalid user data: UID=$uid, Data=$userData");
+        }
+      }
+      return drivers;
+    } catch (e, st) {
+      print("Error: $e");
+      print(st);
+      return [];
     }
   }
 

@@ -46,59 +46,17 @@ class DriverPhoneBookViewModel extends ChangeNotifier {
   Future<void> _getUsers() async {
     //TODO: get users from firebase or mock data
     final authService = AuthenticationService();
-    UserProfile? driverProfile;
+    List<UserProfile>? drivers;
     try {
-      driverProfile = await authService.getUserProfileByUid(
-        "I9ivZ6H8pYWoDkeb2wybbKXgxWE2",
-      );
+      drivers = await authService.getDrivers();
     } catch (e) {
-      driverProfile = null;
+      drivers = null;
     } finally {
-      if (driverProfile != null) {
-        _allUsers.add(driverProfile);
+      if (drivers != null) {
+        _allUsers.addAll(drivers);
       }
       notifyListeners();
     }
-    _allUsers.add(
-      UserProfile(
-        uid: "uid1",
-        email: 'uid1@email.com',
-        name: 'user 1',
-        phone: '0501234567',
-        role: UserRole.driver,
-        driverProfile: DriverProfile(carType: CarType.private),
-      ),
-    );
-    _allUsers.add(
-      UserProfile(
-        uid: "uid2",
-        email: 'uid2@email.com',
-        name: 'user 2',
-        phone: '0501234568',
-        role: UserRole.driver,
-        driverProfile: DriverProfile(carType: CarType.truck),
-      ),
-    );
-    _allUsers.add(
-      UserProfile(
-        uid: "uid3",
-        email: 'uid3@email.com',
-        name: 'user 3',
-        phone: '0501234569',
-        role: UserRole.driver,
-        driverProfile: DriverProfile(carType: CarType.private),
-      ),
-    );
-    _allUsers.add(
-      UserProfile(
-        uid: "uid4",
-        email: 'uid4@email.com',
-        name: 'user 4',
-        phone: '0501234560',
-        role: UserRole.driver,
-        driverProfile: DriverProfile(carType: CarType.trailer),
-      ),
-    );
   }
 
   String getFilterBy(AppLocalizations l10n, CarType? option) {
