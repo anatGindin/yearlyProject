@@ -59,12 +59,15 @@ class _DriverPhoneBookView extends StatelessWidget {
               ),
             ),
           ),
+
           Expanded(
-            child: SingleChildScrollView(
-              child:
-                  /// List
-                  DriverListView(drivers: vm.drivers),
-            ),
+            child: vm.isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : SingleChildScrollView(
+                    child:
+                        /// List
+                        DriverListView(drivers: vm.drivers),
+                  ),
           ),
         ],
       ),

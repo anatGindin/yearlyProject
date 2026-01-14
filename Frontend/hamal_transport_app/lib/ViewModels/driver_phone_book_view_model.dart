@@ -9,6 +9,8 @@ class DriverPhoneBookViewModel extends ChangeNotifier {
   List<CarType?> allowedFilterOptions = [null, ...CarType.values];
 
   String _query = '';
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
 
   DriverPhoneBookViewModel() {
     _getUsers();
@@ -44,19 +46,67 @@ class DriverPhoneBookViewModel extends ChangeNotifier {
   }
 
   Future<void> _getUsers() async {
-    //TODO: get users from firebase or mock data
+    //TODO: get users from the backhand
+    _isLoading = true;
     final authService = AuthenticationService();
-    List<UserProfile>? drivers;
+    UserProfile? driverProfile;
     try {
-      drivers = await authService.getDrivers();
+      driverProfile = await authService.getUserProfileByUid(
+        "I9ivZ6H8pYWoDkeb2wybbKXgxWE2",
+      );
     } catch (e) {
-      drivers = null;
+      driverProfile = null;
     } finally {
-      if (drivers != null) {
-        _allUsers.addAll(drivers);
+      if (driverProfile != null) {
+        _allUsers.add(driverProfile);
+      }
+    }
+    try {
+      driverProfile = await authService.getUserProfileByUid(
+        "QQPq3Ww6ZcQsLwiLxESb5lMj7it1",
+      );
+    } catch (e) {
+      driverProfile = null;
+    } finally {
+      if (driverProfile != null) {
+        _allUsers.add(driverProfile);
+      }
+    }
+    try {
+      driverProfile = await authService.getUserProfileByUid(
+        "MFdpfMkvRxVTKJFMwkvaibFTocy1",
+      );
+    } catch (e) {
+      driverProfile = null;
+    } finally {
+      if (driverProfile != null) {
+        _allUsers.add(driverProfile);
+      }
+    }
+    try {
+      driverProfile = await authService.getUserProfileByUid(
+        "nTaztLupVDeL3RJGd5EvVWzc4Fr2",
+      );
+    } catch (e) {
+      driverProfile = null;
+    } finally {
+      if (driverProfile != null) {
+        _allUsers.add(driverProfile);
+      }
+    }
+    try {
+      driverProfile = await authService.getUserProfileByUid(
+        "tTRvyduHWwM5fc5uMPXenxEaaGj2",
+      );
+    } catch (e) {
+      driverProfile = null;
+    } finally {
+      if (driverProfile != null) {
+        _allUsers.add(driverProfile);
       }
       notifyListeners();
     }
+    _isLoading = false;
   }
 
   String getFilterBy(AppLocalizations l10n, CarType? option) {
