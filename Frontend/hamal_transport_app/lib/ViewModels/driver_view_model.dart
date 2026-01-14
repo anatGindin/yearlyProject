@@ -52,8 +52,4 @@ class DriverViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
-
-  Future<void> refreshDriverPage() async {
-    await _loadDriverProfile();
-  }
 }

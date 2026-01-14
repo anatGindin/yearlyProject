@@ -20,14 +20,6 @@ class DriverPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(l10n.driverPage),
         backgroundColor: theme.colorScheme.primary,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () {
-              context.read<DriverViewModel>().refreshDriverPage();
-            },
-          ),
-        ],
       ),
       body: Consumer<DriverViewModel>(
         builder: (context, viewModel, _) {
@@ -51,30 +43,21 @@ class DriverPage extends StatelessWidget {
                     style: theme.textTheme.bodyLarge,
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => viewModel.refreshDriverPage(),
-                    child: const Text('Retry'),
-                  ),
                 ],
               ),
             );
           }
 
           // Show page even if driver profile is null (just show missions)
-          return RefreshIndicator(
-            onRefresh: () => viewModel.refreshDriverPage(),
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildDriverInfoCard(context, viewModel, theme, l10n),
-                  const SizedBox(height: 24),
-                  _buildMissionsSection(context, viewModel, theme, l10n),
-                ],
-              ),
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildDriverInfoCard(context, viewModel, theme, l10n),
+                const SizedBox(height: 24),
+                _buildMissionsSection(context, viewModel, theme, l10n),
+              ],
             ),
           );
         },

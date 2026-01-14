@@ -253,7 +253,8 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(find.text('trailer'), findsOneWidget);
+      // Check for localized car type text (English: "Trailer")
+      expect(find.text('Trailer'), findsOneWidget);
     });
   });
 
@@ -394,86 +395,6 @@ void main() {
         (widget) => widget is InkWell && widget.onTap != null,
       );
       expect(missionCardInkWells, findsWidgets);
-    });
-  });
-
-  group('DriverPage - Refresh Functionality', () {
-    testWidgets('AppBar refresh button is present', (tester) async {
-      const driverUid = 'test-driver';
-      final mockProfile = UserProfile(
-        uid: driverUid,
-        email: 'driver@test.com',
-        name: 'Test Driver',
-        phone: '+972-54-1234567',
-        role: UserRole.driver,
-      );
-
-      final authService = FakeAuthenticationService();
-      authService.mockUserProfileByUid = {driverUid: mockProfile};
-
-      final viewModel = DriverViewModel(
-        driverUid: driverUid,
-        authService: authService,
-      );
-
-      await tester.pumpWidget(
-        MaterialApp(
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [Locale('en'), Locale('he')],
-          home: ChangeNotifierProvider<DriverViewModel>.value(
-            value: viewModel,
-            child: const DriverPage(),
-          ),
-        ),
-      );
-
-      await tester.pumpAndSettle();
-
-      expect(find.byIcon(Icons.refresh), findsOneWidget);
-    });
-
-    testWidgets('RefreshIndicator is present', (tester) async {
-      const driverUid = 'test-driver';
-      final mockProfile = UserProfile(
-        uid: driverUid,
-        email: 'driver@test.com',
-        name: 'Test Driver',
-        phone: '+972-54-1234567',
-        role: UserRole.driver,
-      );
-
-      final authService = FakeAuthenticationService();
-      authService.mockUserProfileByUid = {driverUid: mockProfile};
-
-      final viewModel = DriverViewModel(
-        driverUid: driverUid,
-        authService: authService,
-      );
-
-      await tester.pumpWidget(
-        MaterialApp(
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [Locale('en'), Locale('he')],
-          home: ChangeNotifierProvider<DriverViewModel>.value(
-            value: viewModel,
-            child: const DriverPage(),
-          ),
-        ),
-      );
-
-      await tester.pumpAndSettle();
-
-      expect(find.byType(RefreshIndicator), findsOneWidget);
     });
   });
 }

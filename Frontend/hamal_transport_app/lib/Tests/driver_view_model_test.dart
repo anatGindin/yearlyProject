@@ -152,42 +152,6 @@ void main() {
         true,
       );
     });
-
-    test('Refresh method reloads driver profile', () async {
-      final mockProfile = UserProfile(
-        uid: testDriverUid,
-        email: 'driver@test.com',
-        name: 'Test Driver',
-        phone: '+972-54-1234567',
-        role: UserRole.driver,
-      );
-
-      authService.mockUserProfileByUid = {testDriverUid: mockProfile};
-
-      viewModel = DriverViewModel(
-        driverUid: testDriverUid,
-        authService: authService,
-      );
-
-      await Future.delayed(const Duration(milliseconds: 100));
-      expect(viewModel.driverProfile?.name, 'Test Driver');
-
-      // Update the mock profile
-      final updatedProfile = UserProfile(
-        uid: testDriverUid,
-        email: 'driver@test.com',
-        name: 'Updated Driver',
-        phone: '+972-54-7654321',
-        role: UserRole.driver,
-      );
-      authService.mockUserProfileByUid = {testDriverUid: updatedProfile};
-
-      // Refresh
-      await viewModel.refreshDriverPage();
-
-      expect(viewModel.driverProfile?.name, 'Updated Driver');
-      expect(viewModel.driverProfile?.phone, '+972-54-7654321');
-    });
   });
 
   group('DriverViewModel - Edge Cases', () {
@@ -331,9 +295,7 @@ void main() {
 
       await Future.delayed(const Duration(milliseconds: 100));
 
-      expect(viewModel.carType, 'trailer');
+      expect(viewModel.carType, CarType.trailer);
     });
   });
 }
-
-
