@@ -148,7 +148,7 @@ class DriverPage extends StatelessWidget {
               _buildInfoRow(
                 Icons.directions_car,
                 l10n.carType,
-                viewModel.carType!,
+                viewModel.carType!.displayName(l10n),
                 theme,
               ),
             ],
@@ -344,7 +344,7 @@ class DriverPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
-                          mission.status.name,
+                          mission.status.displayName(context),
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: mission.status.statusColor,
                             fontWeight: FontWeight.bold,

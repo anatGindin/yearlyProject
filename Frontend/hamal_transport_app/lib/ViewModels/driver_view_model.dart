@@ -25,7 +25,7 @@ class DriverViewModel extends ChangeNotifier {
   String get driverName => _driverProfile?.name ?? 'Driver ($driverUid)';
   String get driverEmail => _driverProfile?.email ?? 'N/A';
   String get driverPhone => _driverProfile?.phone ?? 'N/A';
-  String? get carType => _driverProfile?.driverProfile?.carType.name;
+  CarType? get carType => _driverProfile?.driverProfile?.carType;
 
   // Get missions assigned to this driver
   // Always call MissionsRepository() to get the latest singleton instance
