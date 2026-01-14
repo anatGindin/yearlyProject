@@ -17,15 +17,19 @@ void main() {
     await initializeMockData();
   });
 
+  setUp(() {
+    // Initialize singleton with test data before each test
+    final authService = FakeAuthenticationService();
+    MissionsRepository(
+      myMissionsList: [...sampleMissions],
+      availableMissionsList: [...availableMissions],
+      authService: authService,
+    );
+  });
+
   group('DriverPage - Error State', () {
     testWidgets('Displays error icon when errorMessage is set', (tester) async {
       final authService = FakeAuthenticationService();
-      final repository = MissionsRepository(
-        myMissionsList: [...sampleMissions],
-        availableMissionsList: [...availableMissions],
-        authService: authService,
-      );
-
       final viewModel = DriverViewModel(
         driverUid: 'test-uid',
         authService: authService,
@@ -70,12 +74,6 @@ void main() {
       final authService = FakeAuthenticationService();
       authService.mockUserProfileByUid = {driverUid: mockProfile};
 
-      final repository = MissionsRepository(
-        myMissionsList: [...sampleMissions],
-        availableMissionsList: [...availableMissions],
-        authService: authService,
-      );
-
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
@@ -117,12 +115,6 @@ void main() {
       final authService = FakeAuthenticationService();
       authService.mockUserProfileByUid = {driverUid: mockProfile};
 
-      final repository = MissionsRepository(
-        myMissionsList: [...sampleMissions],
-        availableMissionsList: [...availableMissions],
-        authService: authService,
-      );
-
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
@@ -163,12 +155,6 @@ void main() {
       final authService = FakeAuthenticationService();
       authService.mockUserProfileByUid = {driverUid: mockProfile};
 
-      final repository = MissionsRepository(
-        myMissionsList: [...sampleMissions],
-        availableMissionsList: [...availableMissions],
-        authService: authService,
-      );
-
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
@@ -200,12 +186,6 @@ void main() {
       const driverUid = 'missing-profile';
       final authService = FakeAuthenticationService();
       authService.mockUserProfileByUid = {};
-
-      final repository = MissionsRepository(
-        myMissionsList: [...sampleMissions],
-        availableMissionsList: [...availableMissions],
-        authService: authService,
-      );
 
       final viewModel = DriverViewModel(
         driverUid: driverUid,
@@ -250,12 +230,6 @@ void main() {
       final authService = FakeAuthenticationService();
       authService.mockUserProfileByUid = {driverUid: mockProfile};
 
-      final repository = MissionsRepository(
-        myMissionsList: [...sampleMissions],
-        availableMissionsList: [...availableMissions],
-        authService: authService,
-      );
-
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
@@ -297,7 +271,8 @@ void main() {
       final authService = FakeAuthenticationService();
       authService.mockUserProfileByUid = {driverUid: mockProfile};
 
-      final repository = MissionsRepository(
+      // Initialize singleton with empty data for this test
+      MissionsRepository(
         myMissionsList: [],
         availableMissionsList: [],
         authService: authService,
@@ -342,12 +317,6 @@ void main() {
       final authService = FakeAuthenticationService();
       authService.mockUserProfileByUid = {driverUid: mockProfile};
 
-      final repository = MissionsRepository(
-        myMissionsList: [...sampleMissions],
-        availableMissionsList: [...availableMissions],
-        authService: authService,
-      );
-
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
@@ -388,12 +357,6 @@ void main() {
       final authService = FakeAuthenticationService();
       authService.mockUserProfileByUid = {driverUid: mockProfile};
 
-      final repository = MissionsRepository(
-        myMissionsList: [...sampleMissions],
-        availableMissionsList: [...availableMissions],
-        authService: authService,
-      );
-
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
@@ -403,7 +366,9 @@ void main() {
         MultiProvider(
           providers: [
             ChangeNotifierProvider<DriverViewModel>.value(value: viewModel),
-            ChangeNotifierProvider<MissionsRepository>.value(value: repository),
+            ChangeNotifierProvider<MissionsRepository>.value(
+              value: MissionsRepository(),
+            ),
           ],
           child: const MaterialApp(
             localizationsDelegates: [
@@ -446,12 +411,6 @@ void main() {
       final authService = FakeAuthenticationService();
       authService.mockUserProfileByUid = {driverUid: mockProfile};
 
-      final repository = MissionsRepository(
-        myMissionsList: [...sampleMissions],
-        availableMissionsList: [...availableMissions],
-        authService: authService,
-      );
-
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
@@ -491,12 +450,6 @@ void main() {
       final authService = FakeAuthenticationService();
       authService.mockUserProfileByUid = {driverUid: mockProfile};
 
-      final repository = MissionsRepository(
-        myMissionsList: [...sampleMissions],
-        availableMissionsList: [...availableMissions],
-        authService: authService,
-      );
-
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
@@ -524,4 +477,3 @@ void main() {
     });
   });
 }
-
