@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Models/contact.dart';
+import 'package:hamal_transport_app/Models/user_profile.dart';
 import 'package:hamal_transport_app/ViewModels/driver_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/contact_vm.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
@@ -9,58 +10,78 @@ import 'package:hamal_transport_app/Views/contact_view.dart';
 import 'package:provider/provider.dart';
 
 class DriverPage extends StatelessWidget {
-  const DriverPage({super.key});
+  final String? driverUid;
+  final UserProfile? driverProfile;
+
+  const DriverPage({super.key, this.driverUid, this.driverProfile});
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.driverPage),
-        backgroundColor: theme.colorScheme.primary,
-      ),
-      body: Consumer<DriverViewModel>(
-        builder: (context, viewModel, _) {
-          if (viewModel.isLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
+    // Determine which UID to use: from profile or parameter
+    final uid = driverProfile?.uid ?? driverUid;
 
-          if (viewModel.errorMessage != null) {
-            return Center(
+    if (uid == null) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(l10n.driverPage),
+          backgroundColor: theme.colorScheme.primary,
+        ),
+        body: const Center(child: Text('Error: No driver UID provided')),
+      );
+    }
+
+    return ChangeNotifierProvider(
+      create: (_) =>
+          DriverViewModel(driverUid: uid, initialProfile: driverProfile),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(l10n.driverPage),
+          backgroundColor: theme.colorScheme.primary,
+        ),
+        body: Consumer<DriverViewModel>(
+          builder: (context, viewModel, _) {
+            if (viewModel.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            if (viewModel.errorMessage != null) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.error_outline,
+                      size: 60,
+                      color: theme.colorScheme.error,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      viewModel.errorMessage!,
+                      style: theme.textTheme.bodyLarge,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              );
+            }
+
+            // Show page even if driver profile is null (just show missions)
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
-                    Icons.error_outline,
-                    size: 60,
-                    color: theme.colorScheme.error,
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    viewModel.errorMessage!,
-                    style: theme.textTheme.bodyLarge,
-                    textAlign: TextAlign.center,
-                  ),
+                  _buildDriverInfoCard(context, viewModel, theme, l10n),
+                  const SizedBox(height: 24),
+                  _buildMissionsSection(context, viewModel, theme, l10n),
                 ],
               ),
             );
-          }
-
-          // Show page even if driver profile is null (just show missions)
-          return SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildDriverInfoCard(context, viewModel, theme, l10n),
-                const SizedBox(height: 24),
-                _buildMissionsSection(context, viewModel, theme, l10n),
-              ],
-            ),
-          );
-        },
+          },
+        ),
       ),
     );
   }

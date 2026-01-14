@@ -12,9 +12,17 @@ class DriverViewModel extends ChangeNotifier {
   bool _isLoading = true;
   String? _errorMessage;
 
-  DriverViewModel({required this.driverUid, AuthenticationService? authService})
-    : _authService = authService ?? AuthenticationService() {
-    _loadDriverProfile();
+  DriverViewModel({
+    required this.driverUid,
+    AuthenticationService? authService,
+    UserProfile? initialProfile,
+  }) : _authService = authService ?? AuthenticationService() {
+    if (initialProfile != null) {
+      _driverProfile = initialProfile;
+      _isLoading = false;
+    } else {
+      _loadDriverProfile();
+    }
   }
 
   // Getters
