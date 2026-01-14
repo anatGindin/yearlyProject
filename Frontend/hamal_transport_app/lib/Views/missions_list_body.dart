@@ -14,6 +14,7 @@ class MissionsListBody extends StatelessWidget {
     final viewModel = context.watch<MissionsListViewModel>();
 
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(
@@ -27,7 +28,7 @@ class MissionsListBody extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 16),
                   SizedBox(
                     height: 60,
                     child: Padding(
@@ -36,21 +37,24 @@ class MissionsListBody extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.43,
+                            width: viewModel.allowedFilterOptions.isNotEmpty
+                                ? MediaQuery.of(context).size.width * 0.43
+                                : MediaQuery.of(context).size.width * 0.8,
                             child: ListActionButton(
                               icon: Icons.sort,
                               label: viewModel.getSortBy(context),
                               onPressed: () => _showSortOptions(context),
                             ),
                           ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.43,
-                            child: ListActionButton(
-                              icon: Icons.filter_alt,
-                              label: viewModel.getFilterBy(context),
-                              onPressed: () => _showFilterOptions(context),
+                          if (viewModel.allowedFilterOptions.isNotEmpty)
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.43,
+                              child: ListActionButton(
+                                icon: Icons.filter_alt,
+                                label: viewModel.getFilterBy(context),
+                                onPressed: () => _showFilterOptions(context),
+                              ),
                             ),
-                          ),
                         ],
                       ),
                     ),

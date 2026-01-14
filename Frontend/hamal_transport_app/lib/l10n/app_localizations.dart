@@ -107,14 +107,38 @@ abstract class AppLocalizations {
   /// Title of active missions list
   ///
   /// In en, this message translates to:
-  /// **'Active Missions'**
+  /// **'My Missions'**
   String get activeMissions;
 
-  /// Title of available missions page
+  /// Mission status - available
   ///
   /// In en, this message translates to:
-  /// **'Available Missions'**
+  /// **'Available'**
   String get availableMissions;
+
+  /// Title of picked up missions page
+  ///
+  /// In en, this message translates to:
+  /// **'Picked Up Missions'**
+  String get pickedUpMissions;
+
+  /// Title of ready for pick up missions page
+  ///
+  /// In en, this message translates to:
+  /// **'Assigned'**
+  String get readyForPickUpMissions;
+
+  /// Title of delivered missions page
+  ///
+  /// In en, this message translates to:
+  /// **'Delivered Missions'**
+  String get deliveredMissions;
+
+  /// Title of cancelled missions page
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled Missions'**
+  String get cancelledMissions;
 
   /// Title of call desk dialog
   ///
@@ -470,18 +494,6 @@ abstract class AppLocalizations {
   /// **'Picked up'**
   String get menuPickedUpFilter;
 
-  /// Filter option - Show 'Chosen' missions
-  ///
-  /// In en, this message translates to:
-  /// **'\'Chosen\' missions'**
-  String get chosenFilter;
-
-  /// Show 'Picked up' missions
-  ///
-  /// In en, this message translates to:
-  /// **'\'Picked up\' missions'**
-  String get pickedUpFilter;
-
   /// Title for cancellation reason dialog
   ///
   /// In en, this message translates to:
@@ -559,6 +571,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Edit Comment'**
   String get editCommentTitle;
+
+  /// Title for edit mission dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Edit mission'**
+  String get editMission;
 
   /// Label for car type selection
   ///
@@ -722,6 +740,12 @@ abstract class AppLocalizations {
   /// **'Profile'**
   String get profile;
 
+  /// Label of Driver List option in the navigation bar
+  ///
+  /// In en, this message translates to:
+  /// **'Driver List'**
+  String get driverList;
+
   /// No description provided for @hamalWarehouse.
   ///
   /// In en, this message translates to:
@@ -775,12 +799,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hebrew'**
   String get hebrew;
-
-  /// No description provided for @quickActions.
-  ///
-  /// In en, this message translates to:
-  /// **'Quick Actions'**
-  String get quickActions;
 
   /// No description provided for @contactUs.
   ///

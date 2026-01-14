@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hamal_transport_app/Constants/mock_data.dart';
-
 import 'package:hamal_transport_app/Services/authentication_service.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
-
 import 'package:provider/provider.dart';
 import 'l10n/app_localizations.dart';
 import 'Views/Authentication/auth_gate.dart';
@@ -27,6 +25,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final AppPreferencesService prefsService;
+
   const MyApp({super.key, required this.prefsService});
 
   @override
@@ -39,19 +38,11 @@ class MyApp extends StatelessWidget {
         Provider<AuthenticationService>(create: (_) => AuthenticationService()),
         ChangeNotifierProxyProvider<AuthenticationService, MissionsRepository>(
           create: (context) => MissionsRepository(
-            myMissionsList: sampleMissions,
-            availableMissionsList: availableMissions,
             authService: context.read<AuthenticationService>(),
           ),
           update: (context, authService, previous) {
             if (previous == null) {
-              final repo = MissionsRepository(
-                myMissionsList: sampleMissions,
-                availableMissionsList: availableMissions,
-                authService: authService,
-              );
-              // Pre-fetch route info for all missions so it's instantly available
-              repo.prefetchRouteInfo();
+              final repo = MissionsRepository(authService: authService);
               return repo;
             }
             return previous;

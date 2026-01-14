@@ -4,13 +4,29 @@
   "@appTitle": {
     "description": "App title shown in the app bar and for the application title"
   },
-  "activeMissions": "Active Missions",
+  "activeMissions": "My Missions",
   "@activeMissions": {
     "description": "Title of active missions list"
   },
   "availableMissions": "Available Missions",
   "@availableMissions": {
     "description": "Title of available missions page"
+  },
+  "pickedUpMissions": "Picked Up Missions",
+  "@pickedUpMissions": {
+    "description": "Title of picked up missions page"
+  },
+  "readyForPickUpMissions": "Assigned",
+  "@readyForPickUpMissions": {
+    "description": "Title of ready for pick up missions page"
+  },
+  "deliveredMissions": "Delivered Missions",
+  "@deliveredMissions": {
+    "description": "Title of delivered missions page"
+  },
+  "cancelledMissions": "Cancelled Missions",
+  "@cancelledMissions": {
+    "description": "Title of cancelled missions page"
   },
   "callDesk": "Call Hamal",
   "@callDesk": {
@@ -79,6 +95,10 @@
   "delivered": "Delivered",
   "@delivered": {
     "description": "Mission status - delivered"
+  },
+  "availableMissions": "Available",
+  "@availableMissions": {
+    "description": "Mission status - available"
   },
   "cancelled": "Cancelled",
   "@cancelled": {
@@ -248,14 +268,6 @@
   "@menuPickedUpFilter": {
     "description": "Show 'Picked up' missions"
   },
-  "chosenFilter": "'Chosen' missions",
-  "@chosenFilter": {
-    "description": "Filter option - Show 'Chosen' missions"
-  },
-  "pickedUpFilter": "'Picked up' missions",
-  "@pickedUpFilter": {
-    "description": "Show 'Picked up' missions"
-  },
   "cancellationReason": "Cancellation Reason",
   "@cancellationReason": {
     "description": "Title for cancellation reason dialog"
@@ -307,6 +319,10 @@
   "editCommentTitle": "Edit Comment",
   "@editCommentTitle": {
     "description": "Title for edit comment dialog"
+  },
+  "editMission": "Edit mission",
+  "@editMission": {
+    "description": "Title for edit mission dialog"
   },
   "carType": "Car Type",
   "@carType": {
@@ -416,6 +432,10 @@
   "@profile": {
     "description": "Label of Profile option in the driver navigation bar"
   },
+  "driverList": "Driver List",
+  "@driverList": {
+    "description": "Label of Driver List option in the navigation bar"
+  },
   "hamalWarehouse": "Hamal Warehouse",
   "accountInformation": "Account Information",
   "edit": "Edit Your Profile",
@@ -446,7 +466,6 @@
   "@hebrew": {
     "description": "Hebrew language option"
   },
-  "quickActions": "Quick Actions",
   "contactUs": "Contact Us",
   "aboutUs": "About Us",
   "helpFaq": "Help & FAQ",

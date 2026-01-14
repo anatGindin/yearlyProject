@@ -4,13 +4,29 @@
   "@appTitle": {
     "description": "כותרת האפליקציה שמופיעה בסרגל העליון"
   },
-  "activeMissions": "משימות פעילות",
+  "activeMissions": "המשימות שלי",
   "@activeMissions": {
     "description": "כותרת רשימת המשימות הפעילות"
   },
   "availableMissions": "משימות זמינות",
   "@availableMissions": {
     "description": "כותרת דף המשימות הזמינות"
+  },
+  "pickedUpMissions": "נאספו",
+  "@pickedUpMissions": {
+    "description": "כותרת דף המשימות שנאספו"
+  },
+  "readyForPickUpMissions": "משויכות",
+  "@readyForPickUpMissions": {
+    "description": "כותרת דף המשימות שמשוכיות לנהג"
+  },
+  "deliveredMissions": "נמסרו",
+  "@deliveredMissions": {
+    "description": "כותרת דף המשימות שנמסרו"
+  },
+  "cancelledMissions": "בוטלו",
+  "@cancelledMissions": {
+    "description": "כותרת דף המשימות שבוטלו"
   },
   "callDesk": "התקשר לחמ\"ל",
   "@callDesk": {
@@ -56,7 +72,6 @@
   "@suggestedMissionsMessage": {
     "description": "טקסט עזר שמופיע בדיאלוג משימות מוצעות מעל הרשימה"
   },
-
   "km": "ק״מ",
   "@km": {
     "description": "קיצור קילומטרים לתצוגת מרחק נוסף"
@@ -80,6 +95,10 @@
   "delivered": "נמסר",
   "@delivered": {
     "description": "סטטוס משימה - נמסר"
+  },
+  "availableMissions": "משימות ממתינות",
+  "@availableMissions": {
+    "description": "סטטוס משימה - לשיוך"
   },
   "cancelled": "בוטל",
   "@cancelled": {
@@ -249,14 +268,6 @@
   "@menuPickedUpFilter": {
     "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
   },
-  "chosenFilter": "משימות שנבחרו",
-  "@chosenFilter": {
-    "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
-  },
-  "pickedUpFilter": "משימות שנאספו",
-  "@pickedUpFilter": {
-    "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
-  },
   "cancellationReason": "סיבת ביטול",
   "@cancellationReason": {
     "description": "כותרת לדיאלוג סיבת ביטול"
@@ -308,6 +319,10 @@
   "editCommentTitle": "עריכת הערה",
   "@editCommentTitle": {
     "description": "כותרת דיאלוג עריכת הערה"
+  },
+  "editMission": "עריכת משימה",
+  "@editMission": {
+    "description": "כותרת דיאלוג עריכת משימה"
   },
   "carType": "סוג רכב",
   "@carType": {
@@ -417,6 +432,10 @@
   "@profile": {
     "description": "תווית של האופיצה פרופיל בסרגל הניווט של נהג"
   },
+  "driverList": "רשימת נהגים",
+  "@driverList": {
+    "description": "תווית של האופציה ספר נהגים בסרגל הניווט של צוות לוגיסטי"
+  },
   "hamalWarehouse": "מחסן לוגיסטי",
   "accountInformation": "פרטי חשבון",
   "edit": "עריכת פרופיל",
@@ -447,7 +466,6 @@
   "@hebrew": {
     "description": "אפשרות שפה עברית"
   },
-  "quickActions": "פעולות מהירות",
   "contactUs": "צור קשר",
   "aboutUs": "אודותינו",
   "helpFaq": "עזרה ומרכז מידע",
@@ -462,7 +480,7 @@
       "unit": {
         "type": "String",
         "example": "ק״מ"
-    }
+      }
     }
   }
 }

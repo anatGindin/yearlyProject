@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:hamal_transport_app/Models/contact.dart';
+import 'package:hamal_transport_app/Models/user_profile.dart';
+import 'package:hamal_transport_app/ViewModels/contact_vm.dart';
 import 'package:hamal_transport_app/ViewModels/mission_view_model.dart';
-
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
 import 'package:hamal_transport_app/Views/Widgets/comments_list_view.dart';
 import 'package:hamal_transport_app/Views/Widgets/source_destination.dart';
+import 'package:hamal_transport_app/Views/under_construction_page.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:provider/provider.dart';
 import '../Models/mission.dart';
 import '../Models/missions_model.dart';
 import '../l10n/app_localizations.dart';
 import 'contact_view.dart';
-import '../ViewModels/contact_vm.dart';
 import '../Services/routing_service.dart';
 import '../Views/Widgets/info_row.dart';
 
@@ -37,13 +39,15 @@ class _MissionScreenState extends State<MissionScreen> {
     l10n = AppLocalizations.of(context)!;
     final mission = widget.mission;
     final repository = context.read<MissionsRepository>();
-    final sourceContactVM = ContactViewModel(mission.sourceContact);
-    final destinationContactVM = ContactViewModel(mission.destinationContact);
+
     return ChangeNotifierProvider(
       create: (context) => MissionViewModel(mission, repository),
       child: Scaffold(
         body: Consumer<MissionViewModel>(
           builder: (context, missionVM, _) {
+            if (missionVM.isLoading) {
+              return const CircularProgressIndicator();
+            }
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -52,7 +56,7 @@ class _MissionScreenState extends State<MissionScreen> {
                   children: [
                     const SizedBox(height: 20),
                     const BackButton(),
-                    _buildRouteInfo(missionVM),
+                    _buildRouteInfo(missionVM, missionVM.isDriver),
                     const SizedBox(height: 16),
                     InfoRow(
                       icon: Icons.star_rounded,
@@ -61,21 +65,31 @@ class _MissionScreenState extends State<MissionScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(missionVM.status().displayName(context)),
-                          _statusUpdater(missionVM),
+                          if (missionVM.isDriver) _statusUpdater(missionVM),
                         ],
+                      ),
+                    ),
+                    if (!missionVM.isDriver &&
+                        missionVM.mission.driverUid != null)
+                      const SizedBox(height: 16),
+                    if (!missionVM.isDriver &&
+                        missionVM.mission.driverUid != null)
+                      _buildDriverInfo(missionVM),
+                    const SizedBox(height: 16),
+                    InfoRow(
+                      icon: Icons.person,
+                      label: l10n.sourceContact,
+                      child: ContactInfoActionable(
+                        vm: ContactViewModel(missionVM.sourceContact()),
                       ),
                     ),
                     const SizedBox(height: 16),
                     InfoRow(
                       icon: Icons.person,
-                      label: l10n.sourceContact,
-                      child: ContactInfoActionable(vm: sourceContactVM),
-                    ),
-                    const SizedBox(height: 16),
-                    InfoRow(
-                      icon: Icons.person,
                       label: l10n.destinationContact,
-                      child: ContactInfoActionable(vm: destinationContactVM),
+                      child: ContactInfoActionable(
+                        vm: ContactViewModel(missionVM.destinationContact()),
+                      ),
                     ),
                     const SizedBox(height: 16),
                     InfoRow(
@@ -100,6 +114,39 @@ class _MissionScreenState extends State<MissionScreen> {
                     ),
                     const SizedBox(height: 16),
                     MissionCommentsTile(missionViewModel: missionVM),
+                    const SizedBox(height: 16),
+                    if (!missionVM.isDriver)
+                      InkWell(
+                        child: Card(
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.secondaryContainer,
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 6),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(Icons.edit),
+                                  const SizedBox(width: 16),
+                                  Text(l10n.editMission),
+                                ],
+                              ),
+                              const SizedBox(height: 6),
+                            ],
+                          ),
+                        ),
+
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              //TODO: add edit mission page
+                              builder: (_) => const UnderConstructionPage(),
+                            ),
+                          );
+                        },
+                      ),
+                    const SizedBox(height: 16),
                   ],
                 ),
               ),
@@ -122,7 +169,7 @@ class _MissionScreenState extends State<MissionScreen> {
           children: <Widget>[
             ListTile(title: Text(l10n.selectStatus)),
             // Show "Picked Up" option only for chosen missions
-            if (currentStatus == MissionStatus.chosen)
+            if (currentStatus == MissionStatus.assigned)
               ListTile(
                 title: Text(l10n.pickedUp),
                 onTap: () {
@@ -141,8 +188,8 @@ class _MissionScreenState extends State<MissionScreen> {
                   Navigator.of(context).pop();
                 },
               ),
-            // Show "Cancelled" option for both chosen and picked up missions
-            if (currentStatus == MissionStatus.chosen ||
+            // Show "Cancelled" option for both assigned and picked up missions
+            if (currentStatus == MissionStatus.assigned ||
                 currentStatus == MissionStatus.pickedUp)
               ListTile(
                 title: Text(l10n.cancelled),
@@ -201,16 +248,16 @@ class _MissionScreenState extends State<MissionScreen> {
     final allMissions = repository.getMissions(
       MissionListType.availableMissions,
     );
-    final chosenMission = widget.mission;
+    final assignedMission = widget.mission;
 
     if (allMissions.isEmpty) return;
 
     // Get top 3 suggested missions using heuristic scoring
     // Suggestions are based on how much additional distance each mission
-    // would add relative to the chosen mission's route
+    // would add relative to the assigned mission's route
     final suggestedMissions = MissionsListsModel.getTopSuggestedMissions(
       allMissions,
-      chosenMission: chosenMission,
+      assignedMission: assignedMission,
       maxResults: 3,
     );
 
@@ -328,7 +375,7 @@ class _MissionScreenState extends State<MissionScreen> {
     );
   }
 
-  Widget _buildRouteInfo(MissionViewModel missionVM) {
+  Widget _buildRouteInfo(MissionViewModel missionVM, bool isDriver) {
     final mission = missionVM.mission;
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
@@ -432,34 +479,43 @@ class _MissionScreenState extends State<MissionScreen> {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 24),
-                            if (missionVM.status() == MissionStatus.chosen ||
-                                missionVM.status() == MissionStatus.pickedUp)
-                              ElevatedButton.icon(
-                                onPressed: () async {
-                                  final success = await missionVM
-                                      .launchNavigation();
-                                  // Guard the context we are about to use
-                                  if (!context.mounted) return;
-                                  if (!success) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          l10n.cannotLaunchNavigation,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  minimumSize: const Size.fromHeight(64),
-                                ),
-                                icon: const Icon(Icons.navigation),
-                                label: Text(
-                                  l10n.navigateWaze,
-                                  style: const TextStyle(fontSize: 16),
-                                  textAlign: TextAlign.center,
-                                ),
+
+                            if (isDriver &&
+                                (missionVM.status() == MissionStatus.assigned ||
+                                    missionVM.status() ==
+                                        MissionStatus.pickedUp))
+                              Column(
+                                children: [
+                                  const SizedBox(height: 24),
+                                  ElevatedButton.icon(
+                                    onPressed: () async {
+                                      final success = await missionVM
+                                          .launchNavigation();
+                                      // Guard the context we are about to use
+                                      if (!context.mounted) return;
+                                      if (!success) {
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              l10n.cannotLaunchNavigation,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      minimumSize: const Size.fromHeight(64),
+                                    ),
+                                    icon: const Icon(Icons.navigation),
+                                    label: Text(
+                                      l10n.navigateWaze,
+                                      style: const TextStyle(fontSize: 16),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
                               ),
                           ],
                         ),
@@ -505,7 +561,7 @@ class _MissionScreenState extends State<MissionScreen> {
       return SizedBox(
         child: ElevatedButton(
           onPressed: () {
-            missionVM.updateStatus(MissionStatus.chosen);
+            missionVM.updateStatus(MissionStatus.assigned);
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(SnackBar(content: Text(l10n.missionTaken)));
@@ -527,5 +583,41 @@ class _MissionScreenState extends State<MissionScreen> {
         ),
       );
     }
+  }
+
+  Widget _buildDriverInfo(MissionViewModel missionVM) {
+    return FutureBuilder<UserProfile?>(
+      future: missionVM.driverProfileFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Padding(
+            padding: EdgeInsets.symmetric(vertical: 8.0),
+            child: Center(
+              child: SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              ),
+            ),
+          );
+        }
+
+        final userProfile = snapshot.data;
+        if (userProfile == null) {
+          return const SizedBox.shrink();
+        }
+
+        final contact = Contact(
+          fullName: userProfile.name,
+          phoneNumber: userProfile.phone,
+        );
+
+        return InfoRow(
+          icon: Icons.person,
+          label: l10n.driver,
+          child: ContactInfoActionable(vm: ContactViewModel(contact)),
+        );
+      },
+    );
   }
 }

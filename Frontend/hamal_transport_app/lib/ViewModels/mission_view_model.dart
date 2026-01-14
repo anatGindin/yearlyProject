@@ -3,16 +3,56 @@ import 'package:hamal_transport_app/Services/missions_repository.dart';
 import '../Models/mission.dart';
 import '../Models/contact.dart';
 import '../Models/user_profile.dart';
+import '../Services/authentication_service.dart';
 import '../Utils/launcher_utils.dart';
 
 class MissionViewModel extends ChangeNotifier {
   Mission mission;
   final MissionsRepository _repository;
-  MissionViewModel(this.mission, this._repository);
+  UserRole? userRole;
+  bool isLoading = true;
+
+  MissionViewModel(this.mission, this._repository) {
+    _initUserRole();
+  }
+
+  void _initUserRole() async {
+    final authService = AuthenticationService();
+
+    // Try to load from cache first to avoid UI flickering
+    if (authService.currentUserProfile != null) {
+      userRole = authService.currentUserProfile!.role;
+      isLoading = false;
+      notifyListeners();
+      return;
+    }
+
+    if (authService.currentUser != null) {
+      final profile = await authService.getUserProfile(
+        authService.currentUser!,
+      );
+      userRole = profile.role;
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<UserProfile?>? _driverProfileFuture;
+
+  Future<UserProfile?> get driverProfileFuture {
+    if (_driverProfileFuture == null && mission.driverUid != null) {
+      _driverProfileFuture = AuthenticationService().getUserProfileByUid(
+        mission.driverUid!,
+      );
+    }
+    return _driverProfileFuture ?? Future.value(null);
+  }
 
   MissionStatus status() {
     return mission.status;
   }
+
+  bool get isDriver => userRole == UserRole.driver;
 
   String location() {
     return '${mission.source.name}\r\n${mission.destination.name}';
@@ -45,7 +85,7 @@ class MissionViewModel extends ChangeNotifier {
   /// Update the status of the mission
   void updateStatus(MissionStatus newStatus) {
     if (mission.status == MissionStatus.available &&
-        newStatus == MissionStatus.chosen) {
+        newStatus == MissionStatus.assigned) {
       _repository.takeMission(mission);
     } else {
       _repository.updateStatus(mission, newStatus);

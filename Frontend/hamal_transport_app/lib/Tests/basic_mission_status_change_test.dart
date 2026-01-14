@@ -6,6 +6,14 @@ import 'package:hamal_transport_app/Services/Fake/fake_authentication_service.da
 import 'package:hamal_transport_app/Services/missions_repository.dart';
 
 import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
+import 'package:mockito/mockito.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+class MockUser extends Mock implements User {
+  @override
+  final String uid;
+  MockUser({required this.uid});
+}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -26,15 +34,21 @@ void main() {
 
     late Mission testMission;
 
-    setUp(() {
+    setUp(() async {
+      // Reset mock data to ensure clean state for each test
+      await initializeMockData();
+
       // create data model
-      repository = MissionsRepository(
-        myMissionsList: [
-          ...sampleMissions,
-        ], // Use copy to avoid polluting global mock data if it persists
-        availableMissionsList: [...availableMissions],
-        authService: FakeAuthenticationService(),
-      );
+      final authService = FakeAuthenticationService();
+      authService.mockUser = MockUser(uid: 'test-user-uid');
+
+      // Update sample missions to match the mock user for "My Missions" tests
+      for (var m in sampleMissions) {
+        m.driverUid = 'test-user-uid';
+        m.status = MissionStatus.assigned;
+      }
+
+      repository = MissionsRepository(authService: authService);
 
       // Create ViewModels with initial state
       availableVM = MissionsListViewModel(
@@ -73,7 +87,7 @@ void main() {
       expect(myVM.sourceList.contains(testMission), true);
 
       // Verify status updated
-      expect(testMission.status, MissionStatus.chosen);
+      expect(testMission.status, MissionStatus.assigned);
     });
 
     test('updateStatus to delivered removes mission from my missions', () {
@@ -84,8 +98,8 @@ void main() {
       }
       testMission = repository.getMissions(MissionListType.myMissions).first;
 
-      // Ensure it is 'chosen' or 'pickedUp' initially
-      testMission.status = MissionStatus.chosen;
+      // Ensure it is 'assigned' or 'pickedUp' initially
+      testMission.status = MissionStatus.assigned;
 
       int initialMyLength = repository
           .getMissions(MissionListType.myMissions)
@@ -108,7 +122,7 @@ void main() {
     test('cancelMission returns mission to available', () {
       // Setup: use a mission from my missions
       testMission = repository.getMissions(MissionListType.myMissions).first;
-      testMission.status = MissionStatus.chosen;
+      testMission.status = MissionStatus.assigned;
 
       int initialAvailableLength = repository
           .getMissions(MissionListType.availableMissions)
@@ -134,7 +148,7 @@ void main() {
     test('abandonMission moves mission from my missions -> available', () {
       // Setup: use a mission from my missions
       testMission = repository.getMissions(MissionListType.myMissions).first;
-      testMission.status = MissionStatus.chosen;
+      testMission.status = MissionStatus.assigned;
 
       int initialAvailableLength = repository
           .getMissions(MissionListType.availableMissions)

@@ -21,7 +21,7 @@ class MissionsListsModel {
   /// Final score is weighted average of ranks (1 to n scale).
   static List<SuggestedMission> getTopSuggestedMissions(
     List<Mission> missions, {
-    required Mission chosenMission,
+    required Mission assignedMission,
     int maxResults = 3,
     double ageWeight = 0.3,
     double additionalDistanceWeight = 0.7,
@@ -36,11 +36,13 @@ class MissionsListsModel {
       final ageInDays = DateTime.now().difference(mission.time).inDays.abs();
 
       // Calculate additional distance using Haversine formula:
-      // Distance from mission source to chosen mission source
-      // + Distance from mission destination to chosen mission destination
-      final sourceToSourceKm = mission.source.distanceTo(chosenMission.source);
+      // Distance from mission source to assigned mission source
+      // + Distance from mission destination to assigned mission destination
+      final sourceToSourceKm = mission.source.distanceTo(
+        assignedMission.source,
+      );
       final destToDestKm = mission.destination.distanceTo(
-        chosenMission.destination,
+        assignedMission.destination,
       );
       final additionalDistanceKm = sourceToSourceKm + destToDestKm;
 
@@ -138,10 +140,14 @@ class MissionsListsModel {
     switch (filterBy) {
       case FilterBy.noFilter:
         return (a) => true;
-      case FilterBy.chosenOnly:
-        return (a) => a.status == MissionStatus.chosen;
+      case FilterBy.assignedOnly:
+        return (a) => a.status == MissionStatus.assigned;
       case FilterBy.pickedUpOnly:
         return (a) => a.status == MissionStatus.pickedUp;
+      case FilterBy.delivered:
+        return (a) => a.status == MissionStatus.delivered;
+      case FilterBy.cancelled:
+        return (a) => a.status == MissionStatus.cancelled;
     }
   }
 }
@@ -175,18 +181,25 @@ enum SortBy {
 
 enum FilterBy {
   noFilter,
-  chosenOnly,
-  pickedUpOnly;
+  assignedOnly,
+  pickedUpOnly,
+  delivered,
+  cancelled;
 
   String getLabel(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     switch (this) {
       case FilterBy.noFilter:
         return l10n.noFilter;
-      case FilterBy.chosenOnly:
+      case FilterBy.assignedOnly:
         return l10n.menuChosenFilter;
       case FilterBy.pickedUpOnly:
         return l10n.menuPickedUpFilter;
+
+      case FilterBy.delivered:
+        return l10n.deliveredMissions;
+      case FilterBy.cancelled:
+        return l10n.cancelledMissions;
     }
   }
 }

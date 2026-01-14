@@ -37,6 +37,8 @@ class MissionsListViewModel extends ChangeNotifier {
     }
   }
 
+  MissionListType get type => _type;
+
   @override
   void dispose() {
     _repository.removeListener(notifyListeners);

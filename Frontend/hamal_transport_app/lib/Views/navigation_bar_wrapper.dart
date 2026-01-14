@@ -3,6 +3,7 @@ import 'package:hamal_transport_app/l10n/app_localizations.dart';
 
 class NavigationBarWrapper extends StatefulWidget {
   const NavigationBarWrapper({super.key, required this.allDestinations});
+
   final List<NavBarDestination> allDestinations;
 
   @override
