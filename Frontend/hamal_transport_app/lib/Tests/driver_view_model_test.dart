@@ -135,8 +135,8 @@ void main() {
 
       await Future.delayed(const Duration(milliseconds: 100));
 
-      final chosenMissions = viewModel.getMissionsByStatus(
-        MissionStatus.chosen,
+      final assignedMissions = viewModel.getMissionsByStatus(
+        MissionStatus.assigned,
       );
       final pickedUpMissions = viewModel.getMissionsByStatus(
         MissionStatus.pickedUp,
@@ -144,7 +144,7 @@ void main() {
 
       // Verify all returned missions have the correct status
       expect(
-        chosenMissions.every((m) => m.status == MissionStatus.chosen),
+        assignedMissions.every((m) => m.status == MissionStatus.assigned),
         true,
       );
       expect(
@@ -202,7 +202,7 @@ void main() {
       await Future.delayed(const Duration(milliseconds: 100));
 
       expect(viewModel.driverMissions, isEmpty);
-      expect(viewModel.getMissionsByStatus(MissionStatus.chosen), isEmpty);
+      expect(viewModel.getMissionsByStatus(MissionStatus.assigned), isEmpty);
       expect(viewModel.getMissionsByStatus(MissionStatus.pickedUp), isEmpty);
     });
 
@@ -227,7 +227,7 @@ void main() {
         sourceContact: sampleMissions.first.sourceContact,
         destinationContact: sampleMissions.first.destinationContact,
         time: DateTime.now(),
-        status: MissionStatus.chosen,
+        status: MissionStatus.assigned,
         carType: CarType.private,
         comments: [],
         driverUid: driverUid,
@@ -258,7 +258,7 @@ void main() {
       await Future.delayed(const Duration(milliseconds: 100));
 
       expect(viewModel.driverMissions.length, 2);
-      expect(viewModel.getMissionsByStatus(MissionStatus.chosen).length, 1);
+      expect(viewModel.getMissionsByStatus(MissionStatus.assigned).length, 1);
       expect(viewModel.getMissionsByStatus(MissionStatus.pickedUp).length, 1);
     });
 

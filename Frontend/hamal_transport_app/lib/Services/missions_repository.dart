@@ -2,21 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
 import 'package:hamal_transport_app/Services/authentication_service.dart';
-import 'package:hamal_transport_app/Constants/mock_data.dart';
 
 class MissionsRepository extends ChangeNotifier {
   static MissionsRepository? _instance;
 
-  final List<Mission> _myMissionsList;
-  final List<Mission> _availableMissionsList;
+  final List<Mission> _allMissions;
   final AuthenticationService authService;
 
   MissionsRepository._internal({
     required List<Mission> myMissionsList,
     required List<Mission> availableMissionsList,
     required this.authService,
-  }) : _myMissionsList = myMissionsList,
-       _availableMissionsList = availableMissionsList;
+  }) : _allMissions = [...myMissionsList, ...availableMissionsList];
 
   factory MissionsRepository({
     List<Mission>? myMissionsList,
@@ -32,6 +29,7 @@ class MissionsRepository extends ChangeNotifier {
         availableMissionsList: availableMissionsList ?? [],
         authService: authService ?? AuthenticationService(),
       );
+      _instance!.prefetchRouteInfo();
     } else {
       // Otherwise create if doesn't exist (called without parameters from ViewModels)
       _instance ??= MissionsRepository._internal(
