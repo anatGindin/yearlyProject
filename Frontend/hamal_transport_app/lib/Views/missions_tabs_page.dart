@@ -51,11 +51,19 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
           children: [
             Stack(
               children: [
-                NotificationListener<ScrollNotification>(
+                NotificationListener<Notification>(
                   onNotification: (notification) {
-                    if (notification.depth == 0 &&
-                        notification.metrics.axis == Axis.horizontal) {
-                      final metrics = notification.metrics;
+                    ScrollMetrics? metrics;
+
+                    if (notification is ScrollNotification &&
+                        notification.depth == 0) {
+                      metrics = notification.metrics;
+                    } else if (notification is ScrollMetricsNotification &&
+                        notification.depth == 0) {
+                      metrics = notification.metrics;
+                    }
+
+                    if (metrics != null && metrics.axis == Axis.horizontal) {
                       final maxScroll = metrics.maxScrollExtent;
                       final pixels = metrics.pixels;
                       final canScrollStart =
@@ -65,10 +73,21 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
 
                       if (canScrollStart != _canScrollStart ||
                           canScrollEnd != _canScrollEnd) {
-                        setState(() {
-                          _canScrollStart = canScrollStart;
-                          _canScrollEnd = canScrollEnd;
-                        });
+                        if (notification is ScrollMetricsNotification) {
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            if (mounted) {
+                              setState(() {
+                                _canScrollStart = canScrollStart;
+                                _canScrollEnd = canScrollEnd;
+                              });
+                            }
+                          });
+                        } else {
+                          setState(() {
+                            _canScrollStart = canScrollStart;
+                            _canScrollEnd = canScrollEnd;
+                          });
+                        }
                       }
                     }
                     return false;
@@ -120,7 +139,7 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
                               Theme.of(context).scaffoldBackgroundColor,
                               Theme.of(
                                 context,
-                              ).scaffoldBackgroundColor.withAlpha(255),
+                              ).scaffoldBackgroundColor.withAlpha(50),
                             ],
                           ),
                         ),
@@ -129,7 +148,7 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
                           size: 16,
                           color: Theme.of(
                             context,
-                          ).iconTheme.color?.withAlpha(255),
+                          ).iconTheme.color?.withAlpha(100),
                         ),
                       ),
                     ),
@@ -151,7 +170,7 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
                             colors: [
                               Theme.of(
                                 context,
-                              ).scaffoldBackgroundColor.withAlpha(255),
+                              ).scaffoldBackgroundColor.withAlpha(50),
                               Theme.of(context).scaffoldBackgroundColor,
                             ],
                           ),
@@ -161,7 +180,7 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
                           size: 16,
                           color: Theme.of(
                             context,
-                          ).iconTheme.color?.withAlpha(255),
+                          ).iconTheme.color?.withAlpha(100),
                         ),
                       ),
                     ),
