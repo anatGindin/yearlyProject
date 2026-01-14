@@ -157,6 +157,9 @@ class AuthenticationService {
   }
 
   Future<UserProfile> getUserProfile(User user) async {
+    if (_currentUserProfile != null) {
+      return _currentUserProfile!;
+    }
     try {
       final snapshot = await usersRef.child(user.uid).get();
       if (snapshot.value != null) {
@@ -219,6 +222,9 @@ class AuthenticationService {
           .update(profile.userProfileToDictionary());
     } catch (e) {
       throw AuthenticationError.databaseError;
+    }
+    {
+      _currentUserProfile = profile;
     }
   }
 }

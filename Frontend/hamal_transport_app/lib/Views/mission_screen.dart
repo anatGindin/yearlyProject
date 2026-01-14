@@ -43,6 +43,9 @@ class _MissionScreenState extends State<MissionScreen> {
       child: Scaffold(
         body: Consumer<MissionViewModel>(
           builder: (context, missionVM, _) {
+            if (missionVM.isLoading) {
+              return const CircularProgressIndicator();
+            }
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),

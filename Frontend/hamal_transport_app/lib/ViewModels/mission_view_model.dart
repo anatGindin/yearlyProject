@@ -3,15 +3,29 @@ import 'package:hamal_transport_app/Services/missions_repository.dart';
 import '../Models/mission.dart';
 import '../Models/contact.dart';
 import '../Models/user_profile.dart';
+import '../Services/authentication_service.dart';
 import '../Utils/launcher_utils.dart';
 
 class MissionViewModel extends ChangeNotifier {
   Mission mission;
   final MissionsRepository _repository;
-  late final UserRole userRole;
+  UserRole? userRole;
+  bool isLoading = true;
 
   MissionViewModel(this.mission, this._repository) {
-    userRole = _repository.authService.currentUserProfile!.role;
+    _initUserRole();
+  }
+
+  void _initUserRole() async {
+    final authService = AuthenticationService();
+    if (authService.currentUser != null) {
+      final profile = await authService.getUserProfile(
+        authService.currentUser!,
+      );
+      userRole = profile.role;
+      isLoading = false;
+      notifyListeners();
+    }
   }
 
   MissionStatus status() {

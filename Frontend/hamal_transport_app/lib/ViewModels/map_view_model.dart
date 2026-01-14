@@ -88,8 +88,11 @@ class MapViewModel extends ChangeNotifier {
     // Fetch User Role
     try {
       final authService = AuthenticationService();
-      if (authService.currentUserProfile != null) {
-        _userRole = authService.currentUserProfile!.role;
+      if (authService.currentUser != null) {
+        final profile = await authService.getUserProfile(
+          authService.currentUser!,
+        );
+        _userRole = profile.role;
         notifyListeners();
       }
     } catch (e) {
