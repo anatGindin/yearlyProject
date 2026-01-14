@@ -1,22 +1,27 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 class ListActionButton extends StatelessWidget {
   final IconData icon;
   final String label;
   final VoidCallback onPressed;
+  final double height;
+  final double width;
 
   const ListActionButton({
     super.key,
     required this.icon,
     required this.label,
     required this.onPressed,
+    this.height = 0.3,
+    this.width = 0.4,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.width * 0.3,
-      width: MediaQuery.of(context).size.width * 0.4,
+      height: MediaQuery.of(context).size.width * height,
+      width: MediaQuery.of(context).size.width * width,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(

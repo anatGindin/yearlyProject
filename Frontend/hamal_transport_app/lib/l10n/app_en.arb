@@ -352,6 +352,38 @@
   "@passwordResetSent": {
     "description": "Success message when password reset email is sent"
   },
+  "drivers": "Drivers",
+  "@drivers": {
+    "description": "label of drivers destination in the nav bar"
+  },
+  "searchDriver": "Search driver",
+  "@searchDriver": {
+    "description": "hintText of search driver TextField"
+  },
+  "noDrivers": "No drivers found",
+  "@noDrivers": {
+    "description": "message when there are no drivers for the drivers page"
+  },
+  "allCarTypes": "Show all car types",
+  "@allCarTypes": {
+    "description": "label of All car types filter in drivers page"
+  },
+  "privateOnly": "Show only private car drivers",
+  "@privateOnly": {
+    "description": "label of private car types filter in drivers page"
+  },
+  "pickupOnly": "Show only pickup car drivers",
+  "@pickupOnly": {
+    "description": "label of pickup car types filter in drivers page"
+  },
+  "trailerOnly": "Show only trailer car drivers",
+  "@trailerOnly": {
+    "description": "label of trailer car types filter in drivers page"
+  },
+  "truckOnly": "Show only truck drivers",
+  "@truckOnly": {
+    "description": "label of truck types filter in drivers page"
+  },
   "mapView": "Map View",
   "@mapView": {
     "description": "Button or title for Map View"

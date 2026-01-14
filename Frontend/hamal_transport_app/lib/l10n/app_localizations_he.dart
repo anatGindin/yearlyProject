@@ -278,6 +278,30 @@ class AppLocalizationsHe extends AppLocalizations {
       'נשלח אימייל לאיפוס סיסמה! בדוק את תיבת הדואר שלך.';
 
   @override
+  String get drivers => 'נהגים';
+
+  @override
+  String get searchDriver => 'חפש נהג';
+
+  @override
+  String get noDrivers => 'לא נמצאו נהגים';
+
+  @override
+  String get allCarTypes => 'הצג את כל סוגי הרכבים';
+
+  @override
+  String get privateOnly => 'הצג רק נהגים עם רכב פרטי';
+
+  @override
+  String get pickupOnly => 'הצג רק נהגים עם טנדר';
+
+  @override
+  String get trailerOnly => 'הצג רק נהגים עם נגרר';
+
+  @override
+  String get truckOnly => 'הצג רק נהגים עם משאית';
+
+  @override
   String get mapView => 'מפה';
 
   @override

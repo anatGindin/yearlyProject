@@ -279,6 +279,30 @@ class AppLocalizationsEn extends AppLocalizations {
       'Password reset email sent! Check your inbox.';
 
   @override
+  String get drivers => 'Drivers';
+
+  @override
+  String get searchDriver => 'Search driver';
+
+  @override
+  String get noDrivers => 'No drivers found';
+
+  @override
+  String get allCarTypes => 'Show all car types';
+
+  @override
+  String get privateOnly => 'Show only private car drivers';
+
+  @override
+  String get pickupOnly => 'Show only pickup car drivers';
+
+  @override
+  String get trailerOnly => 'Show only trailer car drivers';
+
+  @override
+  String get truckOnly => 'Show only truck drivers';
+
+  @override
   String get mapView => 'Map View';
 
   @override

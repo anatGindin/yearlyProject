@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
 
 class UserProfile {
@@ -80,6 +81,19 @@ enum CarType {
         return l10n.pickupTruck;
       case CarType.truck:
         return l10n.truck;
+    }
+  }
+
+  IconData getIcon() {
+    switch (this) {
+      case CarType.private:
+        return Icons.directions_car;
+      case CarType.trailer:
+        return Icons.rv_hookup;
+      case CarType.pickupTruck:
+        return Icons.local_shipping;
+      case CarType.truck:
+        return Icons.local_shipping;
     }
   }
 }

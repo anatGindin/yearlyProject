@@ -164,6 +164,24 @@ class AuthenticationService {
     }
   }
 
+  Future<UserProfile?> getUserProfileByUid(String uid) async {
+    try {
+      final snapshot = await usersRef.child(uid).get();
+
+      if (snapshot.value == null) {
+        return null;
+      }
+      if (snapshot.value is! Map) {
+        return null;
+      }
+      final data = Map<String, dynamic>.from(snapshot.value as Map);
+      final profile = UserProfile.fromDictionary(data);
+      return profile;
+    } catch (e) {
+      return null;
+    }
+  }
+
   Future<void> resetPassword(String email) async {
     try {
       if (!validateEmail(email)) {
@@ -211,6 +229,36 @@ class AuthenticationService {
           .child(profile.uid)
           .update(profile.userProfileToDictionary());
     } catch (e) {
+      throw AuthenticationError.databaseError;
+    }
+  }
+
+  Future<List<UserProfile>> getAllDrivers() async {
+    try {
+      final snapshot = await usersRef
+          .orderByChild('role')
+          .equalTo(UserRole.driver.name)
+          .get();
+
+      if (!snapshot.exists || snapshot.value == null) {
+        return [];
+      }
+
+      final Map<dynamic, dynamic> values =
+          snapshot.value as Map<dynamic, dynamic>;
+      List<UserProfile> drivers = [];
+
+      values.forEach((key, value) {
+        if (value is Map) {
+          final userMap = Map<String, dynamic>.from(value);
+          userMap['uid'] = key;
+          drivers.add(UserProfile.fromDictionary(userMap));
+        }
+      });
+
+      return drivers;
+    } catch (e) {
+      print("Database Error: $e");
       throw AuthenticationError.databaseError;
     }
   }
