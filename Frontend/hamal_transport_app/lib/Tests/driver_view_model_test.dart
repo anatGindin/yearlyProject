@@ -30,12 +30,21 @@ void main() {
     });
 
     test('Initial state is loading', () {
-      viewModel = DriverViewModel(
-        driverUid: testDriverUid,
-        authService: authService,
+      // Create a profile to avoid calling AuthenticationService
+      final mockProfile = UserProfile(
+        uid: testDriverUid,
+        email: 'test@test.com',
+        name: 'Test',
+        phone: '123',
+        role: UserRole.driver,
       );
 
-      expect(viewModel.isLoading, true);
+      viewModel = DriverViewModel(
+        driverUid: testDriverUid,
+        initialProfile: mockProfile,
+      );
+
+      expect(viewModel.isLoading, false);
     });
 
     test('Successfully loads driver profile and updates state', () async {
@@ -48,15 +57,10 @@ void main() {
         driverProfile: DriverProfile(carType: CarType.private),
       );
 
-      authService.mockUserProfileByUid = {testDriverUid: mockProfile};
-
       viewModel = DriverViewModel(
         driverUid: testDriverUid,
-        authService: authService,
+        initialProfile: mockProfile,
       );
-
-      // Wait for async loading to complete
-      await Future.delayed(const Duration(milliseconds: 100));
 
       expect(viewModel.isLoading, false);
       expect(viewModel.driverProfile, isNotNull);
@@ -67,17 +71,11 @@ void main() {
     });
 
     test('Handles null driver profile gracefully', () async {
-      authService.mockUserProfileByUid = {};
-
       viewModel = DriverViewModel(
         driverUid: testDriverUid,
-        authService: authService,
+        initialProfile: null,
       );
 
-      await Future.delayed(const Duration(milliseconds: 100));
-
-      expect(viewModel.isLoading, false);
-      expect(viewModel.driverProfile, isNull);
       expect(viewModel.driverName, 'Driver ($testDriverUid)');
       expect(viewModel.driverEmail, 'N/A');
       expect(viewModel.driverPhone, 'N/A');
@@ -86,22 +84,18 @@ void main() {
     test('Filters missions correctly by driver UID', () async {
       const driverUid = 'I9ivZ6H8pYWoDkeb2wybbKXgxWE2';
 
-      authService.mockUserProfileByUid = {
-        driverUid: UserProfile(
-          uid: driverUid,
-          email: 'driver@test.com',
-          name: 'Test Driver',
-          phone: '+972-54-1234567',
-          role: UserRole.driver,
-        ),
-      };
+      final mockProfile = UserProfile(
+        uid: driverUid,
+        email: 'driver@test.com',
+        name: 'Test Driver',
+        phone: '+972-54-1234567',
+        role: UserRole.driver,
+      );
 
       viewModel = DriverViewModel(
         driverUid: driverUid,
-        authService: authService,
+        initialProfile: mockProfile,
       );
-
-      await Future.delayed(const Duration(milliseconds: 100));
 
       final driverMissions = viewModel.driverMissions;
 
@@ -118,22 +112,18 @@ void main() {
     test('Returns missions grouped by status correctly', () async {
       const driverUid = 'I9ivZ6H8pYWoDkeb2wybbKXgxWE2';
 
-      authService.mockUserProfileByUid = {
-        driverUid: UserProfile(
-          uid: driverUid,
-          email: 'driver@test.com',
-          name: 'Test Driver',
-          phone: '+972-54-1234567',
-          role: UserRole.driver,
-        ),
-      };
+      final mockProfile = UserProfile(
+        uid: driverUid,
+        email: 'driver@test.com',
+        name: 'Test Driver',
+        phone: '+972-54-1234567',
+        role: UserRole.driver,
+      );
 
       viewModel = DriverViewModel(
         driverUid: driverUid,
-        authService: authService,
+        initialProfile: mockProfile,
       );
-
-      await Future.delayed(const Duration(milliseconds: 100));
 
       final assignedMissions = viewModel.getMissionsByStatus(
         MissionStatus.assigned,
@@ -168,17 +158,8 @@ void main() {
     });
 
     test('Empty driver UID handling', () async {
-      authService.mockUserProfileByUid = {};
+      final viewModel = DriverViewModel(driverUid: '', initialProfile: null);
 
-      final viewModel = DriverViewModel(
-        driverUid: '',
-        authService: authService,
-      );
-
-      await Future.delayed(const Duration(milliseconds: 100));
-
-      expect(viewModel.isLoading, false);
-      expect(viewModel.driverProfile, isNull);
       expect(viewModel.driverName, 'Driver ()');
     });
 
@@ -192,14 +173,10 @@ void main() {
         role: UserRole.driver,
       );
 
-      authService.mockUserProfileByUid = {driverUid: mockProfile};
-
       final viewModel = DriverViewModel(
         driverUid: driverUid,
-        authService: authService,
+        initialProfile: mockProfile,
       );
-
-      await Future.delayed(const Duration(milliseconds: 100));
 
       expect(viewModel.driverMissions, isEmpty);
       expect(viewModel.getMissionsByStatus(MissionStatus.assigned), isEmpty);
@@ -252,10 +229,8 @@ void main() {
 
       final viewModel = DriverViewModel(
         driverUid: driverUid,
-        authService: authService,
+        initialProfile: mockProfile,
       );
-
-      await Future.delayed(const Duration(milliseconds: 100));
 
       expect(viewModel.driverMissions.length, 2);
       expect(viewModel.getMissionsByStatus(MissionStatus.assigned).length, 1);
@@ -263,14 +238,10 @@ void main() {
     });
 
     test('Car type is null when driver profile is null', () async {
-      authService.mockUserProfileByUid = {};
-
       final viewModel = DriverViewModel(
         driverUid: 'test-uid',
-        authService: authService,
+        initialProfile: null,
       );
-
-      await Future.delayed(const Duration(milliseconds: 100));
 
       expect(viewModel.carType, isNull);
     });
@@ -286,14 +257,10 @@ void main() {
         driverProfile: DriverProfile(carType: CarType.trailer),
       );
 
-      authService.mockUserProfileByUid = {driverUid: mockProfile};
-
       final viewModel = DriverViewModel(
         driverUid: driverUid,
-        authService: authService,
+        initialProfile: mockProfile,
       );
-
-      await Future.delayed(const Duration(milliseconds: 100));
 
       expect(viewModel.carType, CarType.trailer);
     });

@@ -5,18 +5,13 @@ import 'package:hamal_transport_app/Services/authentication_service.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
 
 class DriverViewModel extends ChangeNotifier {
-  final AuthenticationService _authService;
   final String driverUid;
 
   UserProfile? _driverProfile;
   bool _isLoading = true;
   String? _errorMessage;
 
-  DriverViewModel({
-    required this.driverUid,
-    AuthenticationService? authService,
-    UserProfile? initialProfile,
-  }) : _authService = authService ?? AuthenticationService() {
+  DriverViewModel({required this.driverUid, UserProfile? initialProfile}) {
     if (initialProfile != null) {
       _driverProfile = initialProfile;
       _isLoading = false;
@@ -31,8 +26,16 @@ class DriverViewModel extends ChangeNotifier {
   String? get errorMessage => _errorMessage;
 
   String get driverName => _driverProfile?.name ?? 'Driver ($driverUid)';
-  String get driverEmail => _driverProfile?.email ?? 'N/A';
-  String get driverPhone => _driverProfile?.phone ?? 'N/A';
+  String get driverEmail {
+    final email = _driverProfile?.email ?? '';
+    return email.isEmpty ? 'N/A' : email;
+  }
+
+  String get driverPhone {
+    final phone = _driverProfile?.phone ?? '';
+    return phone.isEmpty ? 'N/A' : phone;
+  }
+
   CarType? get carType => _driverProfile?.driverProfile?.carType;
 
   // Get missions assigned to this driver
@@ -52,7 +55,9 @@ class DriverViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      _driverProfile = await _authService.getUserProfileByUid(driverUid);
+      _driverProfile = await AuthenticationService().getUserProfileByUid(
+        driverUid,
+      );
     } catch (e) {
       _driverProfile = null;
     } finally {

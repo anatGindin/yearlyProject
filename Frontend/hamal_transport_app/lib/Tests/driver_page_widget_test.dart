@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hamal_transport_app/Constants/mock_data.dart';
 import 'package:hamal_transport_app/Models/user_profile.dart';
+import 'package:hamal_transport_app/Services/authentication_service.dart';
 import 'package:hamal_transport_app/Services/Fake/fake_authentication_service.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
 import 'package:hamal_transport_app/ViewModels/driver_view_model.dart';
@@ -27,27 +28,38 @@ void main() {
     );
   });
 
+  Widget createTestApp(Widget child, {AuthenticationService? authService}) {
+    return MultiProvider(
+      providers: [
+        Provider<AuthenticationService>.value(
+          value: authService ?? FakeAuthenticationService(),
+        ),
+      ],
+      child: MaterialApp(
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [Locale('en'), Locale('he')],
+        home: child,
+      ),
+    );
+  }
+
   group('DriverPage - Error State', () {
     testWidgets('Displays error icon when errorMessage is set', (tester) async {
       final authService = FakeAuthenticationService();
-      final viewModel = DriverViewModel(
-        driverUid: 'test-uid',
-        authService: authService,
-      );
+      final viewModel = DriverViewModel(driverUid: 'test-uid');
 
       await tester.pumpWidget(
-        MaterialApp(
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [Locale('en'), Locale('he')],
-          home: ChangeNotifierProvider<DriverViewModel>.value(
+        createTestApp(
+          ChangeNotifierProvider<DriverViewModel>.value(
             value: viewModel,
             child: const DriverPage(),
           ),
+          authService: authService,
         ),
       );
 
@@ -71,28 +83,8 @@ void main() {
         role: UserRole.driver,
       );
 
-      final authService = FakeAuthenticationService();
-      authService.mockUserProfileByUid = {driverUid: mockProfile};
-
-      final viewModel = DriverViewModel(
-        driverUid: driverUid,
-        authService: authService,
-      );
-
       await tester.pumpWidget(
-        MaterialApp(
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [Locale('en'), Locale('he')],
-          home: ChangeNotifierProvider<DriverViewModel>.value(
-            value: viewModel,
-            child: const DriverPage(),
-          ),
-        ),
+        createTestApp(DriverPage(driverProfile: mockProfile)),
       );
 
       await tester.pumpAndSettle();
@@ -112,28 +104,8 @@ void main() {
         role: UserRole.driver,
       );
 
-      final authService = FakeAuthenticationService();
-      authService.mockUserProfileByUid = {driverUid: mockProfile};
-
-      final viewModel = DriverViewModel(
-        driverUid: driverUid,
-        authService: authService,
-      );
-
       await tester.pumpWidget(
-        MaterialApp(
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [Locale('en'), Locale('he')],
-          home: ChangeNotifierProvider<DriverViewModel>.value(
-            value: viewModel,
-            child: const DriverPage(),
-          ),
-        ),
+        createTestApp(DriverPage(driverProfile: mockProfile)),
       );
 
       await tester.pumpAndSettle();
@@ -152,28 +124,8 @@ void main() {
         role: UserRole.driver,
       );
 
-      final authService = FakeAuthenticationService();
-      authService.mockUserProfileByUid = {driverUid: mockProfile};
-
-      final viewModel = DriverViewModel(
-        driverUid: driverUid,
-        authService: authService,
-      );
-
       await tester.pumpWidget(
-        MaterialApp(
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [Locale('en'), Locale('he')],
-          home: ChangeNotifierProvider<DriverViewModel>.value(
-            value: viewModel,
-            child: const DriverPage(),
-          ),
-        ),
+        createTestApp(DriverPage(driverProfile: mockProfile)),
       );
 
       await tester.pumpAndSettle();
@@ -184,28 +136,16 @@ void main() {
 
     testWidgets('Shows N/A for missing email/phone', (tester) async {
       const driverUid = 'missing-profile';
-      final authService = FakeAuthenticationService();
-      authService.mockUserProfileByUid = {};
-
-      final viewModel = DriverViewModel(
-        driverUid: driverUid,
-        authService: authService,
+      final mockProfile = UserProfile(
+        uid: driverUid,
+        email: '',
+        name: 'Driver ($driverUid)',
+        phone: '',
+        role: UserRole.driver,
       );
 
       await tester.pumpWidget(
-        MaterialApp(
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [Locale('en'), Locale('he')],
-          home: ChangeNotifierProvider<DriverViewModel>.value(
-            value: viewModel,
-            child: const DriverPage(),
-          ),
-        ),
+        createTestApp(DriverPage(driverProfile: mockProfile)),
       );
 
       await tester.pumpAndSettle();
@@ -227,28 +167,8 @@ void main() {
         driverProfile: DriverProfile(carType: CarType.trailer),
       );
 
-      final authService = FakeAuthenticationService();
-      authService.mockUserProfileByUid = {driverUid: mockProfile};
-
-      final viewModel = DriverViewModel(
-        driverUid: driverUid,
-        authService: authService,
-      );
-
       await tester.pumpWidget(
-        MaterialApp(
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [Locale('en'), Locale('he')],
-          home: ChangeNotifierProvider<DriverViewModel>.value(
-            value: viewModel,
-            child: const DriverPage(),
-          ),
-        ),
+        createTestApp(DriverPage(driverProfile: mockProfile)),
       );
 
       await tester.pumpAndSettle();
@@ -270,7 +190,6 @@ void main() {
       );
 
       final authService = FakeAuthenticationService();
-      authService.mockUserProfileByUid = {driverUid: mockProfile};
 
       // Initialize singleton with empty data for this test
       MissionsRepository(
@@ -279,24 +198,10 @@ void main() {
         authService: authService,
       );
 
-      final viewModel = DriverViewModel(
-        driverUid: driverUid,
-        authService: authService,
-      );
-
       await tester.pumpWidget(
-        MaterialApp(
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [Locale('en'), Locale('he')],
-          home: ChangeNotifierProvider<DriverViewModel>.value(
-            value: viewModel,
-            child: const DriverPage(),
-          ),
+        createTestApp(
+          DriverPage(driverProfile: mockProfile),
+          authService: authService,
         ),
       );
 
@@ -315,28 +220,8 @@ void main() {
         role: UserRole.driver,
       );
 
-      final authService = FakeAuthenticationService();
-      authService.mockUserProfileByUid = {driverUid: mockProfile};
-
-      final viewModel = DriverViewModel(
-        driverUid: driverUid,
-        authService: authService,
-      );
-
       await tester.pumpWidget(
-        MaterialApp(
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [Locale('en'), Locale('he')],
-          home: ChangeNotifierProvider<DriverViewModel>.value(
-            value: viewModel,
-            child: const DriverPage(),
-          ),
-        ),
+        createTestApp(DriverPage(driverProfile: mockProfile)),
       );
 
       await tester.pumpAndSettle();
@@ -355,33 +240,8 @@ void main() {
         role: UserRole.driver,
       );
 
-      final authService = FakeAuthenticationService();
-      authService.mockUserProfileByUid = {driverUid: mockProfile};
-
-      final viewModel = DriverViewModel(
-        driverUid: driverUid,
-        authService: authService,
-      );
-
       await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<DriverViewModel>.value(value: viewModel),
-            ChangeNotifierProvider<MissionsRepository>.value(
-              value: MissionsRepository(),
-            ),
-          ],
-          child: const MaterialApp(
-            localizationsDelegates: [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: [Locale('en'), Locale('he')],
-            home: DriverPage(),
-          ),
-        ),
+        createTestApp(DriverPage(driverProfile: mockProfile)),
       );
 
       await tester.pumpAndSettle();
