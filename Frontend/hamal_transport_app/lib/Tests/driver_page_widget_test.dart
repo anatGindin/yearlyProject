@@ -29,7 +29,6 @@ void main() {
       final viewModel = DriverViewModel(
         driverUid: 'test-uid',
         authService: authService,
-        missionsRepository: repository,
       );
 
       await tester.pumpWidget(
@@ -80,7 +79,6 @@ void main() {
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
-        missionsRepository: repository,
       );
 
       await tester.pumpWidget(
@@ -128,7 +126,6 @@ void main() {
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
-        missionsRepository: repository,
       );
 
       await tester.pumpWidget(
@@ -175,7 +172,6 @@ void main() {
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
-        missionsRepository: repository,
       );
 
       await tester.pumpWidget(
@@ -214,7 +210,6 @@ void main() {
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
-        missionsRepository: repository,
       );
 
       await tester.pumpWidget(
@@ -264,7 +259,6 @@ void main() {
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
-        missionsRepository: repository,
       );
 
       await tester.pumpWidget(
@@ -312,7 +306,6 @@ void main() {
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
-        missionsRepository: repository,
       );
 
       await tester.pumpWidget(
@@ -358,7 +351,6 @@ void main() {
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
-        missionsRepository: repository,
       );
 
       await tester.pumpWidget(
@@ -405,7 +397,6 @@ void main() {
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
-        missionsRepository: repository,
       );
 
       await tester.pumpWidget(
@@ -464,7 +455,6 @@ void main() {
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
-        missionsRepository: repository,
       );
 
       await tester.pumpWidget(
@@ -510,7 +500,6 @@ void main() {
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
-        missionsRepository: repository,
       );
 
       await tester.pumpWidget(
@@ -535,3 +524,4 @@ void main() {
     });
   });
 }
+

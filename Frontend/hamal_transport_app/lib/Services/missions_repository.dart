@@ -22,20 +22,21 @@ class MissionsRepository extends ChangeNotifier {
     List<Mission>? availableMissionsList,
     AuthenticationService? authService,
   }) {
-    // If called with actual data, force update the singleton
-    if ((myMissionsList != null && myMissionsList.isNotEmpty) ||
-        (availableMissionsList != null && availableMissionsList.isNotEmpty)) {
+    // If called with explicit parameters (from Provider), force update the singleton
+    if (myMissionsList != null ||
+        availableMissionsList != null ||
+        authService != null) {
       _instance = MissionsRepository._internal(
         myMissionsList: myMissionsList ?? [],
         availableMissionsList: availableMissionsList ?? [],
         authService: authService ?? AuthenticationService(),
       );
     } else {
-      // Otherwise create if doesn't exist
+      // Otherwise create if doesn't exist (called without parameters from ViewModels)
       _instance ??= MissionsRepository._internal(
         myMissionsList: [],
         availableMissionsList: [],
-        authService: authService ?? AuthenticationService(),
+        authService: AuthenticationService(),
       );
     }
     return _instance!;

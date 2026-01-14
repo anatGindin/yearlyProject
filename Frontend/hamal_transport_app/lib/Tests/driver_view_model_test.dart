@@ -16,13 +16,13 @@ void main() {
 
   group('DriverViewModel - State Management', () {
     late FakeAuthenticationService authService;
-    late MissionsRepository repository;
     late DriverViewModel viewModel;
     const testDriverUid = 'test-driver-uid';
 
     setUp(() {
       authService = FakeAuthenticationService();
-      repository = MissionsRepository(
+      // Initialize the singleton with test data
+      MissionsRepository(
         myMissionsList: [...sampleMissions],
         availableMissionsList: [...availableMissions],
         authService: authService,
@@ -33,7 +33,6 @@ void main() {
       viewModel = DriverViewModel(
         driverUid: testDriverUid,
         authService: authService,
-        missionsRepository: repository,
       );
 
       expect(viewModel.isLoading, true);
@@ -54,7 +53,6 @@ void main() {
       viewModel = DriverViewModel(
         driverUid: testDriverUid,
         authService: authService,
-        missionsRepository: repository,
       );
 
       // Wait for async loading to complete
@@ -74,7 +72,6 @@ void main() {
       viewModel = DriverViewModel(
         driverUid: testDriverUid,
         authService: authService,
-        missionsRepository: repository,
       );
 
       await Future.delayed(const Duration(milliseconds: 100));
@@ -102,7 +99,6 @@ void main() {
       viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
-        missionsRepository: repository,
       );
 
       await Future.delayed(const Duration(milliseconds: 100));
@@ -135,7 +131,6 @@ void main() {
       viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
-        missionsRepository: repository,
       );
 
       await Future.delayed(const Duration(milliseconds: 100));
@@ -172,7 +167,6 @@ void main() {
       viewModel = DriverViewModel(
         driverUid: testDriverUid,
         authService: authService,
-        missionsRepository: repository,
       );
 
       await Future.delayed(const Duration(milliseconds: 100));
@@ -198,11 +192,11 @@ void main() {
 
   group('DriverViewModel - Edge Cases', () {
     late FakeAuthenticationService authService;
-    late MissionsRepository repository;
 
     setUp(() {
       authService = FakeAuthenticationService();
-      repository = MissionsRepository(
+      // Initialize the singleton with test data
+      MissionsRepository(
         myMissionsList: [...sampleMissions],
         availableMissionsList: [...availableMissions],
         authService: authService,
@@ -215,7 +209,6 @@ void main() {
       final viewModel = DriverViewModel(
         driverUid: '',
         authService: authService,
-        missionsRepository: repository,
       );
 
       await Future.delayed(const Duration(milliseconds: 100));
@@ -240,7 +233,6 @@ void main() {
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
-        missionsRepository: repository,
       );
 
       await Future.delayed(const Duration(milliseconds: 100));
@@ -291,13 +283,12 @@ void main() {
         driverUid: driverUid,
       );
 
-      repository.addMission(MissionListType.myMissions, mission1);
-      repository.addMission(MissionListType.myMissions, mission2);
+      MissionsRepository().addMission(MissionListType.myMissions, mission1);
+      MissionsRepository().addMission(MissionListType.myMissions, mission2);
 
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
-        missionsRepository: repository,
       );
 
       await Future.delayed(const Duration(milliseconds: 100));
@@ -313,7 +304,6 @@ void main() {
       final viewModel = DriverViewModel(
         driverUid: 'test-uid',
         authService: authService,
-        missionsRepository: repository,
       );
 
       await Future.delayed(const Duration(milliseconds: 100));
@@ -337,7 +327,6 @@ void main() {
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         authService: authService,
-        missionsRepository: repository,
       );
 
       await Future.delayed(const Duration(milliseconds: 100));
@@ -346,3 +335,5 @@ void main() {
     });
   });
 }
+
+

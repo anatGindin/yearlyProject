@@ -72,14 +72,17 @@ Widget getDestinationForRole(UserRole role) {
       final missionsRepo = MissionsRepository();
       final allMissions = missionsRepo.getMissions(MissionListType.allMissions);
 
-      // Find first mission with a driver assigned
-      final missionWithDriver = allMissions.firstWhere(
-        (mission) => mission.driverUid != null && mission.driverUid!.isNotEmpty,
-        orElse: () => allMissions.first,
-      );
+      // Find first mission with a driver assigned, fallback to default UID if no missions
+      String driverUid = 'I9ivZ6H8pYWoDkeb2wybbKXgxWE2'; // Default fallback
 
-      final driverUid =
-          missionWithDriver.driverUid ?? 'I9ivZ6H8pYWoDkeb2wybbKXgxWE2';
+      if (allMissions.isNotEmpty) {
+        final missionWithDriver = allMissions.firstWhere(
+          (mission) =>
+              mission.driverUid != null && mission.driverUid!.isNotEmpty,
+          orElse: () => allMissions.first,
+        );
+        driverUid = missionWithDriver.driverUid ?? driverUid;
+      }
 
       return ChangeNotifierProvider(
         create: (_) => DriverViewModel(driverUid: driverUid),

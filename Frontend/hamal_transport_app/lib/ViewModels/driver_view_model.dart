@@ -7,19 +7,14 @@ import 'package:hamal_transport_app/Services/missions_repository.dart';
 
 class DriverViewModel extends ChangeNotifier {
   final AuthenticationService _authService;
-  final MissionsRepository _missionsRepository;
   final String driverUid;
 
   UserProfile? _driverProfile;
   bool _isLoading = true;
   String? _errorMessage;
 
-  DriverViewModel({
-    required this.driverUid,
-    AuthenticationService? authService,
-    MissionsRepository? missionsRepository,
-  }) : _authService = authService ?? AuthenticationService(),
-       _missionsRepository = missionsRepository ?? MissionsRepository() {
+  DriverViewModel({required this.driverUid, AuthenticationService? authService})
+    : _authService = authService ?? AuthenticationService() {
     _loadDriverProfile();
   }
 
@@ -34,8 +29,9 @@ class DriverViewModel extends ChangeNotifier {
   String? get carType => _driverProfile?.driverProfile?.carType.name;
 
   // Get missions assigned to this driver
+  // Always call MissionsRepository() to get the latest singleton instance
   List<Mission> get driverMissions {
-    return _missionsRepository.getMissionsByDriver(driverUid);
+    return MissionsRepository().getMissionsByDriver(driverUid);
   }
 
   // Get missions by status
