@@ -120,7 +120,6 @@ Widget getDestinationForRole(UserRole role) {
                     ],
                   ),
                 ),
-                //TODO: add driver contact list
                 NavBarDestination(
                   pageType: NavBarPageType.mapView,
                   page: const MapView(),
@@ -129,6 +128,10 @@ Widget getDestinationForRole(UserRole role) {
                   // context.read<MapViewModel>().initLocation(),
                   onExit: () => {},
                   // context.read<MapViewModel>().stopLocationUpdates(),
+                ),
+                const NavBarDestination(
+                  pageType: NavBarPageType.drivers,
+                  page: DriverPhoneBookScreen(),
                 ),
                 const NavBarDestination(
                   pageType: NavBarPageType.profile,
