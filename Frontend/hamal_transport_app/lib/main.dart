@@ -11,6 +11,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:hamal_transport_app/firebase_options.dart';
 import 'package:hamal_transport_app/Theme/app_theme.dart';
 import 'package:hamal_transport_app/Services/app_preferences_service.dart';
+import 'package:hamal_transport_app/Services/navigation_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,6 +51,9 @@ class MyApp extends StatelessWidget {
         ),
 
         Provider<LocationService>(create: (_) => LocationService()),
+        ChangeNotifierProvider<MainNavigationController>(
+          create: (_) => MainNavigationController(),
+        ),
       ],
       child: Consumer<AppPreferencesService>(
         builder: (context, settings, _) {

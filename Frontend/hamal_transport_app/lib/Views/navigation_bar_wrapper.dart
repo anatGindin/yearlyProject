@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hamal_transport_app/Services/navigation_controller.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class NavigationBarWrapper extends StatefulWidget {
   const NavigationBarWrapper({super.key, required this.allDestinations});
@@ -66,6 +68,29 @@ class _NavigationBarWrapperState extends State<NavigationBarWrapper>
 
       _lastActiveIndex = newIndex;
     });
+
+    // Listen to global navigation requests
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<MainNavigationController>().addListener(
+        _handleNavigationRequest,
+      );
+    });
+  }
+
+  void _handleNavigationRequest() {
+    if (!mounted) return;
+    final controller = context.read<MainNavigationController>();
+    final requestedType = controller.requestedPageType;
+
+    if (requestedType != null) {
+      final index = widget.allDestinations.indexWhere(
+        (d) => d.pageType == requestedType,
+      );
+      if (index != -1) {
+        _onTabSelected(index);
+      }
+      controller.consumeRequest();
+    }
   }
 
   // runs only on user tap on nav bar

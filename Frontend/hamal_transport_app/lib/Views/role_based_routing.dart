@@ -68,6 +68,7 @@ Widget getDestinationForRole(UserRole role) {
           },
         ),
       );
+    case UserRole.admin:
     case UserRole.logistics:
       return ChangeNotifierProvider(
         create: (_) => MapViewModel(role: UserRole.logistics),
@@ -129,33 +130,6 @@ Widget getDestinationForRole(UserRole role) {
                     ],
                   ),
                 ),
-                //TODO: add driver contact list
-                NavBarDestination(
-                  pageType: NavBarPageType.mapView,
-                  page: const MapView(),
-                  // MARK: if we introduce location services on the map page for logisticians, uncomment the onEnter and onExit methods
-                  onEnter: () => {},
-                  // context.read<MapViewModel>().initLocation(),
-                  onExit: () => {},
-                  // context.read<MapViewModel>().stopLocationUpdates(),
-                ),
-                const NavBarDestination(
-                  pageType: NavBarPageType.profile,
-                  page: UserProfilePage(),
-                ),
-              ],
-            );
-          },
-        ),
-      );
-    case UserRole.admin:
-      return ChangeNotifierProvider(
-        create: (_) => MapViewModel(role: UserRole.admin),
-        child: Builder(
-          builder: (context) {
-            return NavigationBarWrapper(
-              allDestinations: [
-                //TODO: add more pages for logistics
                 NavBarDestination(
                   pageType: NavBarPageType.mapView,
                   page: const MapView(),
