@@ -12,16 +12,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'Hamal Transport';
 
   @override
-  String get activeMissions => 'Active Missions';
+  String get activeMissions => 'My Missions';
 
   @override
-  String get availableMissions => 'Available Missions';
+  String get availableMissions => 'Available';
 
   @override
   String get pickedUpMissions => 'Picked Up Missions';
 
   @override
-  String get readyForPickUpMissions => 'Ready For Pick Up Missions';
+  String get readyForPickUpMissions => 'Assigned';
 
   @override
   String get deliveredMissions => 'Delivered Missions';
@@ -80,9 +80,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get delivered => 'Delivered';
-
-  @override
-  String get readyForPickUp => 'Ready for pick up';
 
   @override
   String get cancelled => 'Cancelled';
@@ -212,12 +209,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get menuPickedUpFilter => 'Picked up';
 
   @override
-  String get chosenFilter => '\'Chosen\' missions';
-
-  @override
-  String get pickedUpFilter => '\'Picked up\' missions';
-
-  @override
   String get cancellationReason => 'Cancellation Reason';
 
   @override
@@ -235,12 +226,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get destinationContact => 'Destination contact';
-
-  @override
-  String get sourceLocation => 'Source location';
-
-  @override
-  String get destinationLocation => 'Destination location';
 
   @override
   String get comments => 'Comments';
@@ -266,9 +251,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get editMission => 'Edit mission';
-
-  @override
-  String get noDriverAssigned => 'Driver not assigned';
 
   @override
   String get carType => 'Car Type';
@@ -358,9 +340,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get hebrew => 'Hebrew';
-
-  @override
-  String get quickActions => 'Quick Actions';
 
   @override
   String get contactUs => 'Contact Us';

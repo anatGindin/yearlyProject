@@ -6,6 +6,14 @@ import 'package:hamal_transport_app/Services/Fake/fake_authentication_service.da
 import 'package:hamal_transport_app/Services/missions_repository.dart';
 
 import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
+import 'package:mockito/mockito.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+class MockUser extends Mock implements User {
+  @override
+  final String uid;
+  MockUser({required this.uid});
+}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -26,15 +34,21 @@ void main() {
 
     late Mission testMission;
 
-    setUp(() {
+    setUp(() async {
+      // Reset mock data to ensure clean state for each test
+      await initializeMockData();
+
       // create data model
-      repository = MissionsRepository(
-        myMissionsList: [...sampleMissions],
-        // Use copy to avoid polluting global mock data if it persists
-        availableMissionsList: [...availableMissions],
-        adminMissionsList: [...adminMissions],
-        authService: FakeAuthenticationService(),
-      );
+      final authService = FakeAuthenticationService();
+      authService.mockUser = MockUser(uid: 'test-user-uid');
+
+      // Update sample missions to match the mock user for "My Missions" tests
+      for (var m in sampleMissions) {
+        m.driverUid = 'test-user-uid';
+        m.status = MissionStatus.assigned;
+      }
+
+      repository = MissionsRepository(authService: authService);
 
       // Create ViewModels with initial state
       availableVM = MissionsListViewModel(

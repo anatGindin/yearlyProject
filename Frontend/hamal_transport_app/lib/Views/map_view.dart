@@ -278,11 +278,25 @@ class _MapViewContentState extends State<MapViewContent> {
       ),
     );
 
-    for (final mission in repository.getMissions(MissionListType.allMissions)) {
+    MissionListType missionListType = viewModel.userRole == UserRole.driver
+        ? MissionListType.myMissions
+        : MissionListType.allMissions;
+    for (final mission in repository.getMissions(missionListType)) {
       if (!viewModel.isStatusVisible(mission.status)) continue;
       markers.add(
         _createMissionMarker(mission, mission.status.statusColor, viewModel),
       );
+    }
+
+    if (viewModel.userRole == UserRole.driver) {
+      for (final mission in repository.getMissions(
+        MissionListType.availableMissions,
+      )) {
+        if (!viewModel.isStatusVisible(mission.status)) continue;
+        markers.add(
+          _createMissionMarker(mission, mission.status.statusColor, viewModel),
+        );
+      }
     }
 
     if (viewModel.selectedMission != null) {

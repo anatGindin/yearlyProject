@@ -7,6 +7,14 @@ import 'package:hamal_transport_app/Models/mission_list_type.dart';
 import 'package:hamal_transport_app/Services/Fake/fake_authentication_service.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
 import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
+import 'package:mockito/mockito.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+class MockUser extends Mock implements User {
+  @override
+  final String uid;
+  MockUser({required this.uid});
+}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -19,25 +27,23 @@ void main() {
     late MissionsRepository repository;
     late MissionsListViewModel myVM;
 
-    setUp(() {
-      repository = MissionsRepository(
-        myMissionsList: sampleMissions,
-        availableMissionsList: availableMissions,
-        adminMissionsList: adminMissions,
-        authService: FakeAuthenticationService(),
-      );
+    setUp(() async {
+      await initializeMockData();
+      final authService = FakeAuthenticationService();
+      authService.mockUser = MockUser(uid: 'test-user-uid');
+
+      // Update sample missions to match the mock user for "My Missions" tests
+      for (var m in sampleMissions) {
+        m.driverUid = 'test-user-uid';
+      }
+
+      repository = MissionsRepository(authService: authService);
       myVM = MissionsListViewModel(
         repository: repository,
         type: MissionListType.myMissions,
       );
 
       // Mutate mock data statuses for filtering tests
-      // Note: sampleMissions is a global mock list, so we might be modifying it for other tests if not careful.
-      // But setUp runs before each test.
-      // However, modifying objects inside the list persists if the list objects are shared.
-      // For safety, let's just assert on what we have or ensure repository creates copies (it doesn't, it takes the list ref).
-      // Assuming mock data is reset or we just set it here.
-      // Let's manually ensure state for these tests.
       sampleMissions[0].status = MissionStatus.assigned;
       sampleMissions[1].status = MissionStatus.assigned;
       sampleMissions[2].status = MissionStatus.pickedUp;
@@ -117,12 +123,7 @@ void main() {
     late MissionsListViewModel availVM;
 
     setUp(() {
-      repository = MissionsRepository(
-        myMissionsList: sampleMissions,
-        availableMissionsList: availableMissions,
-        adminMissionsList: adminMissions,
-        authService: FakeAuthenticationService(),
-      );
+      repository = MissionsRepository(authService: FakeAuthenticationService());
       availVM = MissionsListViewModel(
         repository: repository,
         type: MissionListType.availableMissions,

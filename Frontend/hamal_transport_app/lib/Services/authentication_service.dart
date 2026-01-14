@@ -130,6 +130,7 @@ class AuthenticationService {
 
   Future<void> signOut() async {
     await setRememberMe(false); // Clear remember me on explicit sign out
+    _currentUserProfile = null;
     await _authProvider.signOut();
   }
 

@@ -107,13 +107,13 @@ abstract class AppLocalizations {
   /// Title of active missions list
   ///
   /// In en, this message translates to:
-  /// **'Active Missions'**
+  /// **'My Missions'**
   String get activeMissions;
 
-  /// Title of available missions page
+  /// Mission status - available
   ///
   /// In en, this message translates to:
-  /// **'Available Missions'**
+  /// **'Available'**
   String get availableMissions;
 
   /// Title of picked up missions page
@@ -125,7 +125,7 @@ abstract class AppLocalizations {
   /// Title of ready for pick up missions page
   ///
   /// In en, this message translates to:
-  /// **'Ready For Pick Up Missions'**
+  /// **'Assigned'**
   String get readyForPickUpMissions;
 
   /// Title of delivered missions page
@@ -241,12 +241,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delivered'**
   String get delivered;
-
-  /// Mission status - Ready for pickup
-  ///
-  /// In en, this message translates to:
-  /// **'Ready for pick up'**
-  String get readyForPickUp;
 
   /// Mission status - cancelled
   ///
@@ -500,18 +494,6 @@ abstract class AppLocalizations {
   /// **'Picked up'**
   String get menuPickedUpFilter;
 
-  /// Filter option - Show 'Chosen' missions
-  ///
-  /// In en, this message translates to:
-  /// **'\'Chosen\' missions'**
-  String get chosenFilter;
-
-  /// Show 'Picked up' missions
-  ///
-  /// In en, this message translates to:
-  /// **'\'Picked up\' missions'**
-  String get pickedUpFilter;
-
   /// Title for cancellation reason dialog
   ///
   /// In en, this message translates to:
@@ -547,18 +529,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Destination contact'**
   String get destinationContact;
-
-  /// Source location label
-  ///
-  /// In en, this message translates to:
-  /// **'Source location'**
-  String get sourceLocation;
-
-  /// Destination location label
-  ///
-  /// In en, this message translates to:
-  /// **'Destination location'**
-  String get destinationLocation;
 
   /// Comments label
   ///
@@ -607,12 +577,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Edit mission'**
   String get editMission;
-
-  /// Driver not assigned label
-  ///
-  /// In en, this message translates to:
-  /// **'Driver not assigned'**
-  String get noDriverAssigned;
 
   /// Label for car type selection
   ///
@@ -787,12 +751,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hebrew'**
   String get hebrew;
-
-  /// No description provided for @quickActions.
-  ///
-  /// In en, this message translates to:
-  /// **'Quick Actions'**
-  String get quickActions;
 
   /// No description provided for @contactUs.
   ///

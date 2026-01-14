@@ -4,7 +4,7 @@
   "@appTitle": {
     "description": "כותרת האפליקציה שמופיעה בסרגל העליון"
   },
-  "activeMissions": "משימות פעילות",
+  "activeMissions": "המשימות שלי",
   "@activeMissions": {
     "description": "כותרת רשימת המשימות הפעילות"
   },
@@ -16,9 +16,9 @@
   "@pickedUpMissions": {
     "description": "כותרת דף המשימות שנאספו"
   },
-  "readyForPickUpMissions": "מוכנות לאיסוף",
+  "readyForPickUpMissions": "משויכות",
   "@readyForPickUpMissions": {
-    "description": "כותרת דף המשימות שמוכנות לאיסוף"
+    "description": "כותרת דף המשימות שמשוכיות לנהג"
   },
   "deliveredMissions": "נמסרו",
   "@deliveredMissions": {
@@ -96,9 +96,9 @@
   "@delivered": {
     "description": "סטטוס משימה - נמסר"
   },
-  "readyForPickUp": "מוכן לאיסוף",
-  "@readyForPickUp": {
-    "description": "סטטוס משימה - מוכן לאיסוף"
+  "availableMissions": "משימות ממתינות",
+  "@availableMissions": {
+    "description": "סטטוס משימה - לשיוך"
   },
   "cancelled": "בוטל",
   "@cancelled": {
@@ -268,14 +268,6 @@
   "@menuPickedUpFilter": {
     "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
   },
-  "chosenFilter": "משימות שנבחרו",
-  "@chosenFilter": {
-    "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
-  },
-  "pickedUpFilter": "משימות שנאספו",
-  "@pickedUpFilter": {
-    "description": "אפשרות סינון - הצג משימות בסטטוס 'נבחר'"
-  },
   "cancellationReason": "סיבת ביטול",
   "@cancellationReason": {
     "description": "כותרת לדיאלוג סיבת ביטול"
@@ -299,14 +291,6 @@
   "destinationContact": "איש קשר ביעד",
   "@destinationContact": {
     "description": "תווית איש קשר ביעד"
-  },
-  "sourceLocation": "נקודת האיסוף",
-  "@sourceLocation": {
-    "description": "תווית נקודת האיסוף"
-  },
-  "destinationLocation": "נקודת היעד",
-  "@destinationLocation": {
-    "description": "תווית נקודת היעד"
   },
   "comments": "הערות",
   "@comments": {
@@ -339,10 +323,6 @@
   "editMission": "עריכת משימה",
   "@editMission": {
     "description": "כותרת דיאלוג עריכת משימה"
-  },
-  "noDriverAssigned": "לא שובץ נהג",
-  "@noDriverAssigned": {
-    "description": "תווית לא שובץ נהג"
   },
   "carType": "סוג רכב",
   "@carType": {
@@ -454,7 +434,6 @@
   "@hebrew": {
     "description": "אפשרות שפה עברית"
   },
-  "quickActions": "פעולות מהירות",
   "contactUs": "צור קשר",
   "aboutUs": "אודותינו",
   "helpFaq": "עזרה ומרכז מידע",

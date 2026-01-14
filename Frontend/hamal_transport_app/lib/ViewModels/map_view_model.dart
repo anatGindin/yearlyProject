@@ -39,7 +39,7 @@ class MapViewModel extends ChangeNotifier {
 
   UserRole? get userRole => _userRole;
 
-  MapViewModel();
+  MapViewModel({UserRole? role}) : _userRole = role;
 
   Future<void> checkPermissions() => initLocation();
 

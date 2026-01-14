@@ -2,115 +2,99 @@ import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
 import 'package:hamal_transport_app/Services/authentication_service.dart';
+import 'package:hamal_transport_app/Constants/mock_data.dart';
 
 class MissionsRepository extends ChangeNotifier {
-  final List<Mission> _myMissionsList;
-  final List<Mission> _availableMissionsList;
-  final List<Mission> _adminMissionsList;
+  final List<Mission> _allMissions;
   final AuthenticationService authService;
 
-  MissionsRepository({
-    required List<Mission> myMissionsList,
-    required List<Mission> availableMissionsList,
-    required List<Mission> adminMissionsList,
-    required this.authService,
-  }) : _myMissionsList = myMissionsList,
-       _availableMissionsList = availableMissionsList,
-       _adminMissionsList = adminMissionsList;
+  MissionsRepository({required this.authService})
+    // TODO: Fetch missions from backend
+    : _allMissions = [
+        ...sampleMissions,
+        ...availableMissions,
+        ...adminMissions,
+      ];
 
   List<Mission> getMissions(MissionListType type) {
     switch (type) {
       case MissionListType.myMissions:
-        return _myMissionsList;
+        return _allMissions.where((mission) {
+          return mission.driverUid == authService.currentUser?.uid &&
+              mission.status != MissionStatus.delivered;
+        }).toList();
       case MissionListType.availableMissions:
-        return _availableMissionsList;
+        return _allMissions
+            .where((mission) => mission.status == MissionStatus.available)
+            .toList();
       case MissionListType.allMissions:
-        return [..._myMissionsList, ..._availableMissionsList];
+        return _allMissions;
       case MissionListType.assignedMissions:
-        return _adminMissionsList
+        return _allMissions
             .where((mission) => mission.status == MissionStatus.assigned)
             .toList();
       case MissionListType.pickedUpMissions:
-        return _adminMissionsList
+        return _allMissions
             .where((mission) => mission.status == MissionStatus.pickedUp)
             .toList();
       case MissionListType.deliveredMissions:
-        return _adminMissionsList
+        return _allMissions
             .where((mission) => mission.status == MissionStatus.delivered)
             .toList();
       case MissionListType.cancelledMissions:
-        return _adminMissionsList
+        return _allMissions
             .where((mission) => mission.status == MissionStatus.cancelled)
             .toList();
-      case MissionListType.adminAllMissions:
-        return _adminMissionsList;
     }
   }
 
   void addMission(MissionListType type, Mission mission) {
-    getMissions(type).add(mission);
+    _allMissions.add(mission);
     notifyListeners();
   }
 
   void removeMission(MissionListType type, Mission mission) {
-    getMissions(type).remove(mission);
+    _allMissions.remove(mission);
     notifyListeners();
   }
 
   /// Pre-fetches route info for all missions so it's instantly available.
   Future<void> prefetchRouteInfo({String profile = 'car'}) async {
-    final allMissions = [
-      ..._myMissionsList,
-      ..._availableMissionsList,
-      ..._adminMissionsList,
-    ];
-    for (final mission in allMissions) {
+    for (final mission in _allMissions) {
       mission.getRouteInfo(profile: profile);
     }
   }
 
-  void moveMission(Mission mission, MissionListType from, MissionListType to) {
-    getMissions(from).remove(mission);
-    getMissions(to).add(mission);
-    notifyListeners();
-  }
-
   void takeMission(Mission mission) {
-    mission.driverUid = authService.currentUser?.uid;
-    mission.status = MissionStatus.assigned;
-    moveMission(
-      mission,
-      MissionListType.availableMissions,
-      MissionListType.myMissions,
-    );
+    // TODO: Update the mission status in the database
+    if (isAvailable(mission)) {
+      mission.driverUid = authService.currentUser?.uid;
+      mission.status = MissionStatus.assigned;
+      notifyListeners();
+    }
   }
 
   void abandonMission(Mission mission) {
+    // TODO: Update the mission status in the database
     mission.driverUid = null;
     mission.status = MissionStatus.available;
-    moveMission(
-      mission,
-      MissionListType.myMissions,
-      MissionListType.availableMissions,
-    );
+    notifyListeners();
   }
 
   void updateStatus(Mission mission, MissionStatus newStatus) {
-    if (newStatus == MissionStatus.delivered) {
-      // TODO: Update remote database + store in dedicated container if needed
-      removeMission(MissionListType.myMissions, mission);
-    }
+    // TODO: Update the mission status in the database
     mission.status = newStatus;
     notifyListeners();
   }
 
   void cancelMission(Mission mission, String cancellationReason) {
+    // TODO: Update the mission status in the database + the cancellation reason
     mission.cancellationReason = cancellationReason;
     abandonMission(mission);
   }
 
   bool isAvailable(Mission mission) {
-    return _availableMissionsList.contains(mission) &&
-        mission.status == MissionStatus.available;
+    // TODO: Check if the mission is still available in the database
+    return mission.status == MissionStatus.available;
   }
 }

@@ -68,7 +68,7 @@ class _MissionScreenState extends State<MissionScreen> {
                       ),
                     ),
                     const SizedBox(height: 16),
-
+                    // TODO: Add driver info
                     const SizedBox(height: 16),
                     InfoRow(
                       icon: Icons.person,

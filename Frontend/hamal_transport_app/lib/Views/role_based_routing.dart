@@ -20,7 +20,7 @@ Widget getDestinationForRole(UserRole role) {
   switch (role) {
     case UserRole.driver:
       return ChangeNotifierProvider(
-        create: (_) => MapViewModel(),
+        create: (_) => MapViewModel(role: UserRole.driver),
         child: Builder(
           builder: (context) {
             final l10n = AppLocalizations.of(context)!;
@@ -69,7 +69,7 @@ Widget getDestinationForRole(UserRole role) {
       );
     case UserRole.logistics:
       return ChangeNotifierProvider(
-        create: (_) => MapViewModel(),
+        create: (_) => MapViewModel(role: UserRole.logistics),
         child: Builder(
           builder: (context) {
             final l10n = AppLocalizations.of(context)!;
@@ -81,7 +81,7 @@ Widget getDestinationForRole(UserRole role) {
                   page: MissionsTabsPage(
                     tabs: [
                       MissionTabConfig(
-                        title: l10n.readyForPickUp,
+                        title: l10n.availableMissions,
                         icon: Icons.assignment_turned_in,
                         viewModel: MissionsListViewModel(
                           repository: repository,
@@ -135,8 +135,8 @@ Widget getDestinationForRole(UserRole role) {
                   // MARK: if we introduce location services on the map page for logisticians, uncomment the onEnter and onExit methods
                   onEnter: () => {},
                   // context.read<MapViewModel>().initLocation(),
-                  onExit: () =>
-                  {}, // context.read<MapViewModel>().stopLocationUpdates(),
+                  onExit: () => {},
+                  // context.read<MapViewModel>().stopLocationUpdates(),
                 ),
                 const NavBarDestination(
                   pageType: NavBarPageType.profile,
@@ -149,7 +149,7 @@ Widget getDestinationForRole(UserRole role) {
       );
     case UserRole.admin:
       return ChangeNotifierProvider(
-        create: (_) => MapViewModel(),
+        create: (_) => MapViewModel(role: UserRole.admin),
         child: Builder(
           builder: (context) {
             return NavigationBarWrapper(
@@ -161,8 +161,8 @@ Widget getDestinationForRole(UserRole role) {
                   // MARK: if we introduce location services on the map page for logisticians, uncomment the onEnter and onExit methods
                   onEnter: () => {},
                   // context.read<MapViewModel>().initLocation(),
-                  onExit: () =>
-                  {}, // context.read<MapViewModel>().stopLocationUpdates(),
+                  onExit: () => {},
+                  // context.read<MapViewModel>().stopLocationUpdates(),
                 ),
                 const NavBarDestination(
                   pageType: NavBarPageType.profile,

@@ -2,117 +2,104 @@ import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
 import 'package:hamal_transport_app/Views/missions_list_body.dart';
 import 'package:provider/provider.dart';
+import '../l10n/app_localizations.dart';
+import '../../Models/mission.dart';
+import '../../Models/mission_list_type.dart';
 
 class MissionTabConfig {
   final String title;
   final IconData icon;
   final MissionsListViewModel viewModel;
-  final Color color;
 
   MissionTabConfig({
     required this.title,
     required this.icon,
     required this.viewModel,
-    this.color = Colors.transparent,
   });
 }
 
-class MissionsTabsPage extends StatefulWidget {
+class MissionsTabsPage extends StatelessWidget {
   final List<MissionTabConfig> tabs;
 
   const MissionsTabsPage({super.key, required this.tabs});
 
   @override
-  State<MissionsTabsPage> createState() => _MissionsTabsPageState();
-}
-
-class _MissionsTabsPageState extends State<MissionsTabsPage>
-    with SingleTickerProviderStateMixin {
-  late final TabController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TabController(length: widget.tabs.length, vsync: this);
-    _controller.addListener(() {
-      if (mounted) setState(() {}); // rebuild on tab change
-    });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final scheme = Theme
-        .of(context)
-        .colorScheme;
+    final l10n = AppLocalizations.of(context)!;
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Missions')),
-      body: Column(
-        children: [
-          TabBar(
-            controller: _controller,
-            // ⭐ explicit
-            isScrollable: false,
-            padding: EdgeInsets.zero,
-            labelPadding: EdgeInsets.zero,
-            indicator: const BoxDecoration(),
-            tabs: List.generate(widget.tabs.length, (index) {
-              final tab = widget.tabs[index];
-              final selected = _controller.index == index;
-              final Color base = tab.color != Colors.transparent
-                  ? tab.color
-                  : scheme.surfaceContainerHighest;
-              return SizedBox(
-                height: 54,
-                child: Container(
-                  color: selected ? base.withAlpha(180) : base.withAlpha(20),
-                  child: SizedBox.expand(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(tab.icon, size: 20),
-                        const SizedBox(height: 2),
-                        Text(
-                          tab.title,
-                          textAlign: TextAlign.center,
-                          style: Theme
-                              .of(
-                            context,
+    return DefaultTabController(
+      length: tabs.length,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            l10n.missions,
+            style: Theme.of(
+              context,
+            ).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.bold),
+          ),
+        ),
+        body: Column(
+          children: [
+            TabBar(
+              isScrollable: true,
+              tabAlignment: TabAlignment.center,
+
+              tabs: tabs.map((tab) {
+                final color = _getStatusColor(tab.viewModel.type);
+                return Tab(
+                  icon: Icon(tab.icon),
+                  child: Container(
+                    decoration: color != null
+                        ? BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(color: color, width: 3.0),
+                            ),
                           )
-                              .textTheme
-                              .labelSmall!
-                              .copyWith(fontSize: 8),
-                        ),
-                      ],
+                        : null,
+                    padding: const EdgeInsets.only(bottom: 2.0),
+                    child: Text(
+                      tab.title,
+                      softWrap: true,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
-                ),
-              );
-            }),
-          ),
-
-          Expanded(
-            child: TabBarView(
-              controller: _controller, // ⭐ same controller
-              children: widget.tabs
-                  .map(
-                    (tab) =>
-                    ChangeNotifierProvider.value(
-                      value: tab.viewModel,
-                      child: const MissionsListBody(),
-                    ),
-              )
-                  .toList(),
+                );
+              }).toList(),
             ),
-          ),
-        ],
+            Expanded(
+              child: TabBarView(
+                children: tabs
+                    .map(
+                      (tab) =>
+                          ChangeNotifierProvider<MissionsListViewModel>.value(
+                            value: tab.viewModel,
+                            child: const MissionsListBody(),
+                          ),
+                    )
+                    .toList(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  Color? _getStatusColor(MissionListType type) {
+    switch (type) {
+      case MissionListType.availableMissions:
+        return MissionStatus.available.statusColor;
+      case MissionListType.assignedMissions:
+      case MissionListType.myMissions:
+        return MissionStatus.assigned.statusColor;
+      case MissionListType.pickedUpMissions:
+        return MissionStatus.pickedUp.statusColor;
+      case MissionListType.deliveredMissions:
+        return MissionStatus.delivered.statusColor;
+      case MissionListType.cancelledMissions:
+        return MissionStatus.cancelled.statusColor;
+      default:
+        return null;
+    }
   }
 }

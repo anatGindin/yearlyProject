@@ -12,16 +12,16 @@ class AppLocalizationsHe extends AppLocalizations {
   String get appTitle => 'אפליקציית שינוע';
 
   @override
-  String get activeMissions => 'משימות פעילות';
+  String get activeMissions => 'המשימות שלי';
 
   @override
-  String get availableMissions => 'משימות זמינות';
+  String get availableMissions => 'משימות ממתינות';
 
   @override
   String get pickedUpMissions => 'נאספו';
 
   @override
-  String get readyForPickUpMissions => 'מוכנות לאיסוף';
+  String get readyForPickUpMissions => 'משויכות';
 
   @override
   String get deliveredMissions => 'נמסרו';
@@ -80,9 +80,6 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get delivered => 'נמסר';
-
-  @override
-  String get readyForPickUp => 'מוכן לאיסוף';
 
   @override
   String get cancelled => 'בוטל';
@@ -212,12 +209,6 @@ class AppLocalizationsHe extends AppLocalizations {
   String get menuPickedUpFilter => 'נאספו';
 
   @override
-  String get chosenFilter => 'משימות שנבחרו';
-
-  @override
-  String get pickedUpFilter => 'משימות שנאספו';
-
-  @override
   String get cancellationReason => 'סיבת ביטול';
 
   @override
@@ -234,12 +225,6 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get destinationContact => 'איש קשר ביעד';
-
-  @override
-  String get sourceLocation => 'נקודת האיסוף';
-
-  @override
-  String get destinationLocation => 'נקודת היעד';
 
   @override
   String get comments => 'הערות';
@@ -265,9 +250,6 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get editMission => 'עריכת משימה';
-
-  @override
-  String get noDriverAssigned => 'לא שובץ נהג';
 
   @override
   String get carType => 'סוג רכב';
@@ -357,9 +339,6 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get hebrew => 'עברית';
-
-  @override
-  String get quickActions => 'פעולות מהירות';
 
   @override
   String get contactUs => 'צור קשר';

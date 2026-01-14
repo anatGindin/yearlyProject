@@ -4,7 +4,7 @@
   "@appTitle": {
     "description": "App title shown in the app bar and for the application title"
   },
-  "activeMissions": "Active Missions",
+  "activeMissions": "My Missions",
   "@activeMissions": {
     "description": "Title of active missions list"
   },
@@ -16,7 +16,7 @@
   "@pickedUpMissions": {
     "description": "Title of picked up missions page"
   },
-  "readyForPickUpMissions": "Ready For Pick Up Missions",
+  "readyForPickUpMissions": "Assigned",
   "@readyForPickUpMissions": {
     "description": "Title of ready for pick up missions page"
   },
@@ -96,9 +96,9 @@
   "@delivered": {
     "description": "Mission status - delivered"
   },
-  "readyForPickUp": "Ready for pick up",
-  "@readyForPickUp": {
-    "description": "Mission status - Ready for pickup"
+  "availableMissions": "Available",
+  "@availableMissions": {
+    "description": "Mission status - available"
   },
   "cancelled": "Cancelled",
   "@cancelled": {
@@ -268,14 +268,6 @@
   "@menuPickedUpFilter": {
     "description": "Show 'Picked up' missions"
   },
-  "chosenFilter": "'Chosen' missions",
-  "@chosenFilter": {
-    "description": "Filter option - Show 'Chosen' missions"
-  },
-  "pickedUpFilter": "'Picked up' missions",
-  "@pickedUpFilter": {
-    "description": "Show 'Picked up' missions"
-  },
   "cancellationReason": "Cancellation Reason",
   "@cancellationReason": {
     "description": "Title for cancellation reason dialog"
@@ -299,14 +291,6 @@
   "destinationContact": "Destination contact",
   "@destinationContact": {
     "description": "Destination contact label"
-  },
-  "sourceLocation": "Source location",
-  "@sourceLocation": {
-    "description": "Source location label"
-  },
-  "destinationLocation": "Destination location",
-  "@destinationLocation": {
-    "description": "Destination location label"
   },
   "comments": "Comments",
   "@comments": {
@@ -339,10 +323,6 @@
   "editMission": "Edit mission",
   "@editMission": {
     "description": "Title for edit mission dialog"
-  },
-  "noDriverAssigned": "Driver not assigned",
-  "@noDriverAssigned": {
-    "description": "Driver not assigned label"
   },
   "carType": "Car Type",
   "@carType": {
@@ -454,7 +434,6 @@
   "@hebrew": {
     "description": "Hebrew language option"
   },
-  "quickActions": "Quick Actions",
   "contactUs": "Contact Us",
   "aboutUs": "About Us",
   "helpFaq": "Help & FAQ",
