@@ -68,26 +68,7 @@ Widget getDestinationForRole(UserRole role) {
         ),
       );
     case UserRole.logistics:
-      // Get the first driver UID from the missions repository
-      final missionsRepo = MissionsRepository();
-      final allMissions = missionsRepo.getMissions(MissionListType.allMissions);
-
-      // Find first mission with a driver assigned, fallback to default UID if no missions
-      String driverUid = 'I9ivZ6H8pYWoDkeb2wybbKXgxWE2'; // Default fallback
-
-      if (allMissions.isNotEmpty) {
-        final missionWithDriver = allMissions.firstWhere(
-          (mission) =>
-              mission.driverUid != null && mission.driverUid!.isNotEmpty,
-          orElse: () => allMissions.first,
-        );
-        driverUid = missionWithDriver.driverUid ?? driverUid;
-      }
-
-      return ChangeNotifierProvider(
-        create: (_) => DriverViewModel(driverUid: driverUid),
-        child: const DriverPage(),
-      );
+    // TODO: Implement Logistics land page.
     case UserRole.admin:
       return ChangeNotifierProvider(
         create: (_) => MapViewModel(),
