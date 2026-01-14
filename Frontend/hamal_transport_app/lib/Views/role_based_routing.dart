@@ -3,6 +3,7 @@ import 'package:hamal_transport_app/Models/mission_list_type.dart';
 import 'package:hamal_transport_app/Models/missions_model.dart';
 import 'package:hamal_transport_app/ViewModels/map_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
+import 'package:hamal_transport_app/Views/driver_phone_book_screen.dart';
 import 'package:hamal_transport_app/Views/map_view.dart';
 import 'package:hamal_transport_app/Views/navigation_bar_wrapper.dart';
 import 'package:hamal_transport_app/Views/missions_tabs_page.dart';
@@ -20,7 +21,7 @@ Widget getDestinationForRole(UserRole role) {
   switch (role) {
     case UserRole.driver:
       return ChangeNotifierProvider(
-        create: (_) => MapViewModel(),
+        create: (_) => MapViewModel(role: UserRole.driver),
         child: Builder(
           builder: (context) {
             final l10n = AppLocalizations.of(context)!;
@@ -65,10 +66,88 @@ Widget getDestinationForRole(UserRole role) {
         ),
       );
     case UserRole.logistics:
-    // TODO: Implement Logistics land page.
+      return ChangeNotifierProvider(
+        create: (_) => MapViewModel(role: UserRole.logistics),
+        child: Builder(
+          builder: (context) {
+            final l10n = AppLocalizations.of(context)!;
+            final repository = context.read<MissionsRepository>();
+            return NavigationBarWrapper(
+              allDestinations: [
+                NavBarDestination(
+                  pageType: NavBarPageType.missions,
+                  page: MissionsTabsPage(
+                    tabs: [
+                      MissionTabConfig(
+                        title: l10n.availableMissions,
+                        icon: Icons.pending,
+                        viewModel: MissionsListViewModel(
+                          repository: repository,
+                          type: MissionListType.availableMissions,
+                          allowedFilterOptions: const [],
+                        ),
+                      ),
+                      MissionTabConfig(
+                        title: l10n.readyForPickUpMissions,
+                        icon: Icons.assignment_turned_in,
+                        viewModel: MissionsListViewModel(
+                          repository: repository,
+                          type: MissionListType.assignedMissions,
+                          allowedFilterOptions: const [],
+                        ),
+                      ),
+                      MissionTabConfig(
+                        title: l10n.pickedUpMissions,
+                        icon: Icons.local_shipping,
+                        viewModel: MissionsListViewModel(
+                          repository: repository,
+                          type: MissionListType.pickedUpMissions,
+                          allowedFilterOptions: const [],
+                        ),
+                      ),
+                      MissionTabConfig(
+                        title: l10n.cancelledMissions,
+                        icon: Icons.cancel,
+                        viewModel: MissionsListViewModel(
+                          repository: repository,
+                          type: MissionListType.cancelledMissions,
+                          allowedFilterOptions: const [],
+                        ),
+                      ),
+                      MissionTabConfig(
+                        title: l10n.deliveredMissions,
+                        icon: Icons.check_circle,
+                        viewModel: MissionsListViewModel(
+                          repository: repository,
+                          type: MissionListType.deliveredMissions,
+                          allowedFilterOptions: const [],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                //TODO: add driver contact list
+                NavBarDestination(
+                  pageType: NavBarPageType.mapView,
+                  page: const MapView(),
+                  // MARK: if we introduce location services on the map page for logisticians, uncomment the onEnter and onExit methods
+                  onEnter: () => {},
+                  // context.read<MapViewModel>().initLocation(),
+                  onExit: () => {},
+                  // context.read<MapViewModel>().stopLocationUpdates(),
+                ),
+                const NavBarDestination(
+                  pageType: NavBarPageType.profile,
+                  page: UserProfilePage(),
+                ),
+              ],
+            );
+          },
+        ),
+      );
     case UserRole.admin:
       return ChangeNotifierProvider(
-        create: (_) => MapViewModel(),
+        create: (_) => MapViewModel(role: UserRole.admin),
         child: Builder(
           builder: (context) {
             return NavigationBarWrapper(
@@ -78,10 +157,14 @@ Widget getDestinationForRole(UserRole role) {
                   pageType: NavBarPageType.mapView,
                   page: const MapView(),
                   // MARK: if we introduce location services on the map page for logisticians, uncomment the onEnter and onExit methods
-                  onEnter: () =>
-                      {}, // context.read<MapViewModel>().initLocation(),
-                  onExit: () =>
-                      {}, // context.read<MapViewModel>().stopLocationUpdates(),
+                  onEnter: () => {},
+                  // context.read<MapViewModel>().initLocation(),
+                  onExit: () => {},
+                  // context.read<MapViewModel>().stopLocationUpdates(),
+                ),
+                const NavBarDestination(
+                  pageType: NavBarPageType.drivers,
+                  page: DriverPhoneBookScreen(),
                 ),
                 const NavBarDestination(
                   pageType: NavBarPageType.profile,

@@ -12,10 +12,22 @@ class AppLocalizationsHe extends AppLocalizations {
   String get appTitle => 'אפליקציית שינוע';
 
   @override
-  String get activeMissions => 'משימות פעילות';
+  String get activeMissions => 'המשימות שלי';
 
   @override
-  String get availableMissions => 'משימות זמינות';
+  String get availableMissions => 'משימות ממתינות';
+
+  @override
+  String get pickedUpMissions => 'נאספו';
+
+  @override
+  String get readyForPickUpMissions => 'משויכות';
+
+  @override
+  String get deliveredMissions => 'נמסרו';
+
+  @override
+  String get cancelledMissions => 'בוטלו';
 
   @override
   String get callDesk => 'התקשר לחמ\"ל';
@@ -197,12 +209,6 @@ class AppLocalizationsHe extends AppLocalizations {
   String get menuPickedUpFilter => 'נאספו';
 
   @override
-  String get chosenFilter => 'משימות שנבחרו';
-
-  @override
-  String get pickedUpFilter => 'משימות שנאספו';
-
-  @override
   String get cancellationReason => 'סיבת ביטול';
 
   @override
@@ -243,6 +249,9 @@ class AppLocalizationsHe extends AppLocalizations {
   String get editCommentTitle => 'עריכת הערה';
 
   @override
+  String get editMission => 'עריכת משימה';
+
+  @override
   String get carType => 'סוג רכב';
 
   @override
@@ -278,6 +287,30 @@ class AppLocalizationsHe extends AppLocalizations {
       'נשלח אימייל לאיפוס סיסמה! בדוק את תיבת הדואר שלך.';
 
   @override
+  String get drivers => 'נהגים';
+
+  @override
+  String get searchDriver => 'חפש נהג';
+
+  @override
+  String get noDrivers => 'לא נמצאו נהגים';
+
+  @override
+  String get allCarTypes => 'הצג את כל סוגי הרכבים';
+
+  @override
+  String get privateOnly => 'הצג רק נהגים עם רכב פרטי';
+
+  @override
+  String get pickupOnly => 'הצג רק נהגים עם טנדר';
+
+  @override
+  String get trailerOnly => 'הצג רק נהגים עם נגרר';
+
+  @override
+  String get truckOnly => 'הצג רק נהגים עם משאית';
+
+  @override
   String get mapView => 'מפה';
 
   @override
@@ -300,6 +333,9 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get profile => 'פרופיל';
+
+  @override
+  String get driverList => 'רשימת נהגים';
 
   @override
   String get hamalWarehouse => 'מחסן לוגיסטי';
@@ -327,9 +363,6 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get hebrew => 'עברית';
-
-  @override
-  String get quickActions => 'פעולות מהירות';
 
   @override
   String get contactUs => 'צור קשר';

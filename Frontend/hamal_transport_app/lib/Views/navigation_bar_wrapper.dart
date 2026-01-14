@@ -3,6 +3,7 @@ import 'package:hamal_transport_app/l10n/app_localizations.dart';
 
 class NavigationBarWrapper extends StatefulWidget {
   const NavigationBarWrapper({super.key, required this.allDestinations});
+
   final List<NavBarDestination> allDestinations;
 
   @override
@@ -154,7 +155,8 @@ class _KeepAliveNavigatorState extends State<_KeepAliveNavigator>
 enum NavBarPageType {
   missions,
   mapView,
-  profile;
+  profile,
+  drivers;
 
   String getLabel(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -165,6 +167,8 @@ enum NavBarPageType {
         return l10n.map;
       case NavBarPageType.profile:
         return l10n.profile;
+      case NavBarPageType.drivers:
+        return l10n.drivers;
     }
   }
 
@@ -176,6 +180,8 @@ enum NavBarPageType {
         return Icons.map;
       case NavBarPageType.profile:
         return Icons.person;
+      case NavBarPageType.drivers:
+        return Icons.drive_eta;
     }
   }
 }

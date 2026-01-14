@@ -1,139 +1,458 @@
 {
-    "sampleMissions": [
-        {
-            "id": "m1",
-            "source": {
-                "name": "טכניון חיפה",
-                "latitude": 32.7767,
-                "longitude": 35.0231
-            },
-            "destination": {
-                "name": "בסיס חיל הים",
-                "latitude": 32.8274,
-                "longitude": 34.9888
-            },
-            "description": "חבילה שבירה",
-            "sourceContact": {
-                "fullName": "סמי סביב",
-                "phoneNumber": "+972-54-1111111"
-            },
-            "destinationContact": {
-                "fullName": "שימחה ריף",
-                "phoneNumber": "+972-50-333-4444"
-            },
-            "time": "2025-12-15 10:00",
-            "status": "chosen",
-            "carType": "private",
-            "comments": [],
-            "driverUid": "I9ivZ6H8pYWoDkeb2wybbKXgxWE2"
-        },
-        {
-            "id": "m2",
-            "source": {
-                "name": "טכניון חיפה",
-                "latitude": 32.7767,
-                "longitude": 35.0231
-            },
-            "destination": {
-                "name": "ירושלים - בן יהודה 12",
-                "latitude": 31.7801,
-                "longitude": 35.2199
-            },
-            "description": "מעטפה דחופה",
-            "sourceContact": {
-                "fullName": "אלי קופטר",
-                "phoneNumber": "+972-54-0000000"
-            },
-            "destinationContact": {
-                "fullName": "אבי רון",
-                "phoneNumber": "+972-52-9876543"
-            },
-            "time": "2025-12-16 14:30",
-            "status": "chosen",
-            "carType": "private",
-            "comments": [],
-            "driverUid": "I9ivZ6H8pYWoDkeb2wybbKXgxWE2"
-        },
-        {
-            "id": "m3",
-            "source": {
-                "name": "טכניון חיפה",
-                "latitude": 32.7767,
-                "longitude": 35.0231
-            },
-            "destination": {
-                "name": "חיפה - הנשיא 3",
-                "latitude": 32.8191,
-                "longitude": 34.9983
-            },
-            "description": "ארגז גדול, דורש עגלה",
-            "sourceContact": {
-                "fullName": "ניר דמתי",
-                "phoneNumber": "+972-54-2222222"
-            },
-            "destinationContact": {
-                "fullName": "גרי המבורגרי",
-                "phoneNumber": "+972-54-5555555"
-            },
-            "time": "2025-12-15 15:00",
-            "status": "chosen",
-            "carType": "trailer",
-            "comments": [],
-            "driverUid": "I9ivZ6H8pYWoDkeb2wybbKXgxWE2"
-        }
-    ],
-    "availableMissions": [
-        {
-            "id": "a1",
-            "source": {
-                "name": "טכניון חיפה",
-                "latitude": 32.7767,
-                "longitude": 35.0231
-            },
-            "destination": {
-                "name": "רמת גן - ביאליק 5",
-                "latitude": 32.0706,
-                "longitude": 34.8238
-            },
-            "description": "חבילה קטנה",
-            "sourceContact": {
-                "fullName": "מרדכי היהודי",
-                "phoneNumber": "+972-54-9999999"
-            },
-            "destinationContact": {
-                "fullName": "יהודה המכבי",
-                "phoneNumber": "+972-50-1111111"
-            },
-            "time": "2025-12-15 12:00",
-            "status": "available",
-            "carType": "private",
-            "comments": []
-        },
-        {
-            "id": "a2",
-            "source": {
-                "name": "טכניון חיפה",
-                "latitude": 32.7767,
-                "longitude": 35.0231
-            },
-            "destination": {
-                "name": "ראשון לציון - העצמאות 21",
-                "latitude": 31.9730,
-                "longitude": 34.8037
-            },
-            "description": "מסמכים",
-            "sourceContact": {
-                "fullName": "פטריק סטאר",
-                "phoneNumber": "+972-54-7777777"
-            },
-            "destinationContact": {
-                "fullName": "בובספוג מכנסמרובע",
-                "phoneNumber": "+972-50-2222222"
-            },
-            "time": "2025-12-15 14:00",
-            "status": "available",
-            "carType": "private",
-            "comments": []
-        }
-    ]
+  "sampleMissions": [
+    {
+      "id": "m1",
+      "source": {
+        "name": "טכניון חיפה",
+        "latitude": 32.7767,
+        "longitude": 35.0231
+      },
+      "destination": {
+        "name": "בסיס חיל הים",
+        "latitude": 32.8274,
+        "longitude": 34.9888
+      },
+      "description": "חבילה שבירה",
+      "sourceContact": {
+        "fullName": "סמי סביב",
+        "phoneNumber": "+972-54-1111111"
+      },
+      "destinationContact": {
+        "fullName": "שימחה ריף",
+        "phoneNumber": "+972-50-333-4444"
+      },
+      "time": "2025-12-15 10:00",
+      "status": "assigned",
+      "carType": "private",
+      "comments": [],
+      "driverUid": "I9ivZ6H8pYWoDkeb2wybbKXgxWE2"
+    },
+    {
+      "id": "m2",
+      "source": {
+        "name": "טכניון חיפה",
+        "latitude": 32.7767,
+        "longitude": 35.0231
+      },
+      "destination": {
+        "name": "ירושלים - בן יהודה 12",
+        "latitude": 31.7801,
+        "longitude": 35.2199
+      },
+      "description": "מעטפה דחופה",
+      "sourceContact": {
+        "fullName": "אלי קופטר",
+        "phoneNumber": "+972-54-0000000"
+      },
+      "destinationContact": {
+        "fullName": "אבי רון",
+        "phoneNumber": "+972-52-9876543"
+      },
+      "time": "2025-12-16 14:30",
+      "status": "assigned",
+      "carType": "private",
+      "comments": [],
+      "driverUid": "I9ivZ6H8pYWoDkeb2wybbKXgxWE2"
+    },
+    {
+      "id": "m3",
+      "source": {
+        "name": "טכניון חיפה",
+        "latitude": 32.7767,
+        "longitude": 35.0231
+      },
+      "destination": {
+        "name": "חיפה - הנשיא 3",
+        "latitude": 32.8191,
+        "longitude": 34.9983
+      },
+      "description": "ארגז גדול, דורש עגלה",
+      "sourceContact": {
+        "fullName": "ניר דמתי",
+        "phoneNumber": "+972-54-2222222"
+      },
+      "destinationContact": {
+        "fullName": "גרי המבורגרי",
+        "phoneNumber": "+972-54-5555555"
+      },
+      "time": "2025-12-15 15:00",
+      "status": "assigned",
+      "carType": "trailer",
+      "comments": [],
+      "driverUid": "I9ivZ6H8pYWoDkeb2wybbKXgxWE2"
+    }
+  ],
+  "availableMissions": [
+    {
+      "id": "a1",
+      "source": {
+        "name": "טכניון חיפה",
+        "latitude": 32.7767,
+        "longitude": 35.0231
+      },
+      "destination": {
+        "name": "רמת גן - ביאליק 5",
+        "latitude": 32.0706,
+        "longitude": 34.8238
+      },
+      "description": "חבילה קטנה",
+      "sourceContact": {
+        "fullName": "מרדכי היהודי",
+        "phoneNumber": "+972-54-9999999"
+      },
+      "destinationContact": {
+        "fullName": "יהודה המכבי",
+        "phoneNumber": "+972-50-1111111"
+      },
+      "time": "2025-12-15 12:00",
+      "status": "available",
+      "carType": "private",
+      "comments": []
+    },
+    {
+      "id": "a2",
+      "source": {
+        "name": "טכניון חיפה",
+        "latitude": 32.7767,
+        "longitude": 35.0231
+      },
+      "destination": {
+        "name": "ראשון לציון - העצמאות 21",
+        "latitude": 31.9730,
+        "longitude": 34.8037
+      },
+      "description": "מסמכים",
+      "sourceContact": {
+        "fullName": "פטריק סטאר",
+        "phoneNumber": "+972-54-7777777"
+      },
+      "destinationContact": {
+        "fullName": "בובספוג מכנסמרובע",
+        "phoneNumber": "+972-50-2222222"
+      },
+      "time": "2025-12-15 14:00",
+      "status": "available",
+      "carType": "private",
+      "comments": []
+    }
+  ],
+  "adminMissions": [
+    {
+      "id": "av1",
+      "source": {
+        "name": "טכניון חיפה",
+        "latitude": 32.7767,
+        "longitude": 35.0231
+      },
+      "destination": {
+        "name": "רמת גן - ביאליק 5",
+        "latitude": 32.0706,
+        "longitude": 34.8238
+      },
+      "description": "מתנות קטנות",
+      "sourceContact": {
+        "fullName": "מישהו",
+        "phoneNumber": "+972-54-9999999"
+      },
+      "destinationContact": {
+        "fullName": "רמי קלינשטיין",
+        "phoneNumber": "+972-50-1111111"
+      },
+      "time": "2026-01-05 12:02",
+      "status": "available",
+      "carType": "private",
+      "comments": []
+    },
+    {
+      "id": "av2",
+      "source": {
+        "name": "אוניברסיטת תל אביב",
+        "latitude": 32.113458,
+        "longitude": 34.803623
+      },
+      "destination": {
+        "name": "טכניון חיפה",
+        "latitude": 32.7767,
+        "longitude": 35.0231
+      },
+      "description": "רפרנסים באינפי",
+      "sourceContact": {
+        "fullName": "שמעון המלך",
+        "phoneNumber": "+972-54-9999999"
+      },
+      "destinationContact": {
+        "fullName": "בן-בן האפס",
+        "phoneNumber": "+972-50-1111111"
+      },
+      "time": "2026-01-05 10:02",
+      "status": "available",
+      "carType": "trailer",
+      "comments": []
+    },
+    {
+      "id": "av3",
+      "source": {
+        "name": "טכניון חיפה",
+        "latitude": 32.7767,
+        "longitude": 35.0231
+      },
+      "destination": {
+        "name": "אוניברסיטת תל אביב",
+        "latitude": 32.113458,
+        "longitude": 34.803623
+      },
+      "description": "רפרנסים באלגברה",
+      "sourceContact": {
+        "fullName": "בן-בן המלך",
+        "phoneNumber": "+972-50-1111111"
+      },
+      "destinationContact": {
+        "fullName": "שמעון האפס",
+        "phoneNumber": "+972-54-9999999"
+      },
+      "time": "2026-01-05 10:02",
+      "status": "available",
+      "carType": "trailer",
+      "comments": []
+    },
+    {
+      "id": "as1",
+      "source": {
+        "name": "טכניון חיפה",
+        "latitude": 32.7767,
+        "longitude": 35.0231
+      },
+      "destination": {
+        "name": "אוניברסיטת חיפה",
+        "latitude": 32.4549,
+        "longitude": 35.0105
+      },
+      "description": "שליפים לדיבייט",
+      "sourceContact": {
+        "fullName": "אור",
+        "phoneNumber": "+972-54-2222222"
+      },
+      "destinationContact": {
+        "fullName": "אלי",
+        "phoneNumber": "+972-50-2222222"
+      },
+      "time": "2026-01-06 18:02",
+      "status": "assigned",
+      "carType": "private",
+      "comments": [],
+      "driverUid": "haim_uid"
+    },
+    {
+      "id": "as2",
+      "source": {
+        "name": "אוניברסיטת חיפה",
+        "latitude": 32.4549,
+        "longitude": 35.0105
+      },
+      "destination": {
+        "name": "טכניון חיפה",
+        "latitude": 32.7767,
+        "longitude": 35.0231
+      },
+      "description": "תשלום על פסטיבל הסטודנט",
+      "sourceContact": {
+        "fullName": "ועד חיפה",
+        "phoneNumber": "+972-54-1231234"
+      },
+      "destinationContact": {
+        "fullName": "אסט",
+        "phoneNumber": "+972-50-1231234"
+      },
+      "time": "2026-01-02 20:32",
+      "status": "assigned",
+      "carType": "private",
+      "comments": [],
+      "driverUid": "haim_uid"
+    },
+    {
+      "id": "pu1",
+      "source": {
+        "name": "אוניברסיטת חיפה",
+        "latitude": 32.4549,
+        "longitude": 35.0105
+      },
+      "destination": {
+        "name": "מכון ויצמן",
+        "latitude": 31.910353,
+        "longitude": 34.814654
+      },
+      "description": "חלקיקים להאצה",
+      "sourceContact": {
+        "fullName": "מעבדת כושר אטומי",
+        "phoneNumber": "+972-54-0000000"
+      },
+      "destinationContact": {
+        "fullName": "בוטקמפ כושר מכון ויצמן",
+        "phoneNumber": "+972-50-9090909"
+      },
+      "time": "2026-01-02 20:32",
+      "status": "pickedUp",
+      "carType": "private",
+      "comments": [],
+      "driverUid": "dulapip_uid"
+    },
+    {
+      "id": "pu2",
+      "source": {
+        "name": "כביש 90 אילת",
+        "latitude": 29.536344,
+        "longitude": 34.941590
+      },
+      "destination": {
+        "name": "הבורסה לניירות ערך",
+        "latitude": 32.0643083,
+        "longitude": 34.7703754
+      },
+      "description": "גרוש",
+      "sourceContact": {
+        "fullName": "מר קראב",
+        "phoneNumber": "+972-54-3334444"
+      },
+      "destinationContact": {
+        "fullName": "רמי הלבנת הון",
+        "phoneNumber": "+972-50-4443333"
+      },
+      "time": "2026-01-02 20:32",
+      "status": "pickedUp",
+      "carType": "truck",
+      "comments": [],
+      "driverUid": "dulapip_uid"
+    },
+    {
+      "id": "pu3",
+      "source": {
+        "name": "שר פיטנס חולון",
+        "latitude": 31.9878613,
+        "longitude": 34.7643705
+      },
+      "destination": {
+        "name": "ויה דה לה רוזה",
+        "latitude": 31.780004,
+        "longitude": 35.231982
+      },
+      "description": "טעות בכתובת משלוח",
+      "sourceContact": {
+        "fullName": "דיצה מאמנת פילאטיס",
+        "phoneNumber": "+972-54-0006666"
+      },
+      "destinationContact": {
+        "fullName": "פונטיוס פילאטיס",
+        "phoneNumber": "+972-50-6660000"
+      },
+      "time": "2026-01-02 20:32",
+      "status": "pickedUp",
+      "carType": "trailer",
+      "comments": [],
+      "driverUid": "haim_uid"
+    },
+    {
+      "id": "dl1",
+      "source": {
+        "name": "עיריית רחובות",
+        "latitude": 31.8941847,
+        "longitude": 34.8054123
+      },
+      "destination": {
+        "name": "עיריית שדרות",
+        "latitude": 31.5291901,
+        "longitude": 34.5853237
+      },
+      "description": "שלטי רחוב",
+      "sourceContact": {
+        "fullName": "קובי הפקיד",
+        "phoneNumber": "+972-54-2344567"
+      },
+      "destinationContact": {
+        "fullName": "קובי הקבלן",
+        "phoneNumber": "+972-50-1234567"
+      },
+      "time": "2026-01-02 20:32",
+      "status": "delivered",
+      "carType": "trailer",
+      "comments": [],
+      "driverUid": "haim_uid"
+    },
+    {
+      "id": "dl2",
+      "source": {
+        "name": "עיריית שדרות",
+        "latitude": 31.5291901,
+        "longitude": 34.5853237
+      },
+      "destination": {
+        "name": "עיריית רחובות",
+        "latitude": 31.8941847,
+        "longitude": 34.8054123
+      },
+      "description": "שלטי שדרה",
+      "sourceContact": {
+        "fullName": "קובי הקבלן",
+        "phoneNumber": "+972-50-1234567"
+      },
+      "destinationContact": {
+        "fullName": "קובי הפקיד",
+        "phoneNumber": "+972-54-2344567"
+      },
+      "time": "2026-01-02 20:32",
+      "status": "delivered",
+      "carType": "trailer",
+      "comments": [],
+      "driverUid": "dulapip_uid"
+    },
+    {
+      "id": "cl1",
+      "source": {
+        "name": "מנורה מבטחים",
+        "latitude": 32.0612954,
+        "longitude": 34.7888054
+      },
+      "destination": {
+        "name": "פסטיגל אקספו תל אביב",
+        "latitude": 32.1048559,
+        "longitude": 34.8095724
+      },
+      "description": "מייבש שיער דייסון",
+      "sourceContact": {
+        "fullName": "מרגי",
+        "phoneNumber": "+972-50-1112222"
+      },
+      "destinationContact": {
+        "fullName": "נועה",
+        "phoneNumber": "+972-54-2221111"
+      },
+      "time": "2026-01-02 20:32",
+      "status": "cancelled",
+      "carType": "trailer",
+      "comments": [],
+      "driverUid": "dulapip_uid",
+      "cancellationReason": "נפרדו :("
+    }
+  ],
+  "driverUsers": [
+    {
+      "uid": "haim_uid",
+      "email": "haim@email.com",
+      "name": "חיים חג'בי",
+      "phone": "+972-50-9998888",
+      "role": "driver",
+      "driverProfile": {
+        "carType": "trailer"
+      }
+    },
+    {
+      "uid": "dulapip_uid",
+      "email": "dula@email.com",
+      "name": "דואה ליפה",
+      "phone": "+972-50-1118888",
+      "role": "driver",
+      "driverProfile": {
+        "carType": "truck"
+      }
+    }
+  ]
 }

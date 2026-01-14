@@ -1,2 +1,12 @@
 Frontend/hamal_transport_app/macos/Flutter/GeneratedPluginRegistrant.swift
 .vscode/
+
+# Firebase service account keys
+serviceAccountKey.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env

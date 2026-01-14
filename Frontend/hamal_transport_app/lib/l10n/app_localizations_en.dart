@@ -12,10 +12,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'Hamal Transport';
 
   @override
-  String get activeMissions => 'Active Missions';
+  String get activeMissions => 'My Missions';
 
   @override
-  String get availableMissions => 'Available Missions';
+  String get availableMissions => 'Available';
+
+  @override
+  String get pickedUpMissions => 'Picked Up Missions';
+
+  @override
+  String get readyForPickUpMissions => 'Assigned';
+
+  @override
+  String get deliveredMissions => 'Delivered Missions';
+
+  @override
+  String get cancelledMissions => 'Cancelled Missions';
 
   @override
   String get callDesk => 'Call Hamal';
@@ -197,12 +209,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get menuPickedUpFilter => 'Picked up';
 
   @override
-  String get chosenFilter => '\'Chosen\' missions';
-
-  @override
-  String get pickedUpFilter => '\'Picked up\' missions';
-
-  @override
   String get cancellationReason => 'Cancellation Reason';
 
   @override
@@ -244,6 +250,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get editCommentTitle => 'Edit Comment';
 
   @override
+  String get editMission => 'Edit mission';
+
+  @override
   String get carType => 'Car Type';
 
   @override
@@ -279,6 +288,30 @@ class AppLocalizationsEn extends AppLocalizations {
       'Password reset email sent! Check your inbox.';
 
   @override
+  String get drivers => 'Drivers';
+
+  @override
+  String get searchDriver => 'Search driver';
+
+  @override
+  String get noDrivers => 'No drivers found';
+
+  @override
+  String get allCarTypes => 'Show all car types';
+
+  @override
+  String get privateOnly => 'Show only private car drivers';
+
+  @override
+  String get pickupOnly => 'Show only pickup car drivers';
+
+  @override
+  String get trailerOnly => 'Show only trailer car drivers';
+
+  @override
+  String get truckOnly => 'Show only truck drivers';
+
+  @override
   String get mapView => 'Map View';
 
   @override
@@ -301,6 +334,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profile => 'Profile';
+
+  @override
+  String get driverList => 'Driver List';
 
   @override
   String get hamalWarehouse => 'Hamal Warehouse';
@@ -328,9 +364,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get hebrew => 'Hebrew';
-
-  @override
-  String get quickActions => 'Quick Actions';
 
   @override
   String get contactUs => 'Contact Us';

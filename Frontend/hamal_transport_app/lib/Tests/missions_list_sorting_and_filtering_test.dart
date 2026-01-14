@@ -7,6 +7,14 @@ import 'package:hamal_transport_app/Models/mission_list_type.dart';
 import 'package:hamal_transport_app/Services/Fake/fake_authentication_service.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
 import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
+import 'package:mockito/mockito.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+class MockUser extends Mock implements User {
+  @override
+  final String uid;
+  MockUser({required this.uid});
+}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -19,26 +27,25 @@ void main() {
     late MissionsRepository repository;
     late MissionsListViewModel myVM;
 
-    setUp(() {
-      repository = MissionsRepository(
-        myMissionsList: sampleMissions,
-        availableMissionsList: availableMissions,
-        authService: FakeAuthenticationService(),
-      );
+    setUp(() async {
+      await initializeMockData();
+      final authService = FakeAuthenticationService();
+      authService.mockUser = MockUser(uid: 'test-user-uid');
+
+      // Update sample missions to match the mock user for "My Missions" tests
+      for (var m in sampleMissions) {
+        m.driverUid = 'test-user-uid';
+      }
+
+      repository = MissionsRepository(authService: authService);
       myVM = MissionsListViewModel(
         repository: repository,
         type: MissionListType.myMissions,
       );
 
       // Mutate mock data statuses for filtering tests
-      // Note: sampleMissions is a global mock list, so we might be modifying it for other tests if not careful.
-      // But setUp runs before each test.
-      // However, modifying objects inside the list persists if the list objects are shared.
-      // For safety, let's just assert on what we have or ensure repository creates copies (it doesn't, it takes the list ref).
-      // Assuming mock data is reset or we just set it here.
-      // Let's manually ensure state for these tests.
-      sampleMissions[0].status = MissionStatus.chosen;
-      sampleMissions[1].status = MissionStatus.chosen;
+      sampleMissions[0].status = MissionStatus.assigned;
+      sampleMissions[1].status = MissionStatus.assigned;
       sampleMissions[2].status = MissionStatus.pickedUp;
     });
 
@@ -80,11 +87,11 @@ void main() {
       expect(missions.first.time.isBefore(missions.last.time), true);
     });
 
-    test('filter chosen only', () {
-      myVM.filterBy(FilterBy.chosenOnly);
+    test('filter assigned only', () {
+      myVM.filterBy(FilterBy.assignedOnly);
 
       final missions = myVM.missions;
-      expect(missions.every((m) => m.status == MissionStatus.chosen), true);
+      expect(missions.every((m) => m.status == MissionStatus.assigned), true);
     });
 
     test('filter picked up only', () {
@@ -95,17 +102,17 @@ void main() {
     });
 
     test('combined filter + sort', () {
-      myVM.filterBy(FilterBy.chosenOnly);
+      myVM.filterBy(FilterBy.assignedOnly);
       myVM.sortBy(SortBy.timeOldestFirst);
 
       final missions = myVM.missions;
-      // Depending on how many chosen missions are there. Based on setUp line 30-32:
-      // index 0: chosen
-      // index 1: chosen
+      // Depending on how many assigned missions are there. Based on setUp line 30-32:
+      // index 0: assigned
+      // index 1: assigned
       // index 2: pickedUp
       // sampleMissions has more items probably.
       // checking length might be brittle if sampleMissions changes size.
-      // But let's assume at least 2 are chosen.
+      // But let's assume at least 2 are assigned.
       expect(missions.length >= 2, true);
       expect(missions.first.time.isBefore(missions.last.time), true);
     });
@@ -116,11 +123,7 @@ void main() {
     late MissionsListViewModel availVM;
 
     setUp(() {
-      repository = MissionsRepository(
-        myMissionsList: sampleMissions,
-        availableMissionsList: availableMissions,
-        authService: FakeAuthenticationService(),
-      );
+      repository = MissionsRepository(authService: FakeAuthenticationService());
       availVM = MissionsListViewModel(
         repository: repository,
         type: MissionListType.availableMissions,
