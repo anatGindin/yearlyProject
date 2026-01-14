@@ -14,7 +14,9 @@ class MissionsRepository extends ChangeNotifier {
         ...sampleMissions,
         ...availableMissions,
         ...adminMissions,
-      ];
+      ] {
+    prefetchRouteInfo();
+  }
 
   List<Mission> getMissions(MissionListType type) {
     switch (type) {

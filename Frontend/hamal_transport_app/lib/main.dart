@@ -43,8 +43,6 @@ class MyApp extends StatelessWidget {
           update: (context, authService, previous) {
             if (previous == null) {
               final repo = MissionsRepository(authService: authService);
-              // Pre-fetch route info for all missions so it's instantly available
-              repo.prefetchRouteInfo();
               return repo;
             }
             return previous;

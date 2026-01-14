@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hamal_transport_app/Models/contact.dart';
+import 'package:hamal_transport_app/Models/user_profile.dart';
 import 'package:hamal_transport_app/ViewModels/contact_vm.dart';
 import 'package:hamal_transport_app/ViewModels/mission_view_model.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
@@ -67,8 +69,12 @@ class _MissionScreenState extends State<MissionScreen> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    // TODO: Add driver info
+                    if (!missionVM.isDriver &&
+                        missionVM.mission.driverUid != null)
+                      const SizedBox(height: 16),
+                    if (!missionVM.isDriver &&
+                        missionVM.mission.driverUid != null)
+                      _buildDriverInfo(missionVM),
                     const SizedBox(height: 16),
                     InfoRow(
                       icon: Icons.person,
@@ -577,5 +583,41 @@ class _MissionScreenState extends State<MissionScreen> {
         ),
       );
     }
+  }
+
+  Widget _buildDriverInfo(MissionViewModel missionVM) {
+    return FutureBuilder<UserProfile?>(
+      future: missionVM.driverProfileFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Padding(
+            padding: EdgeInsets.symmetric(vertical: 8.0),
+            child: Center(
+              child: SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              ),
+            ),
+          );
+        }
+
+        final userProfile = snapshot.data;
+        if (userProfile == null) {
+          return const SizedBox.shrink();
+        }
+
+        final contact = Contact(
+          fullName: userProfile.name,
+          phoneNumber: userProfile.phone,
+        );
+
+        return InfoRow(
+          icon: Icons.person,
+          label: l10n.driver,
+          child: ContactInfoActionable(vm: ContactViewModel(contact)),
+        );
+      },
+    );
   }
 }

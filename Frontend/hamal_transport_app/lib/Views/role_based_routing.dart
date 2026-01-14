@@ -83,7 +83,7 @@ Widget getDestinationForRole(UserRole role) {
                     tabs: [
                       MissionTabConfig(
                         title: l10n.availableMissions,
-                        icon: Icons.assignment_turned_in,
+                        icon: Icons.pending,
                         viewModel: MissionsListViewModel(
                           repository: repository,
                           type: MissionListType.availableMissions,
@@ -92,7 +92,7 @@ Widget getDestinationForRole(UserRole role) {
                       ),
                       MissionTabConfig(
                         title: l10n.readyForPickUpMissions,
-                        icon: Icons.heart_broken,
+                        icon: Icons.assignment_turned_in,
                         viewModel: MissionsListViewModel(
                           repository: repository,
                           type: MissionListType.assignedMissions,
@@ -101,7 +101,7 @@ Widget getDestinationForRole(UserRole role) {
                       ),
                       MissionTabConfig(
                         title: l10n.pickedUpMissions,
-                        icon: Icons.favorite,
+                        icon: Icons.local_shipping,
                         viewModel: MissionsListViewModel(
                           repository: repository,
                           type: MissionListType.pickedUpMissions,
@@ -110,7 +110,7 @@ Widget getDestinationForRole(UserRole role) {
                       ),
                       MissionTabConfig(
                         title: l10n.cancelledMissions,
-                        icon: Icons.sentiment_very_dissatisfied,
+                        icon: Icons.cancel,
                         viewModel: MissionsListViewModel(
                           repository: repository,
                           type: MissionListType.cancelledMissions,

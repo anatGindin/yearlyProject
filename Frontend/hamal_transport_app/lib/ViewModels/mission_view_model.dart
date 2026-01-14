@@ -18,6 +18,15 @@ class MissionViewModel extends ChangeNotifier {
 
   void _initUserRole() async {
     final authService = AuthenticationService();
+
+    // Try to load from cache first to avoid UI flickering
+    if (authService.currentUserProfile != null) {
+      userRole = authService.currentUserProfile!.role;
+      isLoading = false;
+      notifyListeners();
+      return;
+    }
+
     if (authService.currentUser != null) {
       final profile = await authService.getUserProfile(
         authService.currentUser!,
@@ -26,6 +35,17 @@ class MissionViewModel extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
     }
+  }
+
+  Future<UserProfile?>? _driverProfileFuture;
+
+  Future<UserProfile?> get driverProfileFuture {
+    if (_driverProfileFuture == null && mission.driverUid != null) {
+      _driverProfileFuture = AuthenticationService().getUserProfileByUid(
+        mission.driverUid!,
+      );
+    }
+    return _driverProfileFuture ?? Future.value(null);
   }
 
   MissionStatus status() {
