@@ -8,3 +8,4 @@ uvicorn[standard]>=0.20.0
 # Optional (install if you plan to load .env files or use caching)
 # python-dotenv
 # cachetools
+firebase-admin>=6.2.0
