@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 /// The [AppTheme] defines light and dark themes for the app.
 ///
@@ -21,6 +22,7 @@ abstract final class AppTheme {
   static const Color _hamalBlue = Color.fromRGBO(54, 70, 121, 1.0);
   static const Color _happyBlue = Color.fromRGBO(102, 176, 250, 1.0);
   static ThemeData light = ThemeData(
+    textTheme: GoogleFonts.heeboTextTheme(),
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppTheme._hamalBlue,
       primary: _hamalBlue,
@@ -52,6 +54,9 @@ abstract final class AppTheme {
 
   // The FlexColorScheme defined dark mode ThemeData.
   static ThemeData dark = ThemeData(
+    textTheme: GoogleFonts.heeboTextTheme(
+      ThemeData(brightness: Brightness.dark).textTheme,
+    ),
     colorScheme: ColorScheme.fromSeed(
       seedColor: _happyBlue,
       brightness: Brightness.dark,
