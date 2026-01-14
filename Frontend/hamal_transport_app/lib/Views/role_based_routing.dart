@@ -19,7 +19,7 @@ import '../Models/user_profile.dart';
 /// - Drivers go to MainPage
 /// - Logistics users go to DriverPage showing driver from missions
 /// - Admin users go to UserProfilePage
-Widget getDestinationForRole(UserRole role, BuildContext context) {
+Widget getDestinationForRole(UserRole role) {
   switch (role) {
     case UserRole.driver:
       return ChangeNotifierProvider(
@@ -37,7 +37,6 @@ Widget getDestinationForRole(UserRole role, BuildContext context) {
                         title: l10n.activeMissions,
                         icon: Icons.assignment_turned_in,
                         viewModel: MissionsListViewModel(
-                          context: context,
                           type: MissionListType.myMissions,
                         ),
                       ),
@@ -45,7 +44,6 @@ Widget getDestinationForRole(UserRole role, BuildContext context) {
                         title: l10n.availableMissions,
                         icon: Icons.add_circle_outline,
                         viewModel: MissionsListViewModel(
-                          context: context,
                           type: MissionListType.availableMissions,
                           allowedFilterOptions: const [FilterBy.noFilter],
                         ),
@@ -71,7 +69,7 @@ Widget getDestinationForRole(UserRole role, BuildContext context) {
       );
     case UserRole.logistics:
       // Get the first driver UID from the missions repository
-      final missionsRepo = context.read<MissionsRepository>();
+      final missionsRepo = MissionsRepository();
       final allMissions = missionsRepo.getMissions(MissionListType.allMissions);
 
       // Find first mission with a driver assigned
@@ -84,8 +82,7 @@ Widget getDestinationForRole(UserRole role, BuildContext context) {
           missionWithDriver.driverUid ?? 'I9ivZ6H8pYWoDkeb2wybbKXgxWE2';
 
       return ChangeNotifierProvider(
-        create: (context) =>
-            DriverViewModel(driverUid: driverUid, context: context),
+        create: (_) => DriverViewModel(driverUid: driverUid),
         child: const DriverPage(),
       );
     case UserRole.admin:

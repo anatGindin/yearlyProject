@@ -19,12 +19,11 @@ class MissionsListViewModel extends ChangeNotifier {
   Location? _userLocation;
 
   MissionsListViewModel({
-    BuildContext? context,
     MissionsRepository? repository,
     required MissionListType type,
     this.allowedSortOptions = SortBy.values,
     this.allowedFilterOptions = FilterBy.values,
-  }) : _repository = repository ?? context!.read<MissionsRepository>(),
+  }) : _repository = repository ?? MissionsRepository(),
        _type = type {
     _repository.addListener(notifyListeners);
 

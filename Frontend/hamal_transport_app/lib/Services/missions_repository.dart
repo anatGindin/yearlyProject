@@ -4,16 +4,42 @@ import 'package:hamal_transport_app/Models/mission_list_type.dart';
 import 'package:hamal_transport_app/Services/authentication_service.dart';
 
 class MissionsRepository extends ChangeNotifier {
+  static MissionsRepository? _instance;
+
   final List<Mission> _myMissionsList;
   final List<Mission> _availableMissionsList;
   final AuthenticationService authService;
 
-  MissionsRepository({
+  MissionsRepository._internal({
     required List<Mission> myMissionsList,
     required List<Mission> availableMissionsList,
     required this.authService,
   }) : _myMissionsList = myMissionsList,
        _availableMissionsList = availableMissionsList;
+
+  factory MissionsRepository({
+    List<Mission>? myMissionsList,
+    List<Mission>? availableMissionsList,
+    AuthenticationService? authService,
+  }) {
+    // If called with actual data, force update the singleton
+    if ((myMissionsList != null && myMissionsList.isNotEmpty) ||
+        (availableMissionsList != null && availableMissionsList.isNotEmpty)) {
+      _instance = MissionsRepository._internal(
+        myMissionsList: myMissionsList ?? [],
+        availableMissionsList: availableMissionsList ?? [],
+        authService: authService ?? AuthenticationService(),
+      );
+    } else {
+      // Otherwise create if doesn't exist
+      _instance ??= MissionsRepository._internal(
+        myMissionsList: [],
+        availableMissionsList: [],
+        authService: authService ?? AuthenticationService(),
+      );
+    }
+    return _instance!;
+  }
 
   List<Mission> getMissions(MissionListType type) {
     switch (type) {

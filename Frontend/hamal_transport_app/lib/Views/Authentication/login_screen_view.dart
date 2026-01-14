@@ -214,7 +214,6 @@ class _LoginContentState extends State<_LoginContent> {
                                               builder: (context) =>
                                                   getDestinationForRole(
                                                     userProfile.role,
-                                                    context,
                                                   ),
                                             ),
                                           );

@@ -16,12 +16,10 @@ class DriverViewModel extends ChangeNotifier {
 
   DriverViewModel({
     required this.driverUid,
-    BuildContext? context,
     AuthenticationService? authService,
     MissionsRepository? missionsRepository,
-  }) : _authService = authService ?? context!.read<AuthenticationService>(),
-       _missionsRepository =
-           missionsRepository ?? context!.read<MissionsRepository>() {
+  }) : _authService = authService ?? AuthenticationService(),
+       _missionsRepository = missionsRepository ?? MissionsRepository() {
     _loadDriverProfile();
   }
 
