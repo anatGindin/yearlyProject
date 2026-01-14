@@ -232,6 +232,36 @@ class AuthenticationService {
       throw AuthenticationError.databaseError;
     }
   }
+
+  Future<List<UserProfile>> getAllDrivers() async {
+    try {
+      final snapshot = await usersRef
+          .orderByChild('role')
+          .equalTo(UserRole.driver.name)
+          .get();
+
+      if (!snapshot.exists || snapshot.value == null) {
+        return [];
+      }
+
+      final Map<dynamic, dynamic> values =
+          snapshot.value as Map<dynamic, dynamic>;
+      List<UserProfile> drivers = [];
+
+      values.forEach((key, value) {
+        if (value is Map) {
+          final userMap = Map<String, dynamic>.from(value);
+          userMap['uid'] = key;
+          drivers.add(UserProfile.fromDictionary(userMap));
+        }
+      });
+
+      return drivers;
+    } catch (e) {
+      print("Database Error: $e");
+      throw AuthenticationError.databaseError;
+    }
+  }
 }
 
 enum AuthenticationError {

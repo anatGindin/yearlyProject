@@ -46,67 +46,19 @@ class DriverPhoneBookViewModel extends ChangeNotifier {
   }
 
   Future<void> _getUsers() async {
-    //TODO: get users from the backhand
     _isLoading = true;
+    notifyListeners();
     final authService = AuthenticationService();
-    UserProfile? driverProfile;
     try {
-      driverProfile = await authService.getUserProfileByUid(
-        "I9ivZ6H8pYWoDkeb2wybbKXgxWE2",
-      );
+      final drivers = await authService.getAllDrivers();
+      _allUsers.clear();
+      _allUsers.addAll(drivers);
     } catch (e) {
-      driverProfile = null;
+      debugPrint('Error fetching drivers: $e');
     } finally {
-      if (driverProfile != null) {
-        _allUsers.add(driverProfile);
-      }
-    }
-    try {
-      driverProfile = await authService.getUserProfileByUid(
-        "QQPq3Ww6ZcQsLwiLxESb5lMj7it1",
-      );
-    } catch (e) {
-      driverProfile = null;
-    } finally {
-      if (driverProfile != null) {
-        _allUsers.add(driverProfile);
-      }
-    }
-    try {
-      driverProfile = await authService.getUserProfileByUid(
-        "MFdpfMkvRxVTKJFMwkvaibFTocy1",
-      );
-    } catch (e) {
-      driverProfile = null;
-    } finally {
-      if (driverProfile != null) {
-        _allUsers.add(driverProfile);
-      }
-    }
-    try {
-      driverProfile = await authService.getUserProfileByUid(
-        "nTaztLupVDeL3RJGd5EvVWzc4Fr2",
-      );
-    } catch (e) {
-      driverProfile = null;
-    } finally {
-      if (driverProfile != null) {
-        _allUsers.add(driverProfile);
-      }
-    }
-    try {
-      driverProfile = await authService.getUserProfileByUid(
-        "tTRvyduHWwM5fc5uMPXenxEaaGj2",
-      );
-    } catch (e) {
-      driverProfile = null;
-    } finally {
-      if (driverProfile != null) {
-        _allUsers.add(driverProfile);
-      }
+      _isLoading = false;
       notifyListeners();
     }
-    _isLoading = false;
   }
 
   String getFilterBy(AppLocalizations l10n, CarType? option) {
