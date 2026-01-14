@@ -9,14 +9,12 @@ class DriverPhoneBookViewModel extends ChangeNotifier {
   List<CarType?> allowedFilterOptions = [null, ...CarType.values];
 
   String _query = '';
-  bool _ascending = true;
 
   DriverPhoneBookViewModel() {
     _getUsers();
   }
 
   String get query => _query;
-  bool get ascending => _ascending;
 
   List<UserProfile> get drivers {
     final filtered = _allUsers
@@ -32,11 +30,8 @@ class DriverPhoneBookViewModel extends ChangeNotifier {
               u.phone.contains(_query),
         )
         .toList();
-
-    filtered.sort(
-      (a, b) =>
-          _ascending ? a.name.compareTo(b.name) : b.name.compareTo(a.name),
-    );
+    // always sort alphabetically
+    filtered.sort((a, b) => a.name.compareTo(b.name));
 
     return filtered;
   }
@@ -45,11 +40,6 @@ class DriverPhoneBookViewModel extends ChangeNotifier {
 
   void updateQuery(String value) {
     _query = value;
-    notifyListeners();
-  }
-
-  void toggleSortOrder() {
-    _ascending = !_ascending;
     notifyListeners();
   }
 
