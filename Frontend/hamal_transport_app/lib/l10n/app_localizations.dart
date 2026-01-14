@@ -644,6 +644,54 @@ abstract class AppLocalizations {
   /// **'Password reset email sent! Check your inbox.'**
   String get passwordResetSent;
 
+  /// label of drivers destination in the nav bar
+  ///
+  /// In en, this message translates to:
+  /// **'Drivers'**
+  String get drivers;
+
+  /// hintText of search driver TextField
+  ///
+  /// In en, this message translates to:
+  /// **'Search driver'**
+  String get searchDriver;
+
+  /// message when there are no drivers for the drivers page
+  ///
+  /// In en, this message translates to:
+  /// **'No drivers found'**
+  String get noDrivers;
+
+  /// label of All car types filter in drivers page
+  ///
+  /// In en, this message translates to:
+  /// **'Show all car types'**
+  String get allCarTypes;
+
+  /// label of private car types filter in drivers page
+  ///
+  /// In en, this message translates to:
+  /// **'Show only private car drivers'**
+  String get privateOnly;
+
+  /// label of pickup car types filter in drivers page
+  ///
+  /// In en, this message translates to:
+  /// **'Show only pickup car drivers'**
+  String get pickupOnly;
+
+  /// label of trailer car types filter in drivers page
+  ///
+  /// In en, this message translates to:
+  /// **'Show only trailer car drivers'**
+  String get trailerOnly;
+
+  /// label of truck types filter in drivers page
+  ///
+  /// In en, this message translates to:
+  /// **'Show only truck drivers'**
+  String get truckOnly;
+
   /// Button or title for Map View
   ///
   /// In en, this message translates to:

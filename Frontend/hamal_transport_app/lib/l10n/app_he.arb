@@ -368,6 +368,38 @@
   "@passwordResetSent": {
     "description": "הודעת הצלחה כששליחת אימייל לאיפוס סיסמה הצליחה"
   },
+  "drivers": "נהגים",
+  "@drivers": {
+    "description": "תווית טאב הנהגים בסרגל הניווט"
+  },
+  "searchDriver": "חפש נהג",
+  "@searchDriver": {
+    "description": "טקסט הסבר באופציית חיפוש נהג"
+  },
+  "noDrivers": "לא נמצאו נהגים",
+  "@noDrivers": {
+    "description": "הודעה כאשר אין נהגים בדף הנהגים"
+  },
+  "allCarTypes": "הצג את כל סוגי הרכבים",
+  "@allCarTypes": {
+    "description": "תווית אופצית הסינון הצג את כל סוגי הרכבים"
+  },
+  "privateOnly": "הצג רק נהגים עם רכב פרטי",
+  "@privateOnly": {
+    "description": "תווית אופצית הסינון רכב פרטי"
+  },
+  "pickupOnly": "הצג רק נהגים עם טנדר",
+  "@pickupOnly": {
+    "description": "תווית אופצית הסינון טנדר"
+  },
+  "trailerOnly": "הצג רק נהגים עם נגרר",
+  "@trailerOnly": {
+    "description": "תווית אופצית הסינון נגרר"
+  },
+  "truckOnly": "הצג רק נהגים עם משאית",
+  "@truckOnly": {
+    "description": "תווית אופצית הסינון משאית"
+  },
   "mapView": "מפה",
   "@mapView": {
     "description": "כפתור או כותרת לתצוגת מפה"

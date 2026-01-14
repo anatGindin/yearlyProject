@@ -4,6 +4,7 @@ import 'package:hamal_transport_app/Models/missions_model.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
 import 'package:hamal_transport_app/ViewModels/map_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
+import 'package:hamal_transport_app/Views/driver_phone_book_screen.dart';
 import 'package:hamal_transport_app/Views/map_view.dart';
 import 'package:hamal_transport_app/Views/navigation_bar_wrapper.dart';
 import 'package:hamal_transport_app/Views/missions_tabs_page.dart';
@@ -163,6 +164,10 @@ Widget getDestinationForRole(UserRole role) {
                   // context.read<MapViewModel>().initLocation(),
                   onExit: () => {},
                   // context.read<MapViewModel>().stopLocationUpdates(),
+                ),
+                const NavBarDestination(
+                  pageType: NavBarPageType.drivers,
+                  page: DriverPhoneBookScreen(),
                 ),
                 const NavBarDestination(
                   pageType: NavBarPageType.profile,
