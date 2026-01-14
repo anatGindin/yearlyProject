@@ -36,9 +36,7 @@ class _AuthGateState extends State<AuthGate> {
     );
     return ChangeNotifierProvider(
       create: (_) => UserProfileViewModel(userProfile),
-      child: Builder(
-        builder: (context) => getDestinationForRole(userProfile.role),
-      ),
+      child: getDestinationForRole(userProfile.role),
     );
   }
 

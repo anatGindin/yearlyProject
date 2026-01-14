@@ -210,11 +210,8 @@ class _LoginContentState extends State<_LoginContent> {
                                             create: (_) => UserProfileViewModel(
                                               userProfile,
                                             ),
-                                            child: Builder(
-                                              builder: (context) =>
-                                                  getDestinationForRole(
-                                                    userProfile.role,
-                                                  ),
+                                            child: getDestinationForRole(
+                                              userProfile.role,
                                             ),
                                           );
                                         },
