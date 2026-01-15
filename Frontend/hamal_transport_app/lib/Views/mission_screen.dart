@@ -19,8 +19,13 @@ import '../Views/Widgets/info_row.dart';
 
 class MissionScreen extends StatefulWidget {
   final Mission mission;
+  final bool isReadOnly;
 
-  const MissionScreen({required this.mission, super.key});
+  const MissionScreen({
+    required this.mission,
+    this.isReadOnly = false,
+    super.key,
+  });
 
   @override
   State<MissionScreen> createState() => _MissionScreenState();

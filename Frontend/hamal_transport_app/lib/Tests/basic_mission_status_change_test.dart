@@ -48,17 +48,17 @@ void main() {
         m.status = MissionStatus.assigned;
       }
 
-      repository = MissionsRepository(authService: authService);
+      repository = MissionsRepository(
+        myMissionsList: [...sampleMissions],
+        availableMissionsList: [...availableMissions],
+        authService: authService,
+      );
 
       // Create ViewModels with initial state
       availableVM = MissionsListViewModel(
-        repository: repository,
         type: MissionListType.availableMissions,
       );
-      myVM = MissionsListViewModel(
-        repository: repository,
-        type: MissionListType.myMissions,
-      );
+      myVM = MissionsListViewModel(type: MissionListType.myMissions);
     });
 
     test('takeMission moves mission from available -> my missions', () {

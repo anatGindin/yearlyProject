@@ -469,6 +469,18 @@
   "contactUs": "Contact Us",
   "aboutUs": "About Us",
   "helpFaq": "Help & FAQ",
+  "driverPage": "Driver Page",
+  "@driverPage": {
+    "description": "Title for the driver page"
+  },
+  "source": "Source",
+  "@source": {
+    "description": "Source location label"
+  },
+  "destination": "Destination",
+  "@destination": {
+    "description": "Destination location label"
+  },
   "additionOf": "addition of {distance} {unit}",
   "@additionOf": {
     "description": "Text for additional distance on mission card",

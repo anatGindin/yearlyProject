@@ -24,7 +24,6 @@ void main() {
   });
 
   group('MissionsListViewModel (My Missions) Sorting & Filtering', () {
-    late MissionsRepository repository;
     late MissionsListViewModel myVM;
 
     setUp(() async {
@@ -37,11 +36,12 @@ void main() {
         m.driverUid = 'test-user-uid';
       }
 
-      repository = MissionsRepository(authService: authService);
-      myVM = MissionsListViewModel(
-        repository: repository,
-        type: MissionListType.myMissions,
+      MissionsRepository(
+        myMissionsList: [...sampleMissions],
+        availableMissionsList: [...availableMissions],
+        authService: authService,
       );
+      myVM = MissionsListViewModel(type: MissionListType.myMissions);
 
       // Mutate mock data statuses for filtering tests
       sampleMissions[0].status = MissionStatus.assigned;
@@ -119,15 +119,16 @@ void main() {
   });
 
   group('MissionsListViewModel (Available) Sorting & Filtering', () {
-    late MissionsRepository repository;
     late MissionsListViewModel availVM;
 
-    setUp(() {
-      repository = MissionsRepository(authService: FakeAuthenticationService());
-      availVM = MissionsListViewModel(
-        repository: repository,
-        type: MissionListType.availableMissions,
+    setUp(() async {
+      await initializeMockData();
+      MissionsRepository(
+        myMissionsList: [...sampleMissions],
+        availableMissionsList: [...availableMissions],
+        authService: FakeAuthenticationService(),
       );
+      availVM = MissionsListViewModel(type: MissionListType.availableMissions);
     });
 
     test('sort by furthest to closest', () {

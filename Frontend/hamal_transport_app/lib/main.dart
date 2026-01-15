@@ -20,6 +20,13 @@ void main() async {
   final prefsService = AppPreferencesService();
   await prefsService.init();
 
+  // Initialize MissionsRepository singleton with data before app starts
+  MissionsRepository(
+    myMissionsList: sampleMissions,
+    availableMissionsList: availableMissions,
+    authService: AuthenticationService(),
+  );
+
   runApp(MyApp(prefsService: prefsService));
 }
 
