@@ -818,6 +818,24 @@ abstract class AppLocalizations {
   /// **'Help & FAQ'**
   String get helpFaq;
 
+  /// Title for the driver page
+  ///
+  /// In en, this message translates to:
+  /// **'Driver Page'**
+  String get driverPage;
+
+  /// Source location label
+  ///
+  /// In en, this message translates to:
+  /// **'Source'**
+  String get source;
+
+  /// Destination location label
+  ///
+  /// In en, this message translates to:
+  /// **'Destination'**
+  String get destination;
+
   /// Text for additional distance on mission card
   ///
   /// In en, this message translates to:

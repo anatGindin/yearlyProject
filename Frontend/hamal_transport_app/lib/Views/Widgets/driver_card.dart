@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hamal_transport_app/Views/under_construction_page.dart';
+import 'package:hamal_transport_app/Views/driver_page.dart';
 import '../../Models/user_profile.dart';
 import '../../l10n/app_localizations.dart';
 import 'driver_card_base.dart';
@@ -17,10 +17,9 @@ class DriverCard extends StatelessWidget {
     ).textTheme.bodyMedium!.color!.withValues(alpha: 0.6);
 
     return DriverCardBase(
-      //TODO: put real driver page
-      onTap: () => Navigator.of(
-        context,
-      ).push(MaterialPageRoute(builder: (_) => const UnderConstructionPage())),
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => DriverPage(driverProfile: driver)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
