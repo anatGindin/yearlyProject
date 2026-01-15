@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Services/navigation_controller.dart';
-import 'package:hamal_transport_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class NavigationBarWrapper extends StatefulWidget {
@@ -174,40 +173,6 @@ class _KeepAliveNavigatorState extends State<_KeepAliveNavigator>
       key: widget.navigatorKey,
       onGenerateRoute: (_) => MaterialPageRoute(builder: (_) => widget.page),
     );
-  }
-}
-
-enum NavBarPageType {
-  missions,
-  mapView,
-  profile,
-  drivers;
-
-  String getLabel(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    switch (this) {
-      case NavBarPageType.missions:
-        return l10n.missions;
-      case NavBarPageType.mapView:
-        return l10n.map;
-      case NavBarPageType.profile:
-        return l10n.profile;
-      case NavBarPageType.drivers:
-        return l10n.drivers;
-    }
-  }
-
-  IconData getIcon() {
-    switch (this) {
-      case NavBarPageType.missions:
-        return Icons.list;
-      case NavBarPageType.mapView:
-        return Icons.map;
-      case NavBarPageType.profile:
-        return Icons.person;
-      case NavBarPageType.drivers:
-        return Icons.drive_eta;
-    }
   }
 }
 

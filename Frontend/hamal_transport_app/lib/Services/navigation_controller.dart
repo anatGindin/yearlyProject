@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../Views/navigation_bar_wrapper.dart';
+import 'package:hamal_transport_app/l10n/app_localizations.dart';
 
 class MainNavigationController extends ChangeNotifier {
   NavBarPageType? _requestedPageType;
@@ -13,5 +13,39 @@ class MainNavigationController extends ChangeNotifier {
 
   void consumeRequest() {
     _requestedPageType = null;
+  }
+}
+
+enum NavBarPageType {
+  missions,
+  mapView,
+  profile,
+  drivers;
+
+  String getLabel(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    switch (this) {
+      case NavBarPageType.missions:
+        return l10n.missions;
+      case NavBarPageType.mapView:
+        return l10n.map;
+      case NavBarPageType.profile:
+        return l10n.profile;
+      case NavBarPageType.drivers:
+        return l10n.drivers;
+    }
+  }
+
+  IconData getIcon() {
+    switch (this) {
+      case NavBarPageType.missions:
+        return Icons.list;
+      case NavBarPageType.mapView:
+        return Icons.map;
+      case NavBarPageType.profile:
+        return Icons.person;
+      case NavBarPageType.drivers:
+        return Icons.drive_eta;
+    }
   }
 }

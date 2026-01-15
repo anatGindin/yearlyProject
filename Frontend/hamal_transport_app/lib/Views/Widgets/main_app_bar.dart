@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../Services/authentication_service.dart';
 import '../../Services/navigation_controller.dart';
-import '../navigation_bar_wrapper.dart';
 import 'user_avatar.dart';
 
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
