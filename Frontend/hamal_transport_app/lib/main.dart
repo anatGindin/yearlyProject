@@ -20,13 +20,6 @@ void main() async {
   final prefsService = AppPreferencesService();
   await prefsService.init();
 
-  // Initialize MissionsRepository singleton with data before app starts
-  MissionsRepository(
-    myMissionsList: sampleMissions,
-    availableMissionsList: availableMissions,
-    authService: AuthenticationService(),
-  );
-
   runApp(MyApp(prefsService: prefsService));
 }
 
@@ -43,17 +36,8 @@ class MyApp extends StatelessWidget {
           value: prefsService,
         ),
         Provider<AuthenticationService>(create: (_) => AuthenticationService()),
-        ChangeNotifierProxyProvider<AuthenticationService, MissionsRepository>(
-          create: (context) => MissionsRepository(
-            authService: context.read<AuthenticationService>(),
-          ),
-          update: (context, authService, previous) {
-            if (previous == null) {
-              final repo = MissionsRepository(authService: authService);
-              return repo;
-            }
-            return previous;
-          },
+        ChangeNotifierProvider<MissionsRepository>(
+          create: (context) => MissionsRepository(),
         ),
 
         Provider<LocationService>(create: (_) => LocationService()),

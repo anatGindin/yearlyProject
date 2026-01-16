@@ -1,4 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:hamal_transport_app/Services/missions_repository.dart';
+import 'package:hamal_transport_app/Constants/mock_data.dart';
 import '../Services/authentication_service.dart';
 import '../Models/user_profile.dart';
 
@@ -46,6 +48,14 @@ class LoginScreenViewModel extends ChangeNotifier {
         password: password,
         rememberMe: _rememberMe,
       );
+
+      // Initialize missions after login
+      MissionsRepository(authService: _authService).setMissions([
+        ...sampleMissions,
+        ...availableMissions,
+        ...adminMissions,
+      ]);
+
       _isLoading = false;
       notifyListeners();
       return userProfile;
