@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hamal_transport_app/l10n/app_localizations.dart';
+import 'package:hamal_transport_app/Services/navigation_controller.dart';
+import 'package:provider/provider.dart';
 
 class NavigationBarWrapper extends StatefulWidget {
   const NavigationBarWrapper({super.key, required this.allDestinations});
@@ -13,6 +14,7 @@ class NavigationBarWrapper extends StatefulWidget {
 class _NavigationBarWrapperState extends State<NavigationBarWrapper>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
+  late final MainNavigationController _navigationController;
 
   late final List<GlobalKey<NavigatorState>> navigatorKeys;
 
@@ -66,6 +68,28 @@ class _NavigationBarWrapperState extends State<NavigationBarWrapper>
 
       _lastActiveIndex = newIndex;
     });
+
+    // Listen to global navigation requests
+    _navigationController = context.read<MainNavigationController>();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _navigationController.addListener(_handleNavigationRequest);
+    });
+  }
+
+  void _handleNavigationRequest() {
+    if (!mounted) return;
+    final controller = _navigationController;
+    final requestedType = controller.requestedPageType;
+
+    if (requestedType != null) {
+      final index = widget.allDestinations.indexWhere(
+        (d) => d.pageType == requestedType,
+      );
+      if (index != -1) {
+        _onTabSelected(index);
+      }
+      controller.consumeRequest();
+    }
   }
 
   // runs only on user tap on nav bar
@@ -83,6 +107,7 @@ class _NavigationBarWrapperState extends State<NavigationBarWrapper>
 
   @override
   void dispose() {
+    _navigationController.removeListener(_handleNavigationRequest);
     _tabController.dispose();
     super.dispose();
   }
@@ -149,40 +174,6 @@ class _KeepAliveNavigatorState extends State<_KeepAliveNavigator>
       key: widget.navigatorKey,
       onGenerateRoute: (_) => MaterialPageRoute(builder: (_) => widget.page),
     );
-  }
-}
-
-enum NavBarPageType {
-  missions,
-  mapView,
-  profile,
-  drivers;
-
-  String getLabel(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    switch (this) {
-      case NavBarPageType.missions:
-        return l10n.missions;
-      case NavBarPageType.mapView:
-        return l10n.map;
-      case NavBarPageType.profile:
-        return l10n.profile;
-      case NavBarPageType.drivers:
-        return l10n.drivers;
-    }
-  }
-
-  IconData getIcon() {
-    switch (this) {
-      case NavBarPageType.missions:
-        return Icons.list;
-      case NavBarPageType.mapView:
-        return Icons.map;
-      case NavBarPageType.profile:
-        return Icons.person;
-      case NavBarPageType.drivers:
-        return Icons.drive_eta;
-    }
   }
 }
 

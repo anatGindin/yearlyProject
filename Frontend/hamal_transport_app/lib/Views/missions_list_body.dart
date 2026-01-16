@@ -14,7 +14,7 @@ class MissionsListBody extends StatelessWidget {
     final viewModel = context.watch<MissionsListViewModel>();
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(

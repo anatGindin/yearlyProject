@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hamal_transport_app/Views/Widgets/list_action_button.dart';
+import 'package:hamal_transport_app/Views/Widgets/main_app_bar.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../ViewModels/driver_phone_book_view_model.dart';
@@ -26,37 +26,64 @@ class _DriverPhoneBookView extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.drivers),
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        surfaceTintColor: Colors.transparent,
-        scrolledUnderElevation: 0,
-      ),
+      appBar: MainAppBar(title: l10n.drivers),
       body: Column(
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: ListActionButton(
-                  icon: Icons.filter_alt,
-                  label: vm.getFilterBy(l10n, vm.filter),
-                  onPressed: () => _showFilterOptions(context),
-                  height: 0.1,
-                  width: 0.1,
+          Container(
+            color: Theme.of(context).colorScheme.primary,
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Column(
+              children: [
+                /// Search & Filter
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 8,
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: TextField(
+                      onChanged: vm.updateQuery,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      cursorColor: Theme.of(context).colorScheme.primary,
+                      decoration: InputDecoration(
+                        prefixIcon: SizedBox(
+                          width: 56,
+                          child: Icon(
+                            Icons.search,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                        suffixIcon: SizedBox(
+                          width: 56,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.filter_list,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            onPressed: () => _showFilterOptions(context),
+                          ),
+                        ),
+                        hintText: l10n.searchDriver,
+                        hintStyle: TextStyle(
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.primary.withAlpha(120),
+                        ),
+                        border: InputBorder.none,
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 12,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ],
-          ),
-
-          /// Search
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: TextField(
-              onChanged: vm.updateQuery,
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search),
-                hintText: l10n.searchDriver,
-              ),
+              ],
             ),
           ),
 

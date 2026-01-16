@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
 import 'package:hamal_transport_app/Models/missions_model.dart';
+import 'package:hamal_transport_app/Services/navigation_controller.dart';
 import 'package:hamal_transport_app/ViewModels/map_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
 import 'package:hamal_transport_app/Views/driver_phone_book_screen.dart';
@@ -65,6 +66,7 @@ Widget getDestinationForRole(UserRole role) {
           },
         ),
       );
+    case UserRole.admin:
     case UserRole.logistics:
       return ChangeNotifierProvider(
         create: (_) => MapViewModel(role: UserRole.logistics),
@@ -120,36 +122,6 @@ Widget getDestinationForRole(UserRole role) {
                     ],
                   ),
                 ),
-                NavBarDestination(
-                  pageType: NavBarPageType.mapView,
-                  page: const MapView(),
-                  // MARK: if we introduce location services on the map page for logisticians, uncomment the onEnter and onExit methods
-                  onEnter: () => {},
-                  // context.read<MapViewModel>().initLocation(),
-                  onExit: () => {},
-                  // context.read<MapViewModel>().stopLocationUpdates(),
-                ),
-                const NavBarDestination(
-                  pageType: NavBarPageType.drivers,
-                  page: DriverPhoneBookScreen(),
-                ),
-                const NavBarDestination(
-                  pageType: NavBarPageType.profile,
-                  page: UserProfilePage(),
-                ),
-              ],
-            );
-          },
-        ),
-      );
-    case UserRole.admin:
-      return ChangeNotifierProvider(
-        create: (_) => MapViewModel(role: UserRole.admin),
-        child: Builder(
-          builder: (context) {
-            return NavigationBarWrapper(
-              allDestinations: [
-                //TODO: add more pages for logistics
                 NavBarDestination(
                   pageType: NavBarPageType.mapView,
                   page: const MapView(),
