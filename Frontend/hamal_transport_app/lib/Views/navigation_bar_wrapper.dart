@@ -14,6 +14,7 @@ class NavigationBarWrapper extends StatefulWidget {
 class _NavigationBarWrapperState extends State<NavigationBarWrapper>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
+  late final MainNavigationController _navigationController;
 
   late final List<GlobalKey<NavigatorState>> navigatorKeys;
 
@@ -69,16 +70,15 @@ class _NavigationBarWrapperState extends State<NavigationBarWrapper>
     });
 
     // Listen to global navigation requests
+    _navigationController = context.read<MainNavigationController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<MainNavigationController>().addListener(
-        _handleNavigationRequest,
-      );
+      _navigationController.addListener(_handleNavigationRequest);
     });
   }
 
   void _handleNavigationRequest() {
     if (!mounted) return;
-    final controller = context.read<MainNavigationController>();
+    final controller = _navigationController;
     final requestedType = controller.requestedPageType;
 
     if (requestedType != null) {
@@ -107,6 +107,7 @@ class _NavigationBarWrapperState extends State<NavigationBarWrapper>
 
   @override
   void dispose() {
+    _navigationController.removeListener(_handleNavigationRequest);
     _tabController.dispose();
     super.dispose();
   }

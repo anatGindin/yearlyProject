@@ -31,6 +31,8 @@ class MissionsTabsPage extends StatefulWidget {
 class _MissionsTabsPageState extends State<MissionsTabsPage> {
   bool _canScrollStart = false;
   bool _canScrollEnd = false;
+  final scrollBarArrowAlpha = 100;
+  final scrollBarArrowBackgroundAlpha = 50;
 
   @override
   Widget build(BuildContext context) {
@@ -141,18 +143,17 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
                               end: AlignmentDirectional.centerEnd,
                               colors: [
                                 Theme.of(context).colorScheme.primary,
-                                Theme.of(
-                                  context,
-                                ).colorScheme.primary.withAlpha(50),
+                                Theme.of(context).colorScheme.primary.withAlpha(
+                                  scrollBarArrowBackgroundAlpha,
+                                ),
                               ],
                             ),
                           ),
                           child: Icon(
                             Icons.arrow_back_ios,
                             size: 16,
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.onPrimary.withAlpha(100),
+                            color: Theme.of(context).colorScheme.onPrimary
+                                .withAlpha(scrollBarArrowAlpha),
                           ),
                         ),
                       ),
@@ -172,9 +173,9 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
                               begin: AlignmentDirectional.centerStart,
                               end: AlignmentDirectional.centerEnd,
                               colors: [
-                                Theme.of(
-                                  context,
-                                ).colorScheme.primary.withAlpha(50),
+                                Theme.of(context).colorScheme.primary.withAlpha(
+                                  scrollBarArrowBackgroundAlpha,
+                                ),
                                 Theme.of(context).colorScheme.primary,
                               ],
                             ),
@@ -182,9 +183,8 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
                           child: Icon(
                             Icons.arrow_forward_ios,
                             size: 16,
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.onPrimary.withAlpha(100),
+                            color: Theme.of(context).colorScheme.onPrimary
+                                .withAlpha(scrollBarArrowAlpha),
                           ),
                         ),
                       ),
