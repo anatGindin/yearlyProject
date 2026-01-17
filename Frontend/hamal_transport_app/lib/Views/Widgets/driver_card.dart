@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Views/driver_page.dart';
 import '../../Models/user_profile.dart';
-import '../../l10n/app_localizations.dart';
 import 'driver_card_base.dart';
 
 class DriverCard extends StatelessWidget {
@@ -11,11 +10,6 @@ class DriverCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final mutedColor = Theme.of(
-      context,
-    ).textTheme.bodyMedium!.color!.withValues(alpha: 0.6);
-
     return DriverCardBase(
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(builder: (_) => DriverPage(driverProfile: driver)),

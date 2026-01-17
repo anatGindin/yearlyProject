@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hamal_transport_app/Models/contact.dart';
 import 'package:hamal_transport_app/Models/user_profile.dart';
 import 'package:hamal_transport_app/ViewModels/contact_vm.dart';
 import 'package:hamal_transport_app/ViewModels/mission_view_model.dart';
