@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hamal_transport_app/Models/user_profile.dart';
 import 'package:provider/provider.dart';
 import '../../Models/mission.dart';
 import '../../Models/mission_list_type.dart';
 import '../../Services/missions_repository.dart';
 import '../../ViewModels/map_view_model.dart';
 import '../../l10n/app_localizations.dart';
+import '../../Services/authentication_service.dart';
 
 class MapLegend extends StatefulWidget {
   final MapViewModel viewModel;
@@ -24,9 +26,18 @@ class _MapLegendState extends State<MapLegend> {
     final repository = context.watch<MissionsRepository>();
     final allMissions = repository.getMissions(MissionListType.allMissions);
 
-    final visibleMissions = allMissions
+    List<Mission> visibleMissions = allMissions
         .where((m) => widget.viewModel.isStatusVisible(m.status))
         .toList();
+
+    final authService = context.watch<AuthenticationService>();
+    final driverUid = authService.currentUser?.uid;
+
+    if (authService.currentUserProfile?.role == UserRole.driver) {
+      visibleMissions = visibleMissions
+          .where((m) => m.driverUid == driverUid || m.driverUid == null)
+          .toList();
+    }
 
     final availableCount = visibleMissions
         .where((m) => m.status == MissionStatus.available)

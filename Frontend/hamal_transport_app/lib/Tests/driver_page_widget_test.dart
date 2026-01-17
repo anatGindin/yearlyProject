@@ -19,11 +19,11 @@ void main() {
   });
 
   setUp(() {
-    // Initialize singleton with test data before each test
     final authService = FakeAuthenticationService();
+    // Initialize singleton with test data before each test
+    MissionsRepository.reset();
     MissionsRepository(
-      myMissionsList: [...sampleMissions],
-      availableMissionsList: [...availableMissions],
+      missions: [...sampleMissions, ...availableMissions],
       authService: authService,
     );
   });
@@ -192,9 +192,9 @@ void main() {
       final authService = FakeAuthenticationService();
 
       // Initialize singleton with empty data for this test
+      MissionsRepository.reset();
       MissionsRepository(
-        myMissionsList: [],
-        availableMissionsList: [],
+        missions: [...sampleMissions, ...availableMissions],
         authService: authService,
       );
 

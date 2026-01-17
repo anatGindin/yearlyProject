@@ -15,16 +15,16 @@ void main() {
   });
 
   group('DriverViewModel - State Management', () {
-    late FakeAuthenticationService authService;
     late DriverViewModel viewModel;
     const testDriverUid = 'test-driver-uid';
+    late FakeAuthenticationService authService;
 
     setUp(() {
       authService = FakeAuthenticationService();
       // Initialize the singleton with test data
+      MissionsRepository.reset();
       MissionsRepository(
-        myMissionsList: [...sampleMissions],
-        availableMissionsList: [...availableMissions],
+        missions: [...sampleMissions, ...availableMissions],
         authService: authService,
       );
     });
@@ -150,9 +150,9 @@ void main() {
     setUp(() {
       authService = FakeAuthenticationService();
       // Initialize the singleton with test data
+      MissionsRepository.reset();
       MissionsRepository(
-        myMissionsList: [...sampleMissions],
-        availableMissionsList: [...availableMissions],
+        missions: [...sampleMissions, ...availableMissions],
         authService: authService,
       );
     });

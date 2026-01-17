@@ -6,46 +6,45 @@ import 'package:hamal_transport_app/Services/authentication_service.dart';
 class MissionsRepository extends ChangeNotifier {
   static MissionsRepository? _instance;
 
-  final List<Mission> _allMissions;
-  final AuthenticationService authService;
+  final List<Mission> _allMissions = [];
+  final AuthenticationService _authService;
 
-  MissionsRepository._internal({
-    required List<Mission> myMissionsList,
-    required List<Mission> availableMissionsList,
-    required this.authService,
-  }) : _allMissions = [...myMissionsList, ...availableMissionsList];
+  MissionsRepository._internal({AuthenticationService? authService})
+    : _authService = authService ?? AuthenticationService();
 
   factory MissionsRepository({
-    List<Mission>? myMissionsList,
-    List<Mission>? availableMissionsList,
+    List<Mission>? missions,
     AuthenticationService? authService,
   }) {
-    // If called with explicit parameters (from Provider), force update the singleton
-    if (myMissionsList != null ||
-        availableMissionsList != null ||
-        authService != null) {
-      _instance = MissionsRepository._internal(
-        myMissionsList: myMissionsList ?? [],
-        availableMissionsList: availableMissionsList ?? [],
-        authService: authService ?? AuthenticationService(),
-      );
-      _instance!.prefetchRouteInfo();
-    } else {
-      // Otherwise create if doesn't exist (called without parameters from ViewModels)
-      _instance ??= MissionsRepository._internal(
-        myMissionsList: [],
-        availableMissionsList: [],
-        authService: AuthenticationService(),
-      );
+    _instance ??= MissionsRepository._internal(authService: authService);
+    if (missions != null) {
+      _instance!.setMissions(missions);
     }
     return _instance!;
+  }
+
+  /// Reset the singleton instance (primarily for tests)
+  static void reset() {
+    _instance = null;
+  }
+
+  void setMissions(List<Mission> missions) {
+    _allMissions.clear();
+    _allMissions.addAll(missions);
+    prefetchRouteInfo();
+    notifyListeners();
+  }
+
+  void clear() {
+    _allMissions.clear();
+    notifyListeners();
   }
 
   List<Mission> getMissions(MissionListType type) {
     switch (type) {
       case MissionListType.myMissions:
         return _allMissions.where((mission) {
-          return mission.driverUid == authService.currentUser?.uid &&
+          return mission.driverUid == _authService.currentUser?.uid &&
               mission.status != MissionStatus.delivered;
         }).toList();
       case MissionListType.availableMissions:
@@ -102,7 +101,7 @@ class MissionsRepository extends ChangeNotifier {
   void takeMission(Mission mission) {
     // TODO: Update the mission status in the database
     if (isAvailable(mission)) {
-      mission.driverUid = authService.currentUser?.uid;
+      mission.driverUid = _authService.currentUser?.uid;
       mission.status = MissionStatus.assigned;
       notifyListeners();
     }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../Models/user_profile.dart';
 import '../l10n/app_localizations.dart';
 import '../Services/authentication_service.dart';
+import '../Services/missions_repository.dart';
 
 class UserProfileViewModel extends ChangeNotifier {
   UserProfile userProfile;
@@ -13,6 +14,7 @@ class UserProfileViewModel extends ChangeNotifier {
   }
 
   Future<void> logOut() async {
+    MissionsRepository().clear();
     await _authService.signOut();
     notifyListeners();
   }

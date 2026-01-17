@@ -48,9 +48,9 @@ void main() {
         m.status = MissionStatus.assigned;
       }
 
+      MissionsRepository.reset();
       repository = MissionsRepository(
-        myMissionsList: [...sampleMissions],
-        availableMissionsList: [...availableMissions],
+        missions: [...sampleMissions, ...availableMissions],
         authService: authService,
       );
 

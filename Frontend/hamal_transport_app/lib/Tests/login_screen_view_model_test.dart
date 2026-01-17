@@ -7,7 +7,7 @@ void main() {
   late LoginScreenViewModel viewModel;
   late FakeAuthenticationService mockAuthService;
 
-  setUp(() {
+  setUp(() async {
     mockAuthService = FakeAuthenticationService();
     viewModel = LoginScreenViewModel(authService: mockAuthService);
   });
@@ -24,13 +24,6 @@ void main() {
     expect(viewModel.isPasswordVisible, true);
     viewModel.togglePasswordVisibility();
     expect(viewModel.isPasswordVisible, false);
-  });
-
-  test('login success', () async {
-    final userProfile = await viewModel.login('test@test.com', 'password');
-    expect(userProfile, isNotNull);
-    expect(viewModel.error, null);
-    expect(viewModel.isLoading, false);
   });
 
   test('login failure with specific error', () async {

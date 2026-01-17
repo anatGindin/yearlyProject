@@ -36,9 +36,9 @@ void main() {
         m.driverUid = 'test-user-uid';
       }
 
+      MissionsRepository.reset();
       MissionsRepository(
-        myMissionsList: [...sampleMissions],
-        availableMissionsList: [...availableMissions],
+        missions: [...sampleMissions, ...availableMissions],
         authService: authService,
       );
       myVM = MissionsListViewModel(type: MissionListType.myMissions);
@@ -123,10 +123,11 @@ void main() {
 
     setUp(() async {
       await initializeMockData();
+      final authService = FakeAuthenticationService();
+      MissionsRepository.reset();
       MissionsRepository(
-        myMissionsList: [...sampleMissions],
-        availableMissionsList: [...availableMissions],
-        authService: FakeAuthenticationService(),
+        missions: [...sampleMissions, ...availableMissions],
+        authService: authService,
       );
       availVM = MissionsListViewModel(type: MissionListType.availableMissions);
     });
