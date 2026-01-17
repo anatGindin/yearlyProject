@@ -25,41 +25,11 @@ class DriverCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Icon(Icons.person),
-              const SizedBox(width: 8),
               Text(driver.name, style: Theme.of(context).textTheme.titleMedium),
             ],
           ),
-          Row(
-            children: [
-              Icon(Icons.phone, color: mutedColor),
-              const SizedBox(width: 8),
-              Text(
-                driver.phone,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyMedium!.copyWith(color: mutedColor),
-              ),
-            ],
-          ),
-          if (driver.driverProfile != null)
-            Row(
-              children: [
-                Icon(
-                  driver.driverProfile!.carType.getIcon(),
-                  color: mutedColor,
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  driver.driverProfile!.carType.displayName(l10n),
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontStyle: FontStyle.italic,
-                    color: mutedColor,
-                  ),
-                ),
-              ],
-            ),
         ],
       ),
     );

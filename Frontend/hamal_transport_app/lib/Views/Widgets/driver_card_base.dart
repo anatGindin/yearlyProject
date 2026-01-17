@@ -10,22 +10,14 @@ class DriverCardBase extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       child: SizedBox(
-        height: 160,
+        height: 80,
         width: MediaQuery.of(context).size.width * 0.9,
         child: Card(
           clipBehavior: Clip.antiAlias,
           child: InkWell(
             borderRadius: BorderRadius.circular(10),
             onTap: onTap,
-            child: Padding(
-              padding: const EdgeInsetsDirectional.only(
-                top: 20,
-                bottom: 20,
-                start: 16,
-                end: 10,
-              ),
-              child: child,
-            ),
+            child: Padding(padding: const EdgeInsets.all(10.0), child: child),
           ),
         ),
       ),
