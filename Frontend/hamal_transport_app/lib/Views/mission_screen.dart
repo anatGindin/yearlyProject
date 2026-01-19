@@ -69,7 +69,6 @@ class _MissionScreenState extends State<MissionScreen> {
                     if (!missionVM.isDriver &&
                         missionVM.mission.driverUid != null)
                       const SizedBox(height: 16),
-                    const SizedBox(height: 16),
                     InfoRow(
                       icon: Icons.star_rounded,
                       label: l10n.status,
