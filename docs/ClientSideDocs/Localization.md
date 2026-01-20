@@ -6,7 +6,7 @@ The Hamal Transport App supports multiple languages (English and Hebrew at the m
 
 Localization settings are defined in:
 1.  [l10n.yaml](../../Frontend/hamal_transport_app/l10n.yaml): Specifies the location of ARB files and the generation settings.
-2.  `lib/l10n/`: Directory containing the translation files.
+2.  [lib/l10n/](../../Frontend/hamal_transport_app/lib/l10n/): Directory containing the translation files.
     -   [app_en.arb](../../Frontend/hamal_transport_app/lib/l10n/app_en.arb): English translations.
     -   [app_he.arb](../../Frontend/hamal_transport_app/lib/l10n/app_he.arb): Hebrew translations.
 
