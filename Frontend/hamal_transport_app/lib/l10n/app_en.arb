@@ -324,6 +324,10 @@
   "@editMission": {
     "description": "Title for edit mission dialog"
   },
+  "noDriverAssigned": "No Driver Assigned",
+  "@noDriverAssigned": {
+    "description": "Message when no driver is assigned to the mission"
+  },
   "carType": "Car Type",
   "@carType": {
     "description": "Label for car type selection"

@@ -253,6 +253,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get editMission => 'Edit mission';
 
   @override
+  String get noDriverAssigned => 'No Driver Assigned';
+
+  @override
   String get carType => 'Car Type';
 
   @override

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hamal_transport_app/Models/contact.dart';
 import 'package:hamal_transport_app/Models/user_profile.dart';
 import 'package:hamal_transport_app/ViewModels/contact_vm.dart';
 import 'package:hamal_transport_app/ViewModels/mission_view_model.dart';
@@ -13,6 +12,7 @@ import 'package:provider/provider.dart';
 import '../Models/mission.dart';
 import '../Models/missions_model.dart';
 import '../l10n/app_localizations.dart';
+import 'Widgets/driver_card.dart';
 import 'contact_view.dart';
 import '../Services/routing_service.dart';
 import '../Views/Widgets/info_row.dart';
@@ -63,6 +63,12 @@ class _MissionScreenState extends State<MissionScreen> {
                     const BackButton(),
                     _buildRouteInfo(missionVM, missionVM.isDriver),
                     const SizedBox(height: 16),
+                    if (!missionVM.isDriver &&
+                        missionVM.mission.driverUid != null)
+                      _buildDriverInfo(missionVM),
+                    if (!missionVM.isDriver &&
+                        missionVM.mission.driverUid != null)
+                      const SizedBox(height: 16),
                     InfoRow(
                       icon: Icons.star_rounded,
                       label: l10n.status,
@@ -74,12 +80,6 @@ class _MissionScreenState extends State<MissionScreen> {
                         ],
                       ),
                     ),
-                    if (!missionVM.isDriver &&
-                        missionVM.mission.driverUid != null)
-                      const SizedBox(height: 16),
-                    if (!missionVM.isDriver &&
-                        missionVM.mission.driverUid != null)
-                      _buildDriverInfo(missionVM),
                     const SizedBox(height: 16),
                     InfoRow(
                       icon: Icons.person,
@@ -608,19 +608,17 @@ class _MissionScreenState extends State<MissionScreen> {
         }
 
         final userProfile = snapshot.data;
-        if (userProfile == null) {
-          return const SizedBox.shrink();
-        }
 
-        final contact = Contact(
-          fullName: userProfile.name,
-          phoneNumber: userProfile.phone,
-        );
-
-        return InfoRow(
-          icon: Icons.person,
-          label: l10n.driver,
-          child: ContactInfoActionable(vm: ContactViewModel(contact)),
+        return Column(
+          children: [
+            InfoRow(
+              icon: Icons.person,
+              label: l10n.driver,
+              child: userProfile == null
+                  ? Text(l10n.noDriverAssigned)
+                  : DriverCard(driver: userProfile),
+            ),
+          ],
         );
       },
     );

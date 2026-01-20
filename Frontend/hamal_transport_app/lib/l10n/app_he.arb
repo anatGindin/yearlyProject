@@ -324,6 +324,10 @@
   "@editMission": {
     "description": "כותרת דיאלוג עריכת משימה"
   },
+  "noDriverAssigned": "לא שובץ נהג",
+  "@noDriverAssigned": {
+    "description": "כותרת לנהג במשימה כאשר אין נהג"
+  },
   "carType": "סוג רכב",
   "@carType": {
     "description": "תווית לבחירת סוג רכב"

@@ -578,6 +578,12 @@ abstract class AppLocalizations {
   /// **'Edit mission'**
   String get editMission;
 
+  /// Message when no driver is assigned to the mission
+  ///
+  /// In en, this message translates to:
+  /// **'No Driver Assigned'**
+  String get noDriverAssigned;
+
   /// Label for car type selection
   ///
   /// In en, this message translates to:
