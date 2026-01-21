@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
-import 'package:hamal_transport_app/Views/Widgets/main_app_bar.dart';
-import 'package:hamal_transport_app/Views/missions_list_body.dart';
+import 'package:hamal_transport_app/Views/SharedWidgets/main_app_bar.dart';
+import 'package:hamal_transport_app/Views/MissionsList/missions_list_body.dart';
 import 'package:provider/provider.dart';
-import '../l10n/app_localizations.dart';
-import '../../Models/mission.dart';
-import '../../Models/mission_list_type.dart';
+import '../../l10n/app_localizations.dart';
+import '../../../Models/mission.dart';
+import '../../../Models/mission_list_type.dart';
 
 class MissionTabConfig {
   final String title;

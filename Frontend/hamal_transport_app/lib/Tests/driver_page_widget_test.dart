@@ -6,7 +6,7 @@ import 'package:hamal_transport_app/Services/authentication_service.dart';
 import 'package:hamal_transport_app/Services/Fake/fake_authentication_service.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
 import 'package:hamal_transport_app/ViewModels/driver_view_model.dart';
-import 'package:hamal_transport_app/Views/driver_page.dart';
+import 'package:hamal_transport_app/Views/DriversPhonebook/driver_page.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';

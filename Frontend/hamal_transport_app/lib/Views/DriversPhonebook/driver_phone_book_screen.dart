@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hamal_transport_app/Views/Widgets/main_app_bar.dart';
+import 'package:hamal_transport_app/Views/SharedWidgets/main_app_bar.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import '../../ViewModels/driver_phone_book_view_model.dart';
-import 'Widgets/driver_list_view.dart';
+import '../../../ViewModels/driver_phone_book_view_model.dart';
+import 'driver_list_view.dart';
 
 class DriverPhoneBookScreen extends StatelessWidget {
   const DriverPhoneBookScreen({super.key});

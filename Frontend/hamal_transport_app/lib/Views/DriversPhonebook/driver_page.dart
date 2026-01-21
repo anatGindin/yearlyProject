@@ -5,8 +5,8 @@ import 'package:hamal_transport_app/Models/user_profile.dart';
 import 'package:hamal_transport_app/ViewModels/driver_view_model.dart';
 import 'package:hamal_transport_app/ViewModels/contact_vm.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
-import 'package:hamal_transport_app/Views/mission_screen.dart';
-import 'package:hamal_transport_app/Views/contact_view.dart';
+import 'package:hamal_transport_app/Views/SharedWidgets/MissionPage/mission_screen.dart';
+import 'package:hamal_transport_app/Views/SharedWidgets/DriverPage/contact_view.dart';
 import 'package:provider/provider.dart';
 
 class DriverPage extends StatelessWidget {

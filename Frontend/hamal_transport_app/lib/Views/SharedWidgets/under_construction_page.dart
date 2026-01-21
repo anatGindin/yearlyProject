@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hamal_transport_app/Views/Widgets/logout_button.dart';
-import '../l10n/app_localizations.dart';
+import 'package:hamal_transport_app/Views/Authentication/logout_button.dart';
+import '../../l10n/app_localizations.dart';
 
 class UnderConstructionPage extends StatelessWidget {
   const UnderConstructionPage({super.key});

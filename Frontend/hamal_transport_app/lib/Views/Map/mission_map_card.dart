@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../Models/mission.dart';
 import '../../ViewModels/map_view_model.dart';
 import '../../l10n/app_localizations.dart';
-import '../mission_screen.dart';
+import '../SharedWidgets/MissionPage/mission_screen.dart';
 
 class MissionMapCard extends StatelessWidget {
   final Mission mission;

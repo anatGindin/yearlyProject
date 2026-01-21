@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/ViewModels/user_profile_view_model.dart';
-import 'package:hamal_transport_app/Views/Widgets/user_avatar.dart';
+import 'package:hamal_transport_app/Views/SharedWidgets/user_avatar.dart';
 import 'package:provider/provider.dart';
-import '../../l10n/app_localizations.dart';
-import 'UserMenu/profile_menu_view.dart';
-import 'UserMenu/account_info_details_view.dart';
-import 'UserMenu/app_preferences_view.dart';
-import 'UserMenu/edit_profile_view.dart';
+import '../../../l10n/app_localizations.dart';
+import 'profile_menu_view.dart';
+import 'account_info_details_view.dart';
+import 'app_preferences_view.dart';
+import 'edit_profile_view.dart';
 
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({super.key});

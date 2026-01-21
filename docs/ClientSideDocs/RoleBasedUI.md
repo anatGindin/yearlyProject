@@ -12,7 +12,7 @@ The app provides a different user experience and set of permissions based on the
     - Based on the `UserRole` in the profile, it calls `getDestinationForRole` to navigate to the appropriate interface.
 
 ## Role-Based Routing
-- **Path**: [role_based_routing.dart](../../Frontend/hamal_transport_app/lib/Views/role_based_routing.dart)
+- **Path**: [role_based_routing.dart](../../Frontend/hamal_transport_app/lib/Views/Authentication/role_based_routing.dart)
 - **Logic**:
     - **Drivers**: Routed to a navigation structure containing:
         - **Missions Tabs**: "My Missions" (active/assigned) and "Available Missions".

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../l10n/app_localizations.dart';
 import '../../Models/mission.dart';
-import 'mission_card.dart';
+import '../SharedWidgets/MissionPage/mission_card.dart';
 
 /// Reusable mission list widget that displays a list of missions
 class MissionListView extends StatelessWidget {

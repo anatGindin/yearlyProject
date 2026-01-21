@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
 import '../../Models/user_profile.dart';
-import 'driver_card.dart';
+import '../SharedWidgets/DriverPage/driver_card.dart';
 
 class DriverListView extends StatelessWidget {
   final List<UserProfile> drivers;

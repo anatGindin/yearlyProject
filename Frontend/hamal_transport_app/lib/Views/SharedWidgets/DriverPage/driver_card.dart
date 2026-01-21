@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hamal_transport_app/Views/driver_page.dart';
-import '../../Models/user_profile.dart';
+import 'package:hamal_transport_app/Views/DriversPhonebook/driver_page.dart';
+import '../../../Models/user_profile.dart';
 import 'driver_card_base.dart';
 
 class DriverCard extends StatelessWidget {

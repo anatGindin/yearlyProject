@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hamal_transport_app/Views/Widgets/source_destination.dart';
+import 'package:hamal_transport_app/Views/SharedWidgets/MissionPage/source_destination.dart';
 import 'package:intl/intl.dart';
-import '../../l10n/app_localizations.dart';
-import '../../Models/mission.dart';
-import '../mission_screen.dart';
+import '../../../l10n/app_localizations.dart';
+import '../../../Models/mission.dart';
+import 'mission_screen.dart';
 import 'mission_card_base.dart';
 
 class MissionCard extends StatelessWidget {

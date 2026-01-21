@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../ViewModels/user_profile_view_model.dart';
 import '../../../l10n/app_localizations.dart';
-import '../Widgets/info_row.dart';
+import '../SharedWidgets/info_row.dart';
 
 class AccountInfoDetailsView extends StatelessWidget {
   final UserProfileViewModel vm;

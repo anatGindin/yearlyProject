@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
-import '../Models/mission.dart';
-import '../Models/mission_list_type.dart';
-import '../Services/missions_repository.dart';
-import '../ViewModels/map_view_model.dart';
-import '../Models/user_profile.dart';
-import '../l10n/app_localizations.dart';
-import 'Widgets/map_legend.dart';
-import 'Widgets/mission_map_card.dart';
-import 'Widgets/selected_marker.dart';
-import 'Widgets/warehouse_map_card.dart';
+import '../../Models/mission.dart';
+import '../../Models/mission_list_type.dart';
+import '../../Services/missions_repository.dart';
+import '../../ViewModels/map_view_model.dart';
+import '../../Models/user_profile.dart';
+import '../../l10n/app_localizations.dart';
+import 'map_legend.dart';
+import 'mission_map_card.dart';
+import 'selected_marker.dart';
+import 'warehouse_map_card.dart';
 
 class MapView extends StatelessWidget {
   const MapView({super.key});

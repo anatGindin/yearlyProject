@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
-import 'package:hamal_transport_app/Views/Widgets/list_action_button.dart';
+import 'package:hamal_transport_app/Views/MissionsList/list_action_button.dart';
 import 'package:hamal_transport_app/Models/missions_model.dart';
 import 'package:provider/provider.dart';
-import 'Widgets/mission_list_view.dart';
+import 'mission_list_view.dart';
 
 class MissionsListBody extends StatelessWidget {
   const MissionsListBody({super.key});

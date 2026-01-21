@@ -3,7 +3,7 @@
 The `NavigationBarWrapper` provides the primary navigation structure and ensures a consistent user experience while persisting the state of the app's various modules.
 
 ## Overview
-- **Path**: [navigation_bar_wrapper.dart](../../Frontend/hamal_transport_app/lib/Views/navigation_bar_wrapper.dart)
+- **Path**: [navigation_bar_wrapper.dart](../../Frontend/hamal_transport_app/lib/Views/SharedWidgets/navigation_bar_wrapper.dart)
 - **Purpose**: Wraps the main application screens with a Material 3 `NavigationBar` and manages a `TabBarView` for smooth horizontal transitions.
 
 ## Features

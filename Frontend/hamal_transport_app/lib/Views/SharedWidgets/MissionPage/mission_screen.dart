@@ -4,18 +4,18 @@ import 'package:hamal_transport_app/ViewModels/contact_vm.dart';
 import 'package:hamal_transport_app/ViewModels/mission_view_model.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
-import 'package:hamal_transport_app/Views/Widgets/comments_list_view.dart';
-import 'package:hamal_transport_app/Views/Widgets/source_destination.dart';
-import 'package:hamal_transport_app/Views/under_construction_page.dart';
+import 'package:hamal_transport_app/Views/SharedWidgets/MissionPage/comments_list_view.dart';
+import 'package:hamal_transport_app/Views/SharedWidgets/MissionPage/source_destination.dart';
+import 'package:hamal_transport_app/Views/SharedWidgets/under_construction_page.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:provider/provider.dart';
-import '../Models/mission.dart';
-import '../Models/missions_model.dart';
-import '../l10n/app_localizations.dart';
-import 'Widgets/driver_card.dart';
-import 'contact_view.dart';
-import '../Services/routing_service.dart';
-import '../Views/Widgets/info_row.dart';
+import '../../../Models/mission.dart';
+import '../../../Models/missions_model.dart';
+import '../../../l10n/app_localizations.dart';
+import '../DriverPage/driver_card.dart';
+import '../DriverPage/contact_view.dart';
+import '../../../Services/routing_service.dart';
+import '../info_row.dart';
 
 class MissionScreen extends StatefulWidget {
   final Mission mission;

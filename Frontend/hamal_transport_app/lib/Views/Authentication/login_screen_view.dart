@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import '../../l10n/app_localizations.dart';
 import '../../ViewModels/login_screen_view_model.dart';
 import '../../Services/authentication_service.dart';
-import '../role_based_routing.dart';
+import 'role_based_routing.dart';
 import 'signup_screen_view.dart';
 import 'forgot_password_view.dart';
-import '../Widgets/stage_header_background.dart';
+import 'stage_header_background.dart';
 import '../../ViewModels/user_profile_view_model.dart';
 
 class LoginScreenView extends StatelessWidget {

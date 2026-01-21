@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../Services/authentication_service.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
 import 'package:hamal_transport_app/Constants/mock_data.dart';
-import '../role_based_routing.dart';
+import 'role_based_routing.dart';
 import 'login_screen_view.dart';
 
 class AuthGate extends StatefulWidget {
