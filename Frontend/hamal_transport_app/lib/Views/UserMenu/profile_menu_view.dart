@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../Constants/official_info.dart';
 import '../../Utils/launcher_utils.dart';
-import '../Widgets/logout_button.dart';
-import '../Widgets/menu_item.dart';
+import '../Authentication/logout_button.dart';
+import 'menu_item.dart';
 
 class ProfileMenuView extends StatelessWidget {
   final ValueChanged<int> onNavigate;

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Models/user_profile.dart';
 import 'package:hamal_transport_app/Services/routing_service.dart';
-import '../features/Contact_card/model/contact.dart';
+import 'contact.dart';
 import '../l10n/app_localizations.dart';
 import 'location.dart';
 
 enum MissionStatus {
-  chosen,
+  assigned,
   pickedUp,
   delivered,
   cancelled,
@@ -15,7 +15,7 @@ enum MissionStatus {
   String displayName(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     switch (this) {
-      case MissionStatus.chosen:
+      case MissionStatus.assigned:
         return l10n.chosen;
       case MissionStatus.pickedUp:
         return l10n.pickedUp;
@@ -32,13 +32,14 @@ enum MissionStatus {
     switch (this) {
       case MissionStatus.available:
         return Colors.orange;
-      case MissionStatus.chosen:
+      case MissionStatus.assigned:
         return Colors.blue;
       case MissionStatus.pickedUp:
         return Colors.green;
       case MissionStatus.delivered:
+        return Colors.yellow;
       case MissionStatus.cancelled:
-        return Colors.orange;
+        return Colors.red;
     }
   }
 }
@@ -55,6 +56,7 @@ class Mission {
   final CarType carType;
   String cancellationReason;
   final List<String> comments;
+  String? driverUid; // UID of the driver assigned to this mission
 
   Future<RouteInfo?>? _routeInfoFuture;
 
@@ -70,9 +72,10 @@ class Mission {
     this.cancellationReason = '',
     required this.comments,
     required this.carType,
+    this.driverUid,
   });
 
-  Mission.chosen({
+  Mission.assigned({
     required this.id,
     required this.source,
     required this.destination,
@@ -80,10 +83,11 @@ class Mission {
     required this.sourceContact,
     required this.destinationContact,
     required this.time,
-    this.status = MissionStatus.chosen,
+    this.status = MissionStatus.assigned,
     this.cancellationReason = '',
     required this.comments,
     required this.carType,
+    this.driverUid,
   });
 
   /// Calculates route info once per Mission instance and reuses the same Future.
@@ -147,6 +151,7 @@ class Mission {
       status: status,
       comments: comments,
       carType: carType,
+      driverUid: json['driverUid'] as String?,
     );
   }
 
@@ -163,6 +168,7 @@ class Mission {
       'status': status.name,
       'carType': carType.name,
       'comments': comments,
+      'driverUid': driverUid,
     };
   }
 

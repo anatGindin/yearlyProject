@@ -4,13 +4,29 @@
   "@appTitle": {
     "description": "App title shown in the app bar and for the application title"
   },
-  "activeMissions": "Active Missions",
+  "activeMissions": "My Missions",
   "@activeMissions": {
     "description": "Title of active missions list"
   },
   "availableMissions": "Available Missions",
   "@availableMissions": {
     "description": "Title of available missions page"
+  },
+  "pickedUpMissions": "Picked Up Missions",
+  "@pickedUpMissions": {
+    "description": "Title of picked up missions page"
+  },
+  "readyForPickUpMissions": "Assigned",
+  "@readyForPickUpMissions": {
+    "description": "Title of ready for pick up missions page"
+  },
+  "deliveredMissions": "Delivered Missions",
+  "@deliveredMissions": {
+    "description": "Title of delivered missions page"
+  },
+  "cancelledMissions": "Cancelled Missions",
+  "@cancelledMissions": {
+    "description": "Title of cancelled missions page"
   },
   "callDesk": "Call Hamal",
   "@callDesk": {
@@ -79,6 +95,10 @@
   "delivered": "Delivered",
   "@delivered": {
     "description": "Mission status - delivered"
+  },
+  "availableMissions": "Available",
+  "@availableMissions": {
+    "description": "Mission status - available"
   },
   "cancelled": "Cancelled",
   "@cancelled": {
@@ -248,14 +268,6 @@
   "@menuPickedUpFilter": {
     "description": "Show 'Picked up' missions"
   },
-  "chosenFilter": "'Chosen' missions",
-  "@chosenFilter": {
-    "description": "Filter option - Show 'Chosen' missions"
-  },
-  "pickedUpFilter": "'Picked up' missions",
-  "@pickedUpFilter": {
-    "description": "Show 'Picked up' missions"
-  },
   "cancellationReason": "Cancellation Reason",
   "@cancellationReason": {
     "description": "Title for cancellation reason dialog"
@@ -308,6 +320,14 @@
   "@editCommentTitle": {
     "description": "Title for edit comment dialog"
   },
+  "editMission": "Edit mission",
+  "@editMission": {
+    "description": "Title for edit mission dialog"
+  },
+  "noDriverAssigned": "No Driver Assigned",
+  "@noDriverAssigned": {
+    "description": "Message when no driver is assigned to the mission"
+  },
   "carType": "Car Type",
   "@carType": {
     "description": "Label for car type selection"
@@ -352,6 +372,38 @@
   "@passwordResetSent": {
     "description": "Success message when password reset email is sent"
   },
+  "drivers": "Drivers",
+  "@drivers": {
+    "description": "label of drivers destination in the nav bar"
+  },
+  "searchDriver": "Search driver",
+  "@searchDriver": {
+    "description": "hintText of search driver TextField"
+  },
+  "noDrivers": "No drivers found",
+  "@noDrivers": {
+    "description": "message when there are no drivers for the drivers page"
+  },
+  "allCarTypes": "Show all car types",
+  "@allCarTypes": {
+    "description": "label of All car types filter in drivers page"
+  },
+  "privateOnly": "Show only private car drivers",
+  "@privateOnly": {
+    "description": "label of private car types filter in drivers page"
+  },
+  "pickupOnly": "Show only pickup car drivers",
+  "@pickupOnly": {
+    "description": "label of pickup car types filter in drivers page"
+  },
+  "trailerOnly": "Show only trailer car drivers",
+  "@trailerOnly": {
+    "description": "label of trailer car types filter in drivers page"
+  },
+  "truckOnly": "Show only truck drivers",
+  "@truckOnly": {
+    "description": "label of truck types filter in drivers page"
+  },
   "mapView": "Map View",
   "@mapView": {
     "description": "Button or title for Map View"
@@ -384,6 +436,10 @@
   "@profile": {
     "description": "Label of Profile option in the driver navigation bar"
   },
+  "driverList": "Driver List",
+  "@driverList": {
+    "description": "Label of Driver List option in the navigation bar"
+  },
   "hamalWarehouse": "Hamal Warehouse",
   "accountInformation": "Account Information",
   "edit": "Edit Your Profile",
@@ -414,10 +470,21 @@
   "@hebrew": {
     "description": "Hebrew language option"
   },
-  "quickActions": "Quick Actions",
   "contactUs": "Contact Us",
   "aboutUs": "About Us",
   "helpFaq": "Help & FAQ",
+  "driverPage": "Driver Page",
+  "@driverPage": {
+    "description": "Title for the driver page"
+  },
+  "source": "Source",
+  "@source": {
+    "description": "Source location label"
+  },
+  "destination": "Destination",
+  "@destination": {
+    "description": "Destination location label"
+  },
   "additionOf": "addition of {distance} {unit}",
   "@additionOf": {
     "description": "Text for additional distance on mission card",

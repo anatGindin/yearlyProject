@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/ViewModels/user_profile_view_model.dart';
 import 'package:provider/provider.dart';
 import '../../Services/authentication_service.dart';
-import '../role_based_routing.dart';
+import 'package:hamal_transport_app/Services/missions_repository.dart';
+import 'package:hamal_transport_app/Constants/mock_data.dart';
+import 'role_based_routing.dart';
 import 'login_screen_view.dart';
 
 class AuthGate extends StatefulWidget {
@@ -34,6 +36,14 @@ class _AuthGateState extends State<AuthGate> {
     final userProfile = await authService.getUserProfile(
       authService.currentUser!,
     );
+
+    // Initialize/Refetch missions
+    MissionsRepository().setMissions([
+      ...sampleMissions,
+      ...availableMissions,
+      ...adminMissions,
+    ]);
+
     return ChangeNotifierProvider(
       create: (_) => UserProfileViewModel(userProfile),
       child: getDestinationForRole(userProfile.role),

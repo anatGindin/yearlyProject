@@ -1,11 +1,18 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hamal_transport_app/Constants/mock_data.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
-import 'package:hamal_transport_app/Models/missions_model.dart';
-import 'package:hamal_transport_app/ViewModels/available_missions_view_model.dart';
-import 'package:hamal_transport_app/ViewModels/mission_view_model.dart';
-import 'package:hamal_transport_app/ViewModels/my_missions_view_model.dart';
-import 'package:hamal_transport_app/ViewModels/missions_coordinator_view_model.dart';
+import 'package:hamal_transport_app/Models/mission_list_type.dart';
+import 'package:hamal_transport_app/Services/Fake/fake_authentication_service.dart';
+import 'package:hamal_transport_app/Services/missions_repository.dart';
+import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
+import 'package:mockito/mockito.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+class MockUser extends Mock implements User {
+  @override
+  final String uid;
+  MockUser({required this.uid});
+}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -15,182 +22,148 @@ void main() {
     await initializeMockData();
   });
 
-  group('MissionsCoordinatorViewModel - takeMission', () {
-    late MissionsListsModel missionsLists;
-    late AvailableMissionsViewModel availableVM;
-    late MyMissionsViewModel myVM;
-    late MissionViewModel missionVM;
-    late MissionsCoordinatorViewModel coordinator;
+  group('MissionsRepository - Use Cases', () {
+    late MissionsRepository repository;
+    late MissionsListViewModel availableVM;
+    late MissionsListViewModel myVM;
+
+    // Note: MissionViewModel might not be strictly needed for these repo tests,
+    // but useful if we want to simulate VM behavior or if tests relied on it.
+    // Ideally we test the Repository's effect on the data.
 
     late Mission testMission;
 
-    setUp(() {
+    setUp(() async {
+      // Reset mock data to ensure clean state for each test
+      await initializeMockData();
+
       // create data model
-      missionsLists = MissionsListsModel(
-        myMissionsList: sampleMissions,
-        availableMissionsList: availableMissions,
+      final authService = FakeAuthenticationService();
+      authService.mockUser = MockUser(uid: 'test-user-uid');
+
+      // Update sample missions to match the mock user for "My Missions" tests
+      for (var m in sampleMissions) {
+        m.driverUid = 'test-user-uid';
+        m.status = MissionStatus.assigned;
+      }
+
+      MissionsRepository.reset();
+      repository = MissionsRepository(
+        missions: [...sampleMissions, ...availableMissions],
+        authService: authService,
       );
 
       // Create ViewModels with initial state
-      availableVM = AvailableMissionsViewModel(missionsLists);
-      myVM = MyMissionsViewModel(missionsLists);
-      missionVM = MissionViewModel(availableMissions[0]);
-
-      // Coordinator under test
-      coordinator = MissionsCoordinatorViewModel(
-        myMissionsVM: myVM,
-        availableMissionsVM: availableVM,
+      availableVM = MissionsListViewModel(
+        type: MissionListType.availableMissions,
       );
+      myVM = MissionsListViewModel(type: MissionListType.myMissions);
     });
 
-    test('takeMission moves mission from available → my missions', () {
-      coordinator.setMissionVM(missionVM);
-      testMission = availableMissions[0];
-      int initialAvailableLength = availableMissions.length;
-      int initialMyLength = sampleMissions.length;
+    test('takeMission moves mission from available -> my missions', () {
+      testMission = repository
+          .getMissions(MissionListType.availableMissions)
+          .first;
+      int initialAvailableLength = repository
+          .getMissions(MissionListType.availableMissions)
+          .length;
+      int initialMyLength = repository
+          .getMissions(MissionListType.myMissions)
+          .length;
 
       // Verify initial state
-      expect(availableVM.availableMissions.length, initialAvailableLength);
-      expect(myVM.myMissions.length, initialMyLength);
+      // We can check via VM or Repo. VM just exposes Repo data.
+      expect(availableVM.sourceList.length, initialAvailableLength);
+      expect(myVM.sourceList.length, initialMyLength);
       expect(testMission.status, MissionStatus.available);
 
       // Perform action
-      coordinator.takeMission(testMission);
+      repository.takeMission(testMission);
 
       // Verify mission moved lists
-      expect(availableVM.availableMissions.length, initialAvailableLength - 1);
-      expect(myVM.myMissions.length, initialMyLength + 1);
-      expect(myVM.myMissions.contains(testMission), true);
+      expect(availableVM.sourceList.length, initialAvailableLength - 1);
+      expect(myVM.sourceList.length, initialMyLength + 1);
+      expect(myVM.sourceList.contains(testMission), true);
 
       // Verify status updated
-      expect(testMission.status, MissionStatus.chosen);
-    });
-  });
-
-  group('MissionsCoordinatorViewModel - updateStatus', () {
-    late MissionsListsModel missionsLists;
-    late AvailableMissionsViewModel availableVM;
-    late MyMissionsViewModel myVM;
-    late MissionViewModel missionVM;
-    late MissionsCoordinatorViewModel coordinator;
-
-    late Mission testMission;
-
-    setUp(() {
-      // create data model
-      missionsLists = MissionsListsModel(
-        myMissionsList: sampleMissions,
-        availableMissionsList: availableMissions,
-      );
-
-      // Create ViewModels with initial state
-      availableVM = AvailableMissionsViewModel(missionsLists);
-      myVM = MyMissionsViewModel(missionsLists);
-      missionVM = MissionViewModel(sampleMissions[0]);
-
-      // Coordinator under test
-      coordinator = MissionsCoordinatorViewModel(
-        myMissionsVM: myVM,
-        availableMissionsVM: availableVM,
-      );
+      expect(testMission.status, MissionStatus.assigned);
     });
 
     test('updateStatus to delivered removes mission from my missions', () {
-      coordinator.setMissionVM(missionVM);
-      testMission = sampleMissions[0];
-      int initialMyLength = sampleMissions.length;
+      // Setup: ensure we have a mission in my missions
+      if (repository.getMissions(MissionListType.myMissions).isEmpty) {
+        // Should have some from mock data, but let's be safe or just use one.
+        // sampleMissions is not empty in mock_data.
+      }
+      testMission = repository.getMissions(MissionListType.myMissions).first;
+
+      // Ensure it is 'assigned' or 'pickedUp' initially
+      testMission.status = MissionStatus.assigned;
+
+      int initialMyLength = repository
+          .getMissions(MissionListType.myMissions)
+          .length;
 
       // Verify initial state
-      expect(myVM.myMissions.length, initialMyLength);
-      expect(testMission.status, MissionStatus.chosen);
-      expect(myVM.myMissions.contains(testMission), true);
+      expect(myVM.sourceList.contains(testMission), true);
 
       // Perform action
-      coordinator.updateStatus(testMission, MissionStatus.delivered);
+      repository.updateStatus(testMission, MissionStatus.delivered);
 
       // Verify mission removed from my missions
-      expect(myVM.myMissions.length, initialMyLength - 1);
-      expect(myVM.myMissions.contains(testMission), false);
+      expect(myVM.sourceList.length, initialMyLength - 1);
+      expect(myVM.sourceList.contains(testMission), false);
 
       // Verify status updated
       expect(testMission.status, MissionStatus.delivered);
     });
 
     test('cancelMission returns mission to available', () {
-      coordinator.setMissionVM(missionVM);
-      testMission = sampleMissions[0];
-      int initialAvailableLength = availableMissions.length;
-      int initialMyLength = sampleMissions.length;
+      // Setup: use a mission from my missions
+      testMission = repository.getMissions(MissionListType.myMissions).first;
+      testMission.status = MissionStatus.assigned;
 
-      // Verify initial state
-      expect(availableVM.availableMissions.length, initialAvailableLength);
-      expect(myVM.myMissions.length, initialMyLength);
-      expect(testMission.status, MissionStatus.chosen);
-      expect(myVM.myMissions.contains(testMission), true);
+      int initialAvailableLength = repository
+          .getMissions(MissionListType.availableMissions)
+          .length;
+      int initialMyLength = repository
+          .getMissions(MissionListType.myMissions)
+          .length;
 
       // Perform action
-      coordinator.cancelMission("cancellationReason");
+      repository.cancelMission(testMission, "cancellationReason");
 
       // Verify mission moved back to available
-      expect(availableVM.availableMissions.length, initialAvailableLength + 1);
-      expect(myVM.myMissions.length, initialMyLength - 1);
-      expect(availableVM.availableMissions.contains(testMission), true);
-      expect(myVM.myMissions.contains(testMission), false);
+      expect(availableVM.sourceList.length, initialAvailableLength + 1);
+      expect(myVM.sourceList.length, initialMyLength - 1);
+      expect(availableVM.sourceList.contains(testMission), true);
+      expect(myVM.sourceList.contains(testMission), false);
 
-      // Verify status updated to available (not cancelled)
+      // Verify status updated to available (not cancelled status, but available list)
       expect(testMission.status, MissionStatus.available);
-    });
-  });
-
-  group('MissionsCoordinatorViewModel - abandonMission', () {
-    late MissionsListsModel missionsLists;
-    late AvailableMissionsViewModel availableVM;
-    late MyMissionsViewModel myVM;
-    late MissionViewModel missionVM;
-    late MissionsCoordinatorViewModel coordinator;
-
-    late Mission testMission;
-
-    setUp(() {
-      // create data model
-      missionsLists = MissionsListsModel(
-        myMissionsList: sampleMissions,
-        availableMissionsList: availableMissions,
-      );
-
-      // Create ViewModels with initial state
-      availableVM = AvailableMissionsViewModel(missionsLists);
-      myVM = MyMissionsViewModel(missionsLists);
-      missionVM = MissionViewModel(sampleMissions[0]);
-
-      // Coordinator under test
-      coordinator = MissionsCoordinatorViewModel(
-        myMissionsVM: myVM,
-        availableMissionsVM: availableVM,
-      );
+      expect(testMission.cancellationReason, "cancellationReason");
     });
 
-    test('abandonMission moves mission from my missions → available', () {
-      coordinator.setMissionVM(missionVM);
-      testMission = sampleMissions[0];
-      int initialAvailableLength = availableMissions.length;
-      int initialMyLength = sampleMissions.length;
+    test('abandonMission moves mission from my missions -> available', () {
+      // Setup: use a mission from my missions
+      testMission = repository.getMissions(MissionListType.myMissions).first;
+      testMission.status = MissionStatus.assigned;
 
-      // Verify initial state
-      expect(availableVM.availableMissions.length, initialAvailableLength);
-      expect(myVM.myMissions.length, initialMyLength);
-      expect(testMission.status, MissionStatus.chosen);
+      int initialAvailableLength = repository
+          .getMissions(MissionListType.availableMissions)
+          .length;
+      int initialMyLength = repository
+          .getMissions(MissionListType.myMissions)
+          .length;
 
       // Perform action
-      coordinator.abandonMission(testMission);
+      repository.abandonMission(testMission);
 
       // Verify mission moved lists
-      expect(availableVM.availableMissions.length, initialAvailableLength + 1);
-      expect(myVM.myMissions.length, initialMyLength - 1);
-      expect(availableVM.availableMissions.contains(testMission), true);
+      expect(availableVM.sourceList.length, initialAvailableLength + 1);
+      expect(myVM.sourceList.length, initialMyLength - 1);
+      expect(availableVM.sourceList.contains(testMission), true);
 
-      // Note: abandonMission doesn't update status, only moves between lists
-      // Status remains 'chosen' - use updateStatus('cancelled') to also change status
       expect(testMission.status, MissionStatus.available);
     });
   });

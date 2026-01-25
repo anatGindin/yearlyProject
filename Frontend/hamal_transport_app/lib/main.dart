@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hamal_transport_app/Constants/mock_data.dart';
-import 'package:hamal_transport_app/Models/missions_model.dart';
 import 'package:hamal_transport_app/Services/authentication_service.dart';
-import 'package:hamal_transport_app/ViewModels/available_missions_view_model.dart';
-import 'package:hamal_transport_app/ViewModels/missions_coordinator_view_model.dart';
-import 'package:hamal_transport_app/ViewModels/my_missions_view_model.dart';
+import 'package:hamal_transport_app/Services/missions_repository.dart';
 import 'package:provider/provider.dart';
 import 'l10n/app_localizations.dart';
 import 'Views/Authentication/auth_gate.dart';
@@ -14,6 +11,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:hamal_transport_app/firebase_options.dart';
 import 'package:hamal_transport_app/Theme/app_theme.dart';
 import 'package:hamal_transport_app/Services/app_preferences_service.dart';
+import 'package:hamal_transport_app/Services/navigation_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +26,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final AppPreferencesService prefsService;
+
   const MyApp({super.key, required this.prefsService});
 
   @override
@@ -37,33 +36,15 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<AppPreferencesService>.value(
           value: prefsService,
         ),
-        Provider<MissionsListsModel>(
-          create: (_) {
-            final model = MissionsListsModel(
-              myMissionsList: sampleMissions,
-              availableMissionsList: availableMissions,
-            );
-            // Pre-fetch route info for all missions so it's instantly available
-            model.prefetchRouteInfo();
-            return model;
-          },
-        ),
-        ChangeNotifierProvider<MyMissionsViewModel>(
-          create: (context) =>
-              MyMissionsViewModel(context.read<MissionsListsModel>()),
-        ),
-        ChangeNotifierProvider<AvailableMissionsViewModel>(
-          create: (context) =>
-              AvailableMissionsViewModel(context.read<MissionsListsModel>()),
-        ),
-        ChangeNotifierProvider<MissionsCoordinatorViewModel>(
-          create: (context) => MissionsCoordinatorViewModel(
-            myMissionsVM: context.read<MyMissionsViewModel>(),
-            availableMissionsVM: context.read<AvailableMissionsViewModel>(),
-          ),
-        ),
         Provider<AuthenticationService>(create: (_) => AuthenticationService()),
+        ChangeNotifierProvider<MissionsRepository>(
+          create: (context) => MissionsRepository(),
+        ),
+
         Provider<LocationService>(create: (_) => LocationService()),
+        ChangeNotifierProvider<MainNavigationController>(
+          create: (_) => MainNavigationController(),
+        ),
       ],
       child: Consumer<AppPreferencesService>(
         builder: (context, settings, _) {

@@ -1,6 +1,7 @@
 import 'package:hamal_transport_app/Services/authentication_service.dart';
 import 'package:hamal_transport_app/Models/user_profile.dart';
 import 'package:mockito/mockito.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class FakeAuthenticationService extends Mock implements AuthenticationService {
   bool signUpCalled = false;
@@ -17,6 +18,13 @@ class FakeAuthenticationService extends Mock implements AuthenticationService {
 
   // Mock user profile for testing
   UserProfile? mockUserProfile;
+  User? mockUser;
+
+  @override
+  User? get currentUser => mockUser;
+
+  // Mock user profiles by UID for testing getUserProfileByUid
+  Map<String, UserProfile> mockUserProfileByUid = {};
 
   @override
   Future<UserProfile> signIn({
@@ -90,6 +98,11 @@ class FakeAuthenticationService extends Mock implements AuthenticationService {
   @override
   Future<void> signOut() async {
     mockUserProfile = null;
+  }
+
+  @override
+  Future<UserProfile?> getUserProfileByUid(String uid) async {
+    return mockUserProfileByUid[uid];
   }
 
   @override
