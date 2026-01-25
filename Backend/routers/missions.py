@@ -26,6 +26,8 @@ def save_missions():
 def create_mission(new_mission: Mission):
     missions.append(new_mission)
     save_missions()
+    #add error in case db doesnt respond
+    
     return new_mission
 
 @router.put("/{mission_id}/{status}", response_model=Mission)
@@ -69,6 +71,7 @@ def list_missions(
 ):
     result = missions
     #TODO: change when given DB
+    #add error in case db doesnt respond
     if status:
         result = [m for m in result if m.status == status]
 
