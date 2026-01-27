@@ -42,3 +42,28 @@ We follow a sprint-based branching model:
 4. **At least one approval is required before merging any PR**
 5. Ensure all CI checks pass before merging
 6. Please delete your work branch after merging
+
+## Issues & Backlog Handling
+
+### Creating Issues
+
+- When creating a new issue, always assign appropriate labels (e.g., `bug`, `feature`, `documentation`, `help wanted`)
+- Establish relationships by linking related issues (use “parent”, “depends on” or “blocks”)
+
+### Backlog Workflow
+
+- **All new tasks** begin in the **Backlog** list; some may be marked as “blocked” if waiting for dependencies.
+- The **Ready** list includes issues planned for the current sprint and are not blocked.  
+  Issues are moved to this list and assigned to team members during our weekly meeting.
+- Issues are moved to **In Progress** as soon as implementation begins.
+- When implementation is finished:
+  1. Open a Pull Request and link it to the relevant issue
+  2. Move the issue to the **In Review** list  
+- After approval and PR merging, move the issue to the **Done** list.
+
+#### Example Issue Flow
+
+> Backlog → Ready → In Progress → In Review → Done
+
+This workflow helps us keep track of tasks, dependencies, and current development status throughout the sprint.
+
