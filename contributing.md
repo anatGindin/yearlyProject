@@ -26,13 +26,16 @@ We follow a sprint-based branching model:
 
 ### End of Sprint
 - Once the sprint is complete and tested, `dev/vX.X.X` is merged into `main`
+- New Release published with release notes, based on a new tag created on the new merged commit into the main branch
+- APK of the new version is uploaded to our [landing page](https://idotalk.github.io/Hamal-landing-page/)
 - A new sprint branch `dev/vX.X.Y` is created for the next sprint
 
 ## Branch Naming Conventions
 
 - Features: `feature/short-description`
 - Bug fixes: `fix/short-description`
-- Example: `feature/driver-location-tracking`, `fix/login-timeout`
+- Sprint development: `dev/vX.X.X`
+- Example: `feature/driver-location-tracking`, `fix/login-timeout`, `dev/v0.0.4`
 
 ## Pull Request Guidelines
 
@@ -40,7 +43,7 @@ We follow a sprint-based branching model:
 2. Reference related issues (e.g., "Closes #123")
 3. Request review from at least one team member
 4. **At least one approval is required before merging any PR**
-5. Ensure all CI checks pass before merging
+5. **No PR may be merged unless all CI checks have passed**
 6. Please delete your work branch after merging
 
 ## Issues & Backlog Handling
@@ -60,6 +63,7 @@ We follow a sprint-based branching model:
   1. Open a Pull Request and link it to the relevant issue
   2. Move the issue to the **In Review** list  
 - After approval and PR merging, move the issue to the **Done** list.
+  _Note: Issues labeled as **Epic** or **Story** remain in their dedicated lists throughout the process to maintain a clear issue hierarchy._
 
 #### Example Issue Flow
 
