@@ -65,34 +65,9 @@ Developed for Hamal - A non-profit logistics organization
 
 ## Installation
 
-### Prerequisites
-- Flutter SDK (version 3.38.0 or higher)
-- Dart SDK (version 3.10.0 or higher)
-  Python 3.10
+For further details about the app installation, read [this]
 
-### Setup Steps
-1. Clone the repository
-   ```bash
-   git clone https://github.com/anatGindin/yearlyProject.git
-   cd yearlyProject
-   ```
-
-2. Install Frontend dependencies
-   ```bash
-   cd Frontend/hamal_transport_app
-   flutter pub get
-   ```
-
-3. Install Backend dependencies
-   ```bash
-   cd Backend
-   pip install -r requirements.txt
-   ```
-
-4. Run the application
-   ```bash
-   flutter run
-   ```
+[this]:https://github.com/anatGindin/yearlyProject/blob/readme_edit/docs/EnviromentSetup.md
 
 ## Usage
 
