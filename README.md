@@ -14,6 +14,14 @@ For further details about this product, the full project's HLD can be found [her
 
 This cross-platform mobile application enables efficient coordination between drivers and logistics staff through real-time location tracking, intelligent delivery assignment, and instant communication. The system emphasizes simplicity and accessibility for elderly drivers while providing powerful management tools for administrators.
 
+## Contributing
+
+Please see [contributing.md](contributing.md) for our branching model and PR process.
+
+## Screenshots
+
+Please see [screenshots.md](screenshots.md).
+
 ## Key Features
 
 ### For Drivers
@@ -54,6 +62,24 @@ Currently in development as part of an academic project in collaboration with Ha
 ## License
 
 Developed for Hamal - A non-profit logistics organization
+
+## Installation
+
+For further details about the app installation, read [this]
+
+[this]:https://github.com/anatGindin/yearlyProject/blob/readme_edit/docs/EnviromentSetup.md
+
+## Usage
+
+### For Drivers
+1. Log in to view available transport missions
+2. Accept missions that match your vehicle type
+3. Update mission status: Assigned → Picked Up → Delivered
+4. Use the built-in map for navigation to pickup/delivery locations
+
+### For Logistics Staff
+1. Manage transport missions
+2. Monitor mission progress and delivery status
 
 ---
 
