@@ -41,3 +41,4 @@ We follow a sprint-based branching model:
 3. Request review from at least one team member
 4. **At least one approval is required before merging any PR**
 5. Ensure all CI checks pass before merging
+6. Please delete your work branch after merging
