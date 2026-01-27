@@ -55,6 +55,49 @@ Currently in development as part of an academic project in collaboration with Ha
 
 Developed for Hamal - A non-profit logistics organization
 
+## Installation
+
+### Prerequisites
+- Flutter SDK (version 3.38.0 or higher)
+- Dart SDK (version 3.10.0 or higher)
+  Python 3.10
+
+### Setup Steps
+1. Clone the repository
+   ```bash
+   git clone https://github.com/anatGindin/yearlyProject.git
+   cd yearlyProject
+   ```
+
+2. Install Frontend dependencies
+   ```bash
+   cd Frontend/hamal_transport_app
+   flutter pub get
+   ```
+
+3. Install Backend dependencies
+   ```bash
+   cd Backend
+   pip install -r requirements.txt
+   ```
+
+4. Run the application
+   ```bash
+   flutter run
+   ```
+
+## Usage
+
+### For Drivers
+1. Log in to view available transport missions
+2. Accept missions that match your vehicle type
+3. Update mission status: Assigned → Picked Up → Delivered
+4. Use the built-in map for navigation to pickup/delivery locations
+
+### For Logistics Staff
+1. Manage transport missions
+2. Monitor mission progress and delivery status
+
 ---
 
 *Note: This application is designed with accessibility in mind, featuring intuitive interfaces suitable for elderly drivers with options for larger fonts and simplified navigation.*
