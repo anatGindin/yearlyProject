@@ -14,6 +14,14 @@ For further details about this product, the full project's HLD can be found [her
 
 This cross-platform mobile application enables efficient coordination between drivers and logistics staff through real-time location tracking, intelligent delivery assignment, and instant communication. The system emphasizes simplicity and accessibility for elderly drivers while providing powerful management tools for administrators.
 
+## Contributing
+
+Please see [contributing.md](contributing.md) for our branching model and PR process.
+
+## Screenshots
+
+Please see [screenshots.md](screenshots.md).
+
 ## Key Features
 
 ### For Drivers
