@@ -1,9 +1,7 @@
-from fastapi import APIRouter, HTTPException
-from typing import List
 import json
 import os
-
 from app.models import Mission
+from fastapi import APIRouter, HTTPException, Query
 
 router = APIRouter(prefix="/missions", tags=["missions"])
 
@@ -11,7 +9,7 @@ router = APIRouter(prefix="/missions", tags=["missions"])
 file_path = "/Backend/mock_data.json"
 
 if os.path.exists(file_path):
-    with open(file_path, "r") as f:
+    with open(file_path) as f:
         missions = [Mission(**m) for m in json.load(f)]
 else:
     missions = []
@@ -55,10 +53,10 @@ def delete_mission(mission_id: str):
             return
     raise HTTPException(status_code=404, detail="Mission not found")
 
-@router.get("/", response_model=List[Mission])
+@router.get("/", response_model=list[Mission])
 def list_missions(
-    status: Optional[str] = Query(None, description="Filter by mission status"),
-    driver_id: Optional[str] = Query(None, description="Filter by driver"),
+    status: str | None = Query(None, description="Filter by mission status"),
+    driver_id: str | None = Query(None, description="Filter by driver"),
 ):
     result = missions
     #TODO: change when given DB
