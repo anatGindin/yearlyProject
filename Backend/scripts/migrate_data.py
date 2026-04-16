@@ -1,11 +1,10 @@
-import firebase_admin
-from firebase_admin import credentials, firestore
 import json
 import os
+import firebase_admin
+from firebase_admin import credentials, firestore
+
 
 # A script for migrating json mock data into firestore database
-
-
 def migrate():
     # Path to service account key
     base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,15 +24,13 @@ def migrate():
     db = firestore.client()
 
     # Path to mock data
-    mock_data_path = os.path.join(
-        base_path, "..", "Frontend", "hamal_transport_app", "assets", "mock_data.json"
-    )
+    mock_data_path = os.path.join(base_path, "..", "Frontend", "hamal_transport_app", "assets", "mock_data.json")
 
     if not os.path.exists(mock_data_path):
         print(f"Error: Mock data not found at {mock_data_path}")
         return
 
-    with open(mock_data_path, "r", encoding="utf-8") as f:
+    with open(mock_data_path, encoding="utf-8") as f:
         data = json.load(f)
 
     # 1. Clear existing missions
@@ -65,9 +62,7 @@ def migrate():
 
     # Final commit
     batch.commit()
-    print(
-        f"Successfully migrated {missions_count} missions and {users_count} users to Firestore."
-    )
+    print(f"Successfully migrated {missions_count} missions to Firestore.")
 
 
 if __name__ == "__main__":

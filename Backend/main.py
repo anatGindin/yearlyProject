@@ -1,11 +1,11 @@
-from fastapi import FastAPI, HTTPException
 from app.routers import missions
-#FOR CORS: from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI
 
 
+# FOR CORS: from fastapi.middleware.cors import CORSMiddleware
 def create_app() -> FastAPI:
     app = FastAPI(title="Clean API")
-    '''
+    """
     #code for CORS
     origins = [#frontend URL]
 
@@ -16,17 +16,18 @@ def create_app() -> FastAPI:
         allow_methods=["GET", "POST", "PUT", "DELETE"],
         allow_headers=["*"],
     )
-    '''
+    """
     app.include_router(missions.router)
 
     @app.on_event("startup")
     async def startup():
-        await '''connect to the database'''
+        await """connect to the database"""
 
     @app.on_event("shutdown")
     async def shutdown():
-        await '''close the database connection'''
+        await """close the database connection"""
 
     return app
+
 
 app = create_app()

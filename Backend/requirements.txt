@@ -1,11 +1,18 @@
 # Backend Python dependencies for the FastAPI app
-# Minimum recommended Python version: 3.9+
+# Minimum recommended Python version: 3.11+
 
-fastapi>=0.95.0
-pydantic>=1.10
-uvicorn[standard]>=0.20.0
+# API
+fastapi
+pydantic
+uvicorn[standard]
 
-# Optional (install if you plan to load .env files or use caching)
-# python-dotenv
-# cachetools
-firebase-admin>=6.2.0
+# Enviroment and Config
+python-dotenv
+cachetools
+firebase-admin
+
+# Dev & CI
+ruff
+mypy
+pytest
+pytest-asyncio

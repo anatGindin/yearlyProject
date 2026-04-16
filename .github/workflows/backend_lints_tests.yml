@@ -1,0 +1,42 @@
+name: backend_lints_tests
+
+on:
+  pull_request:
+    branches: 
+      - "dev/v*"
+    paths:
+      - "Backend/**"
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Backend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+          cache-dependency-path: Backend/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Lint & format check (ruff)
+        run: |
+          ruff check .
+          ruff format --check .
+
+      - name: Type check (mypy)
+        run: mypy .
+
+      - name: Run tests
+        run: pytest --tb=short
+        env:
+          ENVIRONMENT: test
