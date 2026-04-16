@@ -1,4 +1,4 @@
-from app.routers import missions
+from routers import missions
 from fastapi import FastAPI
 
 

@@ -1,6 +1,6 @@
 import json
 import os
-from app.models import Mission
+from models import Mission
 from fastapi import APIRouter, HTTPException, Query
 
 router = APIRouter(prefix="/missions", tags=["missions"])
@@ -14,6 +14,7 @@ if os.path.exists(file_path):
 else:
     missions = []
 
+
 def save_missions():
     with open(file_path, "w") as f:
         json.dump([m.dict() for m in missions], f)
@@ -25,6 +26,7 @@ def create_mission(new_mission: Mission):
     save_missions()
     return new_mission
 
+
 @router.put("/{mission_id}/{status}", response_model=Mission)
 def update_mission_status(mission_id: str, status: str):
     for mission in missions:
@@ -32,11 +34,11 @@ def update_mission_status(mission_id: str, status: str):
             # check if status is valid
             if status not in ["chosen", "pickedUp", "delivered", "cancelled", "available"]:
                 raise HTTPException(status_code=400, detail="Invalid status value")
-            if(mission.status == "available" and status != "chosen"):
+            if mission.status == "available" and status != "chosen":
                 raise HTTPException(status_code=400, detail="Invalid status transition from available")
-            if(mission.status == "chosen" and status not in ["pickedUp", "cancelled"]):
+            if mission.status == "chosen" and status not in ["pickedUp", "cancelled"]:
                 raise HTTPException(status_code=400, detail="Invalid status transition from chosen")
-            if(mission.status == "pickedUp" and status not in ["delivered", "cancelled"]):
+            if mission.status == "pickedUp" and status not in ["delivered", "cancelled"]:
                 raise HTTPException(status_code=400, detail="Invalid status transition from pickedUp")
             mission.status = status
             save_missions()
@@ -53,13 +55,14 @@ def delete_mission(mission_id: str):
             return
     raise HTTPException(status_code=404, detail="Mission not found")
 
+
 @router.get("/", response_model=list[Mission])
 def list_missions(
     status: str | None = Query(None, description="Filter by mission status"),
     driver_id: str | None = Query(None, description="Filter by driver"),
 ):
     result = missions
-    #TODO: change when given DB
+    # TODO: change when given DB
     if status:
         result = [m for m in result if m.status == status]
 
@@ -67,5 +70,3 @@ def list_missions(
         result = [m for m in result if getattr(m, "driver_id", None) == driver_id]
 
     return result
-
-

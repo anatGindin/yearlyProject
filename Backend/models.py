@@ -1,8 +1,10 @@
 from pydantic import BaseModel
 
+
 class Contact(BaseModel):
     fullName: str
     phoneNumber: str
+
 
 class Mission(BaseModel):
     id: str
@@ -14,4 +16,3 @@ class Mission(BaseModel):
     carType: str
     cancellationReason: str
     comments: list[str]
-
