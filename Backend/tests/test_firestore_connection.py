@@ -13,6 +13,12 @@ TEST_COLLECTION = "test_connection_check"
 
 @pytest.fixture
 def firestore_client():
+    key_path = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        "serviceAccountKey.json",
+    )
+    if not os.path.exists(key_path):
+        pytest.skip("serviceAccountKey.json not found – skipping Firestore integration test")
     return get_firestore_client()
 
 
