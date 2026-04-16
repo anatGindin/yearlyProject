@@ -3,7 +3,7 @@ import os
 import pytest
 from datetime import datetime, timezone
 
-# Add Backend directory to path so we can import firebase_config
+# Add Backend directory to path so we can import firebase_config 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from firebase_config import get_firestore_client
