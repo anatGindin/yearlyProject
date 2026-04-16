@@ -28,7 +28,7 @@ exclude = ["tests/"]
 # disallow_untyped_defs = true
 
 [[tool.mypy.overrides]]
-module = "firebase_admin.*"
+module = ["firebase_admin.*", "fastapi.*", "pydantic.*"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
