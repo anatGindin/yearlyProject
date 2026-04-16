@@ -1,9 +1,9 @@
 import sys
 import os
 import pytest
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
-# Add Backend directory to path so we can import firebase_config 
+# Add Backend directory to path so we can import firebase_config
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from firebase_config import get_firestore_client
@@ -30,7 +30,7 @@ def test_firestore_write_and_read(firestore_client):
         # Write a test document
         doc_data = {
             "message": "Hello from backend test",
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
         _, doc_ref = collection_ref.add(doc_data)
         created_doc_ids.append(doc_ref.id)

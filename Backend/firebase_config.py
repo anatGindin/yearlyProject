@@ -15,7 +15,7 @@ def initialize_firebase():
             raise FileNotFoundError(
                 f"Service account key not found at {key_path}. "
                 "Download it from the Firebase Console and place it in the Backend directory."
-            )
+            ) from None
 
         cred = credentials.Certificate(key_path)
         return firebase_admin.initialize_app(cred)
