@@ -5,28 +5,32 @@ on:
     branches:
       - main
     paths:
-      - 'Frontend/hamal_transport_app/**'
-      - '.github/workflows/flutter_ci.yml'
+      - "Frontend/hamal_transport_app/**"
+      - ".github/workflows/flutter_ci.yml"
 
 jobs:
   test:
     name: Run Tests
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
+      - name: Create serviceAccountKey.json
+        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}' >
+          Backend/serviceAccountKey.json
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.38.2'
-          channel: 'stable'
-      
+          flutter-version: "3.38.2"
+          channel: "stable"
+
       - name: Get dependencies
         working-directory: ./Frontend/hamal_transport_app
         run: flutter pub get
-      
+
       - name: Run tests
         working-directory: ./Frontend/hamal_transport_app
         run: flutter test lib/Tests
@@ -34,33 +38,33 @@ jobs:
   # Second job: Build for Android
   build-android:
     name: Build Android APK
-    needs: test  # Only run if tests pass
+    needs: test # Only run if tests pass
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.38.2'
-          channel: 'stable'
-      
+          flutter-version: "3.38.2"
+          channel: "stable"
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
-          java-version: '17'
-      
+          distribution: "zulu"
+          java-version: "17"
+
       - name: Get dependencies
         working-directory: ./Frontend/hamal_transport_app
         run: flutter pub get
-      
+
       - name: Build APK
         working-directory: ./Frontend/hamal_transport_app
         run: flutter build apk --release
-      
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
@@ -71,27 +75,27 @@ jobs:
   # Third job: Build for iOS
   build-ios:
     name: Build iOS IPA
-    needs: test  # Only run if tests pass
-    runs-on: macos-latest  # iOS builds require macOS
-    
+    needs: test # Only run if tests pass
+    runs-on: macos-latest # iOS builds require macOS
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.38.2'
-          channel: 'stable'
-      
+          flutter-version: "3.38.2"
+          channel: "stable"
+
       - name: Get dependencies
         working-directory: ./Frontend/hamal_transport_app
         run: flutter pub get
-      
+
       - name: Build iOS (no codesign)
         working-directory: ./Frontend/hamal_transport_app
         run: flutter build ios --release --no-codesign
-      
+
       # Note: For actual distribution, we need to set up code signing
       # This creates an unsigned build for now
       - name: Create IPA archive
@@ -102,7 +106,7 @@ jobs:
           mkdir Payload
           cp -r Runner.app Payload/
           zip -r ../ipa/app-unsigned.ipa Payload
-      
+
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
