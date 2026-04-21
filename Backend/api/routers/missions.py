@@ -33,12 +33,12 @@ def update_mission_status(mission_id: str, status: str):
     for m in missions:
         if m.id == mission_id:
             # check if status is valid
-            if status not in ["chosen", "pickedUp", "delivered", "cancelled", "available"]:
+            if status not in ["assigned", "pickedUp", "delivered", "cancelled", "available"]:
                 raise HTTPException(status_code=400, detail="Invalid status value")
-            if m.status == "available" and status != "chosen":
+            if m.status == "available" and status != "assigned":
                 raise HTTPException(status_code=400, detail="Invalid status transition from available")
-            if m.status == "chosen" and status not in ["pickedUp", "cancelled"]:
-                raise HTTPException(status_code=400, detail="Invalid status transition from chosen")
+            if m.status == "assigned" and status not in ["pickedUp", "cancelled"]:
+                raise HTTPException(status_code=400, detail="Invalid status transition from assigned")
             if m.status == "pickedUp" and status not in ["delivered", "cancelled"]:
                 raise HTTPException(status_code=400, detail="Invalid status transition from pickedUp")
             m.status = enums.MissionStatus(status)
