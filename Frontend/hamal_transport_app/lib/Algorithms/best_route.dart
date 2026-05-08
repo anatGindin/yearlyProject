@@ -19,7 +19,7 @@ class RouteStep {
 }
 
 class BestRoute {
-  static final int _optimalSearchLimit = 7;
+  static final int _optimalSearchLimit = 6;
 
   /// Calculates the best route for a list of missions.
   /// Uses an optimal search for small mission sets and a greedy approach for larger ones.
@@ -32,7 +32,8 @@ class BestRoute {
         .where(
           (m) =>
               m.status != MissionStatus.delivered &&
-              m.status != MissionStatus.cancelled,
+              m.status != MissionStatus.cancelled &&
+              m.status != MissionStatus.available,
         )
         .toList();
 

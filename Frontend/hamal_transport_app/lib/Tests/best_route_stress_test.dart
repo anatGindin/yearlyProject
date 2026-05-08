@@ -30,7 +30,7 @@ void main() {
         time: DateTime.now(),
         comments: [],
         carType: CarType.private,
-        status: MissionStatus.available,
+        status: MissionStatus.assigned,
       );
     });
   }
