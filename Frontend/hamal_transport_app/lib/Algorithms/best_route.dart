@@ -19,7 +19,7 @@ class RouteStep {
 }
 
 class BestRoute {
-  static final int _optimalSearchLimit = 6;
+  static final int _optimalSearchLimit = 7;
 
   /// Calculates the best route for a list of missions.
   /// Uses an optimal search for small mission sets and a greedy approach for larger ones.
@@ -255,12 +255,17 @@ class BestRoute {
   }
 
   /// Benchmarks both algorithms and returns a summary.
-  static Map<String, dynamic> benchmark(List<Mission> missions, Location start) {
+  static Map<String, dynamic> benchmark(
+    List<Mission> missions,
+    Location start,
+  ) {
     // Identify missions already picked up
-    List<Mission> waiting =
-        missions.where((m) => m.status != MissionStatus.pickedUp).toList();
-    List<Mission> picked =
-        missions.where((m) => m.status == MissionStatus.pickedUp).toList();
+    List<Mission> waiting = missions
+        .where((m) => m.status != MissionStatus.pickedUp)
+        .toList();
+    List<Mission> picked = missions
+        .where((m) => m.status == MissionStatus.pickedUp)
+        .toList();
 
     final sw = Stopwatch()..start();
     final optRoute = _findOptimalRoute(start, waiting, picked);
@@ -282,7 +287,9 @@ class BestRoute {
       'optimalDist': optDist,
       'greedyTime': greedyTime,
       'greedyDist': greedyDist,
-      'improvement': optDist < greedyDist ? ((greedyDist - optDist) / greedyDist * 100) : 0.0,
+      'improvement': optDist < greedyDist
+          ? ((greedyDist - optDist) / greedyDist * 100)
+          : 0.0,
     };
   }
 }
