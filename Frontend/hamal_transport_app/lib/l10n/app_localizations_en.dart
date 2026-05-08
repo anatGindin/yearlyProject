@@ -390,4 +390,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String additionOf(String distance, String unit) {
     return 'addition of $distance $unit';
   }
+
+  @override
+  String get routeSuggestion => 'Route Suggestion';
+
+  @override
+  String driveToAndPickup(String address) {
+    return 'Drive to $address and pickup the following packages:';
+  }
+
+  @override
+  String goToAndDeliver(String address, String missionName) {
+    return 'Go to $address and deliver $missionName';
+  }
+
+  @override
+  String headToTasks(String address) {
+    return 'Head to $address for the following tasks:';
+  }
+
+  @override
+  String get actionPickup => 'Pickup';
+
+  @override
+  String get actionDeliver => 'Deliver';
 }

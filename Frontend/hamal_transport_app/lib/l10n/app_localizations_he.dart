@@ -389,4 +389,28 @@ class AppLocalizationsHe extends AppLocalizations {
   String additionOf(String distance, String unit) {
     return 'תוספת של $distance $unit';
   }
+
+  @override
+  String get routeSuggestion => 'מסלול מוצע';
+
+  @override
+  String driveToAndPickup(String address) {
+    return 'סע אל $address ואסוף את החבילות הבאות:';
+  }
+
+  @override
+  String goToAndDeliver(String address, String missionName) {
+    return 'המשך אל $address ומסור את $missionName';
+  }
+
+  @override
+  String headToTasks(String address) {
+    return 'סע אל $address המשימות הבאות:';
+  }
+
+  @override
+  String get actionPickup => 'איסוף';
+
+  @override
+  String get actionDeliver => 'מסירה';
 }

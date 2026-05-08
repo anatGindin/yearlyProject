@@ -498,5 +498,51 @@
         "example": "km"
       }
     }
+  },
+  "routeSuggestion": "Route Suggestion",
+  "@routeSuggestion": {
+    "description": "Title for route suggestion screen"
+  },
+  "driveToAndPickup": "Drive to {address} and pickup the following packages:",
+  "@driveToAndPickup": {
+    "description": "Instruction to drive and pickup",
+    "placeholders": {
+      "address": {
+        "type": "String",
+        "example": "Tel Aviv"
+      }
+    }
+  },
+  "goToAndDeliver": "Go to {address} and deliver {missionName}",
+  "@goToAndDeliver": {
+    "description": "Instruction to go and deliver",
+    "placeholders": {
+      "address": {
+        "type": "String",
+        "example": "Tel Aviv"
+      },
+      "missionName": {
+        "type": "String",
+        "example": "Package 1"
+      }
+    }
+  },
+  "headToTasks": "Head to {address} for the following tasks:",
+  "@headToTasks": {
+    "description": "Instruction to head for multiple tasks",
+    "placeholders": {
+      "address": {
+        "type": "String",
+        "example": "Tel Aviv"
+      }
+    }
+  },
+  "actionPickup": "Pickup",
+  "@actionPickup": {
+    "description": "Action text for picking up a package"
+  },
+  "actionDeliver": "Deliver",
+  "@actionDeliver": {
+    "description": "Action text for delivering a package"
   }
 }

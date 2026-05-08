@@ -498,5 +498,51 @@
         "example": "ק״מ"
       }
     }
+  },
+  "routeSuggestion": "מסלול מוצע",
+  "@routeSuggestion": {
+    "description": "Title for route suggestion screen"
+  },
+  "driveToAndPickup": "סע אל {address} ואסוף את החבילות הבאות:",
+  "@driveToAndPickup": {
+    "description": "Instruction to drive and pickup",
+    "placeholders": {
+      "address": {
+        "type": "String",
+        "example": "Tel Aviv"
+      }
+    }
+  },
+  "goToAndDeliver": "המשך אל {address} ומסור את {missionName}",
+  "@goToAndDeliver": {
+    "description": "Instruction to go and deliver",
+    "placeholders": {
+      "address": {
+        "type": "String",
+        "example": "Tel Aviv"
+      },
+      "missionName": {
+        "type": "String",
+        "example": "Package 1"
+      }
+    }
+  },
+  "headToTasks": "סע אל {address} המשימות הבאות:",
+  "@headToTasks": {
+    "description": "Instruction to head for multiple tasks",
+    "placeholders": {
+      "address": {
+        "type": "String",
+        "example": "Tel Aviv"
+      }
+    }
+  },
+  "actionPickup": "איסוף",
+  "@actionPickup": {
+    "description": "Action text for picking up a package"
+  },
+  "actionDeliver": "מסירה",
+  "@actionDeliver": {
+    "description": "Action text for delivering a package"
   }
 }

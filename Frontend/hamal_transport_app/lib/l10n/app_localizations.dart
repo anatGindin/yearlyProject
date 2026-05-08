@@ -847,6 +847,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'addition of {distance} {unit}'**
   String additionOf(String distance, String unit);
+
+  /// Title for route suggestion screen
+  ///
+  /// In en, this message translates to:
+  /// **'Route Suggestion'**
+  String get routeSuggestion;
+
+  /// Instruction to drive and pickup
+  ///
+  /// In en, this message translates to:
+  /// **'Drive to {address} and pickup the following packages:'**
+  String driveToAndPickup(String address);
+
+  /// Instruction to go and deliver
+  ///
+  /// In en, this message translates to:
+  /// **'Go to {address} and deliver {missionName}'**
+  String goToAndDeliver(String address, String missionName);
+
+  /// Instruction to head for multiple tasks
+  ///
+  /// In en, this message translates to:
+  /// **'Head to {address} for the following tasks:'**
+  String headToTasks(String address);
+
+  /// Action text for picking up a package
+  ///
+  /// In en, this message translates to:
+  /// **'Pickup'**
+  String get actionPickup;
+
+  /// Action text for delivering a package
+  ///
+  /// In en, this message translates to:
+  /// **'Deliver'**
+  String get actionDeliver;
 }
 
 class _AppLocalizationsDelegate
