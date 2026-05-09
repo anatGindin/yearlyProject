@@ -16,7 +16,7 @@ class MissionsListViewModel extends ChangeNotifier {
 
   SortBy _sortBy = SortBy.timeNewestFirst;
   FilterBy _filterBy = FilterBy.noFilter;
-  List<IsraelDistrict> _selectedDistricts = [];
+  final List<IsraelDistrict> _selectedDistricts = [];
   Location? _userLocation;
 
   MissionsListViewModel({
@@ -50,23 +50,25 @@ class MissionsListViewModel extends ChangeNotifier {
   List<Mission> get sourceList => _repository.getMissions(_type);
 
   List<Mission> get missions {
-    var filteredMissions = sourceList
-        .where(MissionsListsModel.getFilterFunction(_filterBy));
+    var filteredMissions = sourceList.where(
+      MissionsListsModel.getFilterFunction(_filterBy),
+    );
 
     if (_selectedDistricts.isNotEmpty) {
       filteredMissions = filteredMissions.where((mission) {
-        final district = DistrictPolygons.getDistrictForLocation(mission.destination);
+        final district = DistrictPolygons.getDistrictForLocation(
+          mission.destination,
+        );
         return district != null && _selectedDistricts.contains(district);
       });
     }
 
-    return filteredMissions.toList()
-      ..sort(
-        MissionsListsModel.getSortComperator(
-          _sortBy,
-          userLocation: _userLocation,
-        ),
-      );
+    return filteredMissions.toList()..sort(
+      MissionsListsModel.getSortComperator(
+        _sortBy,
+        userLocation: _userLocation,
+      ),
+    );
   }
 
   List<IsraelDistrict> get selectedDistricts => _selectedDistricts;
