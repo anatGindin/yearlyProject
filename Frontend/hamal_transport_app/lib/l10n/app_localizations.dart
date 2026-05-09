@@ -857,44 +857,26 @@ abstract class AppLocalizations {
   /// No description provided for @districtNorth.
   ///
   /// In en, this message translates to:
-  /// **'North District'**
+  /// **'North'**
   String get districtNorth;
-
-  /// No description provided for @districtHaifa.
-  ///
-  /// In en, this message translates to:
-  /// **'Haifa District'**
-  String get districtHaifa;
 
   /// No description provided for @districtCenter.
   ///
   /// In en, this message translates to:
-  /// **'Central District'**
+  /// **'Center'**
   String get districtCenter;
-
-  /// No description provided for @districtTelAviv.
-  ///
-  /// In en, this message translates to:
-  /// **'Tel Aviv District'**
-  String get districtTelAviv;
 
   /// No description provided for @districtJerusalem.
   ///
   /// In en, this message translates to:
-  /// **'Jerusalem District'**
+  /// **'Jerusalem'**
   String get districtJerusalem;
 
   /// No description provided for @districtSouth.
   ///
   /// In en, this message translates to:
-  /// **'South District'**
+  /// **'South'**
   String get districtSouth;
-
-  /// No description provided for @districtJudeaAndSamaria.
-  ///
-  /// In en, this message translates to:
-  /// **'Judea & Samaria'**
-  String get districtJudeaAndSamaria;
 }
 
 class _AppLocalizationsDelegate

@@ -500,11 +500,8 @@
     }
   },
   "districts": "מחוז היעד",
-  "districtNorth": "מחוז הצפון",
-  "districtHaifa": "מחוז חיפה",
-  "districtCenter": "מחוז המרכז",
-  "districtTelAviv": "מחוז תל אביב",
-  "districtJerusalem": "מחוז ירושלים",
-  "districtSouth": "מחוז הדרום",
-  "districtJudeaAndSamaria": "יהודה ושומרון"
+  "districtNorth": "צפון",
+  "districtCenter": "מרכז",
+  "districtJerusalem": "ירושלים",
+  "districtSouth": "דרום"
 }

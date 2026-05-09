@@ -500,11 +500,8 @@
     }
   },
   "districts": "Destination District",
-  "districtNorth": "North District",
-  "districtHaifa": "Haifa District",
-  "districtCenter": "Central District",
-  "districtTelAviv": "Tel Aviv District",
-  "districtJerusalem": "Jerusalem District",
-  "districtSouth": "South District",
-  "districtJudeaAndSamaria": "Judea & Samaria"
+  "districtNorth": "North",
+  "districtCenter": "Center",
+  "districtJerusalem": "Jerusalem",
+  "districtSouth": "South"
 }

@@ -394,23 +394,14 @@ class AppLocalizationsHe extends AppLocalizations {
   String get districts => 'מחוז היעד';
 
   @override
-  String get districtNorth => 'מחוז הצפון';
+  String get districtNorth => 'צפון';
 
   @override
-  String get districtHaifa => 'מחוז חיפה';
+  String get districtCenter => 'מרכז';
 
   @override
-  String get districtCenter => 'מחוז המרכז';
+  String get districtJerusalem => 'ירושלים';
 
   @override
-  String get districtTelAviv => 'מחוז תל אביב';
-
-  @override
-  String get districtJerusalem => 'מחוז ירושלים';
-
-  @override
-  String get districtSouth => 'מחוז הדרום';
-
-  @override
-  String get districtJudeaAndSamaria => 'יהודה ושומרון';
+  String get districtSouth => 'דרום';
 }

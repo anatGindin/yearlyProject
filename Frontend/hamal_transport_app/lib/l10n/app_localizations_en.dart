@@ -395,23 +395,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get districts => 'Destination District';
 
   @override
-  String get districtNorth => 'North District';
+  String get districtNorth => 'North';
 
   @override
-  String get districtHaifa => 'Haifa District';
+  String get districtCenter => 'Center';
 
   @override
-  String get districtCenter => 'Central District';
+  String get districtJerusalem => 'Jerusalem';
 
   @override
-  String get districtTelAviv => 'Tel Aviv District';
-
-  @override
-  String get districtJerusalem => 'Jerusalem District';
-
-  @override
-  String get districtSouth => 'South District';
-
-  @override
-  String get districtJudeaAndSamaria => 'Judea & Samaria';
+  String get districtSouth => 'South';
 }
