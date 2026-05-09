@@ -6,6 +6,7 @@ import 'package:hamal_transport_app/Models/missions_model.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
 import 'package:hamal_transport_app/Services/location_service.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
+import 'package:hamal_transport_app/Models/israel_districts.dart';
 
 class MissionsListViewModel extends ChangeNotifier {
   final MissionsRepository _repository;
@@ -15,6 +16,7 @@ class MissionsListViewModel extends ChangeNotifier {
 
   SortBy _sortBy = SortBy.timeNewestFirst;
   FilterBy _filterBy = FilterBy.noFilter;
+  List<IsraelDistrict> _selectedDistricts = [];
   Location? _userLocation;
 
   MissionsListViewModel({
@@ -48,15 +50,36 @@ class MissionsListViewModel extends ChangeNotifier {
   List<Mission> get sourceList => _repository.getMissions(_type);
 
   List<Mission> get missions {
-    return sourceList
-        .where(MissionsListsModel.getFilterFunction(_filterBy))
-        .toList()
+    var filteredMissions = sourceList
+        .where(MissionsListsModel.getFilterFunction(_filterBy));
+
+    if (_selectedDistricts.isNotEmpty) {
+      filteredMissions = filteredMissions.where((mission) {
+        final district = DistrictPolygons.getDistrictForLocation(mission.destination);
+        return district != null && _selectedDistricts.contains(district);
+      });
+    }
+
+    return filteredMissions.toList()
       ..sort(
         MissionsListsModel.getSortComperator(
           _sortBy,
           userLocation: _userLocation,
         ),
       );
+  }
+
+  List<IsraelDistrict> get selectedDistricts => _selectedDistricts;
+
+  void toggleDistrict(IsraelDistrict district, bool isSelected) {
+    if (isSelected) {
+      if (!_selectedDistricts.contains(district)) {
+        _selectedDistricts.add(district);
+      }
+    } else {
+      _selectedDistricts.remove(district);
+    }
+    notifyListeners();
   }
 
   String getSortBy(BuildContext context) {

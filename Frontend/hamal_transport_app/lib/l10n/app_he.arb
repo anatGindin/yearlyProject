@@ -232,7 +232,7 @@
   "@filterBy": {
     "description": "כפתור סינון רשימה"
   },
-  "closestToFurthest": "קרוב לרחוק",
+  "closestToFurthest": "מרחק נסיעה קטן ביותר",
   "@closestToFurthest": {
     "description": "אפשרות מיון - מרחק: קרוב לרחוק"
   },
@@ -240,7 +240,7 @@
   "@distanceFromYouClosest": {
     "description": "אפשרות מיון - מרחק מהמיקום הנוכחי: קרוב לרחוק"
   },
-  "furthestToClosest": "רחוק לקרוב",
+  "furthestToClosest": "מרחק נסיעה גדול ביותר",
   "@furthestToClosest": {
     "description": "אפשרות מיון - מרחק: רחוק לקרוב"
   },
@@ -498,5 +498,13 @@
         "example": "ק״מ"
       }
     }
-  }
+  },
+  "districts": "מחוז היעד",
+  "districtNorth": "מחוז הצפון",
+  "districtHaifa": "מחוז חיפה",
+  "districtCenter": "מחוז המרכז",
+  "districtTelAviv": "מחוז תל אביב",
+  "districtJerusalem": "מחוז ירושלים",
+  "districtSouth": "מחוז הדרום",
+  "districtJudeaAndSamaria": "יהודה ושומרון"
 }

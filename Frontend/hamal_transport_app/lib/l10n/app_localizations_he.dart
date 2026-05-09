@@ -182,13 +182,13 @@ class AppLocalizationsHe extends AppLocalizations {
   String get filterBy => 'סנן';
 
   @override
-  String get closestToFurthest => 'קרוב לרחוק';
+  String get closestToFurthest => 'מרחק נסיעה קטן ביותר';
 
   @override
   String get distanceFromYouClosest => 'מרחק ממקומך - קרוב לרחוק';
 
   @override
-  String get furthestToClosest => 'רחוק לקרוב';
+  String get furthestToClosest => 'מרחק נסיעה גדול ביותר';
 
   @override
   String get distanceFromYouFurthest => 'מרחק ממקומך - רחוק לקרוב';
@@ -389,4 +389,28 @@ class AppLocalizationsHe extends AppLocalizations {
   String additionOf(String distance, String unit) {
     return 'תוספת של $distance $unit';
   }
+
+  @override
+  String get districts => 'מחוז היעד';
+
+  @override
+  String get districtNorth => 'מחוז הצפון';
+
+  @override
+  String get districtHaifa => 'מחוז חיפה';
+
+  @override
+  String get districtCenter => 'מחוז המרכז';
+
+  @override
+  String get districtTelAviv => 'מחוז תל אביב';
+
+  @override
+  String get districtJerusalem => 'מחוז ירושלים';
+
+  @override
+  String get districtSouth => 'מחוז הדרום';
+
+  @override
+  String get districtJudeaAndSamaria => 'יהודה ושומרון';
 }

@@ -443,7 +443,7 @@ abstract class AppLocalizations {
   /// Sort option - Distance: closest to furthest
   ///
   /// In en, this message translates to:
-  /// **'Closest firsts'**
+  /// **'Shortest Driving Distance'**
   String get closestToFurthest;
 
   /// Sort option - Distance from your current location: closest to furthest
@@ -455,7 +455,7 @@ abstract class AppLocalizations {
   /// Sort option - Distance: Furthest to closest
   ///
   /// In en, this message translates to:
-  /// **'Furthest first'**
+  /// **'Longest Driving Distance'**
   String get furthestToClosest;
 
   /// Sort option - Distance from your current location: furthest to closest
@@ -847,6 +847,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'addition of {distance} {unit}'**
   String additionOf(String distance, String unit);
+
+  /// No description provided for @districts.
+  ///
+  /// In en, this message translates to:
+  /// **'Destination District'**
+  String get districts;
+
+  /// No description provided for @districtNorth.
+  ///
+  /// In en, this message translates to:
+  /// **'North District'**
+  String get districtNorth;
+
+  /// No description provided for @districtHaifa.
+  ///
+  /// In en, this message translates to:
+  /// **'Haifa District'**
+  String get districtHaifa;
+
+  /// No description provided for @districtCenter.
+  ///
+  /// In en, this message translates to:
+  /// **'Central District'**
+  String get districtCenter;
+
+  /// No description provided for @districtTelAviv.
+  ///
+  /// In en, this message translates to:
+  /// **'Tel Aviv District'**
+  String get districtTelAviv;
+
+  /// No description provided for @districtJerusalem.
+  ///
+  /// In en, this message translates to:
+  /// **'Jerusalem District'**
+  String get districtJerusalem;
+
+  /// No description provided for @districtSouth.
+  ///
+  /// In en, this message translates to:
+  /// **'South District'**
+  String get districtSouth;
+
+  /// No description provided for @districtJudeaAndSamaria.
+  ///
+  /// In en, this message translates to:
+  /// **'Judea & Samaria'**
+  String get districtJudeaAndSamaria;
 }
 
 class _AppLocalizationsDelegate

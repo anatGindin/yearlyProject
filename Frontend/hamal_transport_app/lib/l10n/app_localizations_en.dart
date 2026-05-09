@@ -182,13 +182,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get filterBy => 'Filter';
 
   @override
-  String get closestToFurthest => 'Closest firsts';
+  String get closestToFurthest => 'Shortest Driving Distance';
 
   @override
   String get distanceFromYouClosest => 'Distance from you - closest first';
 
   @override
-  String get furthestToClosest => 'Furthest first';
+  String get furthestToClosest => 'Longest Driving Distance';
 
   @override
   String get distanceFromYouFurthest => 'Distance from you - furthest first';
@@ -390,4 +390,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String additionOf(String distance, String unit) {
     return 'addition of $distance $unit';
   }
+
+  @override
+  String get districts => 'Destination District';
+
+  @override
+  String get districtNorth => 'North District';
+
+  @override
+  String get districtHaifa => 'Haifa District';
+
+  @override
+  String get districtCenter => 'Central District';
+
+  @override
+  String get districtTelAviv => 'Tel Aviv District';
+
+  @override
+  String get districtJerusalem => 'Jerusalem District';
+
+  @override
+  String get districtSouth => 'South District';
+
+  @override
+  String get districtJudeaAndSamaria => 'Judea & Samaria';
 }

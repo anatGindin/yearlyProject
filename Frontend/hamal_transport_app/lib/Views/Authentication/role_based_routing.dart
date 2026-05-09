@@ -44,7 +44,7 @@ Widget getDestinationForRole(UserRole role) {
                         icon: Icons.add_circle_outline,
                         viewModel: MissionsListViewModel(
                           type: MissionListType.availableMissions,
-                          allowedFilterOptions: const [FilterBy.noFilter],
+                          allowedFilterOptions: const [FilterBy.byDistrict],
                         ),
                       ),
                     ],
@@ -84,7 +84,13 @@ Widget getDestinationForRole(UserRole role) {
                         icon: Icons.pending,
                         viewModel: MissionsListViewModel(
                           type: MissionListType.availableMissions,
-                          allowedFilterOptions: const [],
+                          allowedFilterOptions: const [FilterBy.byDistrict],
+                          allowedSortOptions: const [
+                            SortBy.distanceClosestFirst,
+                            SortBy.distanceFurthestFirst,
+                            SortBy.timeOldestFirst,
+                            SortBy.timeNewestFirst,
+                          ],
                         ),
                       ),
                       MissionTabConfig(
@@ -92,7 +98,13 @@ Widget getDestinationForRole(UserRole role) {
                         icon: Icons.assignment_turned_in,
                         viewModel: MissionsListViewModel(
                           type: MissionListType.assignedMissions,
-                          allowedFilterOptions: const [],
+                          allowedFilterOptions: const [FilterBy.byDistrict],
+                          allowedSortOptions: const [
+                            SortBy.distanceClosestFirst,
+                            SortBy.distanceFurthestFirst,
+                            SortBy.timeOldestFirst,
+                            SortBy.timeNewestFirst,
+                          ],
                         ),
                       ),
                       MissionTabConfig(
@@ -100,7 +112,13 @@ Widget getDestinationForRole(UserRole role) {
                         icon: Icons.local_shipping,
                         viewModel: MissionsListViewModel(
                           type: MissionListType.pickedUpMissions,
-                          allowedFilterOptions: const [],
+                          allowedFilterOptions: const [FilterBy.byDistrict],
+                          allowedSortOptions: const [
+                            SortBy.distanceClosestFirst,
+                            SortBy.distanceFurthestFirst,
+                            SortBy.timeOldestFirst,
+                            SortBy.timeNewestFirst,
+                          ],
                         ),
                       ),
                       MissionTabConfig(
@@ -116,7 +134,7 @@ Widget getDestinationForRole(UserRole role) {
                         icon: Icons.check_circle,
                         viewModel: MissionsListViewModel(
                           type: MissionListType.deliveredMissions,
-                          allowedFilterOptions: const [],
+                          allowedFilterOptions: const [FilterBy.byDistrict],
                         ),
                       ),
                     ],
