@@ -65,6 +65,7 @@ class DistrictPolygons {
     return null;
   }
 
+  /// An implementation of the [Even Odd rule](https://en.wikipedia.org/wiki/Even%E2%80%93odd_rule).
   static bool _isPointInPolygon(Location point, List<List<double>> polygon) {
     final double x = point.longitude;
     final double y = point.latitude;

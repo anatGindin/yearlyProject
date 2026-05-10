@@ -127,6 +127,12 @@ Widget getDestinationForRole(UserRole role) {
                         viewModel: MissionsListViewModel(
                           type: MissionListType.cancelledMissions,
                           allowedFilterOptions: const [],
+                          allowedSortOptions: const [
+                            SortBy.distanceClosestFirst,
+                            SortBy.distanceFurthestFirst,
+                            SortBy.timeOldestFirst,
+                            SortBy.timeNewestFirst,
+                          ],
                         ),
                       ),
                       MissionTabConfig(
@@ -135,6 +141,12 @@ Widget getDestinationForRole(UserRole role) {
                         viewModel: MissionsListViewModel(
                           type: MissionListType.deliveredMissions,
                           allowedFilterOptions: const [FilterBy.byDistrict],
+                          allowedSortOptions: const [
+                            SortBy.distanceClosestFirst,
+                            SortBy.distanceFurthestFirst,
+                            SortBy.timeOldestFirst,
+                            SortBy.timeNewestFirst,
+                          ],
                         ),
                       ),
                     ],
