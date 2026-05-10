@@ -11,12 +11,7 @@ TEST_USER_ID = "test_user_temp"
 TEST_DRIVER_ID = "test_driver_temp"
 
 TEST_USER_DATA = {"role": "admin"}
-TEST_DRIVER_DATA = {
-    "role": "driver",
-    "driverProfile": {
-        "carType": "private"
-    }
-}
+TEST_DRIVER_DATA = {"role": "driver", "driverProfile": {"carType": "private"}}
 
 
 @pytest.fixture(autouse=True)
@@ -34,6 +29,7 @@ def setup_and_teardown():
 
 # --- user_exists tests ---
 
+
 def test_user_exists_returns_true_for_existing_user():
     assert user_exists(TEST_USER_ID) is True
 
@@ -44,6 +40,7 @@ def test_user_exists_returns_false_for_missing_user():
 
 # --- get_user_role tests ---
 
+
 def test_get_user_role_returns_correct_role():
     assert get_user_role(TEST_USER_ID) == "admin"
 
@@ -53,6 +50,7 @@ def test_get_user_role_returns_none_for_missing_user():
 
 
 # --- get_user_car_type tests ---
+
 
 def test_get_user_car_type_returns_car_type_for_driver():
     assert get_user_car_type(TEST_DRIVER_ID) == "private"

@@ -18,9 +18,9 @@ def initialize_firebase():
             ) from None
 
         cred = credentials.Certificate(key_path)
-        return firebase_admin.initialize_app(cred, {
-            "databaseURL": "https://hamal-transportation-app-default-rtdb.europe-west1.firebasedatabase.app"
-        })
+        return firebase_admin.initialize_app(
+            cred, {"databaseURL": "https://hamal-transportation-app-default-rtdb.europe-west1.firebasedatabase.app"}
+        )
 
 
 def get_firestore_client():
