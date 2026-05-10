@@ -38,6 +38,12 @@ class UnderConstructionPage extends StatelessWidget {
               ),
               const SizedBox(height: 48),
 
+              IconButton(
+                onPressed: () => Navigator.of(context).maybePop(),
+                icon: const Icon(Icons.arrow_back, size: 40),
+                color: const Color(0xFF364678),
+              ),
+              const SizedBox(height: 16),
               const LogoutButton(),
             ],
           ),
