@@ -232,7 +232,7 @@
   "@filterBy": {
     "description": "כפתור סינון רשימה"
   },
-  "closestToFurthest": "קרוב לרחוק",
+  "closestToFurthest": "מרחק נסיעה קטן ביותר",
   "@closestToFurthest": {
     "description": "אפשרות מיון - מרחק: קרוב לרחוק"
   },
@@ -240,7 +240,7 @@
   "@distanceFromYouClosest": {
     "description": "אפשרות מיון - מרחק מהמיקום הנוכחי: קרוב לרחוק"
   },
-  "furthestToClosest": "רחוק לקרוב",
+  "furthestToClosest": "מרחק נסיעה גדול ביותר",
   "@furthestToClosest": {
     "description": "אפשרות מיון - מרחק: רחוק לקרוב"
   },
@@ -544,5 +544,10 @@
   "actionDeliver": "מסירה",
   "@actionDeliver": {
     "description": "Action text for delivering a package"
-  }
+  },
+  "districts": "מחוז היעד",
+  "districtNorth": "צפון",
+  "districtCenter": "מרכז",
+  "districtJerusalem": "ירושלים",
+  "districtSouth": "דרום"
 }

@@ -232,7 +232,7 @@
   "@filterBy": {
     "description": "Filter button text"
   },
-  "closestToFurthest": "Closest firsts",
+  "closestToFurthest": "Shortest Driving Distance",
   "@closestToFurthest": {
     "description": "Sort option - Distance: closest to furthest"
   },
@@ -240,7 +240,7 @@
   "@distanceFromYouClosest": {
     "description": "Sort option - Distance from your current location: closest to furthest"
   },
-  "furthestToClosest": "Furthest first",
+  "furthestToClosest": "Longest Driving Distance",
   "@furthestToClosest": {
     "description": "Sort option - Distance: Furthest to closest"
   },
@@ -544,5 +544,10 @@
   "actionDeliver": "Deliver",
   "@actionDeliver": {
     "description": "Action text for delivering a package"
-  }
+  },
+  "districts": "Destination District",
+  "districtNorth": "North",
+  "districtCenter": "Center",
+  "districtJerusalem": "Jerusalem",
+  "districtSouth": "South"
 }
