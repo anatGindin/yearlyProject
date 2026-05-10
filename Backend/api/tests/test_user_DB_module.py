@@ -5,7 +5,8 @@ import pytest
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from firebase_config import get_realtime_db
-from users_DB_module import user_exists, get_user_role, get_user_car_type
+from api.models.enums import CarType, UserRole
+from api.users_DB_module import user_exists, get_user_role, get_user_car_type
 
 TEST_USER_ID = "test_user_temp"
 TEST_DRIVER_ID = "test_driver_temp"
@@ -42,7 +43,7 @@ def test_user_exists_returns_false_for_missing_user():
 
 
 def test_get_user_role_returns_correct_role():
-    assert get_user_role(TEST_USER_ID) == "admin"
+    assert get_user_role(TEST_USER_ID) == UserRole.admin
 
 
 def test_get_user_role_returns_none_for_missing_user():
@@ -53,7 +54,7 @@ def test_get_user_role_returns_none_for_missing_user():
 
 
 def test_get_user_car_type_returns_car_type_for_driver():
-    assert get_user_car_type(TEST_DRIVER_ID) == "private"
+    assert get_user_car_type(TEST_DRIVER_ID) == CarType.private
 
 
 def test_get_user_car_type_returns_none_for_non_driver():
