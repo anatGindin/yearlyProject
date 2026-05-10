@@ -1,7 +1,7 @@
 import json
 import os
-import firebase_admin
-from firebase_admin import credentials, firestore
+import firebase_admin  # type: ignore[import-untyped]
+from firebase_admin import credentials, firestore  # type: ignore[import-untyped]
 
 
 # A script for migrating json mock data into firestore database
