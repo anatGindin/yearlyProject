@@ -527,7 +527,21 @@
       }
     }
   },
-  "headToTasks": "סע אל {address} המשימות הבאות:",
+  "goToAndPickup": "סע אל {address} ואסוף את {missionName}",
+  "@goToAndPickup": {
+    "description": "Instruction to go and pickup a specific package",
+    "placeholders": {
+      "address": {
+        "type": "String",
+        "example": "Tel Aviv"
+      },
+      "missionName": {
+        "type": "String",
+        "example": "חבילה 1"
+      }
+    }
+  },
+  "headToTasks": "סע אל {address} לקראת המשימות הבאות:",
   "@headToTasks": {
     "description": "Instruction to head for multiple tasks",
     "placeholders": {

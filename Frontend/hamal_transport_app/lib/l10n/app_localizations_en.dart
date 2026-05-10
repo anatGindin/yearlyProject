@@ -392,21 +392,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get districts => 'Destination District';
-
-  @override
-  String get districtNorth => 'North';
-
-  @override
-  String get districtCenter => 'Center';
-
-  @override
-  String get districtJerusalem => 'Jerusalem';
-
-  @override
-  String get districtSouth => 'South';
-
-  @override
   String get routeSuggestion => 'Route Suggestion';
 
   @override
@@ -420,6 +405,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String goToAndPickup(String address, String missionName) {
+    return 'Go to $address and pickup $missionName';
+  }
+
+  @override
   String headToTasks(String address) {
     return 'Head to $address for the following tasks:';
   }
@@ -429,4 +419,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get actionDeliver => 'Deliver';
+
+  @override
+  String get districts => 'Destination District';
+
+  @override
+  String get districtNorth => 'North';
+
+  @override
+  String get districtCenter => 'Center';
+
+  @override
+  String get districtJerusalem => 'Jerusalem';
+
+  @override
+  String get districtSouth => 'South';
 }

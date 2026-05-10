@@ -3,6 +3,7 @@ import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Models/location.dart';
 import 'package:hamal_transport_app/Algorithms/best_route.dart' as algo;
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
+import 'package:hamal_transport_app/Utils/launcher_utils.dart';
 import 'package:lottie/lottie.dart';
 
 class RouteSuggestionScreen extends StatefulWidget {
@@ -120,7 +121,12 @@ class _RouteSuggestionScreenState extends State<RouteSuggestionScreen> {
     if (hasPickup && hasDeliver) {
       titleText = l10n.headToTasks(batch.location.name);
     } else if (hasPickup) {
-      titleText = l10n.driveToAndPickup(batch.location.name);
+      titleText = batch.steps.length > 1
+          ? l10n.driveToAndPickup(batch.location.name)
+          : l10n.goToAndPickup(
+              batch.location.name,
+              batch.steps.first.mission.description,
+            );
     } else {
       titleText = batch.steps.length > 1
           ? l10n.headToTasks(batch.location.name)
@@ -179,45 +185,63 @@ class _RouteSuggestionScreenState extends State<RouteSuggestionScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        titleText,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              titleText,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.navigation),
+                            color: Theme.of(context).colorScheme.primary,
+                            onPressed: () {
+                              LauncherUtils.launchNavigation(
+                                batch.location.name,
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 12),
-                      ...batch.steps.map((step) {
-                        final isPickup = step.action == algo.Action.pickUp;
-                        final icon = isPickup
-                            ? Icons.arrow_upward
-                            : Icons.arrow_downward;
-                        final color = isPickup ? Colors.blue : Colors.green;
-                        final actionText = isPickup
-                            ? l10n.actionPickup
-                            : l10n.actionDeliver;
+                      if (batch.steps.length > 1) ...[
+                        const SizedBox(height: 12),
+                        ...batch.steps.map((step) {
+                          final isPickup = step.action == algo.Action.pickUp;
+                          final icon = isPickup
+                              ? Icons.arrow_upward
+                              : Icons.arrow_downward;
+                          final color = isPickup ? Colors.blue : Colors.green;
+                          final actionText = isPickup
+                              ? l10n.actionPickup
+                              : l10n.actionDeliver;
 
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4.0),
-                          child: Row(
-                            children: [
-                              Icon(icon, size: 16, color: color),
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Text(
-                                  "$actionText ${step.mission.description}",
-                                  style: TextStyle(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.onSurfaceVariant,
-                                    fontWeight: FontWeight.w500,
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 4.0),
+                            child: Row(
+                              children: [
+                                Icon(icon, size: 16, color: color),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    "$actionText ${step.mission.description}",
+                                    style: TextStyle(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.onSurfaceVariant,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        );
-                      }),
+                              ],
+                            ),
+                          );
+                        }),
+                      ],
                     ],
                   ),
                 ),

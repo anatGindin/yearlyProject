@@ -527,6 +527,20 @@
       }
     }
   },
+  "goToAndPickup": "Go to {address} and pickup {missionName}",
+  "@goToAndPickup": {
+    "description": "Instruction to go and pickup a specific package",
+    "placeholders": {
+      "address": {
+        "type": "String",
+        "example": "Tel Aviv"
+      },
+      "missionName": {
+        "type": "String",
+        "example": "Package 1"
+      }
+    }
+  },
   "headToTasks": "Head to {address} for the following tasks:",
   "@headToTasks": {
     "description": "Instruction to head for multiple tasks",

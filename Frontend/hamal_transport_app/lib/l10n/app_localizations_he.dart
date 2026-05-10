@@ -391,21 +391,6 @@ class AppLocalizationsHe extends AppLocalizations {
   }
 
   @override
-  String get districts => 'מחוז היעד';
-
-  @override
-  String get districtNorth => 'צפון';
-
-  @override
-  String get districtCenter => 'מרכז';
-
-  @override
-  String get districtJerusalem => 'ירושלים';
-
-  @override
-  String get districtSouth => 'דרום';
-
-  @override
   String get routeSuggestion => 'מסלול מוצע';
 
   @override
@@ -419,8 +404,13 @@ class AppLocalizationsHe extends AppLocalizations {
   }
 
   @override
+  String goToAndPickup(String address, String missionName) {
+    return 'סע אל $address ואסוף את $missionName';
+  }
+
+  @override
   String headToTasks(String address) {
-    return 'סע אל $address המשימות הבאות:';
+    return 'סע אל $address לקראת המשימות הבאות:';
   }
 
   @override
@@ -428,4 +418,19 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get actionDeliver => 'מסירה';
+
+  @override
+  String get districts => 'מחוז היעד';
+
+  @override
+  String get districtNorth => 'צפון';
+
+  @override
+  String get districtCenter => 'מרכז';
+
+  @override
+  String get districtJerusalem => 'ירושלים';
+
+  @override
+  String get districtSouth => 'דרום';
 }

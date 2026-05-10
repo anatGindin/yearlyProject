@@ -3,14 +3,11 @@ import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
 import 'package:hamal_transport_app/Views/MissionsList/list_action_button.dart';
 import 'package:hamal_transport_app/Models/missions_model.dart';
 import 'package:provider/provider.dart';
-<<<<<<< HEAD
 import 'package:hamal_transport_app/ViewModels/user_profile_view_model.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
 import 'package:hamal_transport_app/Views/MissionsList/route_suggestion_screen.dart';
-=======
 import 'package:hamal_transport_app/Models/israel_districts.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
->>>>>>> 44647e52ec79b5f15aebf381c025e41dfd3ef952
 import 'mission_list_view.dart';
 
 class MissionsListBody extends StatelessWidget {
