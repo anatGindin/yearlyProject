@@ -2,7 +2,7 @@ import sys
 import os
 import pytest
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from firebase_config import get_realtime_db
 from users_DB_module import user_exists, get_user_role, get_user_car_type
