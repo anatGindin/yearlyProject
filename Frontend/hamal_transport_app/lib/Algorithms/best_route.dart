@@ -57,7 +57,7 @@ class BestRoute {
     List<RouteStep> bestRoute;
 
     // For small number of total stops, we can find the absolute optimal route.
-    if (waiting.length + picked.length <= _optimalSearchLimit) {
+    if (2 * waiting.length + picked.length <= _optimalSearchLimit) {
       bestRoute = _findOptimalRoute(start, waiting, picked);
     } else {
       bestRoute = _findGreedyRoute(start, waiting, picked);
