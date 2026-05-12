@@ -19,7 +19,8 @@ class RouteStep {
 }
 
 class BestRoute {
-  static final int _optimalSearchLimit = 6;
+  // Maximum number of nodes in the route for optimal search.
+  static final int _optimalSearchLimit = 12;
 
   /// Calculates the best route for a list of missions.
   /// Uses an optimal search for small mission sets and a greedy approach for larger ones.
@@ -56,7 +57,7 @@ class BestRoute {
     List<RouteStep> bestRoute;
 
     // For small number of total stops, we can find the absolute optimal route.
-    if (activeMissions.length <= _optimalSearchLimit) {
+    if (waiting.length + picked.length <= _optimalSearchLimit) {
       bestRoute = _findOptimalRoute(start, waiting, picked);
     } else {
       bestRoute = _findGreedyRoute(start, waiting, picked);

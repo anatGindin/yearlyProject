@@ -197,14 +197,21 @@ class _RouteSuggestionScreenState extends State<RouteSuggestionScreen> {
                               ),
                             ),
                           ),
-                          IconButton(
-                            icon: const Icon(Icons.navigation),
-                            color: Theme.of(context).colorScheme.primary,
+                          TextButton.icon(
                             onPressed: () {
                               LauncherUtils.launchNavigation(
                                 batch.location.name,
                               );
                             },
+                            icon: const Icon(Icons.navigation),
+                            label: Text(l10n.navigateWaze),
+                            style: TextButton.styleFrom(
+                              foregroundColor:
+                                  Theme.of(context).colorScheme.primary,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                              ),
+                            ),
                           ),
                         ],
                       ),
