@@ -2,12 +2,6 @@ import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
-const _databaseUrl = String.fromEnvironment(
-  'DATABASE_URL',
-  defaultValue:
-      'https://hamal-transportation-app-default-rtdb.europe-west1.firebasedatabase.app',
-);
-
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
@@ -48,7 +42,9 @@ class DefaultFirebaseOptions {
     appId: '1:646186446544:android:646a6049c297fb213178d5',
     messagingSenderId: '646186446544',
     projectId: 'hamal-transportation-app',
-    databaseURL: _databaseUrl,
+    // The URL should be the same as the URL in Backend\firebase_config.py
+    databaseURL:
+        'https://hamal-transportation-app-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'hamal-transportation-app.firebasestorage.app',
   );
 
@@ -57,7 +53,9 @@ class DefaultFirebaseOptions {
     appId: '1:646186446544:ios:0f8c28626a0af2d93178d5',
     messagingSenderId: '646186446544',
     projectId: 'hamal-transportation-app',
-    databaseURL: _databaseUrl,
+    // The URL should be the same as the URL in Backend\firebase_config.py
+    databaseURL:
+        'https://hamal-transportation-app-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'hamal-transportation-app.firebasestorage.app',
     iosBundleId: 'com.example.hamalTransportApp',
   );

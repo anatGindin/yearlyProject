@@ -33,7 +33,7 @@ jobs:
 
       - name: Run tests
         working-directory: ./Frontend/hamal_transport_app
-        run: flutter test lib/Tests --dart-define=DATABASE_URL=${{ vars.REAL_TIME_DATABASE_URL }}
+        run: flutter test lib/Tests
 
   # Second job: Build for Android
   build-android:
@@ -63,7 +63,7 @@ jobs:
 
       - name: Build APK
         working-directory: ./Frontend/hamal_transport_app
-        run: flutter build apk --release --dart-define=DATABASE_URL=${{ vars.REAL_TIME_DATABASE_URL }}
+        run: flutter build apk --release
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
@@ -94,7 +94,7 @@ jobs:
 
       - name: Build iOS (no codesign)
         working-directory: ./Frontend/hamal_transport_app
-        run: flutter build ios --release --no-codesign --dart-define=DATABASE_URL=${{ vars.REAL_TIME_DATABASE_URL }}
+        run: flutter build ios --release --no-codesign
 
       # Note: For actual distribution, we need to set up code signing
       # This creates an unsigned build for now
