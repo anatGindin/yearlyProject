@@ -2,6 +2,12 @@ import os
 import firebase_admin
 from firebase_admin import credentials, firestore, db
 
+def get_realtime_db_url() -> str:
+    base_path = os.path.dirname(os.path.abspath(__file__))
+    url_path = os.path.join(base_path, "realtime_db_url.txt")
+    with open(url_path) as f:
+        return f.read().strip()
+    
 
 def initialize_firebase():
     """Initialize Firebase Admin SDK if not already initialized."""
@@ -19,7 +25,7 @@ def initialize_firebase():
 
         cred = credentials.Certificate(key_path)
         return firebase_admin.initialize_app(
-            cred, {"databaseURL": "https://hamal-transportation-app-default-rtdb.europe-west1.firebasedatabase.app"}
+            cred, {"databaseURL": get_realtime_db_url()}
         )
 
 

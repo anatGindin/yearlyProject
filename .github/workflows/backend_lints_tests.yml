@@ -21,6 +21,9 @@ jobs:
       - name: Create serviceAccountKey.json
         run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}' > serviceAccountKey.json
 
+      - name: Create realtime_db_url.txt
+        run: echo '${{ vars.REAL_TIME_DATABASE_URL }}' > realtime_db_url.txt
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:

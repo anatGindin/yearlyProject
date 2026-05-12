@@ -3,6 +3,7 @@ Frontend/hamal_transport_app/macos/Flutter/GeneratedPluginRegistrant.swift
 
 # Firebase service account keys
 serviceAccountKey.json
+realtime_db_url.txt
 
 # Python
 __pycache__/
