@@ -2,6 +2,7 @@ import os
 import firebase_admin
 from firebase_admin import credentials, firestore, db
 
+
 def get_realtime_db_url() -> str:
     base_path = os.path.dirname(os.path.abspath(__file__))
     url_path = os.path.join(base_path, "realtime_db_url.txt")
@@ -24,9 +25,7 @@ def initialize_firebase():
             ) from None
 
         cred = credentials.Certificate(key_path)
-        return firebase_admin.initialize_app(
-            cred, {"databaseURL": get_realtime_db_url()}
-        )
+        return firebase_admin.initialize_app(cred, {"databaseURL": get_realtime_db_url()})
 
 
 def get_firestore_client():
