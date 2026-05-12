@@ -7,7 +7,7 @@ def get_realtime_db_url() -> str:
     url_path = os.path.join(base_path, "realtime_db_url.txt")
     with open(url_path) as f:
         return f.read().strip()
-    
+
 
 def initialize_firebase():
     """Initialize Firebase Admin SDK if not already initialized."""
