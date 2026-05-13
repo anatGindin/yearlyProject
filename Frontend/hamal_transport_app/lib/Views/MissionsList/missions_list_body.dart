@@ -3,6 +3,9 @@ import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
 import 'package:hamal_transport_app/Views/MissionsList/list_action_button.dart';
 import 'package:hamal_transport_app/Models/missions_model.dart';
 import 'package:provider/provider.dart';
+import 'package:hamal_transport_app/ViewModels/user_profile_view_model.dart';
+import 'package:hamal_transport_app/Models/mission_list_type.dart';
+import 'package:hamal_transport_app/Views/MissionsList/route_suggestion_screen.dart';
 import 'package:hamal_transport_app/Models/israel_districts.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
 import 'mission_list_view.dart';
@@ -14,9 +17,29 @@ class MissionsListBody extends StatelessWidget {
   Widget build(BuildContext context) {
     // We expect the MissionsListViewModel to be provided by the parent
     final viewModel = context.watch<MissionsListViewModel>();
+    final userProfile = context.watch<UserProfileViewModel>();
+    final isDriver = userProfile.isDriver;
+    final isMyMissions = viewModel.type == MissionListType.myMissions;
+    final showRouteButton =
+        isDriver && isMyMissions && viewModel.missions.length > 1;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
+      floatingActionButton: showRouteButton
+          ? FloatingActionButton.extended(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        RouteSuggestionScreen(missions: viewModel.missions),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.route),
+              label: Text(AppLocalizations.of(context)!.calculateRoute),
+            )
+          : null,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(

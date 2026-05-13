@@ -10,7 +10,6 @@ import '../Services/authentication_service.dart';
 class MapViewModel extends ChangeNotifier {
   // Center of Israel
   static const LatLng initialCenter = LatLng(31.4117, 35.0818);
-  static const LatLng hamalWarehouse = LatLng(32.8115, 35.0678);
 
   LatLng? _userLocation;
   Mission? _selectedMission;

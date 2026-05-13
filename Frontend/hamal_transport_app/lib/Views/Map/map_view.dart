@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../Models/mission.dart';
 import '../../Models/mission_list_type.dart';
 import '../../Services/missions_repository.dart';
+import '../../Constants/official_info.dart';
 import '../../ViewModels/map_view_model.dart';
 import '../../Models/user_profile.dart';
 import '../../l10n/app_localizations.dart';
@@ -245,7 +246,7 @@ class _MapViewContentState extends State<MapViewContent> {
     // Hamal Warehouse Marker
     markers.add(
       Marker(
-        point: MapViewModel.hamalWarehouse,
+        point: hamalWarehouse,
         width: 60,
         height: 60,
         child: GestureDetector(

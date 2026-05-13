@@ -364,6 +364,10 @@
   "@calculatingRoute": {
     "description": "Message displayed while calculating route"
   },
+  "calculateRoute": "Calculate route",
+  "@calculateRoute": {
+    "description": "Label for the calculate route floating action button"
+  },
   "resetPasswordNotice": "Enter your email address and we'll send you a link to reset your password.",
   "@resetPasswordNotice": {
     "description": "Notice text on forgot password screen explaining what will happen"
@@ -498,6 +502,66 @@
         "example": "km"
       }
     }
+  },
+  "routeSuggestion": "Route Suggestion",
+  "@routeSuggestion": {
+    "description": "Title for route suggestion screen"
+  },
+  "driveToAndPickup": "Drive to {address} and pickup the following packages:",
+  "@driveToAndPickup": {
+    "description": "Instruction to drive and pickup",
+    "placeholders": {
+      "address": {
+        "type": "String",
+        "example": "Tel Aviv"
+      }
+    }
+  },
+  "goToAndDeliver": "Go to {address} and deliver {missionName}",
+  "@goToAndDeliver": {
+    "description": "Instruction to go and deliver",
+    "placeholders": {
+      "address": {
+        "type": "String",
+        "example": "Tel Aviv"
+      },
+      "missionName": {
+        "type": "String",
+        "example": "Package 1"
+      }
+    }
+  },
+  "goToAndPickup": "Go to {address} and pickup {missionName}",
+  "@goToAndPickup": {
+    "description": "Instruction to go and pickup a specific package",
+    "placeholders": {
+      "address": {
+        "type": "String",
+        "example": "Tel Aviv"
+      },
+      "missionName": {
+        "type": "String",
+        "example": "Package 1"
+      }
+    }
+  },
+  "headToTasks": "Head to {address} for the following tasks:",
+  "@headToTasks": {
+    "description": "Instruction to head for multiple tasks",
+    "placeholders": {
+      "address": {
+        "type": "String",
+        "example": "Tel Aviv"
+      }
+    }
+  },
+  "actionPickup": "Pickup",
+  "@actionPickup": {
+    "description": "Action text for picking up a package"
+  },
+  "actionDeliver": "Deliver",
+  "@actionDeliver": {
+    "description": "Action text for delivering a package"
   },
   "districts": "Destination District",
   "districtNorth": "North",

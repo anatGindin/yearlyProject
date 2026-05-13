@@ -282,6 +282,9 @@ class AppLocalizationsHe extends AppLocalizations {
   String get calculatingRoute => 'מחשב מסלול...';
 
   @override
+  String get calculateRoute => 'חשב מסלול';
+
+  @override
   String get resetPasswordNotice =>
       'הזן את כתובת האימייל שלך ונשלח לך קישור לאיפוס הסיסמה.';
 
@@ -389,6 +392,35 @@ class AppLocalizationsHe extends AppLocalizations {
   String additionOf(String distance, String unit) {
     return 'תוספת של $distance $unit';
   }
+
+  @override
+  String get routeSuggestion => 'מסלול מוצע';
+
+  @override
+  String driveToAndPickup(String address) {
+    return 'סע אל $address ואסוף את החבילות הבאות:';
+  }
+
+  @override
+  String goToAndDeliver(String address, String missionName) {
+    return 'המשך אל $address ומסור את $missionName';
+  }
+
+  @override
+  String goToAndPickup(String address, String missionName) {
+    return 'סע אל $address ואסוף את $missionName';
+  }
+
+  @override
+  String headToTasks(String address) {
+    return 'סע אל $address לקראת המשימות הבאות:';
+  }
+
+  @override
+  String get actionPickup => 'איסוף';
+
+  @override
+  String get actionDeliver => 'מסירה';
 
   @override
   String get districts => 'מחוז היעד';
