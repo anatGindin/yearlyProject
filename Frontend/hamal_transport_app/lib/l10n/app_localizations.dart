@@ -638,6 +638,12 @@ abstract class AppLocalizations {
   /// **'Calculating route...'**
   String get calculatingRoute;
 
+  /// Label for the calculate route floating action button
+  ///
+  /// In en, this message translates to:
+  /// **'Calculate route'**
+  String get calculateRoute;
+
   /// Notice text on forgot password screen explaining what will happen
   ///
   /// In en, this message translates to:

@@ -364,6 +364,10 @@
   "@calculatingRoute": {
     "description": "Message displayed while calculating route"
   },
+  "calculateRoute": "Calculate route",
+  "@calculateRoute": {
+    "description": "Label for the calculate route floating action button"
+  },
   "resetPasswordNotice": "Enter your email address and we'll send you a link to reset your password.",
   "@resetPasswordNotice": {
     "description": "Notice text on forgot password screen explaining what will happen"

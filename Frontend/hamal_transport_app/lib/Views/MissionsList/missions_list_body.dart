@@ -26,7 +26,7 @@ class MissionsListBody extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       floatingActionButton: showRouteButton
-          ? FloatingActionButton(
+          ? FloatingActionButton.extended(
               onPressed: () {
                 Navigator.push(
                   context,
@@ -36,7 +36,8 @@ class MissionsListBody extends StatelessWidget {
                   ),
                 );
               },
-              child: const Icon(Icons.route),
+              icon: const Icon(Icons.route),
+              label: Text(AppLocalizations.of(context)!.calculateRoute),
             )
           : null,
       body: SafeArea(

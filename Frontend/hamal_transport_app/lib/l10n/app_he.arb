@@ -364,6 +364,10 @@
   "@calculatingRoute": {
     "description": "הודעה המוצגת בזמן חישוב מסלול"
   },
+  "calculateRoute": "חשב מסלול",
+  "@calculateRoute": {
+    "description": "תווית לכפתור חישוב מסלול"
+  },
   "resetPasswordNotice": "הזן את כתובת האימייל שלך ונשלח לך קישור לאיפוס הסיסמה.",
   "@resetPasswordNotice": {
     "description": "טקסט הסבר בדף שכחתי סיסמה"

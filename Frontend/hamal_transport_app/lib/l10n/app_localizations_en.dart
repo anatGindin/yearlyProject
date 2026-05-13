@@ -283,6 +283,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get calculatingRoute => 'Calculating route...';
 
   @override
+  String get calculateRoute => 'Calculate route';
+
+  @override
   String get resetPasswordNotice =>
       'Enter your email address and we\'ll send you a link to reset your password.';
 
