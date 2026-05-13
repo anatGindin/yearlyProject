@@ -139,6 +139,7 @@ class MissionsListsModel {
   static bool Function(Mission) getFilterFunction(FilterBy filterBy) {
     switch (filterBy) {
       case FilterBy.noFilter:
+      case FilterBy.byDistrict:
         return (a) => true;
       case FilterBy.assignedOnly:
         return (a) => a.status == MissionStatus.assigned;
@@ -184,7 +185,8 @@ enum FilterBy {
   assignedOnly,
   pickedUpOnly,
   delivered,
-  cancelled;
+  cancelled,
+  byDistrict;
 
   String getLabel(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -200,6 +202,8 @@ enum FilterBy {
         return l10n.deliveredMissions;
       case FilterBy.cancelled:
         return l10n.cancelledMissions;
+      case FilterBy.byDistrict:
+        return l10n.districts;
     }
   }
 }

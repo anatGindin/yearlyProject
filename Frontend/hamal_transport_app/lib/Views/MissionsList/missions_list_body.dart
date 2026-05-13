@@ -3,6 +3,11 @@ import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
 import 'package:hamal_transport_app/Views/MissionsList/list_action_button.dart';
 import 'package:hamal_transport_app/Models/missions_model.dart';
 import 'package:provider/provider.dart';
+import 'package:hamal_transport_app/ViewModels/user_profile_view_model.dart';
+import 'package:hamal_transport_app/Models/mission_list_type.dart';
+import 'package:hamal_transport_app/Views/MissionsList/route_suggestion_screen.dart';
+import 'package:hamal_transport_app/Models/israel_districts.dart';
+import 'package:hamal_transport_app/l10n/app_localizations.dart';
 import 'mission_list_view.dart';
 
 class MissionsListBody extends StatelessWidget {
@@ -12,9 +17,29 @@ class MissionsListBody extends StatelessWidget {
   Widget build(BuildContext context) {
     // We expect the MissionsListViewModel to be provided by the parent
     final viewModel = context.watch<MissionsListViewModel>();
+    final userProfile = context.watch<UserProfileViewModel>();
+    final isDriver = userProfile.isDriver;
+    final isMyMissions = viewModel.type == MissionListType.myMissions;
+    final showRouteButton =
+        isDriver && isMyMissions && viewModel.missions.length > 1;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
+      floatingActionButton: showRouteButton
+          ? FloatingActionButton.extended(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        RouteSuggestionScreen(missions: viewModel.missions),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.route),
+              label: Text(AppLocalizations.of(context)!.calculateRoute),
+            )
+          : null,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(
@@ -103,19 +128,71 @@ class MissionsListBody extends StatelessWidget {
 
     showModalBottomSheet(
       context: context,
-      builder: (_) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: viewModel.allowedFilterOptions
-            .map(
-              (option) => ListTile(
-                title: Text(option.getLabel(context)),
-                onTap: () {
-                  viewModel.filterBy(option);
-                  Navigator.pop(context);
-                },
-              ),
-            )
-            .toList(),
+      isScrollControlled: true,
+      builder: (_) => ChangeNotifierProvider.value(
+        value: viewModel,
+        child: DraggableScrollableSheet(
+          expand: false,
+          initialChildSize: 0.6,
+          maxChildSize: 0.9,
+          minChildSize: 0.4,
+          builder: (_, scrollController) => Consumer<MissionsListViewModel>(
+            builder: (context, vm, child) {
+              return ListView(
+                controller: scrollController,
+                children: [
+                  if (vm.allowedFilterOptions
+                      .where((f) => f != FilterBy.byDistrict)
+                      .isNotEmpty) ...[
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        AppLocalizations.of(context)!.status,
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    ...vm.allowedFilterOptions
+                        .where((f) => f != FilterBy.byDistrict)
+                        .map(
+                          (option) => ListTile(
+                            title: Text(option.getLabel(context)),
+                            onTap: () {
+                              vm.filterBy(option);
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ),
+                    const Divider(),
+                  ],
+                  if (vm.allowedFilterOptions.contains(
+                    FilterBy.byDistrict,
+                  )) ...[
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        AppLocalizations.of(context)!.districts,
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    ...IsraelDistrict.values.map(
+                      (district) => CheckboxListTile(
+                        title: Text(district.getLabel(context)),
+                        value: vm.selectedDistricts.contains(district),
+                        onChanged: (bool? value) {
+                          if (value != null) {
+                            vm.toggleDistrict(district, value);
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ],
+              );
+            },
+          ),
+        ),
       ),
     );
   }

@@ -443,7 +443,7 @@ abstract class AppLocalizations {
   /// Sort option - Distance: closest to furthest
   ///
   /// In en, this message translates to:
-  /// **'Closest firsts'**
+  /// **'Shortest Driving Distance'**
   String get closestToFurthest;
 
   /// Sort option - Distance from your current location: closest to furthest
@@ -455,7 +455,7 @@ abstract class AppLocalizations {
   /// Sort option - Distance: Furthest to closest
   ///
   /// In en, this message translates to:
-  /// **'Furthest first'**
+  /// **'Longest Driving Distance'**
   String get furthestToClosest;
 
   /// Sort option - Distance from your current location: furthest to closest
@@ -637,6 +637,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Calculating route...'**
   String get calculatingRoute;
+
+  /// Label for the calculate route floating action button
+  ///
+  /// In en, this message translates to:
+  /// **'Calculate route'**
+  String get calculateRoute;
 
   /// Notice text on forgot password screen explaining what will happen
   ///
@@ -847,6 +853,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'addition of {distance} {unit}'**
   String additionOf(String distance, String unit);
+
+  /// Title for route suggestion screen
+  ///
+  /// In en, this message translates to:
+  /// **'Route Suggestion'**
+  String get routeSuggestion;
+
+  /// Instruction to drive and pickup
+  ///
+  /// In en, this message translates to:
+  /// **'Drive to {address} and pickup the following packages:'**
+  String driveToAndPickup(String address);
+
+  /// Instruction to go and deliver
+  ///
+  /// In en, this message translates to:
+  /// **'Go to {address} and deliver {missionName}'**
+  String goToAndDeliver(String address, String missionName);
+
+  /// Instruction to go and pickup a specific package
+  ///
+  /// In en, this message translates to:
+  /// **'Go to {address} and pickup {missionName}'**
+  String goToAndPickup(String address, String missionName);
+
+  /// Instruction to head for multiple tasks
+  ///
+  /// In en, this message translates to:
+  /// **'Head to {address} for the following tasks:'**
+  String headToTasks(String address);
+
+  /// Action text for picking up a package
+  ///
+  /// In en, this message translates to:
+  /// **'Pickup'**
+  String get actionPickup;
+
+  /// Action text for delivering a package
+  ///
+  /// In en, this message translates to:
+  /// **'Deliver'**
+  String get actionDeliver;
+
+  /// No description provided for @districts.
+  ///
+  /// In en, this message translates to:
+  /// **'Destination District'**
+  String get districts;
+
+  /// No description provided for @districtNorth.
+  ///
+  /// In en, this message translates to:
+  /// **'North'**
+  String get districtNorth;
+
+  /// No description provided for @districtCenter.
+  ///
+  /// In en, this message translates to:
+  /// **'Center'**
+  String get districtCenter;
+
+  /// No description provided for @districtJerusalem.
+  ///
+  /// In en, this message translates to:
+  /// **'Jerusalem'**
+  String get districtJerusalem;
+
+  /// No description provided for @districtSouth.
+  ///
+  /// In en, this message translates to:
+  /// **'South'**
+  String get districtSouth;
 }
 
 class _AppLocalizationsDelegate

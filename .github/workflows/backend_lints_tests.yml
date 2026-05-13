@@ -2,7 +2,7 @@ name: backend_lints_tests
 
 on:
   pull_request:
-    branches: 
+    branches:
       - "dev/v*"
     paths:
       - "Backend/**"
@@ -17,6 +17,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Create serviceAccountKey.json
+        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}' > serviceAccountKey.json
 
       - name: Set up Python
         uses: actions/setup-python@v5

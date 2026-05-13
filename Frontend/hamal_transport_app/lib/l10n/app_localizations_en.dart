@@ -182,13 +182,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get filterBy => 'Filter';
 
   @override
-  String get closestToFurthest => 'Closest firsts';
+  String get closestToFurthest => 'Shortest Driving Distance';
 
   @override
   String get distanceFromYouClosest => 'Distance from you - closest first';
 
   @override
-  String get furthestToClosest => 'Furthest first';
+  String get furthestToClosest => 'Longest Driving Distance';
 
   @override
   String get distanceFromYouFurthest => 'Distance from you - furthest first';
@@ -281,6 +281,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get calculatingRoute => 'Calculating route...';
+
+  @override
+  String get calculateRoute => 'Calculate route';
 
   @override
   String get resetPasswordNotice =>
@@ -390,4 +393,48 @@ class AppLocalizationsEn extends AppLocalizations {
   String additionOf(String distance, String unit) {
     return 'addition of $distance $unit';
   }
+
+  @override
+  String get routeSuggestion => 'Route Suggestion';
+
+  @override
+  String driveToAndPickup(String address) {
+    return 'Drive to $address and pickup the following packages:';
+  }
+
+  @override
+  String goToAndDeliver(String address, String missionName) {
+    return 'Go to $address and deliver $missionName';
+  }
+
+  @override
+  String goToAndPickup(String address, String missionName) {
+    return 'Go to $address and pickup $missionName';
+  }
+
+  @override
+  String headToTasks(String address) {
+    return 'Head to $address for the following tasks:';
+  }
+
+  @override
+  String get actionPickup => 'Pickup';
+
+  @override
+  String get actionDeliver => 'Deliver';
+
+  @override
+  String get districts => 'Destination District';
+
+  @override
+  String get districtNorth => 'North';
+
+  @override
+  String get districtCenter => 'Center';
+
+  @override
+  String get districtJerusalem => 'Jerusalem';
+
+  @override
+  String get districtSouth => 'South';
 }

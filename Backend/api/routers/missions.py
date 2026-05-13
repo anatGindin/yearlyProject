@@ -1,7 +1,8 @@
 import json
 import os
+from api.security import verify_request
 from api.models import mission, enums
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Request
 from datetime import datetime
 
 router = APIRouter(prefix="/missions", tags=["missions"])
@@ -22,14 +23,16 @@ def save_missions():
 
 
 @router.post("/", response_model=mission.MissionInDB, status_code=201)
-def create_mission(new_mission: mission.MissionInDB):
+def create_mission(request: Request, new_mission: mission.MissionInDB):
+    verify_request(request)  # verify_request returns the user ID of the sender, you can use it if needed
     missions.append(new_mission)
     save_missions()
     return new_mission
 
 
 @router.put("/{mission_id}/{status}", response_model=mission.MissionInDB)
-def update_mission_status(mission_id: str, status: str):
+def update_mission_status(request: Request, mission_id: str, status: str):
+    verify_request(request)  # verify_request returns the user ID of the sender, you can use it if needed
     for m in missions:
         if m.id == mission_id:
             # check if status is valid
@@ -49,7 +52,8 @@ def update_mission_status(mission_id: str, status: str):
 
 
 @router.delete("/{mission_id}", status_code=204)
-def delete_mission(mission_id: str):
+def delete_mission(request: Request, mission_id: str):
+    verify_request(request)  # verify_request returns the user ID of the sender, you can use it if needed
     for index, m in enumerate(missions):
         if m.id == mission_id:
             missions.pop(index)
@@ -60,9 +64,11 @@ def delete_mission(mission_id: str):
 
 @router.get("/", response_model=list[mission.MissionBase])
 def list_missions(
+    request: Request,
     status: str | None = Query(None, description="Filter by mission status"),
     driver_id: str | None = Query(None, description="Filter by driver"),
 ):
+    verify_request(request)  # verify_request returns the user ID of the sender, you can use it if needed
     result = missions
     # TODO: change when given DB
     if status:
