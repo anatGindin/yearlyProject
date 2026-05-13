@@ -1,5 +1,12 @@
-from routers import missions
+import logging
+
+from api.routers import missions
 from fastapi import FastAPI
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s - %(message)s",
+)
 
 
 # FOR CORS: from fastapi.middleware.cors import CORSMiddleware

@@ -1,6 +1,6 @@
 import os
 import firebase_admin
-from firebase_admin import credentials, firestore
+from firebase_admin import credentials, firestore, db
 
 
 def initialize_firebase():
@@ -18,10 +18,19 @@ def initialize_firebase():
             ) from None
 
         cred = credentials.Certificate(key_path)
-        return firebase_admin.initialize_app(cred)
+        # The URL should be the same as the URL in Frontend\hamal_transport_app\lib\firebase_options.dart
+        return firebase_admin.initialize_app(
+            cred, {"databaseURL": "https://hamal-transportation-app-default-rtdb.europe-west1.firebasedatabase.app"}
+        )
 
 
 def get_firestore_client():
     """Return a Firestore client, initializing Firebase if needed."""
     initialize_firebase()
     return firestore.client()
+
+
+def get_realtime_db(path="users"):
+    """Return a Realtime Database reference at the given path, initializing Firebase if needed."""
+    initialize_firebase()
+    return db.reference(path)
