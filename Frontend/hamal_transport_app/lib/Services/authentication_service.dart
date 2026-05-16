@@ -29,6 +29,19 @@ class AuthenticationService {
   // Database
   final DatabaseReference usersRef = FirebaseDatabase.instance.ref('users');
 
+  // AppCheck
+  Future<String?> getAppCheckToken() async {
+    try {
+      // false tells the SDK to pull from the internal cache if it's still valid
+      final String? appCheckToken = await _appCheck.getToken(false);
+      return appCheckToken;
+    } catch (e) {
+      print("Error fetching App Check token: $e");
+      return null;
+    }
+  }
+
+
   // Persistance
   Future<void> setRememberMe(bool value) async {
     final prefs = await SharedPreferences.getInstance();

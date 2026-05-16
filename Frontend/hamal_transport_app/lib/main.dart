@@ -8,6 +8,7 @@ import 'l10n/app_localizations.dart';
 import 'Views/Authentication/auth_gate.dart';
 import 'Services/location_service.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:hamal_transport_app/firebase_options.dart';
 import 'package:hamal_transport_app/Theme/app_theme.dart';
 import 'package:hamal_transport_app/Services/app_preferences_service.dart';
@@ -16,6 +17,9 @@ import 'package:hamal_transport_app/Services/navigation_controller.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // TODO: ask about which provider I should choose from. debug should be fine for now?
+  //https://firebase.google.com/docs/app-check/flutter/default-providers
+  await FirebaseAppCheck.instance.activate(androidProvider: AndroidProvider.debug);
   await initializeMockData();
 
   final prefsService = AppPreferencesService();
