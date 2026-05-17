@@ -8,12 +8,15 @@ from datetime import datetime
 router = APIRouter(prefix="/missions", tags=["missions"])
 
 # TEMP storage (replace with DB later)
-file_path = "/Backend/mock_data.json"
+file_path = "./mock_data.json"
 
 if os.path.exists(file_path):
-    with open(file_path) as f:
-        missions = [mission.MissionInDB(**m) for m in json.load(f)]
+    with open(file_path, encoding="utf-8") as f:
+        data = json.load(f)
+        all_raw_missions = data.get("sampleMissions", []) + data.get("availableMissions", [])
+        missions = [mission.MissionInDB(**m) for m in all_raw_missions]
 else:
+    print("iim peepeepoopoo")
     missions = []
 
 

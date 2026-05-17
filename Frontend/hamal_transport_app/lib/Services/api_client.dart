@@ -7,13 +7,13 @@ import 'package:http/http.dart' as http;
 
 class APIClient{
   // singleton
-  static final ApiClient _instance = ApiClient._internal();
-  factory ApiClient() {
+  static final APIClient _instance = APIClient._internal();
+  factory APIClient() {
     return _instance;
   }
-  ApiClient._internal();
+  APIClient._internal();
 
-  const Duration _timeout = Duration(seconds: 10);
+  static const Duration _timeout = Duration(seconds: 10);
 
   // HTTP wrapper
   static Future<http.Response> safeRequest(Future<http.Response> Function() request) async {

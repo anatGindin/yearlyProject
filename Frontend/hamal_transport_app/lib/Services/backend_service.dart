@@ -1,25 +1,28 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
+import 'package:firebase_auth/firebase_auth.dart';
 import '../Models/mission.dart';
 import 'api_client.dart';
 import 'authentication_service.dart';
 
 class MissionService{
 
-  static const String _baseURL = '';
+  static const String _baseURL = 'http://192.168.1.194:8000';
   final AuthenticationService _authService;
   final APIClient _apiClient;
 
-  MissionService._internal({AuthenticationService? authService})
-      : _authService = authService ?? AuthenticationService();
+  MissionService._internal({AuthenticationService? authService, APIClient? apiClient})
+      : _authService = authService ?? AuthenticationService(),
+        _apiClient = apiClient ?? APIClient();
 
   static final MissionService _instance = MissionService._internal();
   factory MissionService() {
     return _instance;
   }
 
-  Future<Map<String, String>> get _headers() async {
+  String get _baseUrl => _baseURL;
+
+  Future<Map<String, String>> get _headers async {
     final Map<String, String> headers = {
       'Content-Type': 'application/json',
     };
@@ -52,9 +55,9 @@ class MissionService{
     if (driverId!=null){
       queryParameters['driver_id']=driverId;
     }
-    final Uri url = Uri.parse('$_baseUrl/api/missions/').replace(queryParameters: queryParams);
-    final Map<String, String> headers = await _getAuthenticatedHeaders();
-    final response = await ApiClient.safeRequest(() => http.get(url, headers: headers));
+    final Uri url = Uri.parse('$_baseUrl/api/missions/').replace(queryParameters: queryParameters);
+    final Map<String, String> headers = await _headers;
+    final response = await APIClient.safeRequest(() => http.get(url, headers: headers));
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body);
       return data.map((json) => Mission.fromJson(json)).toList();
@@ -64,18 +67,18 @@ class MissionService{
   }
 
   // POST mission. Admin only?
-  Future<Mission> postMission(Mission mission) async {
-    // TODO: complete function lol
-  }
-
-  // UPDATE mission status.
-  Future<Mission> updateMissionStatus(String missionId, MissionStatus newStatus) async {
-    // TODO: complete function lol
-  }
-
-  Future<Mission> deleteMission(String missionId){
-    //TODO: complete function lol
-  }
+  // Future<Mission> postMission(Mission mission) async {
+  //   // TODO: complete function lol
+  // }
+  //
+  // // UPDATE mission status.
+  // Future<Mission> updateMissionStatus(String missionId, MissionStatus newStatus) async {
+  //   // TODO: complete function lol
+  // }
+  //
+  // Future<Mission> deleteMission(String missionId){
+  //   //TODO: complete function lol
+  // }
 
 
 }
