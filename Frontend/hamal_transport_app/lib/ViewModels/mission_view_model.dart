@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hamal_transport_app/Services/mission_comments_storage_service.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
 import '../Models/mission.dart';
 import '../Models/contact.dart';
@@ -14,6 +16,12 @@ class MissionViewModel extends ChangeNotifier {
 
   MissionViewModel(this.mission, this._repository) {
     _initUserRole();
+    _loadCommentsFromLocalMemory();
+  }
+
+  void _loadCommentsFromLocalMemory() async {
+    await MissionCommentsStorage.loadCommentsIntoMission(mission);
+    notifyListeners();
   }
 
   void _initUserRole() async {
@@ -89,6 +97,10 @@ class MissionViewModel extends ChangeNotifier {
       _repository.takeMission(mission);
     } else {
       _repository.updateStatus(mission, newStatus);
+      if (newStatus == MissionStatus.delivered ||
+          newStatus == MissionStatus.cancelled) {
+        MissionCommentsStorage.clearComments(mission.id);
+      }
     }
     notifyListeners();
   }
@@ -109,22 +121,26 @@ class MissionViewModel extends ChangeNotifier {
     // for now we just save the reason, in the future we will send it to the server
     // so the server can notify the logistics supervisor
     _repository.cancelMission(mission, cancellationReason);
+    MissionCommentsStorage.clearComments(mission.id);
   }
 
   void addComment(String comment) {
     mission.comments.add(comment);
+    MissionCommentsStorage.saveCommentsFromMission(mission);
     notifyListeners();
   }
 
   void deleteComment(int index) {
     if (index < 0 || index >= mission.comments.length) return;
     mission.comments.removeAt(index);
+    MissionCommentsStorage.saveCommentsFromMission(mission);
     notifyListeners();
   }
 
   void editComment(int index, String newComment) {
     if (index < 0 || index >= mission.comments.length) return;
     mission.comments[index] = newComment;
+    MissionCommentsStorage.saveCommentsFromMission(mission);
     notifyListeners();
   }
 }
