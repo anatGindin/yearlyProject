@@ -15,6 +15,7 @@ if os.path.exists(file_path):
         data = json.load(f)
         all_raw_missions = data.get("sampleMissions", []) + data.get("availableMissions", [])
         missions = [mission.MissionInDB(**m) for m in all_raw_missions]
+        print(missions)
 else:
     print("iim peepeepoopoo")
     missions = []

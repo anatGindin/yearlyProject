@@ -55,8 +55,9 @@ class MissionService{
     if (driverId!=null){
       queryParameters['driver_id']=driverId;
     }
-    final Uri url = Uri.parse('$_baseUrl/api/missions/').replace(queryParameters: queryParameters);
-    final Map<String, String> headers = await _headers;
+// Inside getMissions function:
+// Change this line:
+    final Uri url = Uri.parse('$_baseUrl/missions/').replace(queryParameters: queryParameters);    final Map<String, String> headers = await _headers;
     final response = await APIClient.safeRequest(() => http.get(url, headers: headers));
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body);

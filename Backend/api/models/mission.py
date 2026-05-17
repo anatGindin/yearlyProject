@@ -34,7 +34,7 @@ class MissionBase(BaseModel):
 
 
 class MissionInDB(MissionBase):
-    lastUpdate: datetime
+    lastUpdate: datetime | None = None
     assignedBy: str | None = None
 
 
