@@ -567,5 +567,9 @@
   "districtNorth": "North",
   "districtCenter": "Center",
   "districtJerusalem": "Jerusalem",
-  "districtSouth": "South"
+  "districtSouth": "South",
+  "missionDescription": "Mission description",
+  "@missionDescription": {
+    "description": "Mission description label"
+  }
 }
