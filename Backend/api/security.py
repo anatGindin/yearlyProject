@@ -5,10 +5,13 @@ from firebase_admin import auth, app_check
 def verify_app_check(request: Request):
     token = request.headers.get("Firebase-AppCheck")
     if not token:
+        print("no appcheck token found")
         raise HTTPException(status_code=401, detail="Missing App Check token")
     try:
-        app_check.verify_token(token)
+        res = app_check.verify_token(token)
+        print(f"app check decoded: {res}")
     except Exception as err:
+        print(f"app check failed: {err}")
         raise HTTPException(status_code=401, detail="Invalid App Check token") from err
 
 

@@ -34,7 +34,7 @@ class AuthenticationService {
   Future<String?> getAppCheckToken() async {
     try {
       // false tells the SDK to pull from the internal cache if it's still valid
-      final String? appCheckToken = await _appCheck.getToken(false);
+      final String? appCheckToken = await _appCheck.getToken(true);
       return appCheckToken;
     } catch (e) {
       print("Error fetching App Check token: $e");

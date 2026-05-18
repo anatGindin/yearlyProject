@@ -2,6 +2,7 @@ import logging
 
 from api.routers import missions
 from fastapi import FastAPI
+from firebase_config import initialize_firebase
 
 logging.basicConfig(
     level=logging.INFO,
@@ -28,7 +29,8 @@ def create_app() -> FastAPI:
 
     @app.on_event("startup")
     async def startup():
-        #await """connect to the database"""
+        initialize_firebase()
+        print("firebase initialized")
         print("connect to database")
 
     @app.on_event("shutdown")
