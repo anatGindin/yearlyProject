@@ -1,13 +1,13 @@
 import 'package:hamal_transport_app/Models/mission.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hamal_transport_app/Services/persistant_storagte_service.dart';
 
 class MissionCommentsStorage {
   static String _keyFor(String missionId) => 'mission_comments_$missionId';
 
   /// Read all comments for a specific mission
   static Future<List<String>> readComments(String missionId) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getStringList(_keyFor(missionId)) ?? [];
+    return await PersistentStorageService.readStringList(_keyFor(missionId)) ??
+        [];
   }
 
   /// Overwrite all comments for a specific mission
@@ -15,8 +15,7 @@ class MissionCommentsStorage {
     String missionId,
     List<String> comments,
   ) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList(_keyFor(missionId), comments);
+    PersistentStorageService.writeStringList(_keyFor(missionId), comments);
   }
 
   /// Load comments directly into a Mission object
@@ -31,7 +30,6 @@ class MissionCommentsStorage {
 
   /// Clear all comments for a specific mission
   static Future<void> clearComments(String missionId) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_keyFor(missionId));
+    PersistentStorageService.delete(_keyFor(missionId));
   }
 }
