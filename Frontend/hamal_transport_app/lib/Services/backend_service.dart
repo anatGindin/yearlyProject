@@ -7,8 +7,7 @@ import 'authentication_service.dart';
 
 class MissionService{
 
-  // CHANGE HERE!
-  static const String _baseURL = 'http://192.168.68.119:8000';
+  static const String _baseURL = 'http://192.168.1.194:8000';
   final AuthenticationService _authService;
   final APIClient _apiClient;
 
@@ -57,6 +56,7 @@ class MissionService{
       queryParameters['driver_id']=driverId;
     }
 // Inside getMissions function:
+// Change this line:
     final Uri url = Uri.parse('$_baseUrl/missions/').replace(queryParameters: queryParameters);    final Map<String, String> headers = await _headers;
     final response = await APIClient.safeRequest(() => http.get(url, headers: headers));
     if (response.statusCode == 200) {
