@@ -35,7 +35,7 @@ def create_app() -> FastAPI:
 
     @app.on_event("shutdown")
     async def shutdown():
-        #await """close the database connection"""
+        # await """close the database connection"""
         print("disconnect from database")
 
     return app
