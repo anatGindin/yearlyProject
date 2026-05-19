@@ -15,7 +15,7 @@ class MissionViewModel extends ChangeNotifier {
   bool isLoading = true;
 
   MissionViewModel(this.mission, this._repository) {
-    _initUserRole();
+    initUserRole();
     _loadCommentsFromLocalMemory();
   }
 
@@ -24,7 +24,7 @@ class MissionViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _initUserRole() async {
+  void initUserRole() async {
     final authService = AuthenticationService();
 
     // Try to load from cache first to avoid UI flickering
