@@ -28,33 +28,6 @@
       "driverUid": "I9ivZ6H8pYWoDkeb2wybbKXgxWE2"
     },
     {
-      "id": "jjj1",
-      "source": {
-        "name": "מרלו\"ג חיפה",
-        "latitude": 32.816872,
-        "longitude": 35.058634
-      },
-      "destination": {
-        "name": "בסיס חטיבת גולני",
-        "latitude": 32.523668,
-        "longitude": 35.063091
-      },
-      "description": "גזיבו",
-      "sourceContact": {
-        "fullName": "רונית כץ",
-        "phoneNumber": "+972 54-681-5780"
-      },
-      "destinationContact": {
-        "fullName": "אחיק מן",
-        "phoneNumber": "+972 54-471-6677"
-      },
-      "time": "2025-12-15 10:00",
-      "status": "available",
-      "carType": "private",
-      "comments": [],
-      "driverUid": "I9ivZ6H8pYWoDkeb2wybbKXgxWE2"
-    },
-    {
       "id": "m2",
       "source": {
         "name": "מרלו\"ג חיפה",
