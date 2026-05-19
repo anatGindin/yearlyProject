@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hamal_transport_app/Constants/mock_data.dart';
 import 'package:hamal_transport_app/Services/authentication_service.dart';
+import 'package:hamal_transport_app/Services/notification_service.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
 import 'package:provider/provider.dart';
 import 'l10n/app_localizations.dart';
@@ -16,6 +17,7 @@ import 'package:hamal_transport_app/Services/navigation_controller.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FcmService.initialize();
   await initializeMockData();
 
   final prefsService = AppPreferencesService();
