@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
-import 'api_client.dart';
 import 'backend_service.dart';
 import 'authentication_service.dart';
 
@@ -16,19 +15,21 @@ class MissionsRepository extends ChangeNotifier {
   MissionsRepository._internal({
     AuthenticationService? authService,
     MissionService? missionService,
-  })  : _authService = authService ?? AuthenticationService(),
-        _missionService = missionService ?? MissionService();
+  }) : _authService = authService ?? AuthenticationService(),
+       _missionService = missionService ?? MissionService();
 
   factory MissionsRepository({
     List<Mission>? missions,
     AuthenticationService? authService,
     MissionService? missionService,
   }) {
-    _instance ??= MissionsRepository._internal(authService: authService, missionService: missionService);
+    _instance ??= MissionsRepository._internal(
+      authService: authService,
+      missionService: missionService,
+    );
     if (missions != null) {
       _instance!.setMissions(missions);
-    }
-    else {
+    } else {
       _instance!.loadMissions();
     }
     return _instance!;
@@ -45,8 +46,9 @@ class MissionsRepository extends ChangeNotifier {
     prefetchRouteInfo();
     notifyListeners();
   }
+
   Future<void> loadMissions() async {
-    final missions = await _missionService.getMissions(null,null);
+    final missions = await _missionService.getMissions(null, null);
     setMissions(missions);
   }
 
