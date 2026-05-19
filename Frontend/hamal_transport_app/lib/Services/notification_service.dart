@@ -14,12 +14,6 @@ class FcmService {
 
     await LocalNotificationService.initialize();
 
-    final settings = await messaging.requestPermission(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
-
     final token = await messaging.getToken();
     debugPrint('FCM token: $token');
 
