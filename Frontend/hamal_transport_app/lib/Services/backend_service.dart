@@ -13,10 +13,11 @@ class MissionService {
   MissionService._internal({AuthenticationService? authService})
     : _authService = authService ?? AuthenticationService();
 
-  static final MissionService _instance = MissionService._internal();
+  static MissionService? _instance;
 
-  factory MissionService() {
-    return _instance;
+  factory MissionService(AuthenticationService? authService) {
+    _instance ??= MissionService._internal(authService: authService);
+    return _instance!;
   }
 
   String get _baseUrl => _baseURL;

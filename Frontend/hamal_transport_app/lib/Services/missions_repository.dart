@@ -25,7 +25,7 @@ class MissionsRepository extends ChangeNotifier {
   }) {
     _instance ??= MissionsRepository._internal(
       authService: authService ?? AuthenticationService(),
-      missionService: missionService ?? MissionService(),
+      missionService: missionService ?? MissionService(authService),
     );
     if (missions != null) {
       _instance!.setMissions(missions);

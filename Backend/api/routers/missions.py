@@ -17,7 +17,6 @@ if os.path.exists(file_path):
         missions = [mission.MissionInDB(**m) for m in all_raw_missions]
         print(missions)
 else:
-    print("iim peepeepoopoo")
     missions = []
 
 
