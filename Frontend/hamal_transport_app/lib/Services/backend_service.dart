@@ -21,6 +21,8 @@ class MissionService {
 
   String get _baseUrl => _baseURL;
 
+  bool isEnabled() => _baseURL.isNotEmpty;
+
   Future<Map<String, String>> get _headers async {
     final Map<String, String> headers = {'Content-Type': 'application/json'};
     try {

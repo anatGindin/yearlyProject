@@ -19,7 +19,8 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // TODO: Change this once you publish the app. It should be the play integrity default provider.
   await FirebaseAppCheck.instance.activate(
-    androidProvider: AndroidProvider.debug,
+    // Set androidProvider to `AndroidProvider.debug`
+    providerAndroid: const AndroidDebugProvider(),
   );
   await initializeMockData();
 
