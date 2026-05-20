@@ -10,15 +10,8 @@ class BackendService {
   static const String _baseURL = '';
   final AuthenticationService _authService;
 
-  BackendService._internal({AuthenticationService? authService})
+  BackendService({AuthenticationService? authService})
     : _authService = authService ?? AuthenticationService();
-
-  static BackendService? _instance;
-
-  factory BackendService(AuthenticationService? authService) {
-    _instance ??= BackendService._internal(authService: authService);
-    return _instance!;
-  }
 
   String get _baseUrl => _baseURL;
 
