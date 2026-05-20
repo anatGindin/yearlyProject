@@ -30,13 +30,11 @@ def create_app() -> FastAPI:
     @app.on_event("startup")
     async def startup():
         initialize_firebase()
-        print("firebase initialized")
-        print("connect to database")
 
     @app.on_event("shutdown")
     async def shutdown():
         # await """close the database connection"""
-        print("disconnect from database")
+        return
 
     return app
 

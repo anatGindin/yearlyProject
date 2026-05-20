@@ -79,5 +79,4 @@ def list_missions(
 
     if driver_id:
         result = [m for m in result if getattr(m, "driver_id", None) == driver_id]
-    print("yay it worked!!")
     return result

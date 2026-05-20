@@ -25,7 +25,8 @@
       "status": "assigned",
       "carType": "private",
       "comments": [],
-      "driverUid": "I9ivZ6H8pYWoDkeb2wybbKXgxWE2"
+      "driverUid": "I9ivZ6H8pYWoDkeb2wybbKXgxWE2",
+      "lastUpdate": "2026-05-20 23:00"
     },
     {
       "id": "m2",
@@ -52,7 +53,8 @@
       "status": "assigned",
       "carType": "private",
       "comments": [],
-      "driverUid": "I9ivZ6H8pYWoDkeb2wybbKXgxWE2"
+      "driverUid": "I9ivZ6H8pYWoDkeb2wybbKXgxWE2",
+      "lastUpdate": "2026-05-20 23:00"
     },
     {
       "id": "m3",
@@ -79,7 +81,8 @@
       "status": "assigned",
       "carType": "trailer",
       "comments": [],
-      "driverUid": "I9ivZ6H8pYWoDkeb2wybbKXgxWE2"
+      "driverUid": "I9ivZ6H8pYWoDkeb2wybbKXgxWE2",
+      "lastUpdate": "2026-05-20 23:00"
     },
     {
       "id": "m4",
@@ -106,7 +109,8 @@
       "status": "assigned",
       "carType": "trailer",
       "comments": [],
-      "driverUid": "I9ivZ6H8pYWoDkeb2wybbKXgxWE2"
+      "driverUid": "I9ivZ6H8pYWoDkeb2wybbKXgxWE2",
+      "lastUpdate": "2026-05-20 23:00"
     }
   ],
   "availableMissions": [
@@ -189,7 +193,8 @@
       "status": "assigned",
       "carType": "private",
       "comments": [],
-      "driverUid": "haim_uid"
+      "driverUid": "haim_uid",
+      "lastUpdate": "2026-05-20 23:00"
     },
     {
       "id": "as2",
@@ -216,7 +221,8 @@
       "status": "assigned",
       "carType": "private",
       "comments": [],
-      "driverUid": "haim_uid"
+      "driverUid": "haim_uid",
+      "lastUpdate": "2026-05-20 23:00"
     },
     {
       "id": "pu1",
@@ -243,7 +249,8 @@
       "status": "pickedUp",
       "carType": "private",
       "comments": [],
-      "driverUid": "dulapip_uid"
+      "driverUid": "dulapip_uid",
+      "lastUpdate": "2026-05-20 23:00"
     },
     {
       "id": "pu2",
@@ -270,7 +277,8 @@
       "status": "pickedUp",
       "carType": "truck",
       "comments": [],
-      "driverUid": "dulapip_uid"
+      "driverUid": "dulapip_uid",
+      "lastUpdate": "2026-05-20 23:00"
     },
     {
       "id": "pu3",
@@ -297,7 +305,8 @@
       "status": "pickedUp",
       "carType": "trailer",
       "comments": [],
-      "driverUid": "haim_uid"
+      "driverUid": "haim_uid",
+      "lastUpdate": "2026-05-20 23:00"
     },
     {
       "id": "dl1",
@@ -324,7 +333,8 @@
       "status": "delivered",
       "carType": "trailer",
       "comments": [],
-      "driverUid": "haim_uid"
+      "driverUid": "haim_uid",
+      "lastUpdate": "2026-05-20 23:00"
     },
     {
       "id": "dl2",
@@ -351,7 +361,8 @@
       "status": "delivered",
       "carType": "trailer",
       "comments": [],
-      "driverUid": "dulapip_uid"
+      "driverUid": "dulapip_uid",
+      "lastUpdate": "2026-05-20 23:00"
     },
     {
       "id": "cl1",
@@ -379,7 +390,8 @@
       "carType": "trailer",
       "comments": [],
       "driverUid": "dulapip_uid",
-      "cancellationReason": "נפרדו :("
+      "cancellationReason": "נפרדו :(",
+      "lastUpdate": "2026-05-20 23:00"
     }
   ],
   "driverUsers": [
