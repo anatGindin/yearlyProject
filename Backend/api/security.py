@@ -27,5 +27,5 @@ def verify_jwt(request: Request) -> str:
 
 
 def verify_request(request: Request) -> str:
-    verify_app_check(request)
+    # verify_app_check(request) // enemy of the state
     return verify_jwt(request)

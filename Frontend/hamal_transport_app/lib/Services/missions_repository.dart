@@ -13,25 +13,20 @@ class MissionsRepository extends ChangeNotifier {
   final MissionService _missionService;
 
   MissionsRepository._internal({
-    AuthenticationService? authService,
-    MissionService? missionService,
-  }) : _authService = authService ?? AuthenticationService(),
-       _missionService = missionService ?? MissionService();
+    required AuthenticationService authService,
+    required MissionService missionService,
+  }) : _authService = authService,
+       _missionService = missionService;
 
   factory MissionsRepository({
-    List<Mission>? missions,
     AuthenticationService? authService,
     MissionService? missionService,
   }) {
     _instance ??= MissionsRepository._internal(
-      authService: authService,
-      missionService: missionService,
+      authService: authService ?? AuthenticationService(),
+      missionService: missionService ?? MissionService(),
     );
-    if (missions != null) {
-      _instance!.setMissions(missions);
-    } else {
-      _instance!.loadMissions();
-    }
+    _instance!.loadMissions();
     return _instance!;
   }
 

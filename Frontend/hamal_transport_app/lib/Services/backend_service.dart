@@ -6,12 +6,12 @@ import 'api_client.dart';
 import 'authentication_service.dart';
 
 class MissionService {
-
-  static const String _baseURL = 'http://192.168.1.194:8000';
+  // Change here!
+  static const String _baseURL = '';
   final AuthenticationService _authService;
 
   MissionService._internal({AuthenticationService? authService})
-      : _authService = authService ?? AuthenticationService();
+    : _authService = authService ?? AuthenticationService();
 
   static final MissionService _instance = MissionService._internal();
 
@@ -22,9 +22,7 @@ class MissionService {
   String get _baseUrl => _baseURL;
 
   Future<Map<String, String>> get _headers async {
-    final Map<String, String> headers = {
-      'Content-Type': 'application/json',
-    };
+    final Map<String, String> headers = {'Content-Type': 'application/json'};
     try {
       final User? user = _authService.currentUser;
       if (user == null) {
@@ -46,8 +44,10 @@ class MissionService {
   }
 
   // GET missions.
-  Future<List<Mission>> getMissions(MissionStatus? status,
-      String? driverId) async {
+  Future<List<Mission>> getMissions(
+    MissionStatus? status,
+    String? driverId,
+  ) async {
     final Map<String, String> queryParameters = {};
     if (status != null) {
       queryParameters['status'] = status.toString();
@@ -55,13 +55,15 @@ class MissionService {
     if (driverId != null) {
       queryParameters['driver_id'] = driverId;
     }
-// Inside getMissions function:
-// Change this line:
-    final Uri url = Uri.parse('$_baseUrl/missions/').replace(
-        queryParameters: queryParameters);
+    // Inside getMissions function:
+    // Change this line for specific missions:
+    final Uri url = Uri.parse(
+      '$_baseUrl/missions/',
+    ).replace(queryParameters: queryParameters);
     final Map<String, String> headers = await _headers;
-    final response = await APIClient.safeRequest(() =>
-        http.get(url, headers: headers));
+    final response = await APIClient.safeRequest(
+      () => http.get(url, headers: headers),
+    );
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body);
       return data.map((json) => Mission.fromJson(json)).toList();
@@ -70,19 +72,18 @@ class MissionService {
     }
   }
 
-// POST mission. Admin only?
-// Future<Mission> postMission(Mission mission) async {
-//   // TODO: complete function lol
-// }
-//
-// // UPDATE mission status.
-// Future<Mission> updateMissionStatus(String missionId, MissionStatus newStatus) async {
-//   // TODO: complete function lol
-// }
-//
-// Future<Mission> deleteMission(String missionId){
-//   //TODO: complete function lol
-// }
-
-
+  // POST mission. Admin only?
+  // Future<Mission> postMission(Mission mission) async {
+  //   // TODO: complete function lol
+  // }
+  //
+  // // UPDATE mission status.
+  // Future<Mission> updateMissionStatus(String missionId, MissionStatus newStatus) async {
+  //   // TODO: complete function lol
+  // }
+  //
+  // // cancel mission
+  // Future<Mission> deleteMission(String missionId){
+  //   //TODO: complete function lol
+  // }
 }
