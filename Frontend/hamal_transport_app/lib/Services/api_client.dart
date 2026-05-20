@@ -1,22 +1,22 @@
-/*
-* based on Anat's version of api_client from PR #172
-* Key modifications: safe request now adds headers
-* */
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class APIClient{
+class APIClient {
   // singleton
   static final APIClient _instance = APIClient._internal();
+
   factory APIClient() {
     return _instance;
   }
+
   APIClient._internal();
 
   static const Duration _timeout = Duration(seconds: 10);
 
   // HTTP wrapper
-  static Future<http.Response> safeRequest(Future<http.Response> Function() request) async {
+  static Future<http.Response> safeRequest(
+    Future<http.Response> Function() request,
+  ) async {
     try {
       return await request().timeout(_timeout);
     } on http.ClientException catch (e) {
@@ -27,6 +27,7 @@ class APIClient{
       throw NetworkException('Network error: $e');
     }
   }
+
   static ApiException parseError(http.Response response) {
     try {
       final body = json.decode(response.body);
@@ -41,27 +42,24 @@ class APIClient{
         'Invalid error response from server',
       );
     }
-  }static void validateSuccess(
-      http.Response response,
-      List<int> expectedStatusCodes,
-      ) {
+  }
+
+  static void validateSuccess(
+    http.Response response,
+    List<int> expectedStatusCodes,
+  ) {
     if (!expectedStatusCodes.contains(response.statusCode)) {
       throw parseError(response);
     }
   }
 }
 
-
 class ApiException implements Exception {
   final int statusCode;
   final String message;
   final dynamic details;
 
-  ApiException(
-      this.statusCode,
-      this.message, {
-        this.details,
-      });
+  ApiException(this.statusCode, this.message, {this.details});
 
   @override
   String toString() =>

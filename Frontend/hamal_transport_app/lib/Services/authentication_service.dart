@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:hamal_transport_app/Models/user_profile.dart';
-import 'package:firebase_app_check/firebase_app_check.dart';
+
 const String _kRememberMeKey = 'remember_me';
 
 class AuthenticationService {
@@ -28,20 +28,6 @@ class AuthenticationService {
 
   // Database
   final DatabaseReference usersRef = FirebaseDatabase.instance.ref('users');
-
-  // AppCheck
-  final _appCheck = FirebaseAppCheck.instance;
-  Future<String?> getAppCheckToken() async {
-    try {
-      // false tells the SDK to pull from the internal cache if it's still valid
-      final String? appCheckToken = await _appCheck.getToken(true);
-      return appCheckToken;
-    } catch (e) {
-      print("Error fetching App Check token: $e");
-      return null;
-    }
-  }
-
 
   // Persistance
   Future<void> setRememberMe(bool value) async {
