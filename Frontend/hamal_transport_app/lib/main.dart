@@ -17,11 +17,6 @@ import 'package:hamal_transport_app/Services/navigation_controller.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // TODO: Change this once you publish the app. It should be the play integrity default provider.
-  await FirebaseAppCheck.instance.activate(
-    // Set androidProvider to `AndroidProvider.debug`
-    providerAndroid: const AndroidDebugProvider(),
-  );
   await initializeMockData();
 
   final prefsService = AppPreferencesService();

@@ -16,6 +16,7 @@ class MissionsRepository extends ChangeNotifier {
     required AuthenticationService authService,
     required MissionService missionService,
   }) : _authService = authService,
+       // TODO: refactor needed - option to pass missions. check pr #243 for discussion.
        _missionService = missionService;
 
   factory MissionsRepository({
@@ -53,6 +54,7 @@ class MissionsRepository extends ChangeNotifier {
         'MissionService not initialized. Please provide one and make sure to run the backend.',
       );
     }
+    // TODO: change to get specific missions (userID/ status. not all of them).
     final missions = await _missionService.getMissions(null, null);
     setMissions(missions);
   }

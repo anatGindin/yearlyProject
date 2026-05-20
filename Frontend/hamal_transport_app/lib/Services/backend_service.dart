@@ -31,14 +31,9 @@ class MissionService {
       if (user == null) {
         throw Exception('User not authenticated');
       }
-      final idToken = await user
-          .getIdToken(); //probably should move this to authentication service
-      final appCheckToken = await _authService.getAppCheckToken();
+      final idToken = await user.getIdToken();
       if (idToken != null) {
         headers['Firebase-JWT'] = idToken;
-      }
-      if (appCheckToken != null) {
-        headers['Firebase-AppCheck'] = appCheckToken;
       }
     } catch (e) {
       print('Failed to resolve security tokens: $e');
@@ -58,8 +53,6 @@ class MissionService {
     if (driverId != null) {
       queryParameters['driver_id'] = driverId;
     }
-    // Inside getMissions function:
-    // Change this line for specific missions:
     final Uri url = Uri.parse(
       '$_baseUrl/missions/',
     ).replace(queryParameters: queryParameters);
