@@ -2,15 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class APIClient {
-  // singleton
-  static final APIClient _instance = APIClient._internal();
-
-  factory APIClient() {
-    return _instance;
-  }
-
-  APIClient._internal();
-
   static const Duration _timeout = Duration(seconds: 10);
 
   // HTTP wrapper
