@@ -10,23 +10,28 @@ class MissionsRepository extends ChangeNotifier {
   final List<Mission> _allMissions = [];
 
   final AuthenticationService _authService;
-  final MissionService _missionService;
+  final MissionService? _missionService;
 
   MissionsRepository._internal({
     required AuthenticationService authService,
-    required MissionService missionService,
+    required MissionService? missionService,
   }) : _authService = authService,
        _missionService = missionService;
 
   factory MissionsRepository({
+    List<Mission>? missions,
     AuthenticationService? authService,
     MissionService? missionService,
   }) {
     _instance ??= MissionsRepository._internal(
       authService: authService ?? AuthenticationService(),
-      missionService: missionService ?? MissionService(),
+      missionService: missionService,
     );
-    _instance!.loadMissions();
+    if (missions != null) {
+      _instance!.setMissions(missions);
+    } else if (missionService != null) {
+      _instance!.loadMissions();
+    }
     return _instance!;
   }
 
@@ -43,6 +48,11 @@ class MissionsRepository extends ChangeNotifier {
   }
 
   Future<void> loadMissions() async {
+    if (_missionService == null) {
+      throw Exception(
+        'MissionService not initialized. Please provide one and make sure to run the backend.',
+      );
+    }
     final missions = await _missionService.getMissions(null, null);
     setMissions(missions);
   }

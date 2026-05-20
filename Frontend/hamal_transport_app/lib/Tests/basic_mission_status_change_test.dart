@@ -4,7 +4,6 @@ import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
 import 'package:hamal_transport_app/Services/Fake/fake_authentication_service.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
-import 'package:hamal_transport_app/Services/Fake/fake_backend_service.dart';
 import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
 import 'package:mockito/mockito.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -43,9 +42,6 @@ void main() {
       final authService = FakeAuthenticationService();
       authService.mockUser = MockUser(uid: 'test-user-uid');
 
-      final missionService = MockMissionService(
-        missions: [...sampleMissions, ...availableMissions],
-      );
       // Update sample missions to match the mock user for "My Missions" tests
       for (var m in sampleMissions) {
         m.driverUid = 'test-user-uid';
@@ -55,9 +51,8 @@ void main() {
       MissionsRepository.reset();
       repository = MissionsRepository(
         authService: authService,
-        missionService: missionService,
+        missions: [...sampleMissions, ...availableMissions],
       );
-      await repository.loadMissions();
 
       // Create ViewModels with initial state
       availableVM = MissionsListViewModel(

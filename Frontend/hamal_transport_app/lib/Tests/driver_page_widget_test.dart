@@ -10,7 +10,6 @@ import 'package:hamal_transport_app/Views/DriversPhonebook/driver_page.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:hamal_transport_app/Services/Fake/fake_backend_service.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -22,12 +21,6 @@ void main() {
   setUp(() {
     final authService = FakeAuthenticationService();
     // Initialize singleton with test data before each test
-    final missionService = MockMissionService(
-      missions: [...sampleMissions, ...availableMissions],
-    );
-    final missionService = MockMissionService(
-      missions: [...sampleMissions, ...availableMissions],
-    );
     MissionsRepository.reset();
     MissionsRepository(
       missions: [...sampleMissions, ...availableMissions],
