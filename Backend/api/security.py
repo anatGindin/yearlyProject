@@ -1,6 +1,7 @@
 from fastapi import Request, HTTPException
 from firebase_admin import auth
 
+
 def verify_jwt(request: Request) -> str:
     token = request.headers.get("Firebase-JWT")
     if not token:
