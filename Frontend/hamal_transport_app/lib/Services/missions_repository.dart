@@ -10,28 +10,28 @@ class MissionsRepository extends ChangeNotifier {
   final List<Mission> _allMissions = [];
 
   final AuthenticationService _authService;
-  final BackendService _missionService;
+  final BackendService _backendService;
 
   MissionsRepository._internal({
     required AuthenticationService authService,
-    required BackendService missionService,
+    required BackendService backendService,
   }) : _authService = authService,
        // TODO: refactor needed - option to pass missions. check pr #243 for discussion.
-       _missionService = missionService;
+       _backendService = backendService;
 
   factory MissionsRepository({
     List<Mission>? missions,
     AuthenticationService? authService,
-    BackendService? missionService,
+    BackendService? backendService,
   }) {
     _instance ??= MissionsRepository._internal(
       authService: authService ?? AuthenticationService(),
-      missionService:
-          missionService ?? BackendService(authService: authService),
+      backendService:
+          backendService ?? BackendService(authService: authService),
     );
     if (missions != null) {
       _instance!.setMissions(missions);
-    } else if (_instance!._missionService.isEnabled()) {
+    } else if (_instance!._backendService.isEnabled()) {
       _instance!.loadMissions();
     }
     return _instance!;
@@ -50,13 +50,13 @@ class MissionsRepository extends ChangeNotifier {
   }
 
   Future<void> loadMissions() async {
-    if (_instance!._missionService.isEnabled()) {
+    if (_instance!._backendService.isEnabled()) {
       throw Exception(
         'MissionService not initialized. Please provide one and make sure to run the backend.',
       );
     }
     // TODO: change to get specific missions (userID/ status. not all of them).
-    final missions = await _missionService.getMissions(null, null);
+    final missions = await _backendService.getMissions(null, null);
     setMissions(missions);
   }
 
