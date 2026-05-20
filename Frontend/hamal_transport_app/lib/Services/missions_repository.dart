@@ -10,11 +10,11 @@ class MissionsRepository extends ChangeNotifier {
   final List<Mission> _allMissions = [];
 
   final AuthenticationService _authService;
-  final MissionService _missionService;
+  final BackendService _missionService;
 
   MissionsRepository._internal({
     required AuthenticationService authService,
-    required MissionService missionService,
+    required BackendService missionService,
   }) : _authService = authService,
        // TODO: refactor needed - option to pass missions. check pr #243 for discussion.
        _missionService = missionService;
@@ -22,11 +22,11 @@ class MissionsRepository extends ChangeNotifier {
   factory MissionsRepository({
     List<Mission>? missions,
     AuthenticationService? authService,
-    MissionService? missionService,
+    BackendService? missionService,
   }) {
     _instance ??= MissionsRepository._internal(
       authService: authService ?? AuthenticationService(),
-      missionService: missionService ?? MissionService(authService),
+      missionService: missionService ?? BackendService(authService),
     );
     if (missions != null) {
       _instance!.setMissions(missions);

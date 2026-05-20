@@ -5,18 +5,18 @@ import '../Models/mission.dart';
 import 'api_client.dart';
 import 'authentication_service.dart';
 
-class MissionService {
+class BackendService {
   // Change here!
   static const String _baseURL = '';
   final AuthenticationService _authService;
 
-  MissionService._internal({AuthenticationService? authService})
+  BackendService._internal({AuthenticationService? authService})
     : _authService = authService ?? AuthenticationService();
 
-  static MissionService? _instance;
+  static BackendService? _instance;
 
-  factory MissionService(AuthenticationService? authService) {
-    _instance ??= MissionService._internal(authService: authService);
+  factory BackendService(AuthenticationService? authService) {
+    _instance ??= BackendService._internal(authService: authService);
     return _instance!;
   }
 
