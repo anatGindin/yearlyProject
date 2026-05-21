@@ -16,7 +16,6 @@ class UserProfileViewModel extends ChangeNotifier {
   Future<void> logOut() async {
     MissionsRepository().clear();
     await _authService.signOut();
-    // notifyListeners();
   }
 
   void updateDriverProfile(UserProfile userProfile) {
