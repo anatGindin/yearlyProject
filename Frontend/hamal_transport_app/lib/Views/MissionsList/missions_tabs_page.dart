@@ -38,6 +38,11 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final textDirection = Directionality.of(context);
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final tabContainerColor = isDark
+        ? (theme.appBarTheme.backgroundColor ?? const Color(0xFF1E293B))
+        : theme.colorScheme.primary;
 
     return DefaultTabController(
       length: widget.tabs.length,
@@ -46,7 +51,7 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
         body: Column(
           children: [
             Container(
-              color: Theme.of(context).colorScheme.primary,
+              color: tabContainerColor,
               child: Stack(
                 children: [
                   NotificationListener<Notification>(
@@ -142,8 +147,8 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
                               begin: AlignmentDirectional.centerStart,
                               end: AlignmentDirectional.centerEnd,
                               colors: [
-                                Theme.of(context).colorScheme.primary,
-                                Theme.of(context).colorScheme.primary.withAlpha(
+                                tabContainerColor,
+                                tabContainerColor.withAlpha(
                                   scrollBarArrowBackgroundAlpha,
                                 ),
                               ],
@@ -173,10 +178,10 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
                               begin: AlignmentDirectional.centerStart,
                               end: AlignmentDirectional.centerEnd,
                               colors: [
-                                Theme.of(context).colorScheme.primary.withAlpha(
+                                tabContainerColor.withAlpha(
                                   scrollBarArrowBackgroundAlpha,
                                 ),
-                                Theme.of(context).colorScheme.primary,
+                                tabContainerColor,
                               ],
                             ),
                           ),

@@ -16,8 +16,13 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
     final userProfile = AuthenticationService().currentUserProfile;
     final userName = userProfile?.name ?? '';
 
+    final isDark = theme.brightness == Brightness.dark;
+    final barColor = isDark
+        ? (theme.appBarTheme.backgroundColor ?? const Color(0xFF1E293B))
+        : theme.colorScheme.primary;
+
     return AppBar(
-      backgroundColor: theme.colorScheme.primary,
+      backgroundColor: barColor,
       elevation: 0,
       scrolledUnderElevation: 0,
       surfaceTintColor: Colors.transparent,
