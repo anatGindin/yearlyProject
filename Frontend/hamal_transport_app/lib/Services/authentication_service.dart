@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:hamal_transport_app/Models/user_profile.dart';
+import 'package:hamal_transport_app/Services/notification_service.dart';
 
 const String _kRememberMeKey = 'remember_me';
 
@@ -129,8 +130,19 @@ class AuthenticationService {
   }
 
   Future<void> signOut() async {
+    final uid = _authProvider.currentUser?.uid;
+
     await setRememberMe(false); // Clear remember me on explicit sign out
     _currentUserProfile = null;
+
+    if (uid != null) {
+      try {
+        await FcmService.handleUserSignOut(uid);
+      } catch (_) {
+        // Keep sign-out resilient even if notification cleanup fails.
+      }
+    }
+
     await _authProvider.signOut();
   }
 

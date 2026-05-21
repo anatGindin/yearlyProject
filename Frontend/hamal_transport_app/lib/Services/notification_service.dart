@@ -14,6 +14,13 @@ class FcmService {
 
     await LocalNotificationService.initialize();
 
+    final settings = await messaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+    debugPrint('FCM permission status: ${settings.authorizationStatus}');
+
     final token = await messaging.getToken();
     debugPrint('FCM token: $token');
 
@@ -23,6 +30,7 @@ class FcmService {
 
     FirebaseAuth.instance.authStateChanges().listen((User? user) async {
       if (user == null) {
+        await FirebaseMessaging.instance.deleteToken();
         return;
       }
       final refreshedToken = await messaging.getToken();
@@ -45,6 +53,11 @@ class FcmService {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       LocalNotificationService.showFromMessage(message);
     });
+  }
+
+  static Future<void> handleUserSignOut(String uid) async {
+    await FcmTokenService.clearForUser(uid);
+    await FirebaseMessaging.instance.deleteToken();
   }
 }
 

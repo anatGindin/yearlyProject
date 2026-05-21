@@ -18,4 +18,11 @@ class FcmTokenService {
         .ref('users/${user.uid}/fcmTokenUpdatedAt')
         .set(ServerValue.timestamp);
   }
+
+  static Future<void> clearForUser(String uid) async {
+    final userRef = FirebaseDatabase.instance.ref('users/$uid');
+
+    await userRef.child('fcmToken').remove();
+    await userRef.child('fcmTokenUpdatedAt').set(ServerValue.timestamp);
+  }
 }
