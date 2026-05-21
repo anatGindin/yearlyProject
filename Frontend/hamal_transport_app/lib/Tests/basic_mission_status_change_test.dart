@@ -11,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class MockUser extends Mock implements User {
   @override
   final String uid;
+
   MockUser({required this.uid});
 }
 
@@ -49,8 +50,8 @@ void main() {
 
       MissionsRepository.reset();
       repository = MissionsRepository(
-        missions: [...sampleMissions, ...availableMissions],
         authService: authService,
+        missions: [...sampleMissions, ...availableMissions],
       );
 
       // Create ViewModels with initial state
