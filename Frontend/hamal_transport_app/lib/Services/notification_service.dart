@@ -21,7 +21,7 @@ class FcmService {
     );
     debugPrint('FCM permission status: ${settings.authorizationStatus}');
 
-    final token = await messaging.getToken();
+    final token = await _tryGetToken(messaging);
     debugPrint('FCM token: $token');
 
     if (token != null) {
@@ -30,10 +30,9 @@ class FcmService {
 
     FirebaseAuth.instance.authStateChanges().listen((User? user) async {
       if (user == null) {
-        await FirebaseMessaging.instance.deleteToken();
         return;
       }
-      final refreshedToken = await messaging.getToken();
+      final refreshedToken = await _tryGetToken(messaging);
       if (refreshedToken != null) {
         await FcmTokenService.saveForCurrentUser(refreshedToken);
       }
@@ -57,7 +56,29 @@ class FcmService {
 
   static Future<void> handleUserSignOut(String uid) async {
     await FcmTokenService.clearForUser(uid);
-    await FirebaseMessaging.instance.deleteToken();
+    await _tryDeleteToken(FirebaseMessaging.instance);
+  }
+
+  static Future<String?> _tryGetToken(FirebaseMessaging messaging) async {
+    try {
+      return await messaging.getToken();
+    } on FirebaseException catch (error) {
+      debugPrint('FCM getToken failed: ${error.code} ${error.message}');
+      return null;
+    } catch (error) {
+      debugPrint('FCM getToken failed: $error');
+      return null;
+    }
+  }
+
+  static Future<void> _tryDeleteToken(FirebaseMessaging messaging) async {
+    try {
+      await messaging.deleteToken();
+    } on FirebaseException catch (error) {
+      debugPrint('FCM deleteToken failed: ${error.code} ${error.message}');
+    } catch (error) {
+      debugPrint('FCM deleteToken failed: $error');
+    }
   }
 }
 
