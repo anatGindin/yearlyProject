@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hamal_transport_app/Services/persistant_storagte_service.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:hamal_transport_app/Models/user_profile.dart';
