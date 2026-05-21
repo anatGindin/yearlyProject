@@ -1,15 +1,5 @@
 from fastapi import Request, HTTPException
-from firebase_admin import auth, app_check
-
-
-def verify_app_check(request: Request):
-    token = request.headers.get("Firebase-AppCheck")
-    if not token:
-        raise HTTPException(status_code=401, detail="Missing App Check token")
-    try:
-        app_check.verify_token(token)
-    except Exception as err:
-        raise HTTPException(status_code=401, detail="Invalid App Check token") from err
+from firebase_admin import auth
 
 
 def verify_jwt(request: Request) -> str:
@@ -24,5 +14,4 @@ def verify_jwt(request: Request) -> str:
 
 
 def verify_request(request: Request) -> str:
-    verify_app_check(request)
     return verify_jwt(request)

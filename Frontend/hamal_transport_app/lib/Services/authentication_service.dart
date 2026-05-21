@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hamal_transport_app/Services/persistant_storagte_service.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:hamal_transport_app/Models/user_profile.dart';
 
@@ -33,13 +34,12 @@ class AuthenticationService {
 
   // Persistance
   Future<void> setRememberMe(bool value) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(_kRememberMeKey, value);
+    await PersistentStorageService.setBool(_kRememberMeKey, value);
   }
 
   Future<bool> getRememberMe() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(_kRememberMeKey) ?? false; // Default to false
+    return await PersistentStorageService.getBool(_kRememberMeKey) ??
+        false; // Default to false
   }
 
   /// Checks if the user should be automatically logged in.

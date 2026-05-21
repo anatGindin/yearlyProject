@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hamal_transport_app/Services/persistant_storagte_service.dart';
 
 class AppPreferencesService extends ChangeNotifier {
   static const String _themeKey = 'theme_mode';
@@ -12,10 +12,8 @@ class AppPreferencesService extends ChangeNotifier {
   Locale get locale => _locale;
 
   Future<void> init() async {
-    final prefs = await SharedPreferences.getInstance();
-
     // Theme
-    final savedTheme = prefs.getString(_themeKey);
+    final savedTheme = await PersistentStorageService.getString(_themeKey);
     if (savedTheme != null) {
       _themeMode = ThemeMode.values.firstWhere(
         (e) => e.name == savedTheme,
@@ -24,7 +22,9 @@ class AppPreferencesService extends ChangeNotifier {
     }
 
     // Locale
-    final savedLanguage = prefs.getString(_languageKey);
+    final savedLanguage = await PersistentStorageService.getString(
+      _languageKey,
+    );
     if (savedLanguage != null) {
       _locale = Locale(savedLanguage);
     }
@@ -37,8 +37,7 @@ class AppPreferencesService extends ChangeNotifier {
     _themeMode = mode;
     notifyListeners();
 
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_themeKey, mode.name);
+    await PersistentStorageService.setString(_themeKey, mode.name);
   }
 
   Future<void> updateLocale(Locale locale) async {
@@ -46,7 +45,6 @@ class AppPreferencesService extends ChangeNotifier {
     _locale = locale;
     notifyListeners();
 
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_languageKey, locale.languageCode);
+    await PersistentStorageService.setString(_languageKey, locale.languageCode);
   }
 }
