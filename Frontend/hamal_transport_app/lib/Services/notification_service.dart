@@ -61,11 +61,7 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   if (message.notification == null) {
-    final backgroundPlugin =
-        await LocalNotificationService.createBackgroundPlugin();
-    await LocalNotificationService.showFromMessage(
-      message,
-      target: backgroundPlugin,
-    );
+    await LocalNotificationService.initialize();
+    await LocalNotificationService.showFromMessage(message);
   }
 }

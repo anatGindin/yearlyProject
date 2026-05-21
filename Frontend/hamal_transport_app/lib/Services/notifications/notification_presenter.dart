@@ -1,4 +1,5 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 const AndroidNotificationChannel fcmChannel = AndroidNotificationChannel(
@@ -11,22 +12,20 @@ const AndroidNotificationChannel fcmChannel = AndroidNotificationChannel(
 class LocalNotificationService {
   static final FlutterLocalNotificationsPlugin plugin =
       FlutterLocalNotificationsPlugin();
+  static bool _isInitialized = false;
+
+  static bool get _isAndroid =>
+      !kIsWeb && defaultTargetPlatform == TargetPlatform.android;
 
   static Future<void> initialize() async {
+    if (_isInitialized) {
+      return;
+    }
     await _initializePlugin(plugin);
+    _isInitialized = true;
   }
 
-  static Future<FlutterLocalNotificationsPlugin>
-  createBackgroundPlugin() async {
-    final backgroundPlugin = FlutterLocalNotificationsPlugin();
-    await _initializePlugin(backgroundPlugin);
-    return backgroundPlugin;
-  }
-
-  static Future<void> showFromMessage(
-    RemoteMessage message, {
-    FlutterLocalNotificationsPlugin? target,
-  }) async {
+  static Future<void> showFromMessage(RemoteMessage message) async {
     final notification = message.notification;
     final title = notification?.title ?? message.data['title']?.toString();
     final body = notification?.body ?? message.data['body']?.toString();
@@ -35,20 +34,20 @@ class LocalNotificationService {
       return;
     }
 
-    final targetPlugin = target ?? plugin;
-
-    await targetPlugin.show(
+    await plugin.show(
       message.messageId.hashCode,
       title ?? 'New notification',
       body ?? '',
       NotificationDetails(
-        android: AndroidNotificationDetails(
-          fcmChannel.id,
-          fcmChannel.name,
-          channelDescription: fcmChannel.description,
-          importance: Importance.high,
-          priority: Priority.high,
-        ),
+        android: _isAndroid
+            ? AndroidNotificationDetails(
+                fcmChannel.id,
+                fcmChannel.name,
+                channelDescription: fcmChannel.description,
+                importance: Importance.high,
+                priority: Priority.high,
+              )
+            : null,
         iOS: const DarwinNotificationDetails(
           presentAlert: true,
           presentBadge: true,
@@ -75,10 +74,12 @@ class LocalNotificationService {
     );
 
     await target.initialize(settings);
-    await target
-        .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin
-        >()
-        ?.createNotificationChannel(fcmChannel);
+    if (_isAndroid) {
+      await target
+          .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin
+          >()
+          ?.createNotificationChannel(fcmChannel);
+    }
   }
 }
