@@ -49,6 +49,11 @@ class LocalNotificationService {
           importance: Importance.high,
           priority: Priority.high,
         ),
+        iOS: const DarwinNotificationDetails(
+          presentAlert: true,
+          presentBadge: true,
+          presentSound: true,
+        ),
       ),
     );
   }
@@ -59,7 +64,15 @@ class LocalNotificationService {
     const androidSettings = AndroidInitializationSettings(
       '@mipmap/launcher_icon',
     );
-    const settings = InitializationSettings(android: androidSettings);
+    const iosSettings = DarwinInitializationSettings(
+      requestAlertPermission: false,
+      requestBadgePermission: false,
+      requestSoundPermission: false,
+    );
+    const settings = InitializationSettings(
+      android: androidSettings,
+      iOS: iosSettings,
+    );
 
     await target.initialize(settings);
     await target
