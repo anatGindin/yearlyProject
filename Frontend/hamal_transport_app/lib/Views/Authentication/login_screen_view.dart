@@ -81,18 +81,21 @@ class _LoginContentState extends State<_LoginContent> {
       }
     });
 
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
     return StageHeaderBackground(
-      height: 320,
+      height: isLandscape ? 140 : 320,
       title: Image.asset('Resources/Images/logo2.png', height: 180),
       child: SafeArea(
         child: Align(
           alignment: Alignment.topCenter,
           child: SingleChildScrollView(
-            padding: const EdgeInsets.only(
+            padding: EdgeInsets.only(
               left: 24,
               right: 24,
               bottom: 16,
-              top: 320,
+              top: isLandscape ? 160 : 320,
             ),
             child: Column(
               children: [

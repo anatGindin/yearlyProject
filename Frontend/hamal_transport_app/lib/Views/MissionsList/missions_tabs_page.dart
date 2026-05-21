@@ -38,160 +38,170 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final textDirection = Directionality.of(context);
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    Widget buildTabBar() {
+      return Stack(
+        children: [
+          NotificationListener<Notification>(
+            onNotification: (notification) {
+              ScrollMetrics? metrics;
+
+              if (notification is ScrollNotification &&
+                  notification.depth == 0) {
+                metrics = notification.metrics;
+              } else if (notification is ScrollMetricsNotification &&
+                  notification.depth == 0) {
+                metrics = notification.metrics;
+              }
+
+              if (metrics != null && metrics.axis == Axis.horizontal) {
+                final maxScroll = metrics.maxScrollExtent;
+                final pixels = metrics.pixels;
+                final canScrollStart =
+                    maxScroll > 0 && pixels > metrics.minScrollExtent + 1;
+                final canScrollEnd = maxScroll > 0 && pixels < maxScroll - 1;
+
+                if (canScrollStart != _canScrollStart ||
+                    canScrollEnd != _canScrollEnd) {
+                  if (notification is ScrollMetricsNotification) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      if (mounted) {
+                        setState(() {
+                          _canScrollStart = canScrollStart;
+                          _canScrollEnd = canScrollEnd;
+                        });
+                      }
+                    });
+                  } else {
+                    setState(() {
+                      _canScrollStart = canScrollStart;
+                      _canScrollEnd = canScrollEnd;
+                    });
+                  }
+                }
+              }
+              return false;
+            },
+            child: TabBar(
+              isScrollable: true,
+              tabAlignment: TabAlignment.center,
+              labelColor: Theme.of(context).colorScheme.onPrimary,
+              unselectedLabelColor: Theme.of(
+                context,
+              ).colorScheme.onPrimary.withAlpha(180),
+              indicatorColor: Colors.grey,
+              tabs: widget.tabs.map((tab) {
+                final color = _getStatusColor(tab.viewModel.type);
+                return Tab(
+                  icon: Icon(tab.icon),
+                  child: Container(
+                    decoration: color != null
+                        ? BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(color: color, width: 3.0),
+                            ),
+                          )
+                        : null,
+                    padding: const EdgeInsets.only(bottom: 2.0),
+                    child: Text(
+                      tab.title,
+                      softWrap: true,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+          // Start Scroll Hint (Back)
+          if (_canScrollStart)
+            Positioned.directional(
+              textDirection: textDirection,
+              start: 0,
+              top: 0,
+              bottom: 0,
+              width: 40,
+              child: IgnorePointer(
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: AlignmentDirectional.centerStart,
+                      end: AlignmentDirectional.centerEnd,
+                      colors: [
+                        Theme.of(context).colorScheme.primary,
+                        Theme.of(context).colorScheme.primary.withAlpha(
+                          scrollBarArrowBackgroundAlpha,
+                        ),
+                      ],
+                    ),
+                  ),
+                  child: Icon(
+                    Icons.arrow_back_ios,
+                    size: 16,
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onPrimary.withAlpha(scrollBarArrowAlpha),
+                  ),
+                ),
+              ),
+            ),
+          // End Scroll Hint (Forward)
+          if (_canScrollEnd)
+            Positioned.directional(
+              textDirection: textDirection,
+              end: 0,
+              top: 0,
+              bottom: 0,
+              width: 40,
+              child: IgnorePointer(
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: AlignmentDirectional.centerStart,
+                      end: AlignmentDirectional.centerEnd,
+                      colors: [
+                        Theme.of(context).colorScheme.primary.withAlpha(
+                          scrollBarArrowBackgroundAlpha,
+                        ),
+                        Theme.of(context).colorScheme.primary,
+                      ],
+                    ),
+                  ),
+                  child: Icon(
+                    Icons.arrow_forward_ios,
+                    size: 16,
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onPrimary.withAlpha(scrollBarArrowAlpha),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      );
+    }
 
     return DefaultTabController(
       length: widget.tabs.length,
       child: Scaffold(
-        appBar: MainAppBar(title: l10n.missions),
+        appBar: isLandscape
+            ? MainAppBar(
+                title: '',
+                titleWidget: SizedBox(
+                  height: kToolbarHeight + 4.0,
+                  child: buildTabBar(),
+                ),
+              )
+            : MainAppBar(title: l10n.missions),
         body: Column(
           children: [
-            Container(
-              color: Theme.of(context).colorScheme.primary,
-              child: Stack(
-                children: [
-                  NotificationListener<Notification>(
-                    onNotification: (notification) {
-                      ScrollMetrics? metrics;
-
-                      if (notification is ScrollNotification &&
-                          notification.depth == 0) {
-                        metrics = notification.metrics;
-                      } else if (notification is ScrollMetricsNotification &&
-                          notification.depth == 0) {
-                        metrics = notification.metrics;
-                      }
-
-                      if (metrics != null && metrics.axis == Axis.horizontal) {
-                        final maxScroll = metrics.maxScrollExtent;
-                        final pixels = metrics.pixels;
-                        final canScrollStart =
-                            maxScroll > 0 &&
-                            pixels > metrics.minScrollExtent + 1;
-                        final canScrollEnd =
-                            maxScroll > 0 && pixels < maxScroll - 1;
-
-                        if (canScrollStart != _canScrollStart ||
-                            canScrollEnd != _canScrollEnd) {
-                          if (notification is ScrollMetricsNotification) {
-                            WidgetsBinding.instance.addPostFrameCallback((_) {
-                              if (mounted) {
-                                setState(() {
-                                  _canScrollStart = canScrollStart;
-                                  _canScrollEnd = canScrollEnd;
-                                });
-                              }
-                            });
-                          } else {
-                            setState(() {
-                              _canScrollStart = canScrollStart;
-                              _canScrollEnd = canScrollEnd;
-                            });
-                          }
-                        }
-                      }
-                      return false;
-                    },
-                    child: TabBar(
-                      isScrollable: true,
-                      tabAlignment: TabAlignment.center,
-                      labelColor: Theme.of(context).colorScheme.onPrimary,
-                      unselectedLabelColor: Theme.of(
-                        context,
-                      ).colorScheme.onPrimary.withAlpha(180),
-                      indicatorColor: Colors.grey,
-                      tabs: widget.tabs.map((tab) {
-                        final color = _getStatusColor(tab.viewModel.type);
-                        return Tab(
-                          icon: Icon(tab.icon),
-                          child: Container(
-                            decoration: color != null
-                                ? BoxDecoration(
-                                    border: Border(
-                                      bottom: BorderSide(
-                                        color: color,
-                                        width: 3.0,
-                                      ),
-                                    ),
-                                  )
-                                : null,
-                            padding: const EdgeInsets.only(bottom: 2.0),
-                            child: Text(
-                              tab.title,
-                              softWrap: true,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                  // Start Scroll Hint (Back)
-                  if (_canScrollStart)
-                    Positioned.directional(
-                      textDirection: textDirection,
-                      start: 0,
-                      top: 0,
-                      bottom: 0,
-                      width: 40,
-                      child: IgnorePointer(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: AlignmentDirectional.centerStart,
-                              end: AlignmentDirectional.centerEnd,
-                              colors: [
-                                Theme.of(context).colorScheme.primary,
-                                Theme.of(context).colorScheme.primary.withAlpha(
-                                  scrollBarArrowBackgroundAlpha,
-                                ),
-                              ],
-                            ),
-                          ),
-                          child: Icon(
-                            Icons.arrow_back_ios,
-                            size: 16,
-                            color: Theme.of(context).colorScheme.onPrimary
-                                .withAlpha(scrollBarArrowAlpha),
-                          ),
-                        ),
-                      ),
-                    ),
-                  // End Scroll Hint (Forward)
-                  if (_canScrollEnd)
-                    Positioned.directional(
-                      textDirection: textDirection,
-                      end: 0,
-                      top: 0,
-                      bottom: 0,
-                      width: 40,
-                      child: IgnorePointer(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: AlignmentDirectional.centerStart,
-                              end: AlignmentDirectional.centerEnd,
-                              colors: [
-                                Theme.of(context).colorScheme.primary.withAlpha(
-                                  scrollBarArrowBackgroundAlpha,
-                                ),
-                                Theme.of(context).colorScheme.primary,
-                              ],
-                            ),
-                          ),
-                          child: Icon(
-                            Icons.arrow_forward_ios,
-                            size: 16,
-                            color: Theme.of(context).colorScheme.onPrimary
-                                .withAlpha(scrollBarArrowAlpha),
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
+            if (!isLandscape)
+              Container(
+                color: Theme.of(context).colorScheme.primary,
+                child: buildTabBar(),
               ),
-            ),
             Expanded(
               child: TabBarView(
                 children: widget.tabs
