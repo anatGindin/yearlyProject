@@ -4,7 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/firebase_options.dart';
 import 'package:hamal_transport_app/Services/notifications/fcm_token_service.dart';
-import 'package:hamal_transport_app/Services/notifications/local_notification_service.dart';
+import 'package:hamal_transport_app/Services/notifications/notification_presenter.dart';
 
 class FcmService {
   static Future<void> initialize() async {
