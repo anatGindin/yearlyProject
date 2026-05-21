@@ -925,6 +925,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'South'**
   String get districtSouth;
+
+  /// Mission description label
+  ///
+  /// In en, this message translates to:
+  /// **'Mission description'**
+  String get missionDescription;
 }
 
 class _AppLocalizationsDelegate

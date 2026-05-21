@@ -63,6 +63,12 @@ class _MissionScreenState extends State<MissionScreen> {
                     const BackButton(),
                     _buildRouteInfo(missionVM, missionVM.isDriver),
                     const SizedBox(height: 16),
+                    InfoRow(
+                      icon: Icons.description,
+                      label: l10n.missionDescription,
+                      child: Text(missionVM.description()),
+                    ),
+                    const SizedBox(height: 16),
                     if (!missionVM.isDriver &&
                         missionVM.mission.driverUid != null)
                       _buildDriverInfo(missionVM),

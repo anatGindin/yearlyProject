@@ -437,4 +437,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get districtSouth => 'South';
+
+  @override
+  String get missionDescription => 'Mission description';
 }

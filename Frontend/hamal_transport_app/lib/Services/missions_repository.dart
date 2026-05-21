@@ -1,24 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
-import 'package:hamal_transport_app/Services/authentication_service.dart';
+import 'backend_service.dart';
+import 'authentication_service.dart';
 
 class MissionsRepository extends ChangeNotifier {
   static MissionsRepository? _instance;
 
   final List<Mission> _allMissions = [];
-  final AuthenticationService _authService;
 
-  MissionsRepository._internal({AuthenticationService? authService})
-    : _authService = authService ?? AuthenticationService();
+  final AuthenticationService _authService;
+  final BackendService _backendService;
+
+  MissionsRepository._internal({
+    required AuthenticationService authService,
+    required BackendService backendService,
+  }) : _authService = authService,
+       // TODO: refactor needed - option to pass missions. check pr #243 for discussion.
+       _backendService = backendService;
 
   factory MissionsRepository({
     List<Mission>? missions,
     AuthenticationService? authService,
+    BackendService? backendService,
   }) {
-    _instance ??= MissionsRepository._internal(authService: authService);
+    _instance ??= MissionsRepository._internal(
+      authService: authService ?? AuthenticationService(),
+      backendService:
+          backendService ?? BackendService(authService: authService),
+    );
     if (missions != null) {
       _instance!.setMissions(missions);
+    } else if (_instance!._backendService.isEnabled()) {
+      _instance!.loadMissions();
     }
     return _instance!;
   }
@@ -33,6 +47,17 @@ class MissionsRepository extends ChangeNotifier {
     _allMissions.addAll(missions);
     prefetchRouteInfo();
     notifyListeners();
+  }
+
+  Future<void> loadMissions() async {
+    if (_instance!._backendService.isEnabled()) {
+      throw Exception(
+        'BackendService not initialized. Please provide one and make sure to run the backend.',
+      );
+    }
+    // TODO: change to get specific missions (userID/ status. not all of them).
+    final missions = await _backendService.getMissions(null, null);
+    setMissions(missions);
   }
 
   void clear() {

@@ -436,4 +436,7 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get districtSouth => 'דרום';
+
+  @override
+  String get missionDescription => 'פירוט משימה';
 }
