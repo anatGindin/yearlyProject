@@ -142,7 +142,6 @@ class AuthenticationService {
     if (uid != null) {
       try {
         await clearFcmTokenForUser(uid);
-        await _tryDeleteToken(FirebaseMessaging.instance);
       } catch (_) {
         // Keep sign-out resilient even if notification cleanup fails.
       }
@@ -285,6 +284,8 @@ class AuthenticationService {
     if (_currentUserProfile != null && _currentUserProfile!.uid == uid) {
       _currentUserProfile!.fcmToken = null;
     }
+
+    await _tryDeleteToken(FirebaseMessaging.instance);
   }
 
   Future<void> _registerCurrentDeviceTokenSafely() async {
