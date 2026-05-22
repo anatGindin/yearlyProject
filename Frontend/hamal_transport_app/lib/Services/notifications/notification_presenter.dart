@@ -9,7 +9,7 @@ const AndroidNotificationChannel fcmChannel = AndroidNotificationChannel(
   importance: Importance.high,
 );
 
-class LocalNotificationService {
+class NotificationPresenter {
   static final FlutterLocalNotificationsPlugin plugin =
       FlutterLocalNotificationsPlugin();
   static bool _isInitialized = false;

@@ -12,7 +12,7 @@ class FcmService {
 
     final messaging = FirebaseMessaging.instance;
 
-    await LocalNotificationService.initialize();
+    await NotificationPresenter.initialize();
 
     final settings = await messaging.requestPermission(
       alert: true,
@@ -51,7 +51,7 @@ class FcmService {
     );
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      LocalNotificationService.showFromMessage(message);
+      NotificationPresenter.showFromMessage(message);
     });
   }
 }
@@ -61,7 +61,7 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   if (message.notification == null) {
-    await LocalNotificationService.initialize();
-    await LocalNotificationService.showFromMessage(message);
+    await NotificationPresenter.initialize();
+    await NotificationPresenter.showFromMessage(message);
   }
 }
