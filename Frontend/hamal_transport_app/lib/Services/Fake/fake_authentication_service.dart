@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class FakeAuthenticationService extends Mock implements AuthenticationService {
   bool signUpCalled = false;
   bool signInCalled = false;
+  bool signOutCalled = false;
   String? lastEmail;
   String? lastPassword;
   String? lastName;
@@ -97,6 +98,7 @@ class FakeAuthenticationService extends Mock implements AuthenticationService {
 
   @override
   Future<void> signOut() async {
+    signOutCalled = true;
     mockUserProfile = null;
   }
 
