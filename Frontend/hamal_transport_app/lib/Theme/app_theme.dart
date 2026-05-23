@@ -44,6 +44,7 @@ abstract final class AppTheme {
       ),
     ),
     appBarTheme: AppBarThemeData(
+      backgroundColor: _hamalBlue,
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: Colors.white.withAlpha(160),
       ),
@@ -61,17 +62,26 @@ abstract final class AppTheme {
       seedColor: _happyBlue,
       brightness: Brightness.dark,
       primary: _happyBlue,
-      surfaceContainer: _hamalBlue,
+      surface: const Color(0xFF0F172A),
+      surfaceContainer: const Color(0xFF1E293B),
       primaryContainer: Colors.black,
-      secondary: _hamalBlue,
-      tertiary: const Color.fromRGBO(0xE8, 0xF5, 0xFA, 1.0),
+      secondary: _happyBlue,
+      tertiary: const Color(0xFF334155),
       onPrimary: Colors.white,
       onSecondary: Colors.black,
-      onTertiary: Colors.black,
+      onTertiary: Colors.white,
     ),
-    cardTheme: const CardThemeData(
-      shadowColor: Color.fromRGBO(0, 0, 0, 0.8),
-      elevation: 5,
+    cardTheme: CardThemeData(
+      color: const Color(0xFF1E293B),
+      shadowColor: Colors.black.withAlpha(120),
+      elevation: 6,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: const BorderSide(
+          color: Color(0xFF334155),
+          width: 1,
+        ),
+      ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -84,6 +94,7 @@ abstract final class AppTheme {
       backgroundColor: Color.fromRGBO(19, 37, 55, 1.0),
     ),
     appBarTheme: const AppBarThemeData(
+      backgroundColor: Color(0xFF1E293B),
       systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: _hamalBlue),
     ),
     useMaterial3: true,
