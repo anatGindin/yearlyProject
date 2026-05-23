@@ -203,10 +203,7 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
         body: Column(
           children: [
             if (!isLandscape)
-              Container(
-                color: Theme.of(context).colorScheme.primary,
-                child: buildTabBar(),
-              ),
+              Container(color: tabContainerColor, child: buildTabBar()),
             Expanded(
               child: TabBarView(
                 children: widget.tabs
