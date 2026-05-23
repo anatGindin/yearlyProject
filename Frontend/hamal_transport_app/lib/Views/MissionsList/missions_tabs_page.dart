@@ -40,6 +40,11 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
     final textDirection = Directionality.of(context);
     final isLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final tabContainerColor = isDark
+        ? (theme.appBarTheme.backgroundColor ?? const Color(0xFF1E293B))
+        : theme.colorScheme.primary;
 
     Widget buildTabBar() {
       return Stack(
@@ -130,8 +135,8 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
                       begin: AlignmentDirectional.centerStart,
                       end: AlignmentDirectional.centerEnd,
                       colors: [
-                        Theme.of(context).colorScheme.primary,
-                        Theme.of(context).colorScheme.primary.withAlpha(
+                        tabContainerColor,
+                        tabContainerColor.withAlpha(
                           scrollBarArrowBackgroundAlpha,
                         ),
                       ],
@@ -162,10 +167,10 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
                       begin: AlignmentDirectional.centerStart,
                       end: AlignmentDirectional.centerEnd,
                       colors: [
-                        Theme.of(context).colorScheme.primary.withAlpha(
+                        tabContainerColor.withAlpha(
                           scrollBarArrowBackgroundAlpha,
                         ),
-                        Theme.of(context).colorScheme.primary,
+                        tabContainerColor,
                       ],
                     ),
                   ),
@@ -198,10 +203,7 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
         body: Column(
           children: [
             if (!isLandscape)
-              Container(
-                color: Theme.of(context).colorScheme.primary,
-                child: buildTabBar(),
-              ),
+              Container(color: tabContainerColor, child: buildTabBar()),
             Expanded(
               child: TabBarView(
                 children: widget.tabs
