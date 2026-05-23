@@ -28,6 +28,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
 
     return Scaffold(
       backgroundColor: theme.colorScheme.primary,
@@ -39,8 +41,87 @@ class _UserProfilePageState extends State<UserProfilePage> {
           : null,
       body: Consumer<UserProfileViewModel>(
         builder: (context, userProfileVM, _) {
-          final topPadding = MediaQuery.of(context).padding.top + 15;
+          if (isLandscape) {
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    decoration: BoxDecoration(color: theme.colorScheme.surface),
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        bottomLeft: Radius.circular(30),
+                      ),
+                      child: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 300),
+                        switchInCurve: Curves.easeInOut,
+                        switchOutCurve: Curves.easeInOut,
+                        transitionBuilder:
+                            (Widget child, Animation<double> animation) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: SlideTransition(
+                                  position: Tween<Offset>(
+                                    begin: const Offset(0.05, 0),
+                                    end: Offset.zero,
+                                  ).animate(animation),
+                                  child: child,
+                                ),
+                              );
+                            },
+                        child: _buildCurrentPage(userProfileVM, l10n, theme),
+                      ),
+                    ),
+                  ),
+                ),
+                // Left Column (Avatar + Info)
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    child: Center(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            UserAvatar(
+                              name: userProfileVM.name,
+                              radius: 45,
+                              backgroundColor: theme.colorScheme.surface,
+                              textStyle: theme.textTheme.headlineMedium
+                                  ?.copyWith(
+                                    color: theme.colorScheme.secondary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                            const SizedBox(height: 12),
+                            Text(
+                              userProfileVM.name,
+                              style: theme.textTheme.titleLarge?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              userProfileVM.email,
+                              style: theme.textTheme.bodyMedium,
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }
 
+          // Portrait Stack
+          final topPadding = MediaQuery.of(context).padding.top + 15;
           return Stack(
             children: [
               // Top Section (Avatar + Info)
