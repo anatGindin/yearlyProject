@@ -19,7 +19,13 @@ class FcmService {
       badge: true,
       sound: true,
     );
-    debugPrint('FCM permission status: ${settings.authorizationStatus}');
+
+    if (settings.authorizationStatus != AuthorizationStatus.authorized) {
+      debugPrint(
+        'User denied FCM permission. Status: ${settings.authorizationStatus}',
+      );
+      return;
+    }
 
     final token = await AuthenticationService().getCurrentDeviceTokenSafely();
     debugPrint('FCM token: $token');
