@@ -7,16 +7,21 @@ import '../Services/missions_repository.dart';
 class UserProfileViewModel extends ChangeNotifier {
   UserProfile userProfile;
   DriverProfileExtension? driverProfileExtension;
-  final AuthenticationService _authService = AuthenticationService();
+  final AuthenticationService _authService;
+  final MissionsRepository _missionsRepository;
 
-  UserProfileViewModel(this.userProfile) {
+  UserProfileViewModel(
+    this.userProfile, {
+    AuthenticationService? authService,
+    MissionsRepository? missionsRepository,
+  }) : _authService = authService ?? AuthenticationService(),
+       _missionsRepository = missionsRepository ?? MissionsRepository() {
     updateDriverProfile(userProfile);
   }
 
   Future<void> logOut() async {
-    MissionsRepository().clear();
+    _missionsRepository.clear();
     await _authService.signOut();
-    notifyListeners();
   }
 
   void updateDriverProfile(UserProfile userProfile) {

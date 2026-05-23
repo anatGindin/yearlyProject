@@ -8,6 +8,7 @@ class UserProfile {
   String phone;
   final UserRole role;
   DriverProfile? driverProfile;
+  String? fcmToken;
 
   UserProfile({
     required this.uid,
@@ -16,6 +17,7 @@ class UserProfile {
     required this.phone,
     required this.role,
     this.driverProfile,
+    this.fcmToken,
   });
 
   Map<String, dynamic> userProfileToDictionary() {
@@ -26,6 +28,7 @@ class UserProfile {
       'phone': phone,
       'role': role.name,
       'driverProfile': driverProfile?.driverProfileToDictionary(),
+      'fcmToken': fcmToken,
     };
   }
 
@@ -41,6 +44,7 @@ class UserProfile {
               Map<String, dynamic>.from(dictionary['driverProfile'] as Map),
             )
           : null,
+      fcmToken: dictionary['fcmToken'] as String?,
     );
   }
 }
