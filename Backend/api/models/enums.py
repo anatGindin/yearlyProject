@@ -15,6 +15,7 @@ class CarType(StrEnum):
     pickupTruck = "pickupTruck"
     truck = "truck"
 
+
 def get_compatible_car_types(car_type: CarType) -> list[CarType]:
     CAR_TYPE_RANK = {
         CarType.private: 1,

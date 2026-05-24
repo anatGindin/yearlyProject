@@ -73,7 +73,7 @@ def list_missions(
     driver_id: str | None = Query(None, description="Filter by driver"),
 ):
     uid = verify_request(request)
-    
+
     result = missions_DB_module.get_missions(uid)
     # TODO: change when given DB
     if status:

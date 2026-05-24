@@ -3,6 +3,7 @@ from api.models import enums, mission
 from firebase_config import get_firestore_client
 from google.cloud.firestore_v1.base_query import FieldFilter
 
+
 def get_missions(driver_uid: str):
     if users_DB_module.get_user_role(driver_uid) == enums.UserRole.driver:
         missions_raw = missions_DB_module.get_missions_for_driver(driver_uid)
@@ -29,12 +30,18 @@ def get_missions_for_driver(driver_uid: str):
     missions_ref = firestore_client.collection("missions")
 
     assigned_by_driver = missions_ref.where(filter=FieldFilter("driverUid", "==", driver_uid)).stream()
-    available_for_driver = missions_ref.where(filter=FieldFilter("status", "==", enums.MissionStatus.available)).where(
-        filter=FieldFilter("carType", "in", enums.get_compatible_car_types(users_DB_module.get_user_car_type(driver_uid)))
-        ).stream()
+
+    car_type = users_DB_module.get_user_car_type(driver_uid)
+    if car_type is None:  # default car type
+        car_type = enums.CarType.private
+
+    available_for_driver = (
+        missions_ref.where(filter=FieldFilter("status", "==", enums.MissionStatus.available))
+        .where(filter=FieldFilter("carType", "in", enums.get_compatible_car_types(car_type)))
+        .stream()
+    )
 
     return [*assigned_by_driver, *available_for_driver]
-    
 
 
 def get_all_missions():
@@ -42,4 +49,3 @@ def get_all_missions():
     missions_ref = firestore_client.collection("missions")
 
     return missions_ref.stream()
-    
