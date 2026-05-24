@@ -8,6 +8,8 @@ from datetime import datetime
 router = APIRouter(prefix="/missions", tags=["missions"])
 # TEMP storage (replace with DB later)
 file_path = "./mock_data.json"
+
+
 def get_missions_from_db():
     global missions
     if os.path.exists(file_path):
