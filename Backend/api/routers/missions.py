@@ -8,7 +8,7 @@ from datetime import datetime
 router = APIRouter(prefix="/missions", tags=["missions"])
 # TEMP storage (replace with DB later)
 file_path = "./mock_data.json"
-missions = []
+missions: list[mission.MissionInDB] = []
 
 
 def get_missions_from_db():
