@@ -1,5 +1,5 @@
 from api.models.enums import MissionStatus, CarType
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict, Field
 from datetime import datetime
 
 # Building blocks
@@ -20,13 +20,15 @@ class Location(BaseModel):
 
 
 class MissionBase(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
     id: str
     source: Location
     destination: Location
     description: str
     sourceContact: Contact
     destinationContact: Contact
-    creationTime: datetime
+    creationTime: datetime = Field(alias="time")
     status: MissionStatus
     carType: CarType
     cancellationReason: str = ""
@@ -34,7 +36,7 @@ class MissionBase(BaseModel):
 
 
 class MissionInDB(MissionBase):
-    lastUpdate: datetime
+    lastUpdate: datetime | None = None
     assignedBy: str | None = None
 
 

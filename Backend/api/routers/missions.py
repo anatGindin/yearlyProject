@@ -2,6 +2,7 @@ import json
 import os
 from api.security import verify_request
 from api.models import mission, enums
+from api import missions_DB_module
 from fastapi import APIRouter, HTTPException, Query, Request
 from datetime import datetime
 
@@ -71,8 +72,9 @@ def list_missions(
     status: str | None = Query(None, description="Filter by mission status"),
     driver_id: str | None = Query(None, description="Filter by driver"),
 ):
-    verify_request(request)  # verify_request returns the user ID of the sender, you can use it if needed
-    result = missions
+    uid = verify_request(request)
+    
+    result = missions_DB_module.get_missions(uid)
     # TODO: change when given DB
     if status:
         result = [m for m in result if m.status == status]
