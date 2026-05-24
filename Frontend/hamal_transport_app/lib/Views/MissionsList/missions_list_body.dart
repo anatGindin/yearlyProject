@@ -49,45 +49,48 @@ class MissionsListBody extends StatelessWidget {
             right: 2.0,
           ),
           child: Scrollbar(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    height: 60,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SizedBox(
-                            width: viewModel.allowedFilterOptions.isNotEmpty
-                                ? MediaQuery.of(context).size.width * 0.43
-                                : MediaQuery.of(context).size.width * 0.8,
-                            child: ListActionButton(
-                              icon: Icons.sort,
-                              label: viewModel.getSortBy(context),
-                              onPressed: () => _showSortOptions(context),
-                            ),
-                          ),
-                          if (viewModel.allowedFilterOptions.isNotEmpty)
+            child: RefreshIndicator(
+              onRefresh: () => viewModel.refreshMissions(),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      height: 60,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.43,
+                              width: viewModel.allowedFilterOptions.isNotEmpty
+                                  ? MediaQuery.of(context).size.width * 0.43
+                                  : MediaQuery.of(context).size.width * 0.8,
                               child: ListActionButton(
-                                icon: Icons.filter_alt,
-                                label: viewModel.getFilterBy(context),
-                                onPressed: () => _showFilterOptions(context),
+                                icon: Icons.sort,
+                                label: viewModel.getSortBy(context),
+                                onPressed: () => _showSortOptions(context),
                               ),
                             ),
-                        ],
+                            if (viewModel.allowedFilterOptions.isNotEmpty)
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.43,
+                                child: ListActionButton(
+                                  icon: Icons.filter_alt,
+                                  label: viewModel.getFilterBy(context),
+                                  onPressed: () => _showFilterOptions(context),
+                                ),
+                              ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 30),
-                  MissionListView(missions: viewModel.missions),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.2),
-                ],
+                    const SizedBox(height: 30),
+                    MissionListView(missions: viewModel.missions),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.2),
+                  ],
+                ),
               ),
             ),
           ),
