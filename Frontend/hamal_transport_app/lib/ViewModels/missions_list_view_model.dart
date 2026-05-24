@@ -71,6 +71,7 @@ class MissionsListViewModel extends ChangeNotifier {
     );
   }
 
+  Future<void> refreshMissions() async {
     await _repository.loadMissions();
     notifyListeners();
   }
