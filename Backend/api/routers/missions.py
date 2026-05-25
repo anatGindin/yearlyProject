@@ -6,18 +6,20 @@ from fastapi import APIRouter, HTTPException, Query, Request
 from datetime import datetime
 
 router = APIRouter(prefix="/missions", tags=["missions"])
-
 # TEMP storage (replace with DB later)
 file_path = "./mock_data.json"
+missions: list[mission.MissionInDB] = []
 
-if os.path.exists(file_path):
-    with open(file_path, encoding="utf-8") as f:
-        data = json.load(f)
-        all_raw_missions = data.get("sampleMissions", []) + data.get("availableMissions", [])
-        missions = [mission.MissionInDB(**m) for m in all_raw_missions]
-        print(missions)
-else:
-    missions = []
+
+def get_missions_from_db():
+    global missions
+    if os.path.exists(file_path):
+        with open(file_path, encoding="utf-8") as f:
+            data = json.load(f)
+            all_raw_missions = data.get("sampleMissions", []) + data.get("availableMissions", [])
+            missions = [mission.MissionInDB(**m) for m in all_raw_missions]
+    else:
+        missions = []
 
 
 def save_missions():
@@ -72,6 +74,7 @@ def list_missions(
     driver_id: str | None = Query(None, description="Filter by driver"),
 ):
     verify_request(request)  # verify_request returns the user ID of the sender, you can use it if needed
+    get_missions_from_db()
     result = missions
     # TODO: change when given DB
     if status:
