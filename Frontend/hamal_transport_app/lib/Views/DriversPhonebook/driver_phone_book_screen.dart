@@ -90,11 +90,7 @@ class _DriverPhoneBookView extends StatelessWidget {
           Expanded(
             child: vm.isLoading
                 ? const Center(child: CircularProgressIndicator())
-                : SingleChildScrollView(
-                    child:
-                        /// List
-                        DriverListView(drivers: vm.drivers),
-                  ),
+                : const DriverListView(),
           ),
         ],
       ),
