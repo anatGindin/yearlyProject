@@ -50,7 +50,7 @@ class MissionsRepository extends ChangeNotifier {
   }
 
   Future<void> loadMissions() async {
-    if (_instance!._backendService.isEnabled()) {
+    if (!_instance!._backendService.isEnabled()) {
       throw Exception(
         'BackendService not initialized. Please provide one and make sure to run the backend.',
       );
