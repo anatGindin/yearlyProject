@@ -33,6 +33,7 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
   bool _canScrollEnd = false;
   final scrollBarArrowAlpha = 100;
   final scrollBarArrowBackgroundAlpha = 50;
+  bool _listenerRegistered = false;
 
   @override
   Widget build(BuildContext context) {
@@ -190,35 +191,55 @@ class _MissionsTabsPageState extends State<MissionsTabsPage> {
 
     return DefaultTabController(
       length: widget.tabs.length,
-      child: Scaffold(
-        appBar: isLandscape
-            ? MainAppBar(
-                title: '',
-                titleWidget: SizedBox(
-                  height: kToolbarHeight + 4.0,
-                  child: buildTabBar(),
+      child: Builder(
+        builder: (context) {
+          if (!_listenerRegistered) {
+            _listenerRegistered = true;
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              final tabController = DefaultTabController.of(context);
+              widget.tabs[0].viewModel.fetchMissions();
+              tabController.addListener(() {
+                if (tabController.indexIsChanging) {
+                  return;
+                }
+                widget.tabs[tabController.index].viewModel.fetchMissions();
+              });
+            });
+          }
+
+          return Scaffold(
+            appBar: isLandscape
+                ? MainAppBar(
+                    title: '',
+                    titleWidget: SizedBox(
+                      height: kToolbarHeight + 4.0,
+                      child: buildTabBar(),
+                    ),
+                  )
+                : MainAppBar(title: l10n.missions),
+            body: Column(
+              children: [
+                if (!isLandscape)
+                  Container(color: tabContainerColor, child: buildTabBar()),
+                Expanded(
+                  child: TabBarView(
+                    children: widget.tabs
+                        .map(
+                          (tab) =>
+                              ChangeNotifierProvider<
+                                MissionsListViewModel
+                              >.value(
+                                value: tab.viewModel,
+                                child: const MissionsListBody(),
+                              ),
+                        )
+                        .toList(),
+                  ),
                 ),
-              )
-            : MainAppBar(title: l10n.missions),
-        body: Column(
-          children: [
-            if (!isLandscape)
-              Container(color: tabContainerColor, child: buildTabBar()),
-            Expanded(
-              child: TabBarView(
-                children: widget.tabs
-                    .map(
-                      (tab) =>
-                          ChangeNotifierProvider<MissionsListViewModel>.value(
-                            value: tab.viewModel,
-                            child: const MissionsListBody(),
-                          ),
-                    )
-                    .toList(),
-              ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

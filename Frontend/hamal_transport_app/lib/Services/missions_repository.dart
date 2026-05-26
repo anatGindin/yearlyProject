@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
+import 'package:hamal_transport_app/Models/user_profile.dart';
 import 'backend_service.dart';
 import 'authentication_service.dart';
 
 class MissionsRepository extends ChangeNotifier {
   static MissionsRepository? _instance;
 
+  final Set<MissionStatus> _statusesFetched = {};
   final List<Mission> _allMissions = [];
 
   final AuthenticationService _authService;
@@ -24,6 +26,7 @@ class MissionsRepository extends ChangeNotifier {
     AuthenticationService? authService,
     BackendService? backendService,
   }) {
+    bool alreadyExisted = _instance != null;
     _instance ??= MissionsRepository._internal(
       authService: authService ?? AuthenticationService(),
       backendService:
@@ -31,7 +34,7 @@ class MissionsRepository extends ChangeNotifier {
     );
     if (missions != null) {
       _instance!.setMissions(missions);
-    } else if (_instance!._backendService.isEnabled()) {
+    } else if (_instance!._backendService.isEnabled() && !alreadyExisted) {
       _instance!.loadMissions();
     }
     return _instance!;
@@ -55,13 +58,64 @@ class MissionsRepository extends ChangeNotifier {
         'BackendService not initialized. Please provide one and make sure to run the backend.',
       );
     }
-    // TODO: change to get specific missions (userID/ status. not all of them).
-    final missions = await _backendService.getMissions(null, null);
+    MissionStatus? status;
+    UserRole role = _authService.currentUserProfile!.role;
+    if (role != UserRole.driver) {
+      status = MissionStatus.available;
+    }
+    final missions = await _backendService.getMissions(status, null);
     setMissions(missions);
+  }
+
+  Future<void> fetchMissions(MissionListType type) async {
+    if (!_backendService.isEnabled()) {
+      throw Exception(
+        'BackendService not initialized. Please provide one and make sure to run the backend.',
+      );
+    }
+
+    final status = _missionListTypeToStatus(type);
+    final missions = await _backendService.getMissions(status, null);
+    if (status != null) {
+      _statusesFetched.add(status);
+    }
+    _allMissions.addAll(missions);
+    notifyListeners();
+  }
+
+  MissionStatus? _missionListTypeToStatus(MissionListType type) {
+    switch (type) {
+      case MissionListType.availableMissions:
+        return MissionStatus.available;
+      case MissionListType.assignedMissions:
+        return MissionStatus.assigned;
+      case MissionListType.pickedUpMissions:
+        return MissionStatus.pickedUp;
+      case MissionListType.deliveredMissions:
+        return MissionStatus.delivered;
+      case MissionListType.cancelledMissions:
+        return MissionStatus.cancelled;
+      case MissionListType.myMissions:
+      case MissionListType.allMissions:
+        return null; // no status filter
+    }
   }
 
   void clear() {
     _allMissions.clear();
+    notifyListeners();
+  }
+
+  Future<void> refreshMissions() async {
+    await loadMissions();
+    UserRole role = _authService.currentUserProfile!.role;
+    if (role == UserRole.driver) {
+      // loadMissions is enough for driver role
+      return;
+    }
+    for (final status in _statusesFetched) {
+      _allMissions.addAll(await _backendService.getMissions(status, null));
+    }
     notifyListeners();
   }
 
@@ -98,7 +152,6 @@ class MissionsRepository extends ChangeNotifier {
   }
 
   /// Get missions assigned to a specific driver by their UID
-  /// TODO: Replace with API endpoint call to query backend for driver-specific missions
   Future<List<Mission>> getMissionsByDriver(String driverUid) async {
     return await _backendService.getMissions(null, driverUid);
   }

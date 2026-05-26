@@ -18,6 +18,9 @@ class MissionsListViewModel extends ChangeNotifier {
   FilterBy _filterBy = FilterBy.noFilter;
   final List<IsraelDistrict> _selectedDistricts = [];
   Location? _userLocation;
+  bool _isFetched = false;
+  bool _isLoading = true;
+  bool get isLoading => _isLoading;
 
   MissionsListViewModel({
     MissionsRepository? repository,
@@ -36,6 +39,10 @@ class MissionsListViewModel extends ChangeNotifier {
     if (!allowedFilterOptions.contains(_filterBy) &&
         allowedFilterOptions.isNotEmpty) {
       _filterBy = allowedFilterOptions.first;
+    }
+    if (type == MissionListType.availableMissions ||
+        type == MissionListType.myMissions) {
+      _isFetched = true;
     }
   }
 
@@ -72,7 +79,10 @@ class MissionsListViewModel extends ChangeNotifier {
   }
 
   Future<void> refreshMissions() async {
-    await _repository.loadMissions();
+    _isLoading = true;
+    notifyListeners();
+    await _repository.refreshMissions();
+    _isLoading = false;
     notifyListeners();
   }
 
@@ -144,6 +154,20 @@ class MissionsListViewModel extends ChangeNotifier {
   }
 
   void updateStatusChanged() {
+    notifyListeners();
+  }
+
+  Future<void> fetchMissions() async {
+    if (_isFetched) {
+      _isLoading = false;
+      notifyListeners();
+      return;
+    }
+    _isLoading = true;
+    notifyListeners();
+    await _repository.fetchMissions(_type);
+    _isFetched = true;
+    _isLoading = false;
     notifyListeners();
   }
 }
