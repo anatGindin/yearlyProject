@@ -74,11 +74,4 @@ def list_missions(
 ):
     uid = verify_request(request)
 
-    result = missions_DB_module.get_missions(uid)
-    # TODO: change when given DB
-    if status:
-        result = [m for m in result if m.status == status]
-
-    if driver_id:
-        result = [m for m in result if getattr(m, "driver_id", None) == driver_id]
-    return result
+    return missions_DB_module.get_missions(uid, status, driver_id)
