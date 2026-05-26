@@ -152,7 +152,7 @@ class MissionsRepository extends ChangeNotifier {
   }
 
   void cancelMission(Mission mission, String cancellationReason) {
-    // TODO: Update the mission status in the database + the cancellation reason
+    updateStatus(mission, MissionStatus.cancelled);
     mission.cancellationReason = cancellationReason;
     abandonMission(mission);
   }
