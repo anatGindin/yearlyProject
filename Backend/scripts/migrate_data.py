@@ -24,7 +24,7 @@ def migrate():
     db = firestore.client()
 
     # Path to mock data
-    mock_data_path = os.path.join(base_path, "..", "Frontend", "hamal_transport_app", "assets", "mock_data.json")
+    mock_data_path = os.path.join(base_path, "mock_data.json")
 
     if not os.path.exists(mock_data_path):
         print(f"Error: Mock data not found at {mock_data_path}")
