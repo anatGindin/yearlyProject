@@ -38,6 +38,22 @@ class DriverPhoneBookViewModel extends ChangeNotifier {
     return filtered;
   }
 
+  /// Drivers grouped by their first letter, in alphabetical order.
+  Map<String, List<UserProfile>> get groupedDrivers {
+    final result = <String, List<UserProfile>>{};
+    for (final driver in drivers) {
+      final letter = driver.name.isNotEmpty
+          ? driver.name[0].toUpperCase()
+          : '#';
+      result.putIfAbsent(letter, () => []).add(driver);
+    }
+
+    final sortedByKeys = Map.fromEntries(
+      result.entries.toList()..sort((a, b) => a.key.compareTo(b.key)),
+    );
+    return sortedByKeys;
+  }
+
   CarType? get filter => _carTypeFilter;
 
   void updateQuery(String value) {

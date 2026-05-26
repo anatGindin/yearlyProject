@@ -71,6 +71,11 @@ class MissionsListViewModel extends ChangeNotifier {
     );
   }
 
+  Future<void> refreshMissions() async {
+    await _repository.loadMissions();
+    notifyListeners();
+  }
+
   List<IsraelDistrict> get selectedDistricts => _selectedDistricts;
 
   void toggleDistrict(IsraelDistrict district, bool isSelected) {
