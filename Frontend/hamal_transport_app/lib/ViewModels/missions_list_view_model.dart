@@ -4,6 +4,8 @@ import 'package:hamal_transport_app/Models/location.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Models/missions_model.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
+import 'package:hamal_transport_app/Models/user_profile.dart';
+import 'package:hamal_transport_app/Services/authentication_service.dart';
 import 'package:hamal_transport_app/Services/location_service.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
 import 'package:hamal_transport_app/Models/israel_districts.dart';
@@ -40,7 +42,9 @@ class MissionsListViewModel extends ChangeNotifier {
         allowedFilterOptions.isNotEmpty) {
       _filterBy = allowedFilterOptions.first;
     }
-    if (type == MissionListType.availableMissions ||
+    UserRole role = AuthenticationService().currentUserProfile!.role;
+    if ((role != UserRole.driver &&
+            type == MissionListType.availableMissions) ||
         type == MissionListType.myMissions) {
       _isFetched = true;
     }

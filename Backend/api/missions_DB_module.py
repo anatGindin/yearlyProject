@@ -4,9 +4,9 @@ from firebase_config import get_firestore_client
 from google.cloud.firestore_v1.base_query import FieldFilter
 
 
-def get_missions(uid: str, status: enums.MissionStatus | None, driver_uid: str | None):
-    if users_DB_module.get_user_role(uid) == enums.UserRole.driver:
-        missions_raw = missions_DB_module.get_missions_for_driver(uid)
+def get_missions(requester_uid: str, status: enums.MissionStatus | None, driver_uid: str | None):
+    if users_DB_module.get_user_role(requester_uid) == enums.UserRole.driver:
+        missions_raw = missions_DB_module.get_missions_for_driver(requester_uid, status)
     else:
         missions_raw = missions_DB_module.get_missions_for_logistic(status, driver_uid)
 
@@ -18,12 +18,12 @@ def get_missions(uid: str, status: enums.MissionStatus | None, driver_uid: str |
     return missions
 
 
-def get_missions_for_driver(driver_uid: str):
+def get_missions_for_driver(driver_uid: str, status: enums.MissionStatus | None):
     firestore_client = get_firestore_client()
     missions_ref = firestore_client.collection("missions")
-
-    assigned_to_driver = missions_ref.where(filter=FieldFilter("driverUid", "==", driver_uid)).stream()
-
+    if status is None:
+        assigned_to_driver = missions_ref.where(filter=FieldFilter("driverUid", "==", driver_uid)).stream()
+        return assigned_to_driver
     car_type = users_DB_module.get_user_car_type(driver_uid)
     if car_type is None:  # default car type
         car_type = enums.CarType.private
@@ -34,7 +34,7 @@ def get_missions_for_driver(driver_uid: str):
         .stream()
     )
 
-    return [*assigned_to_driver, *available_for_driver]
+    return available_for_driver
 
 
 def get_missions_for_logistic(status: enums.MissionStatus | None, driver_uid: str | None):

@@ -108,11 +108,7 @@ class MissionsRepository extends ChangeNotifier {
 
   Future<void> refreshMissions() async {
     await loadMissions();
-    UserRole role = _authService.currentUserProfile!.role;
-    if (role == UserRole.driver) {
-      // loadMissions is enough for driver role
-      return;
-    }
+
     for (final status in _statusesFetched) {
       _allMissions.addAll(await _backendService.getMissions(status, null));
     }
