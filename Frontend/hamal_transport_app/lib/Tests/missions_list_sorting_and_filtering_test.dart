@@ -4,6 +4,7 @@ import 'package:hamal_transport_app/Models/location.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Models/missions_model.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
+import 'package:hamal_transport_app/Models/user_profile.dart';
 import 'package:hamal_transport_app/Services/Fake/fake_authentication_service.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
 import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
@@ -41,7 +42,10 @@ void main() {
         missions: [...sampleMissions, ...availableMissions],
         authService: authService,
       );
-      myVM = MissionsListViewModel(type: MissionListType.myMissions);
+      myVM = MissionsListViewModel(
+        type: MissionListType.myMissions,
+        role: UserRole.driver,
+      );
 
       // Mutate mock data statuses for filtering tests
       sampleMissions[0].status = MissionStatus.assigned;
@@ -129,7 +133,10 @@ void main() {
         missions: [...sampleMissions, ...availableMissions],
         authService: authService,
       );
-      availVM = MissionsListViewModel(type: MissionListType.availableMissions);
+      availVM = MissionsListViewModel(
+        type: MissionListType.availableMissions,
+        role: UserRole.driver,
+      );
     });
 
     test('sort by furthest to closest', () {

@@ -15,6 +15,7 @@ class MissionsListViewModel extends ChangeNotifier {
   final MissionListType _type;
   final List<SortBy> allowedSortOptions;
   final List<FilterBy> allowedFilterOptions;
+  late UserRole _role;
 
   SortBy _sortBy = SortBy.timeNewestFirst;
   FilterBy _filterBy = FilterBy.noFilter;
@@ -25,6 +26,7 @@ class MissionsListViewModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
 
   MissionsListViewModel({
+    UserRole? role,
     MissionsRepository? repository,
     required MissionListType type,
     this.allowedSortOptions = SortBy.values,
@@ -42,8 +44,12 @@ class MissionsListViewModel extends ChangeNotifier {
         allowedFilterOptions.isNotEmpty) {
       _filterBy = allowedFilterOptions.first;
     }
-    UserRole role = AuthenticationService().currentUserProfile!.role;
-    if ((role != UserRole.driver &&
+    if (role != null) {
+      _role = role;
+    } else {
+      _role = AuthenticationService().currentUserProfile!.role;
+    }
+    if ((_role != UserRole.driver &&
             type == MissionListType.availableMissions) ||
         type == MissionListType.myMissions) {
       _isFetched = true;
