@@ -41,7 +41,7 @@ class BackendService {
   ) async {
     final Map<String, String> queryParameters = {};
     if (status != null) {
-      queryParameters['status'] = status.toString();
+      queryParameters['status'] = status.name;
     }
     if (driverId != null) {
       queryParameters['driver_id'] = driverId;

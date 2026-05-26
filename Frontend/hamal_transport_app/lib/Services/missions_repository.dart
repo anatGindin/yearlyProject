@@ -50,7 +50,7 @@ class MissionsRepository extends ChangeNotifier {
   }
 
   Future<void> loadMissions() async {
-    if (!_instance!._backendService.isEnabled()) {
+    if (!_backendService.isEnabled()) {
       throw Exception(
         'BackendService not initialized. Please provide one and make sure to run the backend.',
       );
@@ -99,11 +99,8 @@ class MissionsRepository extends ChangeNotifier {
 
   /// Get missions assigned to a specific driver by their UID
   /// TODO: Replace with API endpoint call to query backend for driver-specific missions
-  List<Mission> getMissionsByDriver(String driverUid) {
-    final allMissions = getMissions(MissionListType.allMissions);
-    return allMissions
-        .where((mission) => mission.driverUid == driverUid)
-        .toList();
+  Future<List<Mission>> getMissionsByDriver(String driverUid) async {
+    return await _backendService.getMissions(null, driverUid);
   }
 
   void addMission(MissionListType type, Mission mission) {
