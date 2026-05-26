@@ -139,8 +139,14 @@ class MissionsRepository extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateStatus(Mission mission, MissionStatus newStatus) {
-    // TODO: Update the mission status in the database
+  void updateStatus(Mission mission, MissionStatus newStatus) async{
+    if (!_instance!._backendService.isEnabled()) {
+      throw Exception(
+        'BackendService not initialized. Please provide one and make sure to run the backend.',
+      );
+    }
+    // TODO: change to get specific missions (userID/ status. not all of them).
+    await _backendService.updateMissionStatus(mission.id, newStatus);
     mission.status = newStatus;
     notifyListeners();
   }

@@ -67,9 +67,28 @@ class BackendService {
   // }
   //
   // // UPDATE mission status.
-  // Future<Mission> updateMissionStatus(String missionId, MissionStatus newStatus) async {
-  //   // TODO: complete function lol
-  // }
+  Future<Mission> updateMissionStatus(String missionId, MissionStatus? newStatus) 
+  async {
+    final Map<String, String> queryParameters = {};
+    if (newStatus != null) {
+      queryParameters['status'] = newStatus.toString();
+    }
+    queryParameters['mission_id'] = missionId;
+    final Uri url = Uri.parse(
+      '$_baseUrl/missions/',
+    ).replace(queryParameters: queryParameters);
+    final Map<String, String> headers = await _headers;
+    final response = await APIClient.safeRequest(
+      () => http.get(url, headers: headers),
+    );
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      return Mission.fromJson(data);
+    } else {
+      throw Exception('Failed to load missions: ${response.statusCode}');
+    }
+  
+  }
   //
   // // cancel mission
   // Future<Mission> deleteMission(String missionId){
