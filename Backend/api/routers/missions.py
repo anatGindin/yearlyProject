@@ -69,7 +69,7 @@ def delete_mission(request: Request, mission_id: str):
 @router.get("/", response_model=list[mission.MissionBase])
 def list_missions(
     request: Request,
-    status: str | None = Query(None, description="Filter by mission status"),
+    status: enums.MissionStatus | None = Query(None, description="Filter by mission status"),  # noqa: B008
     driver_id: str | None = Query(None, description="Filter by driver"),
 ):
     uid = verify_request(request)
