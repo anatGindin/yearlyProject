@@ -12,14 +12,23 @@ class DriverViewModel extends ChangeNotifier {
   String? _errorMessage;
   List<Mission>? _driverMissions;
 
-  DriverViewModel({required this.driverUid, UserProfile? initialProfile}) {
+  DriverViewModel({
+    required this.driverUid,
+    UserProfile? initialProfile,
+    List<Mission>? driverMissions,
+  }) {
     if (initialProfile != null) {
       _driverProfile = initialProfile;
       _isLoading = false;
     } else {
       _loadDriverProfile();
     }
-    _loadDriverMissions();
+    if (driverMissions != null) {
+      _driverMissions = driverMissions;
+      _isLoading = false;
+    } else {
+      _loadDriverMissions();
+    }
   }
 
   // Getters
