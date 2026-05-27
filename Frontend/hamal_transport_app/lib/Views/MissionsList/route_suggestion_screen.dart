@@ -18,6 +18,7 @@ class RouteSuggestionScreen extends StatefulWidget {
 class _RouteSuggestionScreenState extends State<RouteSuggestionScreen> {
   bool _isCalculating = true;
   List<_BatchedStep> _batchedSteps = [];
+  List<bool> _expanded = [];
 
   @override
   void initState() {
@@ -35,6 +36,7 @@ class _RouteSuggestionScreenState extends State<RouteSuggestionScreen> {
     if (mounted) {
       setState(() {
         _batchedSteps = _batchSteps(steps);
+        _expanded = List.filled(_batchedSteps.length, true);
         _isCalculating = false;
       });
     }
@@ -108,33 +110,28 @@ class _RouteSuggestionScreenState extends State<RouteSuggestionScreen> {
       itemBuilder: (context, index) {
         final batch = _batchedSteps[index];
         final isLast = index == _batchedSteps.length - 1;
-        return _buildStep(batch, isLast, l10n);
+        return _buildStep(batch, index, isLast, l10n);
       },
     );
   }
 
-  Widget _buildStep(_BatchedStep batch, bool isLast, AppLocalizations l10n) {
+  Widget _buildStep(
+    _BatchedStep batch,
+    int index,
+    bool isLast,
+    AppLocalizations l10n,
+  ) {
     final hasPickup = batch.steps.any((s) => s.action == algo.Action.pickUp);
     final hasDeliver = batch.steps.any((s) => s.action == algo.Action.deliver);
 
-    String titleText;
-    if (hasPickup && hasDeliver) {
-      titleText = l10n.headToTasks(batch.location.name);
-    } else if (hasPickup) {
-      titleText = batch.steps.length > 1
-          ? l10n.driveToAndPickup(batch.location.name)
-          : l10n.goToAndPickup(
-              batch.location.name,
-              batch.steps.first.mission.description,
-            );
+    final String titleText;
+    if (hasPickup && !hasDeliver) {
+      titleText = l10n.driveToAndPickup(batch.location.name);
     } else {
-      titleText = batch.steps.length > 1
-          ? l10n.headToTasks(batch.location.name)
-          : l10n.goToAndDeliver(
-              batch.location.name,
-              batch.steps.first.mission.description,
-            );
+      titleText = l10n.headToTasks(batch.location.name);
     }
+
+    final bool isExpanded = index < _expanded.length && _expanded[index];
 
     return IntrinsicHeight(
       child: Row(
@@ -152,10 +149,15 @@ class _RouteSuggestionScreenState extends State<RouteSuggestionScreen> {
                     color: Theme.of(context).colorScheme.primaryContainer,
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
-                    Icons.location_on,
-                    color: Theme.of(context).colorScheme.primary,
-                    size: 20,
+                  child: Center(
+                    child: Text(
+                      '${index + 1}',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
                   ),
                 ),
                 if (!isLast)
@@ -175,81 +177,106 @@ class _RouteSuggestionScreenState extends State<RouteSuggestionScreen> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(bottom: 24.0),
-              child: Card(
-                elevation: 2,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              titleText,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          TextButton.icon(
-                            onPressed: () {
-                              LauncherUtils.launchNavigation(
-                                batch.location.name,
-                              );
-                            },
-                            icon: const Icon(Icons.navigation),
-                            label: Text(l10n.navigateWaze),
-                            style: TextButton.styleFrom(
-                              foregroundColor:
-                                  Theme.of(context).colorScheme.primary,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      if (batch.steps.length > 1) ...[
-                        const SizedBox(height: 12),
-                        ...batch.steps.map((step) {
-                          final isPickup = step.action == algo.Action.pickUp;
-                          final icon = isPickup
-                              ? Icons.arrow_upward
-                              : Icons.arrow_downward;
-                          final color = isPickup ? Colors.blue : Colors.green;
-                          final actionText = isPickup
-                              ? l10n.actionPickup
-                              : l10n.actionDeliver;
-
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4.0),
-                            child: Row(
-                              children: [
-                                Icon(icon, size: 16, color: color),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: Text(
-                                    "$actionText ${step.mission.description}",
-                                    style: TextStyle(
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.onSurfaceVariant,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _expanded[index] = !_expanded[index];
+                  });
+                },
+                child: Card(
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                titleText,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                              ],
+                              ),
                             ),
-                          );
-                        }),
+                            TextButton.icon(
+                              onPressed: () {
+                                LauncherUtils.launchNavigation(
+                                  batch.location.name,
+                                );
+                              },
+                              icon: const Icon(Icons.navigation),
+                              label: Text(l10n.navigateWaze),
+                              style: TextButton.styleFrom(
+                                foregroundColor: Theme.of(
+                                  context,
+                                ).colorScheme.primary,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                ),
+                              ),
+                            ),
+                            Icon(
+                              isExpanded
+                                  ? Icons.expand_less
+                                  : Icons.expand_more,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurfaceVariant,
+                            ),
+                          ],
+                        ),
+                        if (isExpanded)
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 12),
+                              ...batch.steps.map((step) {
+                                final isPickup =
+                                    step.action == algo.Action.pickUp;
+                                final icon = isPickup
+                                    ? Icons.arrow_upward
+                                    : Icons.arrow_downward;
+                                final color = isPickup
+                                    ? Colors.blue
+                                    : Colors.green;
+                                final actionText = isPickup
+                                    ? l10n.actionPickup
+                                    : l10n.actionDeliver;
+
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 4.0,
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Icon(icon, size: 16, color: color),
+                                      const SizedBox(width: 8),
+                                      Expanded(
+                                        child: Text(
+                                          '$actionText ${step.mission.description}',
+                                          style: TextStyle(
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSurfaceVariant,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }),
+                            ],
+                          ),
                       ],
-                    ],
+                    ),
                   ),
                 ),
               ),
