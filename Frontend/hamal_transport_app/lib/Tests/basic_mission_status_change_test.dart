@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hamal_transport_app/Constants/mock_data.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
+import 'package:hamal_transport_app/Models/user_profile.dart';
 import 'package:hamal_transport_app/Services/Fake/fake_authentication_service.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
 import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
@@ -11,6 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class MockUser extends Mock implements User {
   @override
   final String uid;
+
   MockUser({required this.uid});
 }
 
@@ -49,15 +51,19 @@ void main() {
 
       MissionsRepository.reset();
       repository = MissionsRepository(
-        missions: [...sampleMissions, ...availableMissions],
         authService: authService,
+        missions: [...sampleMissions, ...availableMissions],
       );
 
       // Create ViewModels with initial state
       availableVM = MissionsListViewModel(
         type: MissionListType.availableMissions,
+        role: UserRole.driver,
       );
-      myVM = MissionsListViewModel(type: MissionListType.myMissions);
+      myVM = MissionsListViewModel(
+        type: MissionListType.myMissions,
+        role: UserRole.driver,
+      );
     });
 
     test('takeMission moves mission from available -> my missions', () {

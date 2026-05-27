@@ -55,7 +55,7 @@ class Mission {
   MissionStatus status; // mutable so UI can update delivery status
   final CarType carType;
   String cancellationReason;
-  final List<String> comments;
+  List<String> comments;
   String? driverUid; // UID of the driver assigned to this mission
 
   Future<RouteInfo?>? _routeInfoFuture;

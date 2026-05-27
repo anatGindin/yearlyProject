@@ -105,6 +105,8 @@ class _SignupContentState extends State<_SignupContent> {
   Widget build(BuildContext context) {
     final viewModel = context.watch<SignupScreenViewModel>();
     final l10n = AppLocalizations.of(context)!;
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (viewModel.error != null) {
@@ -133,7 +135,7 @@ class _SignupContentState extends State<_SignupContent> {
     });
 
     return StageHeaderBackground(
-      height: 160,
+      height: isLandscape ? 120 : 160,
       title: Text(
         l10n.signup,
         style: TextStyle(

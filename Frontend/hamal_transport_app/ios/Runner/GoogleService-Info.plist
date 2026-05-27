@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCGTNXKiTXNMonjtq8p5Q5wWGgIA6tZRps</string>
+	<key>GCM_SENDER_ID</key>
+	<string>646186446544</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.hamalTransportApp</string>
+	<key>PROJECT_ID</key>
+	<string>hamal-transportation-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>hamal-transportation-app.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:646186446544:ios:0f8c28626a0af2d93178d5</string>
+	<key>DATABASE_URL</key>
+	<string>https://hamal-transportation-app-default-rtdb.europe-west1.firebasedatabase.app</string>
+</dict>
+</plist>

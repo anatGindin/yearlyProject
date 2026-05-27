@@ -10,13 +10,24 @@ class DriverViewModel extends ChangeNotifier {
   UserProfile? _driverProfile;
   bool _isLoading = true;
   String? _errorMessage;
+  List<Mission>? _driverMissions;
 
-  DriverViewModel({required this.driverUid, UserProfile? initialProfile}) {
+  DriverViewModel({
+    required this.driverUid,
+    UserProfile? initialProfile,
+    List<Mission>? driverMissions,
+  }) {
     if (initialProfile != null) {
       _driverProfile = initialProfile;
       _isLoading = false;
     } else {
       _loadDriverProfile();
+    }
+    if (driverMissions != null) {
+      _driverMissions = driverMissions;
+      _isLoading = false;
+    } else {
+      _loadDriverMissions();
     }
   }
 
@@ -39,9 +50,8 @@ class DriverViewModel extends ChangeNotifier {
   CarType? get carType => _driverProfile?.driverProfile?.carType;
 
   // Get missions assigned to this driver
-  // Always call MissionsRepository() to get the latest singleton instance
   List<Mission> get driverMissions {
-    return MissionsRepository().getMissionsByDriver(driverUid);
+    return _driverMissions ?? [];
   }
 
   // Get missions by status
@@ -60,6 +70,22 @@ class DriverViewModel extends ChangeNotifier {
       );
     } catch (e) {
       _driverProfile = null;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> _loadDriverMissions() async {
+    _isLoading = true;
+    _errorMessage = null;
+    notifyListeners();
+    try {
+      _driverMissions = await MissionsRepository().getMissionsByDriver(
+        driverUid,
+      );
+    } catch (e) {
+      _driverMissions = [];
     } finally {
       _isLoading = false;
       notifyListeners();

@@ -16,6 +16,8 @@ This cross-platform mobile application enables efficient coordination between dr
 
 ## Contributing
 
+First, check [this guide](docs/EnviromentSetup.md) and set up your Environment for flutter development. 
+
 Please see [contributing.md](contributing.md) for our branching model and PR process.
 
 ## Screenshots
@@ -62,12 +64,6 @@ Currently in development as part of an academic project in collaboration with Ha
 ## License
 
 Developed for Hamal - A non-profit logistics organization
-
-## Installation
-
-For further details about the app installation, read [this]
-
-[this]:https://github.com/anatGindin/yearlyProject/blob/readme_edit/docs/EnviromentSetup.md
 
 ## Usage
 

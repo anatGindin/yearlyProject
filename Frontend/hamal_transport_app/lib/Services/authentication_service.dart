@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
+import 'package:hamal_transport_app/Services/persistant_storagte_service.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:hamal_transport_app/Models/user_profile.dart';
 
@@ -31,13 +33,12 @@ class AuthenticationService {
 
   // Persistance
   Future<void> setRememberMe(bool value) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(_kRememberMeKey, value);
+    await PersistentStorageService.setBool(_kRememberMeKey, value);
   }
 
   Future<bool> getRememberMe() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(_kRememberMeKey) ?? false; // Default to false
+    return await PersistentStorageService.getBool(_kRememberMeKey) ??
+        false; // Default to false
   }
 
   /// Checks if the user should be automatically logged in.
@@ -77,13 +78,15 @@ class AuthenticationService {
         email: email,
         password: password,
       );
-      return _postUserProfile(
+      final profile = await _postUserProfile(
         _authProvider.currentUser!,
         name,
         phone,
         role,
         driverProfile,
       );
+      await _registerCurrentDeviceTokenSafely();
+      return profile;
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'invalid-email':
@@ -111,7 +114,9 @@ class AuthenticationService {
         password: password,
       );
       await setRememberMe(rememberMe);
-      return await getUserProfile(_authProvider.currentUser!);
+      final profile = await getUserProfile(_authProvider.currentUser!);
+      await _registerCurrentDeviceTokenSafely();
+      return profile;
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'invalid-email':
@@ -129,8 +134,19 @@ class AuthenticationService {
   }
 
   Future<void> signOut() async {
+    final uid = _authProvider.currentUser?.uid;
+
     await setRememberMe(false); // Clear remember me on explicit sign out
     _currentUserProfile = null;
+
+    if (uid != null) {
+      try {
+        await clearFcmTokenForUser(uid);
+      } catch (_) {
+        // Keep sign-out resilient even if notification cleanup fails.
+      }
+    }
+
     await _authProvider.signOut();
   }
 
@@ -242,8 +258,72 @@ class AuthenticationService {
     } catch (e) {
       throw AuthenticationError.databaseError;
     }
-    {
-      _currentUserProfile = profile;
+    _currentUserProfile = profile;
+  }
+
+  Future<void> saveCurrentUserFcmToken(String token) async {
+    final user = _authProvider.currentUser;
+    if (user == null) {
+      return;
+    }
+
+    final userRef = usersRef.child(user.uid);
+    await userRef.child('fcmToken').set(token);
+    await userRef.child('fcmTokenUpdatedAt').set(ServerValue.timestamp);
+
+    if (_currentUserProfile != null && _currentUserProfile!.uid == user.uid) {
+      _currentUserProfile!.fcmToken = token;
+    }
+  }
+
+  Future<void> clearFcmTokenForUser(String uid) async {
+    final userRef = usersRef.child(uid);
+    await userRef.child('fcmToken').remove();
+    await userRef.child('fcmTokenUpdatedAt').set(ServerValue.timestamp);
+
+    if (_currentUserProfile != null && _currentUserProfile!.uid == uid) {
+      _currentUserProfile!.fcmToken = null;
+    }
+
+    await _tryDeleteToken(FirebaseMessaging.instance);
+  }
+
+  Future<void> _registerCurrentDeviceTokenSafely() async {
+    final token = await getCurrentDeviceTokenSafely();
+    if (token == null) {
+      return;
+    }
+
+    try {
+      await saveCurrentUserFcmToken(token);
+    } catch (_) {
+      // Keep auth flow resilient even if FCM token persistence fails.
+    }
+  }
+
+  Future<String?> getCurrentDeviceTokenSafely() async {
+    return _tryGetToken(FirebaseMessaging.instance);
+  }
+
+  Future<String?> _tryGetToken(FirebaseMessaging messaging) async {
+    try {
+      return await messaging.getToken();
+    } on FirebaseException catch (error) {
+      debugPrint('FCM getToken failed: ${error.code} ${error.message}');
+      return null;
+    } catch (error) {
+      debugPrint('FCM getToken failed: $error');
+      return null;
+    }
+  }
+
+  Future<void> _tryDeleteToken(FirebaseMessaging messaging) async {
+    try {
+      await messaging.deleteToken();
+    } on FirebaseException catch (error) {
+      debugPrint('FCM deleteToken failed: ${error.code} ${error.message}');
+    } catch (error) {
+      debugPrint('FCM deleteToken failed: $error');
     }
   }
 

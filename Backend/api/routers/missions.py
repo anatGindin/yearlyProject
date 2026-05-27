@@ -2,19 +2,25 @@ import json
 import os
 from api.security import verify_request
 from api.models import mission, enums
+from api import missions_DB_module
 from fastapi import APIRouter, HTTPException, Query, Request
 from datetime import datetime
 
 router = APIRouter(prefix="/missions", tags=["missions"])
-
 # TEMP storage (replace with DB later)
-file_path = "/Backend/mock_data.json"
+file_path = "./mock_data.json"
+missions: list[mission.MissionInDB] = []
 
-if os.path.exists(file_path):
-    with open(file_path) as f:
-        missions = [mission.MissionInDB(**m) for m in json.load(f)]
-else:
-    missions = []
+
+def get_missions_from_db():
+    global missions
+    if os.path.exists(file_path):
+        with open(file_path, encoding="utf-8") as f:
+            data = json.load(f)
+            all_raw_missions = data.get("sampleMissions", []) + data.get("availableMissions", [])
+            missions = [mission.MissionInDB(**m) for m in all_raw_missions]
+    else:
+        missions = []
 
 
 def save_missions():
@@ -65,16 +71,9 @@ def delete_mission(request: Request, mission_id: str):
 @router.get("/", response_model=list[mission.MissionBase])
 def list_missions(
     request: Request,
-    status: str | None = Query(None, description="Filter by mission status"),
+    status: enums.MissionStatus | None = Query(None, description="Filter by mission status"),  # noqa: B008
     driver_id: str | None = Query(None, description="Filter by driver"),
 ):
-    verify_request(request)  # verify_request returns the user ID of the sender, you can use it if needed
-    result = missions
-    # TODO: change when given DB
-    if status:
-        result = [m for m in result if m.status == status]
+    uid = verify_request(request)
 
-    if driver_id:
-        result = [m for m in result if getattr(m, "driver_id", None) == driver_id]
-
-    return result
+    return missions_DB_module.get_missions(uid, status, driver_id)

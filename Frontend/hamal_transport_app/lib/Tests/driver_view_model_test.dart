@@ -42,6 +42,7 @@ void main() {
       viewModel = DriverViewModel(
         driverUid: testDriverUid,
         initialProfile: mockProfile,
+        driverMissions: [],
       );
 
       expect(viewModel.isLoading, false);
@@ -60,6 +61,7 @@ void main() {
       viewModel = DriverViewModel(
         driverUid: testDriverUid,
         initialProfile: mockProfile,
+        driverMissions: [],
       );
 
       expect(viewModel.isLoading, false);
@@ -74,6 +76,7 @@ void main() {
       viewModel = DriverViewModel(
         driverUid: testDriverUid,
         initialProfile: null,
+        driverMissions: [],
       );
 
       expect(viewModel.driverName, 'Driver ($testDriverUid)');
@@ -91,10 +94,24 @@ void main() {
         phone: '+972-54-1234567',
         role: UserRole.driver,
       );
-
+      // Create missions with different statuses
+      final mission1 = Mission(
+        id: 'test-m1',
+        source: sampleMissions.first.source,
+        destination: sampleMissions.first.destination,
+        description: 'Test mission 1',
+        sourceContact: sampleMissions.first.sourceContact,
+        destinationContact: sampleMissions.first.destinationContact,
+        time: DateTime.now(),
+        status: MissionStatus.assigned,
+        carType: CarType.private,
+        comments: [],
+        driverUid: driverUid,
+      );
       viewModel = DriverViewModel(
         driverUid: driverUid,
         initialProfile: mockProfile,
+        driverMissions: [mission1],
       );
 
       final driverMissions = viewModel.driverMissions;
@@ -123,6 +140,7 @@ void main() {
       viewModel = DriverViewModel(
         driverUid: driverUid,
         initialProfile: mockProfile,
+        driverMissions: [],
       );
 
       final assignedMissions = viewModel.getMissionsByStatus(
@@ -158,7 +176,11 @@ void main() {
     });
 
     test('Empty driver UID handling', () async {
-      final viewModel = DriverViewModel(driverUid: '', initialProfile: null);
+      final viewModel = DriverViewModel(
+        driverUid: '',
+        initialProfile: null,
+        driverMissions: [],
+      );
 
       expect(viewModel.driverName, 'Driver ()');
     });
@@ -176,6 +198,7 @@ void main() {
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         initialProfile: mockProfile,
+        driverMissions: [],
       );
 
       expect(viewModel.driverMissions, isEmpty);
@@ -230,6 +253,7 @@ void main() {
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         initialProfile: mockProfile,
+        driverMissions: [mission1, mission2],
       );
 
       expect(viewModel.driverMissions.length, 2);
@@ -241,6 +265,7 @@ void main() {
       final viewModel = DriverViewModel(
         driverUid: 'test-uid',
         initialProfile: null,
+        driverMissions: [],
       );
 
       expect(viewModel.carType, isNull);
@@ -260,6 +285,7 @@ void main() {
       final viewModel = DriverViewModel(
         driverUid: driverUid,
         initialProfile: mockProfile,
+        driverMissions: [],
       );
 
       expect(viewModel.carType, CarType.trailer);

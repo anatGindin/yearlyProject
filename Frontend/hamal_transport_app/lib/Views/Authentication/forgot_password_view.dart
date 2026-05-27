@@ -76,6 +76,8 @@ class _ForgotPasswordContentState extends State<_ForgotPasswordContent> {
   Widget build(BuildContext context) {
     final viewModel = context.watch<ForgotPasswordViewModel>();
     final l10n = AppLocalizations.of(context)!;
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     final theme = Theme.of(context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -94,30 +96,34 @@ class _ForgotPasswordContentState extends State<_ForgotPasswordContent> {
 
     return SafeArea(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+        padding: EdgeInsets.symmetric(
+          horizontal: isLandscape ? 100 : 24,
+          vertical: 0,
+        ),
         child: Form(
           key: _formKey,
           autovalidateMode: _autovalidateMode,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 40),
+              if (!isLandscape) const SizedBox(height: 40),
               // Lock Icon
-              Center(
-                child: Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primaryContainer,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.lock_outline,
-                    size: 50,
-                    color: theme.colorScheme.onPrimaryContainer,
+              if (!isLandscape)
+                Center(
+                  child: Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.primaryContainer,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.lock_outline,
+                      size: 50,
+                      color: theme.colorScheme.onPrimaryContainer,
+                    ),
                   ),
                 ),
-              ),
               const SizedBox(height: 32),
               // Title
               Text(
@@ -137,7 +143,7 @@ class _ForgotPasswordContentState extends State<_ForgotPasswordContent> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 16),
               // Email Field
               ValueListenableBuilder<TextEditingValue>(
                 valueListenable: _emailController,

@@ -5,22 +5,31 @@ import '../../Services/navigation_controller.dart';
 import 'user_avatar.dart';
 
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
+  final String? title;
+  final Widget? titleWidget;
   final List<Widget>? actions;
 
-  const MainAppBar({super.key, required this.title, this.actions});
+  const MainAppBar({super.key, this.title, this.titleWidget, this.actions});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     final userProfile = AuthenticationService().currentUserProfile;
     final userName = userProfile?.name ?? '';
 
+    final isDark = theme.brightness == Brightness.dark;
+    final barColor = isDark
+        ? (theme.appBarTheme.backgroundColor ?? const Color(0xFF1E293B))
+        : theme.colorScheme.primary;
+
     return AppBar(
-      backgroundColor: theme.colorScheme.primary,
+      backgroundColor: barColor,
       elevation: 0,
       scrolledUnderElevation: 0,
       surfaceTintColor: Colors.transparent,
+      leadingWidth: isLandscape ? 80 : kToolbarHeight,
       leading: InkWell(
         onTap: () {
           context.read<MainNavigationController>().navigateTo(
@@ -40,13 +49,17 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ),
-      title: Text(
-        title,
-        style: theme.textTheme.titleLarge?.copyWith(
-          color: theme.colorScheme.onPrimary,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+      title:
+          titleWidget ??
+          (title != null
+              ? Text(
+                  title!,
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    color: theme.colorScheme.onPrimary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
+              : null),
       actions: [
         if (actions != null) ...actions!,
         IconButton(

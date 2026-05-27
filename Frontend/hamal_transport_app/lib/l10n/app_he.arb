@@ -567,5 +567,9 @@
   "districtNorth": "צפון",
   "districtCenter": "מרכז",
   "districtJerusalem": "ירושלים",
-  "districtSouth": "דרום"
+  "districtSouth": "דרום",
+  "missionDescription": "פירוט משימה",
+  "@missionDescription": {
+    "description": "תווית פירוט משימה"
+  }
 }

@@ -60,5 +60,4 @@ class DefaultFirebaseOptions {
     iosBundleId: 'com.example.hamalTransportApp',
   );
 
-  // TODO: configure firebase.json for iOS
 }
