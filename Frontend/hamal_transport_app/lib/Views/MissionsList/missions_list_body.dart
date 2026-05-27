@@ -88,7 +88,10 @@ class MissionsListBody extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 30),
-                    MissionListView(missions: viewModel.missions),
+                    viewModel.isLoading
+                        // TODO: change indicator with skeleton
+                        ? const Center(child: CircularProgressIndicator())
+                        : MissionListView(missions: viewModel.missions),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.2),
                   ],
                 ),

@@ -138,7 +138,8 @@
       "creationTime": "2025-12-15 12:00",
       "status": "available",
       "carType": "private",
-      "comments": []
+      "comments": [],
+      "lastUpdate": "2026-05-20 23:00"
     },
     {
       "id": "a2",
@@ -164,7 +165,8 @@
       "creationTime": "2025-12-15 14:00",
       "status": "available",
       "carType": "private",
-      "comments": []
+      "comments": [],
+      "lastUpdate": "2026-05-20 23:00"
     }
   ],
   "adminMissions": [
