@@ -38,26 +38,25 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyB8GHxG3O-_--3hLUDyig3Z6fk0-0NTRZU',
-    appId: '1:646186446544:android:646a6049c297fb213178d5',
-    messagingSenderId: '646186446544',
-    projectId: 'hamal-transportation-app',
+    apiKey: 'AIzaSyBdD9f4nqqJgyz5EZvrk_-HOtUPk1Uz-y8',
+    appId: '1:889931214736:android:b5de0ce00e7dc737d4cd15',
+    messagingSenderId: '889931214736',
+    projectId: 'transportaion-app-e31cb',
     // The URL should be the same as the URL in Backend\firebase_config.py
     databaseURL:
-        'https://hamal-transportation-app-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'hamal-transportation-app.firebasestorage.app',
+        'https://transportaion-app-e31cb-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'transportaion-app-e31cb.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCGTNXKiTXNMonjtq8p5Q5wWGgIA6tZRps',
-    appId: '1:646186446544:ios:0f8c28626a0af2d93178d5',
-    messagingSenderId: '646186446544',
-    projectId: 'hamal-transportation-app',
+    apiKey: 'AIzaSyCtOsVbhY95Zlu6X3VRYI5hzhKSx4ujtcU',
+    appId: '1:889931214736:ios:f6ab131f7d494f9bd4cd15',
+    messagingSenderId: '889931214736',
+    projectId: 'transportaion-app-e31cb',
     // The URL should be the same as the URL in Backend\firebase_config.py
     databaseURL:
-        'https://hamal-transportation-app-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'hamal-transportation-app.firebasestorage.app',
+        'https://transportaion-app-e31cb-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'transportaion-app-e31cb.firebasestorage.app',
     iosBundleId: 'com.example.hamalTransportApp',
   );
-
 }
