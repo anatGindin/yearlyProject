@@ -1,6 +1,6 @@
 import json
 import os
-from api.security import verify_request, revoke_token
+from api.security import verify_request
 from api.models import mission, enums
 from api import missions_DB_module
 from fastapi import APIRouter, HTTPException, Query, Request
@@ -10,6 +10,17 @@ router = APIRouter(prefix="/missions", tags=["missions"])
 # TEMP storage (replace with DB later)
 file_path = "./mock_data.json"
 missions: list[mission.MissionInDB] = []
+
+
+def get_missions_from_db():
+    global missions
+    if os.path.exists(file_path):
+        with open(file_path, encoding="utf-8") as f:
+            data = json.load(f)
+            all_raw_missions = data.get("sampleMissions", []) + data.get("availableMissions", [])
+            missions = [mission.MissionInDB(**m) for m in all_raw_missions]
+    else:
+        missions = []
 
 
 def save_missions():
@@ -64,4 +75,5 @@ def list_missions(
     driver_id: str | None = Query(None, description="Filter by driver"),
 ):
     uid = verify_request(request)
+
     return missions_DB_module.get_missions(uid, status, driver_id)
