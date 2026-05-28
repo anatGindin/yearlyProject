@@ -74,7 +74,7 @@ class _MapViewContentState extends State<MapViewContent> {
               children: [
                 TileLayer(
                   urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  userAgentPackageName: 'com.hamal.transport',
+                  userAgentPackageName: 'com.technion.transport',
                   retinaMode: RetinaMode.isHighDensity(context),
                 ),
                 MarkerLayer(
