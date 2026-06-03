@@ -7,7 +7,7 @@ import 'authentication_service.dart';
 
 class BackendService {
   // Change here!
-  static const String _baseURL = 'http://192.168.1.103:8000';
+  static const String _baseURL = '';
   final AuthenticationService _authService;
 
   BackendService({AuthenticationService? authService})
