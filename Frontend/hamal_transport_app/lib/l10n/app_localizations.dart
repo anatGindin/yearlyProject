@@ -248,6 +248,18 @@ abstract class AppLocalizations {
   /// **'Cancelled'**
   String get cancelled;
 
+  /// Archive mission option
+  ///
+  /// In en, this message translates to:
+  /// **'Archive'**
+  String get archive;
+
+  /// Archive all missions in the list
+  ///
+  /// In en, this message translates to:
+  /// **'Archive All'**
+  String get archiveAll;
+
   /// Mission status - available
   ///
   /// In en, this message translates to:

@@ -26,7 +26,6 @@ class MissionsRepository extends ChangeNotifier {
     AuthenticationService? authService,
     BackendService? backendService,
   }) {
-    bool alreadyExisted = _instance != null;
     _instance ??= MissionsRepository._internal(
       authService: authService ?? AuthenticationService(),
       backendService:
@@ -34,7 +33,7 @@ class MissionsRepository extends ChangeNotifier {
     );
     if (missions != null) {
       _instance!.setMissions(missions);
-    } else if (_instance!._backendService.isEnabled() && !alreadyExisted) {
+    } else if (_instance!._backendService.isEnabled()) {
       _instance!.loadMissions();
     }
     return _instance!;
@@ -169,36 +168,82 @@ class MissionsRepository extends ChangeNotifier {
     }
   }
 
-  void takeMission(Mission mission) {
-    // TODO: Update the mission status in the database
+  Future<void> takeMission(Mission mission) async {
     if (isAvailable(mission)) {
-      mission.driverUid = _authService.currentUser?.uid;
-      mission.status = MissionStatus.assigned;
-      notifyListeners();
+      try {
+        final updatedMission = await _backendService.claimMission(mission.id);
+        final index = _allMissions.indexWhere((m) => m.id == mission.id);
+        if (index != -1) {
+          _allMissions[index] = updatedMission;
+        }
+        notifyListeners();
+      } catch (e) {
+        debugPrint('Failed to claim mission: $e');
+        rethrow;
+      }
     }
   }
 
-  void abandonMission(Mission mission) {
-    // TODO: Update the mission status in the database
-    mission.driverUid = null;
-    mission.status = MissionStatus.available;
-    notifyListeners();
+  Future<void> abandonMission(Mission mission) async {
+    try {
+      final updatedMission = await _backendService.abandonMission(mission.id);
+      final index = _allMissions.indexWhere((m) => m.id == mission.id);
+      if (index != -1) {
+        _allMissions[index] = updatedMission;
+      }
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Failed to abandon mission: $e');
+      rethrow;
+    }
   }
 
-  void updateStatus(Mission mission, MissionStatus newStatus) {
-    // TODO: Update the mission status in the database
-    mission.status = newStatus;
-    notifyListeners();
+  Future<void> updateStatus(Mission mission, MissionStatus newStatus) async {
+    try {
+      final updatedMission = await _backendService.updateMissionStatus(
+        mission.id,
+        newStatus,
+      );
+      final index = _allMissions.indexWhere((m) => m.id == mission.id);
+      if (index != -1) {
+        _allMissions[index] = updatedMission;
+      }
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Failed to update status: $e');
+      rethrow;
+    }
   }
 
-  void cancelMission(Mission mission, String cancellationReason) {
-    // TODO: Update the mission status in the database + the cancellation reason
-    mission.cancellationReason = cancellationReason;
-    abandonMission(mission);
+  Future<void> cancelMission(Mission mission, String cancellationReason) async {
+    try {
+      final updatedMission = await _backendService.cancelMission(
+        mission.id,
+        cancellationReason,
+      );
+      final index = _allMissions.indexWhere((m) => m.id == mission.id);
+      if (index != -1) {
+        _allMissions[index] = updatedMission;
+      }
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Failed to cancel mission: $e');
+      rethrow;
+    }
+  }
+
+  Future<void> archiveMission(Mission mission) async {
+    try {
+      await _backendService.archiveMission(mission.id);
+      _allMissions.removeWhere((m) => m.id == mission.id);
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Failed to archive mission: $e');
+      rethrow;
+    }
   }
 
   bool isAvailable(Mission mission) {
-    // TODO: Check if the mission is still available in the database
     return mission.status == MissionStatus.available;
   }
 }

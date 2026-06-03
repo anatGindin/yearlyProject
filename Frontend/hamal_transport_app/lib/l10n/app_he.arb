@@ -104,6 +104,14 @@
   "@cancelled": {
     "description": "סטטוס משימה - בוטל"
   },
+  "archive": "העבר לארכיון",
+  "@archive": {
+    "description": "העבר משימה לארכיון"
+  },
+  "archiveAll": "העבר הכל לארכיון",
+  "@archiveAll": {
+    "description": "העבר את כל המשימות לארכיון"
+  },
   "available": "זמין",
   "@available": {
     "description": "סטטוס משימה - זמין"

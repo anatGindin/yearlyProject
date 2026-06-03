@@ -85,6 +85,12 @@ class AppLocalizationsHe extends AppLocalizations {
   String get cancelled => 'בוטל';
 
   @override
+  String get archive => 'העבר לארכיון';
+
+  @override
+  String get archiveAll => 'העבר הכל לארכיון';
+
+  @override
   String get available => 'זמין';
 
   @override

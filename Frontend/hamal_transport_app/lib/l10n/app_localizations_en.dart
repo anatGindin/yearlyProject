@@ -85,6 +85,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancelled => 'Cancelled';
 
   @override
+  String get archive => 'Archive';
+
+  @override
+  String get archiveAll => 'Archive All';
+
+  @override
   String get available => 'Available';
 
   @override

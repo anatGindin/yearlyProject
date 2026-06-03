@@ -104,6 +104,14 @@
   "@cancelled": {
     "description": "Mission status - cancelled"
   },
+  "archive": "Archive",
+  "@archive": {
+    "description": "Archive mission option"
+  },
+  "archiveAll": "Archive All",
+  "@archiveAll": {
+    "description": "Archive all missions in the list"
+  },
   "available": "Available",
   "@available": {
     "description": "Mission status - available"

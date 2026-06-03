@@ -20,8 +20,11 @@ class MissionsListBody extends StatelessWidget {
     final userProfile = context.watch<UserProfileViewModel>();
     final isDriver = userProfile.isDriver;
     final isMyMissions = viewModel.type == MissionListType.myMissions;
+    final isDeliveredTab = viewModel.type == MissionListType.deliveredMissions;
     final showRouteButton =
         isDriver && isMyMissions && viewModel.missions.length > 1;
+    final canArchive =
+        !isDriver && isDeliveredTab && viewModel.missions.isNotEmpty;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
@@ -39,7 +42,15 @@ class MissionsListBody extends StatelessWidget {
               icon: const Icon(Icons.route),
               label: Text(AppLocalizations.of(context)!.calculateRoute),
             )
-          : null,
+          : canArchive
+              ? FloatingActionButton.extended(
+                  onPressed: () => viewModel.archiveAllMissions(),
+                  icon: const Icon(Icons.archive),
+                  label: Text(AppLocalizations.of(context)!.archiveAll),
+                  backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                  foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                )
+              : null,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(

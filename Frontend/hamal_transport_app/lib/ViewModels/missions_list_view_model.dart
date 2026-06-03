@@ -167,6 +167,22 @@ class MissionsListViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> archiveAllMissions() async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      final currentMissions = List<Mission>.from(missions);
+      for (final mission in currentMissions) {
+        await _repository.archiveMission(mission);
+      }
+    } catch (e) {
+      debugPrint('Failed to archive all missions: $e');
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
   Future<void> fetchMissions() async {
     if (_isFetched) {
       _isLoading = false;
