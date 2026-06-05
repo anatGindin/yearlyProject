@@ -106,8 +106,8 @@ class MissionsRepository extends ChangeNotifier {
   }
 
   Future<void> refreshMissions() async {
-    await loadMissions();
-
+    _allMissions.clear();
+    loadMissions();
     for (final status in _statusesFetched) {
       _allMissions.addAll(await _backendService.getMissions(status, null));
     }

@@ -5,6 +5,7 @@ import 'package:hamal_transport_app/Models/missions_model.dart';
 import 'package:provider/provider.dart';
 import 'package:hamal_transport_app/ViewModels/user_profile_view_model.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
+import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Views/MissionsList/route_suggestion_screen.dart';
 import 'package:hamal_transport_app/Models/israel_districts.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
@@ -43,14 +44,16 @@ class MissionsListBody extends StatelessWidget {
               label: Text(AppLocalizations.of(context)!.calculateRoute),
             )
           : canArchive
-              ? FloatingActionButton.extended(
-                  onPressed: () => viewModel.archiveAllMissions(),
-                  icon: const Icon(Icons.archive),
-                  label: Text(AppLocalizations.of(context)!.archiveAll),
-                  backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-                  foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-                )
-              : null,
+          ? FloatingActionButton.extended(
+              onPressed: () => viewModel.archiveAllMissions(),
+              icon: const Icon(Icons.archive),
+              label: Text(AppLocalizations.of(context)!.archiveAll),
+              backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+              foregroundColor: Theme.of(
+                context,
+              ).colorScheme.onSecondaryContainer,
+            )
+          : null,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(
@@ -61,7 +64,9 @@ class MissionsListBody extends StatelessWidget {
           ),
           child: Scrollbar(
             child: RefreshIndicator(
-              onRefresh: () => viewModel.refreshMissions(),
+              onRefresh: () async {
+                await viewModel.refreshMissions();
+              },
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 child: Column(
@@ -99,10 +104,13 @@ class MissionsListBody extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 30),
-                    viewModel.isLoading
-                        // TODO: change indicator with skeleton
-                        ? const Center(child: CircularProgressIndicator())
-                        : MissionListView(missions: viewModel.missions),
+                    MissionListView(
+                      missions: viewModel.missions,
+                      isLoading: viewModel.isLoading,
+                      status: viewModel.type == MissionListType.myMissions
+                          ? MissionStatus.assigned
+                          : MissionStatus.available,
+                    ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.2),
                   ],
                 ),
