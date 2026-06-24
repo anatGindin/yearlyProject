@@ -22,7 +22,7 @@ class MissionsListViewModel extends ChangeNotifier {
   final List<IsraelDistrict> _selectedDistricts = [];
   Location? _userLocation;
   bool _isFetched = false;
-  bool _isLoading = false;
+  bool _isLoading = true;
   bool get isLoading => _isLoading;
 
   MissionsListViewModel({
