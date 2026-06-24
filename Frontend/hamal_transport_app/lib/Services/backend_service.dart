@@ -7,7 +7,7 @@ import 'authentication_service.dart';
 
 class BackendService {
   // Change here!
-  static const String _baseURL = 'http://10.105.55.176:8000';
+  static const String _baseURL = 'https://transport-backend-bjy4.onrender.com';
   final AuthenticationService _authService;
 
   BackendService({AuthenticationService? authService})
