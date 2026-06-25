@@ -1,8 +1,18 @@
 import logging
-
+import socket
 from api.routers import missions
 from fastapi import FastAPI
 from firebase_config import initialize_firebase
+
+old_getaddrinfo = socket.getaddrinfo
+
+
+def new_getaddrinfo(*args, **kwargs):
+    responses = old_getaddrinfo(*args, **kwargs)
+    return [r for r in responses if r[0] == socket.AF_INET]
+
+
+socket.getaddrinfo = new_getaddrinfo
 
 logging.basicConfig(
     level=logging.INFO,
