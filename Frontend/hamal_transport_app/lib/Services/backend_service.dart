@@ -24,7 +24,7 @@ class BackendService {
       if (user == null) {
         throw Exception('User not authenticated');
       }
-      final idToken = await user.getIdToken();
+      final idToken = await user.getIdToken(true);
       if (idToken != null) {
         headers['Firebase-JWT'] = idToken;
       }
