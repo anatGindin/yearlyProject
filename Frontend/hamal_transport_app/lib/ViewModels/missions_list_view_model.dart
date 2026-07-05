@@ -184,6 +184,16 @@ class MissionsListViewModel extends ChangeNotifier {
   }
 
   Future<void> fetchMissions() async {
+    if (_repository.initialLoadFuture != null) {
+      _isLoading = true;
+      notifyListeners();
+      try {
+        await _repository.initialLoadFuture;
+      } catch (e) {
+        debugPrint('Error during repository initial load: $e');
+      }
+    }
+
     if (_isFetched) {
       _isLoading = false;
       notifyListeners();

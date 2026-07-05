@@ -26,6 +26,7 @@ class MissionsRepository extends ChangeNotifier {
     AuthenticationService? authService,
     BackendService? backendService,
   }) {
+    final isNewInstance = _instance == null;
     _instance ??= MissionsRepository._internal(
       authService: authService ?? AuthenticationService(),
       backendService:
@@ -33,7 +34,7 @@ class MissionsRepository extends ChangeNotifier {
     );
     if (missions != null) {
       _instance!.setMissions(missions);
-    } else if (_instance!._backendService.isEnabled()) {
+    } else if (isNewInstance && _instance!._backendService.isEnabled()) {
       _instance!.loadMissions();
     }
     return _instance!;
@@ -51,7 +52,17 @@ class MissionsRepository extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> loadMissions() async {
+  Future<void>? _initialLoadFuture;
+  Future<void>? get initialLoadFuture => _initialLoadFuture;
+
+  Future<void> loadMissions({bool force = false}) {
+    if (force || _initialLoadFuture == null) {
+      _initialLoadFuture = _loadMissionsInternal();
+    }
+    return _initialLoadFuture!;
+  }
+
+  Future<void> _loadMissionsInternal() async {
     if (!_backendService.isEnabled()) {
       throw Exception(
         'BackendService not initialized. Please provide one and make sure to run the backend.',
@@ -107,7 +118,7 @@ class MissionsRepository extends ChangeNotifier {
 
   Future<void> refreshMissions() async {
     _allMissions.clear();
-    loadMissions();
+    await loadMissions(force: true);
     for (final status in _statusesFetched) {
       _allMissions.addAll(await _backendService.getMissions(status, null));
     }
