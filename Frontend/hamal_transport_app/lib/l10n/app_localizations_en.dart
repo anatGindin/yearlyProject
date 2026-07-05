@@ -458,4 +458,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get error => 'Error';
+
+  @override
+  String get assigningDriver => 'Assigning driver...';
 }

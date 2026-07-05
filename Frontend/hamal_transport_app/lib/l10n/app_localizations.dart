@@ -967,6 +967,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error'**
   String get error;
+
+  /// Message shown when a driver is being assigned
+  ///
+  /// In en, this message translates to:
+  /// **'Assigning driver...'**
+  String get assigningDriver;
 }
 
 class _AppLocalizationsDelegate

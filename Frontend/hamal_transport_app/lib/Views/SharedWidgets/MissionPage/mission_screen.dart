@@ -659,84 +659,124 @@ class _MissionScreenState extends State<MissionScreen> {
   void _showAssignDriverDialog(MissionViewModel missionVM) {
     showDialog<void>(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext dialogContext) {
-        return AlertDialog(
-          title: Text(l10n.assignDriver),
-          content: ConstrainedBox(
-            constraints: const BoxConstraints(maxHeight: 400),
-            child: SizedBox(
-              width: double.maxFinite,
-              child: FutureBuilder<List<UserProfile>>(
-                future: AuthenticationService().getAllDrivers(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
+        bool isAssigning = false;
 
-                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text(l10n.noDrivers));
-                  }
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            return AlertDialog(
+              title: Text(l10n.assignDriver),
+              content: ConstrainedBox(
+                constraints: const BoxConstraints(maxHeight: 400),
+                child: SizedBox(
+                  width: double.maxFinite,
+                  child: isAssigning
+                      ? Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const CircularProgressIndicator(),
+                              const SizedBox(height: 16),
+                              Text(l10n.assigningDriver),
+                            ],
+                          ),
+                        )
+                      : FutureBuilder<List<UserProfile>>(
+                          future: AuthenticationService().getAllDrivers(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
 
-                  final allDrivers = snapshot.data!;
-                  // Filter by car type capability
-                  final missionCarTypeIndex = missionVM.carType().index;
+                            if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                              return Center(child: Text(l10n.noDrivers));
+                            }
 
-                  final validDrivers = allDrivers.where((driver) {
-                    if (driver.driverProfile == null) return false;
-                    return driver.driverProfile!.carType.index >=
-                        missionCarTypeIndex;
-                  }).toList();
+                            final allDrivers = snapshot.data!;
+                            // Filter by car type capability
+                            final missionCarTypeIndex = missionVM
+                                .carType()
+                                .index;
 
-                  // Sort alphabetically
-                  validDrivers.sort((a, b) => a.name.compareTo(b.name));
+                            final validDrivers = allDrivers.where((driver) {
+                              if (driver.driverProfile == null) return false;
+                              return driver.driverProfile!.carType.index >=
+                                  missionCarTypeIndex;
+                            }).toList();
 
-                  if (validDrivers.isEmpty) {
-                    return Center(child: Text(l10n.noDriversForCarType));
-                  }
+                            // Sort alphabetically
+                            validDrivers.sort(
+                              (a, b) => a.name.compareTo(b.name),
+                            );
 
-                  return ListView.builder(
-                    itemCount: validDrivers.length,
-                    itemBuilder: (context, index) {
-                      final driver = validDrivers[index];
-                      return ListTile(
-                        leading: Icon(driver.driverProfile!.carType.getIcon()),
-                        title: Text(driver.name),
-                        subtitle: Text(
-                          driver.driverProfile!.carType.displayName(l10n),
+                            if (validDrivers.isEmpty) {
+                              return Center(
+                                child: Text(l10n.noDriversForCarType),
+                              );
+                            }
+
+                            return ListView.builder(
+                              itemCount: validDrivers.length,
+                              itemBuilder: (context, index) {
+                                final driver = validDrivers[index];
+                                return ListTile(
+                                  leading: Icon(
+                                    driver.driverProfile!.carType.getIcon(),
+                                  ),
+                                  title: Text(driver.name),
+                                  subtitle: Text(
+                                    driver.driverProfile!.carType.displayName(
+                                      l10n,
+                                    ),
+                                  ),
+                                  onTap: () async {
+                                    setDialogState(() => isAssigning = true);
+                                    try {
+                                      await missionVM.assignMission(driver.uid);
+                                      if (dialogContext.mounted) {
+                                        ScaffoldMessenger.of(
+                                          this.context,
+                                        ).showSnackBar(
+                                          SnackBar(
+                                            content: Text(l10n.missionAssigned),
+                                          ),
+                                        );
+                                      }
+                                    } catch (e) {
+                                      if (dialogContext.mounted) {
+                                        ScaffoldMessenger.of(
+                                          this.context,
+                                        ).showSnackBar(
+                                          SnackBar(content: Text(l10n.error)),
+                                        );
+                                      }
+                                    } finally {
+                                      if (dialogContext.mounted) {
+                                        Navigator.of(dialogContext).pop();
+                                      }
+                                    }
+                                  },
+                                );
+                              },
+                            );
+                          },
                         ),
-                        onTap: () async {
-                          try {
-                            await missionVM.assignMission(driver.uid);
-                            if (context.mounted) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(l10n.missionAssigned)),
-                              );
-                            }
-                          } catch (e) {
-                            if (context.mounted) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(l10n.error)),
-                              );
-                            }
-                          } finally {
-                            if (context.mounted) {
-                              Navigator.of(dialogContext).pop();
-                            }
-                          }
-                        },
-                      );
-                    },
-                  );
-                },
+                ),
               ),
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(dialogContext).pop(),
-              child: Text(l10n.close),
-            ),
-          ],
+              actions: isAssigning
+                  ? null
+                  : [
+                      TextButton(
+                        onPressed: () => Navigator.of(dialogContext).pop(),
+                        child: Text(l10n.close),
+                      ),
+                    ],
+            );
+          },
         );
       },
     );

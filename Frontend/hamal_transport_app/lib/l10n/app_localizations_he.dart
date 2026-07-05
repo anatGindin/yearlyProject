@@ -457,4 +457,7 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get error => 'שגיאה';
+
+  @override
+  String get assigningDriver => 'משייך נהג...';
 }

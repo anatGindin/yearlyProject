@@ -595,5 +595,10 @@
   "error": "Error",
   "@error": {
     "description": "Generic error text"
+  },
+  "assigningDriver": "Assigning driver...",
+  "@assigningDriver": {
+    "description": "Message shown when a driver is being assigned"
   }
+
 }
