@@ -595,5 +595,9 @@
   "error": "שגיאה",
   "@error": {
     "description": "Generic error text"
-  }
+  },
+  "assigningDriver": "שיוך נהג...",
+  "@assigningDriver": {
+    "description": "Message shown when a driver is being assigned"
+  },
 }

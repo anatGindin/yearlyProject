@@ -145,7 +145,12 @@ class MissionViewModel extends ChangeNotifier {
   }
 
   Future<void> assignMission(String driverUid) async {
+    isLoading = true;
+    notifyListeners();
     await _repository.assignMission(mission, driverUid);
+    mission.status = MissionStatus.assigned;
+    mission.driverUid = driverUid;
+    isLoading = false;
     notifyListeners();
   }
 }

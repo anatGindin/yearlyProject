@@ -84,7 +84,9 @@ class _MissionScreenState extends State<MissionScreen> {
                         children: [
                           Text(missionVM.status().displayName(context)),
                           if (missionVM.isDriver) _statusUpdater(missionVM),
-                          if (!missionVM.isDriver && missionVM.status() == MissionStatus.available) _assignButton(missionVM),
+                          if (!missionVM.isDriver &&
+                              missionVM.status() == MissionStatus.available)
+                            _assignButton(missionVM),
                         ],
                       ),
                     ),
@@ -631,14 +633,18 @@ class _MissionScreenState extends State<MissionScreen> {
       },
     );
   }
+
   Widget _assignButton(MissionViewModel missionVM) {
     return ElevatedButton.icon(
       onPressed: () => _showAssignDriverDialog(missionVM),
       icon: const Icon(Icons.assignment_ind),
-      label: Text(
-        l10n.assignDriver,
-        style: const TextStyle(fontSize: 16),
-        textAlign: TextAlign.center,
+      label: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Text(
+          l10n.assignDriver,
+          style: const TextStyle(fontSize: 16),
+          textAlign: TextAlign.center,
+        ),
       ),
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.all(4),
@@ -674,10 +680,11 @@ class _MissionScreenState extends State<MissionScreen> {
                   final allDrivers = snapshot.data!;
                   // Filter by car type capability
                   final missionCarTypeIndex = missionVM.carType().index;
-                  
+
                   final validDrivers = allDrivers.where((driver) {
                     if (driver.driverProfile == null) return false;
-                    return driver.driverProfile!.carType.index >= missionCarTypeIndex;
+                    return driver.driverProfile!.carType.index >=
+                        missionCarTypeIndex;
                   }).toList();
 
                   // Sort alphabetically
@@ -694,9 +701,10 @@ class _MissionScreenState extends State<MissionScreen> {
                       return ListTile(
                         leading: Icon(driver.driverProfile!.carType.getIcon()),
                         title: Text(driver.name),
-                        subtitle: Text(driver.driverProfile!.carType.displayName(l10n)),
+                        subtitle: Text(
+                          driver.driverProfile!.carType.displayName(l10n),
+                        ),
                         onTap: () async {
-                          Navigator.of(dialogContext).pop();
                           try {
                             await missionVM.assignMission(driver.uid);
                             if (context.mounted) {
@@ -709,6 +717,10 @@ class _MissionScreenState extends State<MissionScreen> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text(l10n.error)),
                               );
+                            }
+                          } finally {
+                            if (context.mounted) {
+                              Navigator.of(dialogContext).pop();
                             }
                           }
                         },
