@@ -143,4 +143,9 @@ class MissionViewModel extends ChangeNotifier {
     MissionCommentsStorage.saveCommentsFromMission(mission);
     notifyListeners();
   }
+
+  Future<void> assignMission(String driverUid) async {
+    await _repository.assignMission(mission, driverUid);
+    notifyListeners();
+  }
 }

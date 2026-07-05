@@ -579,5 +579,21 @@
   "missionDescription": "פירוט משימה",
   "@missionDescription": {
     "description": "תווית פירוט משימה"
+  },
+  "assignDriver": "שייך נהג",
+  "@assignDriver": {
+    "description": "Button to assign a driver to a mission"
+  },
+  "noDriversForCarType": "לא נמצאו נהגים מתאימים",
+  "@noDriversForCarType": {
+    "description": "Message when no drivers can take the mission based on car type"
+  },
+  "missionAssigned": "המשימה שויכה",
+  "@missionAssigned": {
+    "description": "Message shown when mission is successfully assigned"
+  },
+  "error": "שגיאה",
+  "@error": {
+    "description": "Generic error text"
   }
 }

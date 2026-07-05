@@ -943,6 +943,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mission description'**
   String get missionDescription;
+
+  /// Button to assign a driver to a mission
+  ///
+  /// In en, this message translates to:
+  /// **'Assign Driver'**
+  String get assignDriver;
+
+  /// Message when no drivers can take the mission based on car type
+  ///
+  /// In en, this message translates to:
+  /// **'No compatible drivers found'**
+  String get noDriversForCarType;
+
+  /// Message shown when mission is successfully assigned
+  ///
+  /// In en, this message translates to:
+  /// **'Mission assigned'**
+  String get missionAssigned;
+
+  /// Generic error text
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
 }
 
 class _AppLocalizationsDelegate

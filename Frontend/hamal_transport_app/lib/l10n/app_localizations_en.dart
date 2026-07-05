@@ -446,4 +446,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get missionDescription => 'Mission description';
+
+  @override
+  String get assignDriver => 'Assign Driver';
+
+  @override
+  String get noDriversForCarType => 'No compatible drivers found';
+
+  @override
+  String get missionAssigned => 'Mission assigned';
+
+  @override
+  String get error => 'Error';
 }

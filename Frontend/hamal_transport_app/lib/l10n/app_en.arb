@@ -579,5 +579,21 @@
   "missionDescription": "Mission description",
   "@missionDescription": {
     "description": "Mission description label"
+  },
+  "assignDriver": "Assign Driver",
+  "@assignDriver": {
+    "description": "Button to assign a driver to a mission"
+  },
+  "noDriversForCarType": "No compatible drivers found",
+  "@noDriversForCarType": {
+    "description": "Message when no drivers can take the mission based on car type"
+  },
+  "missionAssigned": "Mission assigned",
+  "@missionAssigned": {
+    "description": "Message shown when mission is successfully assigned"
+  },
+  "error": "Error",
+  "@error": {
+    "description": "Generic error text"
   }
 }

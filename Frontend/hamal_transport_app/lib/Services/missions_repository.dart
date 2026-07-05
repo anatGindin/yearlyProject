@@ -195,6 +195,23 @@ class MissionsRepository extends ChangeNotifier {
     }
   }
 
+  Future<void> assignMission(Mission mission, String driverUid) async {
+    try {
+      final updatedMission = await _backendService.assignMission(
+        mission.id,
+        driverUid,
+      );
+      final index = _allMissions.indexWhere((m) => m.id == mission.id);
+      if (index != -1) {
+        _allMissions[index] = updatedMission;
+      }
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Failed to assign mission: $e');
+      rethrow;
+    }
+  }
+
   Future<void> abandonMission(Mission mission) async {
     try {
       final updatedMission = await _backendService.abandonMission(mission.id);

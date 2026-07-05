@@ -445,4 +445,16 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get missionDescription => 'פירוט משימה';
+
+  @override
+  String get assignDriver => 'שייך נהג';
+
+  @override
+  String get noDriversForCarType => 'לא נמצאו נהגים מתאימים';
+
+  @override
+  String get missionAssigned => 'המשימה שויכה';
+
+  @override
+  String get error => 'שגיאה';
 }
