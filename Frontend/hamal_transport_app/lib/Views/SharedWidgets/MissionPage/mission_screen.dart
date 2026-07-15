@@ -260,10 +260,11 @@ class _MissionScreenState extends State<MissionScreen> {
 
   void _showSuggestedMissionsDialog() {
     final repository = context.read<MissionsRepository>();
-    final allMissions = repository.getMissions(
-      MissionListType.availableMissions,
-    );
     final assignedMission = widget.mission;
+    final allMissions = repository
+        .getMissions(MissionListType.availableMissions)
+        .where((m) => m.id != assignedMission.id)
+        .toList();
 
     if (allMissions.isEmpty) return;
 

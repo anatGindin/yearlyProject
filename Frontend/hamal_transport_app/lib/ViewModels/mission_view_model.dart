@@ -102,7 +102,7 @@ class MissionViewModel extends ChangeNotifier {
         MissionCommentsStorage.clearComments(mission.id);
       }
     }
-        mission.status = newStatus;
+    mission.status = newStatus;
     notifyListeners();
   }
 
