@@ -24,7 +24,10 @@ def verify_jwt(request: Request) -> str:
             last_err = err
             logger.warning(
                 "CertificateFetchError on attempt %d/%d — retrying in %.1fs: %s",
-                attempt, _MAX_CERT_RETRIES, _CERT_RETRY_DELAY, err,
+                attempt,
+                _MAX_CERT_RETRIES,
+                _CERT_RETRY_DELAY,
+                err,
             )
             if attempt < _MAX_CERT_RETRIES:
                 time.sleep(_CERT_RETRY_DELAY)
