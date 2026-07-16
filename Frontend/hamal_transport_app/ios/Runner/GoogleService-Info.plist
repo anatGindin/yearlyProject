@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyCGTNXKiTXNMonjtq8p5Q5wWGgIA6tZRps</string>
+	<string>AIzaSyCtOsVbhY95Zlu6X3VRYI5hzhKSx4ujtcU</string>
 	<key>GCM_SENDER_ID</key>
-	<string>646186446544</string>
+	<string>889931214736</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.hamalTransportApp</string>
 	<key>PROJECT_ID</key>
-	<string>hamal-transportation-app</string>
+	<string>transportaion-app-e31cb</string>
 	<key>STORAGE_BUCKET</key>
-	<string>hamal-transportation-app.firebasestorage.app</string>
+	<string>transportaion-app-e31cb.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,8 +25,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:646186446544:ios:0f8c28626a0af2d93178d5</string>
+	<string>1:889931214736:ios:f6ab131f7d494f9bd4cd15</string>
 	<key>DATABASE_URL</key>
-	<string>https://hamal-transportation-app-default-rtdb.europe-west1.firebasedatabase.app</string>
+	<string>https://transportaion-app-e31cb-default-rtdb.europe-west1.firebasedatabase.app</string>
 </dict>
 </plist>

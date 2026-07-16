@@ -90,6 +90,36 @@ class Mission {
     this.driverUid,
   });
 
+  factory Mission.mock(MissionStatus status) {
+    return Mission(
+      id: 'mock-id',
+      source: Location(
+        latitude: 32.0853,
+        longitude: 34.7818,
+        name: 'Mock Source',
+      ),
+      destination: Location(
+        latitude: 32.0745,
+        longitude: 34.7883,
+        name: 'Mock Destination',
+      ),
+      description: 'Mock Description',
+      sourceContact: Contact(
+        fullName: 'Mock Source Contact',
+        phoneNumber: '050-0000000',
+      ),
+      destinationContact: Contact(
+        fullName: 'Mock Destination Contact',
+        phoneNumber: '050-1111111',
+      ),
+      time: DateTime.now(),
+      status: status,
+      cancellationReason: '',
+      comments: [],
+      carType: CarType.private,
+    );
+  }
+
   /// Calculates route info once per Mission instance and reuses the same Future.
   Future<RouteInfo?> getRouteInfo({String profile = 'car'}) {
     _routeInfoFuture ??= RoutingService.getRouteInfo(

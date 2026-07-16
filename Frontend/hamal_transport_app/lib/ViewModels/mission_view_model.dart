@@ -102,6 +102,7 @@ class MissionViewModel extends ChangeNotifier {
         MissionCommentsStorage.clearComments(mission.id);
       }
     }
+    mission.status = newStatus;
     notifyListeners();
   }
 
@@ -141,6 +142,16 @@ class MissionViewModel extends ChangeNotifier {
     if (index < 0 || index >= mission.comments.length) return;
     mission.comments[index] = newComment;
     MissionCommentsStorage.saveCommentsFromMission(mission);
+    notifyListeners();
+  }
+
+  Future<void> assignMission(String driverUid) async {
+    isLoading = true;
+    notifyListeners();
+    await _repository.assignMission(mission, driverUid);
+    mission.status = MissionStatus.assigned;
+    mission.driverUid = driverUid;
+    isLoading = false;
     notifyListeners();
   }
 }

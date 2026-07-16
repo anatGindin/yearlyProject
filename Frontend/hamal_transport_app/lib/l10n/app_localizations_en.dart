@@ -85,6 +85,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancelled => 'Cancelled';
 
   @override
+  String get archive => 'Archive';
+
+  @override
+  String get archiveAll => 'Archive All';
+
+  @override
   String get available => 'Available';
 
   @override
@@ -440,4 +446,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get missionDescription => 'Mission description';
+
+  @override
+  String get assignDriver => 'Assign Driver';
+
+  @override
+  String get noDriversForCarType => 'No compatible drivers found';
+
+  @override
+  String get missionAssigned => 'Mission assigned';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get assigningDriver => 'Assigning driver...';
 }

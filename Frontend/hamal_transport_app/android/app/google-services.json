@@ -1,14 +1,14 @@
 {
   "project_info": {
-    "project_number": "646186446544",
-    "firebase_url": "https://hamal-transportation-app-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "hamal-transportation-app",
-    "storage_bucket": "hamal-transportation-app.firebasestorage.app"
+    "project_number": "889931214736",
+    "firebase_url": "https://transportaion-app-e31cb-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "transportaion-app-e31cb",
+    "storage_bucket": "transportaion-app-e31cb.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:646186446544:android:646a6049c297fb213178d5",
+        "mobilesdk_app_id": "1:889931214736:android:b5de0ce00e7dc737d4cd15",
         "android_client_info": {
           "package_name": "com.example.hamal_transport_app"
         }
@@ -16,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB8GHxG3O-_--3hLUDyig3Z6fk0-0NTRZU"
+          "current_key": "AIzaSyBdD9f4nqqJgyz5EZvrk_-HOtUPk1Uz-y8"
         }
       ],
       "services": {

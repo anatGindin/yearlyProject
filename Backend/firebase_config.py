@@ -20,7 +20,7 @@ def initialize_firebase():
         cred = credentials.Certificate(key_path)
         # The URL should be the same as the URL in Frontend\hamal_transport_app\lib\firebase_options.dart
         return firebase_admin.initialize_app(
-            cred, {"databaseURL": "https://hamal-transportation-app-default-rtdb.europe-west1.firebasedatabase.app"}
+            cred, {"databaseURL": "https://transportaion-app-e31cb-default-rtdb.europe-west1.firebasedatabase.app"}
         )
 
 

@@ -92,6 +92,10 @@ jobs:
         working-directory: ./Frontend/hamal_transport_app
         run: flutter pub get
 
+      - name: Update CocoaPods
+        working-directory: ./Frontend/hamal_transport_app/ios
+        run: pod repo update
+
       - name: Build iOS (no codesign)
         working-directory: ./Frontend/hamal_transport_app
         run: flutter build ios --release --no-codesign
