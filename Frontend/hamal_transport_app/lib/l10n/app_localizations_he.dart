@@ -85,6 +85,12 @@ class AppLocalizationsHe extends AppLocalizations {
   String get cancelled => 'בוטל';
 
   @override
+  String get archive => 'העבר לארכיון';
+
+  @override
+  String get archiveAll => 'העבר הכל לארכיון';
+
+  @override
   String get available => 'זמין';
 
   @override
@@ -439,4 +445,19 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get missionDescription => 'פירוט משימה';
+
+  @override
+  String get assignDriver => 'שייך נהג';
+
+  @override
+  String get noDriversForCarType => 'לא נמצאו נהגים מתאימים';
+
+  @override
+  String get missionAssigned => 'המשימה שויכה';
+
+  @override
+  String get error => 'שגיאה';
+
+  @override
+  String get assigningDriver => 'משייך נהג...';
 }

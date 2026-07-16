@@ -3,6 +3,7 @@ import 'package:hamal_transport_app/Models/contact.dart';
 import 'package:hamal_transport_app/Models/location.dart';
 import 'package:hamal_transport_app/Models/user_profile.dart';
 import 'package:hamal_transport_app/Services/Fake/fake_authentication_service.dart';
+import 'package:hamal_transport_app/Services/Fake/fake_backend_service.dart';
 import 'package:hamal_transport_app/Services/mission_comments_storage_service.dart';
 import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
@@ -144,7 +145,15 @@ Mission _makeMission(String id) => Mission(
 );
 
 final _mockRepository = MissionsRepository(
-  authService: FakeAuthenticationService(),
+  authService: FakeAuthenticationService()
+    ..mockUserProfile = UserProfile(
+      uid: 'driver-uid',
+      email: 'driver@test.com',
+      name: 'Driver',
+      phone: '1234',
+      role: UserRole.driver,
+    ),
+  backendService: FakeBackendService(),
 );
 
 class FakeMissionViewModel extends MissionViewModel {

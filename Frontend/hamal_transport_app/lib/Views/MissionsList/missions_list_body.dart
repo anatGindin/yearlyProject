@@ -5,6 +5,7 @@ import 'package:hamal_transport_app/Models/missions_model.dart';
 import 'package:provider/provider.dart';
 import 'package:hamal_transport_app/ViewModels/user_profile_view_model.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
+import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Views/MissionsList/route_suggestion_screen.dart';
 import 'package:hamal_transport_app/Models/israel_districts.dart';
 import 'package:hamal_transport_app/l10n/app_localizations.dart';
@@ -20,8 +21,11 @@ class MissionsListBody extends StatelessWidget {
     final userProfile = context.watch<UserProfileViewModel>();
     final isDriver = userProfile.isDriver;
     final isMyMissions = viewModel.type == MissionListType.myMissions;
+    final isDeliveredTab = viewModel.type == MissionListType.deliveredMissions;
     final showRouteButton =
         isDriver && isMyMissions && viewModel.missions.length > 1;
+    final canArchive =
+        !isDriver && isDeliveredTab && viewModel.missions.isNotEmpty;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
@@ -39,6 +43,16 @@ class MissionsListBody extends StatelessWidget {
               icon: const Icon(Icons.route),
               label: Text(AppLocalizations.of(context)!.calculateRoute),
             )
+          : canArchive
+          ? FloatingActionButton.extended(
+              onPressed: () => viewModel.archiveAllMissions(),
+              icon: const Icon(Icons.archive),
+              label: Text(AppLocalizations.of(context)!.archiveAll),
+              backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+              foregroundColor: Theme.of(
+                context,
+              ).colorScheme.onSecondaryContainer,
+            )
           : null,
       body: SafeArea(
         child: Padding(
@@ -50,7 +64,9 @@ class MissionsListBody extends StatelessWidget {
           ),
           child: Scrollbar(
             child: RefreshIndicator(
-              onRefresh: () => viewModel.refreshMissions(),
+              onRefresh: () async {
+                await viewModel.refreshMissions();
+              },
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 child: Column(
@@ -88,10 +104,13 @@ class MissionsListBody extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 30),
-                    viewModel.isLoading
-                        // TODO: change indicator with skeleton
-                        ? const Center(child: CircularProgressIndicator())
-                        : MissionListView(missions: viewModel.missions),
+                    MissionListView(
+                      missions: viewModel.missions,
+                      isLoading: viewModel.isLoading,
+                      status: viewModel.type == MissionListType.myMissions
+                          ? MissionStatus.assigned
+                          : MissionStatus.available,
+                    ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.2),
                   ],
                 ),

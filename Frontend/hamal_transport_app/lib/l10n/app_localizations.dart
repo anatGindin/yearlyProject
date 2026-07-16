@@ -248,6 +248,18 @@ abstract class AppLocalizations {
   /// **'Cancelled'**
   String get cancelled;
 
+  /// Archive mission option
+  ///
+  /// In en, this message translates to:
+  /// **'Archive'**
+  String get archive;
+
+  /// Archive all missions in the list
+  ///
+  /// In en, this message translates to:
+  /// **'Archive All'**
+  String get archiveAll;
+
   /// Mission status - available
   ///
   /// In en, this message translates to:
@@ -931,6 +943,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mission description'**
   String get missionDescription;
+
+  /// Button to assign a driver to a mission
+  ///
+  /// In en, this message translates to:
+  /// **'Assign Driver'**
+  String get assignDriver;
+
+  /// Message when no drivers can take the mission based on car type
+  ///
+  /// In en, this message translates to:
+  /// **'No compatible drivers found'**
+  String get noDriversForCarType;
+
+  /// Message shown when mission is successfully assigned
+  ///
+  /// In en, this message translates to:
+  /// **'Mission assigned'**
+  String get missionAssigned;
+
+  /// Generic error text
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
+
+  /// Message shown when a driver is being assigned
+  ///
+  /// In en, this message translates to:
+  /// **'Assigning driver...'**
+  String get assigningDriver;
 }
 
 class _AppLocalizationsDelegate

@@ -22,6 +22,9 @@ class FakeAuthenticationService extends Mock implements AuthenticationService {
   User? mockUser;
 
   @override
+  UserProfile? get currentUserProfile => mockUserProfile;
+
+  @override
   User? get currentUser => mockUser;
 
   // Mock user profiles by UID for testing getUserProfileByUid

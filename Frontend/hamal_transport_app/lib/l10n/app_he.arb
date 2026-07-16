@@ -104,6 +104,14 @@
   "@cancelled": {
     "description": "סטטוס משימה - בוטל"
   },
+  "archive": "העבר לארכיון",
+  "@archive": {
+    "description": "העבר משימה לארכיון"
+  },
+  "archiveAll": "העבר הכל לארכיון",
+  "@archiveAll": {
+    "description": "העבר את כל המשימות לארכיון"
+  },
   "available": "זמין",
   "@available": {
     "description": "סטטוס משימה - זמין"
@@ -571,5 +579,25 @@
   "missionDescription": "פירוט משימה",
   "@missionDescription": {
     "description": "תווית פירוט משימה"
+  },
+  "assignDriver": "שייך נהג",
+  "@assignDriver": {
+    "description": "Button to assign a driver to a mission"
+  },
+  "noDriversForCarType": "לא נמצאו נהגים מתאימים",
+  "@noDriversForCarType": {
+    "description": "Message when no drivers can take the mission based on car type"
+  },
+  "missionAssigned": "המשימה שויכה",
+  "@missionAssigned": {
+    "description": "Message shown when mission is successfully assigned"
+  },
+  "error": "שגיאה",
+  "@error": {
+    "description": "Generic error text"
+  },
+  "assigningDriver": "משייך נהג...",
+  "@assigningDriver": {
+    "description": "Message shown when a driver is being assigned"
   }
 }
