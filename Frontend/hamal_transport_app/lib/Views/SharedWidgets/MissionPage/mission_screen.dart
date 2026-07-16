@@ -740,7 +740,7 @@ class _MissionScreenState extends State<MissionScreen> {
                                       await missionVM.assignMission(driver.uid);
                                       if (dialogContext.mounted) {
                                         ScaffoldMessenger.of(
-                                          this.context,
+                                          dialogContext,
                                         ).showSnackBar(
                                           SnackBar(
                                             content: Text(l10n.missionAssigned),
@@ -750,7 +750,7 @@ class _MissionScreenState extends State<MissionScreen> {
                                     } catch (e) {
                                       if (dialogContext.mounted) {
                                         ScaffoldMessenger.of(
-                                          this.context,
+                                          dialogContext,
                                         ).showSnackBar(
                                           SnackBar(content: Text(l10n.error)),
                                         );

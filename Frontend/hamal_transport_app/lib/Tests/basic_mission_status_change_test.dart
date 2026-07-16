@@ -145,9 +145,6 @@ void main() {
       int initialAvailableLength = repository
           .getMissions(MissionListType.availableMissions)
           .length;
-      int initialMyLength = repository
-          .getMissions(MissionListType.myMissions)
-          .length;
 
       // Perform action
       await repository.cancelMission(testMission, "cancellationReason");

@@ -61,7 +61,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
                 )
               : null),
       actions: [
-        if (actions != null) ...actions!,
+        ...?actions,
         IconButton(
           icon: Icon(
             Icons.notifications_outlined,
