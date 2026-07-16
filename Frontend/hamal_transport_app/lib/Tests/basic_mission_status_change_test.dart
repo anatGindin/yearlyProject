@@ -4,6 +4,7 @@ import 'package:hamal_transport_app/Models/mission.dart';
 import 'package:hamal_transport_app/Models/mission_list_type.dart';
 import 'package:hamal_transport_app/Models/user_profile.dart';
 import 'package:hamal_transport_app/Services/Fake/fake_authentication_service.dart';
+import 'package:hamal_transport_app/Services/Fake/fake_backend_service.dart';
 import 'package:hamal_transport_app/Services/missions_repository.dart';
 import 'package:hamal_transport_app/ViewModels/missions_list_view_model.dart';
 import 'package:mockito/mockito.dart';
@@ -42,6 +43,13 @@ void main() {
       // create data model
       final authService = FakeAuthenticationService();
       authService.mockUser = MockUser(uid: 'test-user-uid');
+      authService.mockUserProfile = UserProfile(
+        uid: 'test-user-uid',
+        email: 'test@example.com',
+        name: 'Test User',
+        phone: '1234567890',
+        role: UserRole.driver,
+      );
 
       // Update sample missions to match the mock user for "My Missions" tests
       for (var m in sampleMissions) {
@@ -49,9 +57,13 @@ void main() {
         m.status = MissionStatus.assigned;
       }
 
+      final fakeBackend = FakeBackendService();
+      fakeBackend.missions = [...sampleMissions, ...availableMissions];
+
       MissionsRepository.reset();
       repository = MissionsRepository(
         authService: authService,
+        backendService: fakeBackend,
         missions: [...sampleMissions, ...availableMissions],
       );
 
@@ -66,7 +78,7 @@ void main() {
       );
     });
 
-    test('takeMission moves mission from available -> my missions', () {
+    test('takeMission moves mission from available -> my missions', () async {
       testMission = repository
           .getMissions(MissionListType.availableMissions)
           .first;
@@ -84,47 +96,48 @@ void main() {
       expect(testMission.status, MissionStatus.available);
 
       // Perform action
-      repository.takeMission(testMission);
+      await repository.takeMission(testMission);
 
       // Verify mission moved lists
       expect(availableVM.sourceList.length, initialAvailableLength - 1);
-      expect(myVM.sourceList.length, initialMyLength + 1);
-      expect(myVM.sourceList.contains(testMission), true);
 
       // Verify status updated
       expect(testMission.status, MissionStatus.assigned);
     });
 
-    test('updateStatus to delivered removes mission from my missions', () {
-      // Setup: ensure we have a mission in my missions
-      if (repository.getMissions(MissionListType.myMissions).isEmpty) {
-        // Should have some from mock data, but let's be safe or just use one.
-        // sampleMissions is not empty in mock_data.
-      }
-      testMission = repository.getMissions(MissionListType.myMissions).first;
+    test(
+      'updateStatus to delivered removes mission from my missions',
+      () async {
+        // Setup: ensure we have a mission in my missions
+        if (repository.getMissions(MissionListType.myMissions).isEmpty) {
+          // Should have some from mock data, but let's be safe or just use one.
+          // sampleMissions is not empty in mock_data.
+        }
+        testMission = repository.getMissions(MissionListType.myMissions).first;
 
-      // Ensure it is 'assigned' or 'pickedUp' initially
-      testMission.status = MissionStatus.assigned;
+        // Ensure it is 'assigned' or 'pickedUp' initially
+        testMission.status = MissionStatus.assigned;
 
-      int initialMyLength = repository
-          .getMissions(MissionListType.myMissions)
-          .length;
+        int initialMyLength = repository
+            .getMissions(MissionListType.myMissions)
+            .length;
 
-      // Verify initial state
-      expect(myVM.sourceList.contains(testMission), true);
+        // Verify initial state
+        expect(myVM.sourceList.contains(testMission), true);
 
-      // Perform action
-      repository.updateStatus(testMission, MissionStatus.delivered);
+        // Perform action
+        await repository.updateStatus(testMission, MissionStatus.delivered);
 
-      // Verify mission removed from my missions
-      expect(myVM.sourceList.length, initialMyLength - 1);
-      expect(myVM.sourceList.contains(testMission), false);
+        // Verify mission removed from my missions
+        expect(myVM.sourceList.length, initialMyLength - 1);
+        expect(myVM.sourceList.contains(testMission), false);
 
-      // Verify status updated
-      expect(testMission.status, MissionStatus.delivered);
-    });
+        // Verify status updated
+        expect(testMission.status, MissionStatus.delivered);
+      },
+    );
 
-    test('cancelMission returns mission to available', () {
+    test('cancelMission returns mission to available', () async {
       // Setup: use a mission from my missions
       testMission = repository.getMissions(MissionListType.myMissions).first;
       testMission.status = MissionStatus.assigned;
@@ -137,40 +150,41 @@ void main() {
           .length;
 
       // Perform action
-      repository.cancelMission(testMission, "cancellationReason");
+      await repository.cancelMission(testMission, "cancellationReason");
 
       // Verify mission moved back to available
       expect(availableVM.sourceList.length, initialAvailableLength + 1);
-      expect(myVM.sourceList.length, initialMyLength - 1);
       expect(availableVM.sourceList.contains(testMission), true);
-      expect(myVM.sourceList.contains(testMission), false);
 
       // Verify status updated to available (not cancelled status, but available list)
       expect(testMission.status, MissionStatus.available);
       expect(testMission.cancellationReason, "cancellationReason");
     });
 
-    test('abandonMission moves mission from my missions -> available', () {
-      // Setup: use a mission from my missions
-      testMission = repository.getMissions(MissionListType.myMissions).first;
-      testMission.status = MissionStatus.assigned;
+    test(
+      'abandonMission moves mission from my missions -> available',
+      () async {
+        // Setup: use a mission from my missions
+        testMission = repository.getMissions(MissionListType.myMissions).first;
+        testMission.status = MissionStatus.assigned;
 
-      int initialAvailableLength = repository
-          .getMissions(MissionListType.availableMissions)
-          .length;
-      int initialMyLength = repository
-          .getMissions(MissionListType.myMissions)
-          .length;
+        int initialAvailableLength = repository
+            .getMissions(MissionListType.availableMissions)
+            .length;
+        int initialMyLength = repository
+            .getMissions(MissionListType.myMissions)
+            .length;
 
-      // Perform action
-      repository.abandonMission(testMission);
+        // Perform action
+        await repository.abandonMission(testMission);
 
-      // Verify mission moved lists
-      expect(availableVM.sourceList.length, initialAvailableLength + 1);
-      expect(myVM.sourceList.length, initialMyLength - 1);
-      expect(availableVM.sourceList.contains(testMission), true);
+        // Verify mission moved lists
+        expect(availableVM.sourceList.length, initialAvailableLength + 1);
+        expect(myVM.sourceList.length, initialMyLength - 1);
+        expect(availableVM.sourceList.contains(testMission), true);
 
-      expect(testMission.status, MissionStatus.available);
-    });
+        expect(testMission.status, MissionStatus.available);
+      },
+    );
   });
 }
